@@ -1,9 +1,11 @@
 <template>
-  <header>Test</header>
+
 </template>
 
 <script>
-
+export default {
+  name: "TheHeader"
+}
 </script>
 
 <style scoped>
