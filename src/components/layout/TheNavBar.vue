@@ -3,17 +3,17 @@
     <nav>
       <ul>
         <li>
-          <button>首页</button>
+          <router-link to="/">首页</router-link>
         </li>
         <li>
-          <button>能源概览</button>
+          <router-link to="/overview">能源概览</router-link>
         </li>
-        <li>
-          <button>基础设施</button>
-        </li>
-        <li>
-          <button>碳中和</button>
-        </li>
+<!--        <li>-->
+<!--          <router-link>基础设施</router-link>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <router-link>碳中和</router-link>-->
+<!--        </li>-->
       </ul>
     </nav>
   </header>
@@ -50,7 +50,8 @@ li {
   margin: 0 2rem;
 }
 
-button {
+a {
+  text-decoration: none;
   font: inherit;
   background: transparent;
   border: 1px solid transparent;
@@ -60,8 +61,8 @@ button {
   display: inline-block;
 }
 
-button:hover,
-button:active {
+a:hover,
+a:active {
   color: #f1a80a;
   border-color: #f1a80a;
   background-color: #1a037e;
