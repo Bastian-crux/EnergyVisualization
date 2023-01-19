@@ -1,7 +1,7 @@
 <template>
-  <BaseCard>
+  <base-card>
     <h2>Overview</h2>
-  </BaseCard>
+  </base-card>
 </template>
 
 <script>
