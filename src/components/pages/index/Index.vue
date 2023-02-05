@@ -3,18 +3,14 @@
     <h2>Index</h2>
     <el-button>test</el-button>
   </base-card>
-  <base-card>
-    <map-visualization></map-visualization>
-  </base-card>
 </template>
 
 <script>
 import BaseCard from "@/components/UI/BaseCard.vue";
-import MapVisualization from "@/components/pages/index/MapVisualization.vue";
 
 export default {
   name: "Index",
-  components: {MapVisualization, BaseCard}
+  components: {BaseCard}
 }
 </script>
 

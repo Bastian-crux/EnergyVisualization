@@ -1,15 +1,19 @@
 <template>
   <base-card>
-    <h2>Overview</h2>
+    <el-button>test</el-button>
+  </base-card>
+  <base-card>
+    <map-visualization></map-visualization>
   </base-card>
 </template>
 
 <script>
 import BaseCard from "@/components/UI/BaseCard.vue";
+import MapVisualization from "@/components/pages/overview/MapVisualization.vue";
 
 export default {
   name: "Overview",
-  components: {BaseCard}
+  components: {MapVisualization, BaseCard}
 }
 </script>
 
