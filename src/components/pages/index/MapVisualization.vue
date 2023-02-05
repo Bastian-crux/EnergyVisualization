@@ -43,7 +43,10 @@ import taiwan from '/assets/taiwan.json';
 import hongkong from '/assets/hongkong.json';
 import macao from '/assets/macao.json';
 
+import solarProvinceData from '/assets/statisticData/solar_province.json';
+
 import BaseCard from "@/components/UI/BaseCard.vue";
+
 export default {
   name: "MapVisualization",
   components: {BaseCard},
@@ -92,7 +95,7 @@ export default {
   methods: {
     loadMap(params) {
       const chartDom = document.getElementById('mainChart');
-      if (!(this.nowSelectedProvince === 'mapData')){
+      if (!(this.nowSelectedProvince === 'mapData')) {
         echarts.dispose(this.myChart);
       }
       this.myChart = echarts.init(chartDom);
@@ -127,7 +130,7 @@ export default {
             overflow: 'break',
           },
           formatter: (params) => {
-            return  `
+            return `
                       <div>${params.name}</div>
                       <div>${params.value}</div>
                       `;
@@ -135,8 +138,8 @@ export default {
         },
         visualMap: {
           left: 'right',
-          min: 500000,
-          max: 38000000,
+          min: this.findSmallestValue(solarProvinceData),
+          max: this.findBiggestValue(solarProvinceData),
           inRange: {
             color: [
               '#313695',
@@ -161,7 +164,7 @@ export default {
           left: 'left',
           top: 'top',
           feature: {
-            dataView: { readOnly: false },
+            dataView: {readOnly: false},
             restore: {},
             saveAsImage: {}
           }
@@ -178,40 +181,40 @@ export default {
               }
             },
             data: [
-              { name: '北京市', value: 4822023 },
-              { name: '天津市', value: 731449 },
-              { name: '河北省', value: 6553255 },
-              { name: '山西省', value: 2949131 },
-              { name: '内蒙古自治区', value: 38041430 },
-              { name: '辽宁省', value: 5187582 },
-              { name: '吉林省', value: 3590347 },
-              { name: '黑龙江省', value: 917092 },
-              { name: '上海市', value: 632323 },
-              { name: '江苏省', value: 19317568 },
-              { name: '浙江省', value: 9919945 },
-              { name: '安徽省', value: 1392313 },
-              { name: '福建省', value: 1595728 },
-              { name: '江西省', value: 12875255 },
-              { name: '山东省', value: 6537334 },
-              { name: '河南省', value: 3074186 },
-              { name: '湖北省', value: 2885905 },
-              { name: '湖南省', value: 6885905 },
-              { name: '广东省', value: 4380415 },
-              { name: '广西壮族自治区', value: 4601893 },
-              { name: '海南省', value: 1329192 },
-              { name: '重庆市', value: 5884563 },
-              { name: '四川省', value: 6646144 },
-              { name: '贵州省', value: 9883360 },
-              { name: '云南省', value: 5379139 },
-              { name: '西藏自治区', value: 2984926 },
-              { name: '陕西省', value: 6021988 },
-              { name: '甘肃省', value: 1005141 },
-              { name: '青海省', value: 1855525 },
-              { name: '宁夏回族自治区', value: 2758931 },
-              { name: '新疆维吾尔自治区', value: 1320718 },
-              { name: '台湾省', value: 8864590 },
-              { name: '香港特别行政区', value: 2085538 },
-              { name: '澳门特别行政区', value: 19570261 },
+              {name: '北京市', value: solarProvinceData['Beijing']},
+              {name: '天津市', value: solarProvinceData['Tianjin']},
+              {name: '河北省', value: solarProvinceData['Hebei']},
+              {name: '山西省', value: solarProvinceData['Shanxi']},
+              {name: '内蒙古自治区', value: solarProvinceData['Inner Mongolia']},
+              {name: '辽宁省', value: solarProvinceData['Liaoning']},
+              {name: '吉林省', value: solarProvinceData['Jilin']},
+              {name: '黑龙江省', value: solarProvinceData['Heilongjiang']},
+              {name: '上海市', value: solarProvinceData['Shanghai']},
+              {name: '江苏省', value: solarProvinceData['Jiangsu']},
+              {name: '浙江省', value: solarProvinceData['Zhejiang']},
+              {name: '安徽省', value: solarProvinceData['Anhui']},
+              {name: '福建省', value: solarProvinceData['Fujian']},
+              {name: '江西省', value: solarProvinceData['Shanxi']},
+              {name: '山东省', value: solarProvinceData['Shandong']},
+              {name: '河南省', value: solarProvinceData['Henan']},
+              {name: '湖北省', value: solarProvinceData['Hubei']},
+              {name: '湖南省', value: solarProvinceData['Hunan']},
+              {name: '广东省', value: solarProvinceData['Guangdong']},
+              {name: '广西壮族自治区', value: solarProvinceData['Guangxi']},
+              {name: '海南省', value: solarProvinceData['Hainan']},
+              {name: '重庆市', value: solarProvinceData['Chongqing']},
+              {name: '四川省', value: solarProvinceData['Sichuan']},
+              {name: '贵州省', value: solarProvinceData['Guizhou']},
+              {name: '云南省', value: solarProvinceData['Yunnan']},
+              {name: '西藏自治区', value: solarProvinceData['Tibet']},
+              {name: '陕西省', value: solarProvinceData['Shanxi']},
+              {name: '甘肃省', value: solarProvinceData['Gansu']},
+              {name: '青海省', value: solarProvinceData['Qinghai']},
+              {name: '宁夏回族自治区', value: solarProvinceData['Ningxia']},
+              {name: '新疆维吾尔自治区', value: solarProvinceData['Xingjiang']},
+              {name: '台湾省', value: 0},
+              {name: '香港特别行政区', value: 0},
+              {name: '澳门特别行政区', value: 0},
             ]
           }
         ]
@@ -222,8 +225,7 @@ export default {
         let tempSelected;
         if (!this.areaDic[this.nowSelectedProvince]) {
           tempSelected = 'mapData';
-        }
-        else {
+        } else {
           tempSelected = this.areaDic[this.nowSelectedProvince];
         }
         console.log(tempSelected);
@@ -231,7 +233,17 @@ export default {
       })
       this.myChart.setOption(option);
       // option && myChart.setOption(option);
-    }
+    },
+    findSmallestValue(obj) {
+      return Object.keys(obj).reduce((acc, val) => {
+        return Math.min(acc, obj[val]);
+      }, Infinity);
+    },
+    findBiggestValue(obj) {
+      return Object.keys(obj).reduce((acc, val) => {
+        return Math.max(acc, obj[val]);
+      }, -Infinity);
+    },
   },
   mounted() {
     let tempSelected = 'map';
@@ -239,8 +251,7 @@ export default {
 
     if (!this.areaDic[this.nowSelectedProvince]) {
       tempSelected = 'mapData';
-    }
-    else {
+    } else {
       tempSelected = this.areaDic[this.nowSelectedProvince];
     }
     console.log(tempSelected);
