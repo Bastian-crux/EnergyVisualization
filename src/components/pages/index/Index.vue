@@ -1,6 +1,7 @@
 <template>
   <base-card>
     <h2>Index</h2>
+    <el-button>test</el-button>
   </base-card>
   <base-card>
     <map-visualization></map-visualization>
