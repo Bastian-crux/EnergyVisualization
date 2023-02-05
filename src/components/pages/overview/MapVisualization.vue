@@ -295,6 +295,8 @@ export default {
       }
     },
     returnMain(){
+      echarts.dispose(this.myChart);
+      this.nowSelectedProvince = 'mapData';
       this.loadMap('mapData')
     },
     formScatterData(){
