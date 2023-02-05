@@ -107,8 +107,6 @@ export default {
       option = {
         title: {
           text: '全国太阳能发电项目',
-          // subtext: 'subtitle',
-          // sublink: 'www.baidu,com',
           left: 'middle'
         },
         tooltip: {
@@ -172,9 +170,8 @@ export default {
         },
         series: [
           {
-            name: 'USA PopEstimates',
+            name: '全国太阳能发电项目',
             type: 'map',
-            // roam: true, // true/scale/roam
             map: 'myMapName',
             emphasis: {
               label: {
@@ -182,37 +179,37 @@ export default {
               }
             },
             data: [
-              {name: '北京市', value: solarProvinceData['Beijing']},
-              {name: '天津市', value: solarProvinceData['Tianjin']},
-              {name: '河北省', value: solarProvinceData['Hebei']},
-              {name: '山西省', value: solarProvinceData['Shanxi']},
-              {name: '内蒙古自治区', value: solarProvinceData['Inner Mongolia']},
-              {name: '辽宁省', value: solarProvinceData['Liaoning']},
-              {name: '吉林省', value: solarProvinceData['Jilin']},
-              {name: '黑龙江省', value: solarProvinceData['Heilongjiang']},
-              {name: '上海市', value: solarProvinceData['Shanghai']},
-              {name: '江苏省', value: solarProvinceData['Jiangsu']},
-              {name: '浙江省', value: solarProvinceData['Zhejiang']},
-              {name: '安徽省', value: solarProvinceData['Anhui']},
-              {name: '福建省', value: solarProvinceData['Fujian']},
-              {name: '江西省', value: solarProvinceData['Shanxi']},
-              {name: '山东省', value: solarProvinceData['Shandong']},
-              {name: '河南省', value: solarProvinceData['Henan']},
-              {name: '湖北省', value: solarProvinceData['Hubei']},
-              {name: '湖南省', value: solarProvinceData['Hunan']},
-              {name: '广东省', value: solarProvinceData['Guangdong']},
-              {name: '广西壮族自治区', value: solarProvinceData['Guangxi']},
-              {name: '海南省', value: solarProvinceData['Hainan']},
-              {name: '重庆市', value: solarProvinceData['Chongqing']},
-              {name: '四川省', value: solarProvinceData['Sichuan']},
-              {name: '贵州省', value: solarProvinceData['Guizhou']},
-              {name: '云南省', value: solarProvinceData['Yunnan']},
-              {name: '西藏自治区', value: solarProvinceData['Tibet']},
-              {name: '陕西省', value: solarProvinceData['Shanxi']},
-              {name: '甘肃省', value: solarProvinceData['Gansu']},
-              {name: '青海省', value: solarProvinceData['Qinghai']},
-              {name: '宁夏回族自治区', value: solarProvinceData['Ningxia']},
-              {name: '新疆维吾尔自治区', value: solarProvinceData['Xinjiang']},
+              {name: '北京市', value: this.getNumberByProvince('Beijing')},
+              {name: '天津市', value: this.getNumberByProvince('Tianjin')},
+              {name: '河北省', value: this.getNumberByProvince('Hebei')},
+              {name: '山西省', value: this.getNumberByProvince('Shanxi')},
+              {name: '内蒙古自治区', value: this.getNumberByProvince('Inner Mongolia')},
+              {name: '辽宁省', value: this.getNumberByProvince('Liaoning')},
+              {name: '吉林省', value: this.getNumberByProvince('Jilin')},
+              {name: '黑龙江省', value: this.getNumberByProvince('Heilongjiang')},
+              {name: '上海市', value: this.getNumberByProvince('Shanghai')},
+              {name: '江苏省', value: this.getNumberByProvince('Jiangsu')},
+              {name: '浙江省', value: this.getNumberByProvince('Zhejiang')},
+              {name: '安徽省', value: this.getNumberByProvince('Anhui')},
+              {name: '福建省', value: this.getNumberByProvince('Fujian')},
+              {name: '江西省', value: this.getNumberByProvince('Shanxi')},
+              {name: '山东省', value: this.getNumberByProvince('Shandong')},
+              {name: '河南省', value: this.getNumberByProvince('Henan')},
+              {name: '湖北省', value: this.getNumberByProvince('Hubei')},
+              {name: '湖南省', value: this.getNumberByProvince('Hunan')},
+              {name: '广东省', value: this.getNumberByProvince('Guangdong')},
+              {name: '广西壮族自治区', value: this.getNumberByProvince('Guangxi')},
+              {name: '海南省', value: this.getNumberByProvince('Hainan')},
+              {name: '重庆市', value: this.getNumberByProvince('Chongqing')},
+              {name: '四川省', value: this.getNumberByProvince('Sichuan')},
+              {name: '贵州省', value: this.getNumberByProvince('Guizhou')},
+              {name: '云南省', value: this.getNumberByProvince('Yunnan')},
+              {name: '西藏自治区', value: this.getNumberByProvince('Tibet')},
+              {name: '陕西省', value: this.getNumberByProvince('Shanxi')},
+              {name: '甘肃省', value: this.getNumberByProvince('Gansu')},
+              {name: '青海省', value: this.getNumberByProvince('Qinghai')},
+              {name: '宁夏回族自治区', value: this.getNumberByProvince('Ningxia')},
+              {name: '新疆维吾尔自治区', value: this.getNumberByProvince('Xinjiang')},
               {name: '台湾省', value: 0},
               {name: '香港特别行政区', value: 0},
               {name: '澳门特别行政区', value: 0},
@@ -245,6 +242,13 @@ export default {
         return Math.max(acc, obj[val]);
       }, -Infinity);
     },
+    getNumberByProvince(province) {
+      if (!isNaN(solarProvinceData[province])) {
+        return solarProvinceData[province];
+      } else {
+        return 0;
+      }
+    }
   },
   mounted() {
     let tempSelected = 'map';
