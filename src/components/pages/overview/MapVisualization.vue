@@ -47,7 +47,9 @@ import Macao from '/assets/Macao.json';
 import solarProvinceData from '/assets/statisticData/solar_province.json';
 import solarProvinceAllData from '/assets/statisticData/solar.json';
 import windProvinceData from '/assets/statisticData/wind_province.json';
+import windProvinceAllData from '/assets/statisticData/wind.json';
 import nuclearProvinceData from '/assets/statisticData/nuclear_province.json';
+import nuclearProvinceAllData from '/assets/statisticData/nuclear.json';
 
 import BaseCard from "@/components/UI/BaseCard.vue";
 
@@ -297,10 +299,10 @@ export default {
     },
     formScatterData(){
       let tempData = [];
-      for (let i = 0; i < solarProvinceAllData.length; i++){
-        if (solarProvinceAllData[i][5] === this.areaDic[this.nowSelectedProvince]){
+      for (let i = 0; i < this.provinceAllData.length; i++){
+        if (this.provinceAllData[i][5] === this.areaDic[this.nowSelectedProvince]){
           tempData.push({
-            value: [solarProvinceAllData[i][3], solarProvinceAllData[i][4]]
+            value: [this.provinceAllData[i][3], this.provinceAllData[i][4]]
         });
         }
       }
@@ -317,6 +319,16 @@ export default {
           return windProvinceData;
         case 'nuclear':
           return nuclearProvinceData;
+      }
+    },
+    provinceAllData() {
+      switch(this.energyType) {
+        case 'solar':
+          return solarProvinceAllData;
+        case 'wind':
+          return windProvinceAllData;
+        case 'nuclear':
+          return nuclearProvinceAllData;
       }
     },
     energyChinese() {
