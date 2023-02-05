@@ -45,6 +45,8 @@ import hongkong from '/assets/hongkong.json';
 import macao from '/assets/macao.json';
 
 import solarProvinceData from '/assets/statisticData/solar_province.json';
+import windProvinceData from '/assets/statisticData/wind_province.json';
+import nuclearProvinceData from '/assets/statisticData/nuclear_province.json';
 
 import BaseCard from "@/components/UI/BaseCard.vue";
 
@@ -53,11 +55,16 @@ import BaseButton from "@/components/UI/BaseButton.vue";
 export default {
   name: "MapVisualization",
   components: {BaseButton, BaseCard},
+  props: {
+    energyType: {
+      type: String,
+      default: 'solar'
+    }
+  },
   data() {
     return {
       myChart: null,
       nowSelectedProvince: 'mapData',
-      energyType: 'Solar',
       areaDic: {
         '北京市': 'beijing',
         '天津市': 'tianjin',
@@ -110,9 +117,7 @@ export default {
       echarts.registerMap('myMapName', eval(params), {});
       option = {
         title: {
-          text: '全国太阳能发电项目',
-          subtext: 'subtitle',
-          // sublink: 'www.baidu,com',
+          text: `全国${this.energyChinese}发电项目`,
           left: 'middle'
         },
         tooltip: {
@@ -143,8 +148,8 @@ export default {
         },
         visualMap: {
           left: 'right',
-          min: this.findSmallestValue(solarProvinceData),
-          max: this.findBiggestValue(solarProvinceData),
+          min: 0,
+          max: this.findBiggestValue(this.provinceData),
           inRange: {
             color: [
               '#313695',
@@ -176,7 +181,7 @@ export default {
         },
         series: [
           {
-            name: '全国太阳能发电项目',
+            name: `全国${this.energyChinese}发电项目`,
             type: 'map',
             roam: 'move', // true/scale/move
             map: 'myMapName',
@@ -261,8 +266,8 @@ export default {
       }, -Infinity);
     },
     getNumberByProvince(province) {
-      if (!isNaN(solarProvinceData[province])) {
-        return solarProvinceData[province];
+      if (!isNaN(this.provinceData[province])) {
+        return this.provinceData[province];
       } else {
         return 0;
       }
@@ -272,21 +277,46 @@ export default {
     },
     formScatterData(){
       let tempData = [];
-      for (let i = 0; i < solarProvinceData.length; i++){
+      for (let i = 0; i < this.provinceData.length; i++){
 
       }
     }
   },
+  computed: {
+    provinceData() {
+      switch(this.energyType) {
+        case 'solar':
+          return solarProvinceData;
+        case 'wind':
+          return windProvinceData;
+        case 'nuclear':
+          return nuclearProvinceData;
+      }
+    },
+    energyChinese() {
+      switch(this.energyType) {
+        case 'solar':
+          return '太阳能';
+        case 'wind':
+          return '风能';
+        case 'nuclear':
+          return '核能';
+      }
+    }
+  },
+  watch: {
+    provinceData() {
+      this.loadMap('mapData');
+    }
+  },
   mounted() {
     let tempSelected = 'map';
-    console.log(tempSelected);
 
     if (!this.areaDic[this.nowSelectedProvince]) {
       tempSelected = 'mapData';
     } else {
       tempSelected = this.areaDic[this.nowSelectedProvince];
     }
-    console.log(tempSelected);
     this.loadMap(tempSelected);
   }
 }
