@@ -1,4 +1,5 @@
 <template>
+  <el-button @click="returnMain">返回</el-button>
   <div>
     <div class="chart" id="mainChart"></div>
   </div>
@@ -47,9 +48,11 @@ import solarProvinceData from '/assets/statisticData/solar_province.json';
 
 import BaseCard from "@/components/UI/BaseCard.vue";
 
+import {load} from "three/addons/libs/opentype.module";
+import BaseButton from "@/components/UI/BaseButton.vue";
 export default {
   name: "MapVisualization",
-  components: {BaseCard},
+  components: {BaseButton, BaseCard},
   data() {
     return {
       myChart: null,
@@ -96,7 +99,8 @@ export default {
   methods: {
     loadMap(params) {
       const chartDom = document.getElementById('mainChart');
-      if (!(this.nowSelectedProvince === 'mapData')) {
+      // 省份下钻，将当前全国地图清空
+      if (!(this.nowSelectedProvince === 'mapData')){
         echarts.dispose(this.myChart);
       }
       this.myChart = echarts.init(chartDom);
@@ -107,6 +111,8 @@ export default {
       option = {
         title: {
           text: '全国太阳能发电项目',
+          subtext: 'subtitle',
+          // sublink: 'www.baidu,com',
           left: 'middle'
         },
         tooltip: {
@@ -172,6 +178,7 @@ export default {
           {
             name: '全国太阳能发电项目',
             type: 'map',
+            roam: 'move', // true/scale/move
             map: 'myMapName',
             emphasis: {
               label: {
@@ -214,20 +221,31 @@ export default {
               {name: '香港特别行政区', value: 0},
               {name: '澳门特别行政区', value: 0},
             ]
-          }
+          },
+          // {
+          //   // 散点坐标每个能源项目
+          //   type: 'effectScatter',
+          //   data: scatterData, //配置散点的坐标数据
+          //   coordinateSystem:'geo', //指明散点使用的坐标系统  geo的坐标系统
+          //   rippleEffect:{
+          //     scale: 10
+          //   }
+          // }
         ]
       };
       this.myChart.on('click', (params) => {
         this.nowSelectedProvince = params.name;
         console.log(this.nowSelectedProvince);
         let tempSelected;
+        if (this.nowSelectedProvince !== 'mapData')
+        // 此时为中国地图，点击省份进行下钻
         if (!this.areaDic[this.nowSelectedProvince]) {
           tempSelected = 'mapData';
         } else {
           tempSelected = this.areaDic[this.nowSelectedProvince];
+          console.log(tempSelected);
+          this.loadMap(tempSelected);
         }
-        console.log(tempSelected);
-        this.loadMap(tempSelected);
       })
       this.myChart.setOption(option);
       // option && myChart.setOption(option);
@@ -247,6 +265,15 @@ export default {
         return solarProvinceData[province];
       } else {
         return 0;
+      }
+    },
+    returnMain(){
+      this.loadMap('mapData')
+    },
+    formScatterData(){
+      let tempData = [];
+      for (let i = 0; i < solarProvinceData.length; i++){
+
       }
     }
   },
