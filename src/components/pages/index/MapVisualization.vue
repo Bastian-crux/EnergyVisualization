@@ -54,6 +54,7 @@ export default {
     return {
       myChart: null,
       nowSelectedProvince: 'mapData',
+      energyType: 'Solar',
       areaDic: {
         '北京市': 'beijing',
         '天津市': 'tianjin',
@@ -106,7 +107,7 @@ export default {
       option = {
         title: {
           text: '全国太阳能发电项目',
-          subtext: 'subtitle',
+          // subtext: 'subtitle',
           // sublink: 'www.baidu,com',
           left: 'middle'
         },
@@ -211,7 +212,7 @@ export default {
               {name: '甘肃省', value: solarProvinceData['Gansu']},
               {name: '青海省', value: solarProvinceData['Qinghai']},
               {name: '宁夏回族自治区', value: solarProvinceData['Ningxia']},
-              {name: '新疆维吾尔自治区', value: solarProvinceData['Xingjiang']},
+              {name: '新疆维吾尔自治区', value: solarProvinceData['Xinjiang']},
               {name: '台湾省', value: 0},
               {name: '香港特别行政区', value: 0},
               {name: '澳门特别行政区', value: 0},
