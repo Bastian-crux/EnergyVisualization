@@ -9,48 +9,48 @@
 import * as echarts from 'echarts';
 import mapData from '/assets/china_base.json';
 
-import beijing from '/assets/beijing.json';
-import tianjin from '/assets/tianjin.json';
-import hebei from '/assets/hebei.json';
-import shanxi from '/assets/shanxi.json';
+import Beijing from '/assets/Beijing.json';
+import Tianjin from '/assets/Tianjin.json';
+import Hebei from '/assets/Hebei.json';
+import Shanxi from '/assets/Shanxi.json';
 import InnerMongolia from '/assets/InnerMongolia.json';
-import liaoning from '/assets/liaoning.json';
-import jilin from '/assets/jilin.json';
-import heilongjiang from '/assets/heilongjiang.json';
-import shanghai from '/assets/shanghai.json';
-import jiangsu from '/assets/jiangsu.json';
-import zhejiang from '/assets/zhejiang.json';
-import anhui from '/assets/anhui.json';
-import fujian from '/assets/fujian.json';
-import jiangxi from '/assets/jiangxi.json';
-import shandong from '/assets/shandong.json';
-import henan from '/assets/henan.json';
-import hubei from '/assets/hubei.json';
-import hunan from '/assets/hunan.json';
-import guangdong from '/assets/guangdong.json';
-import guangxi from '/assets/guangxi.json';
-import hainan from '/assets/hainan.json';
-import chongqing from '/assets/chongqing.json';
-import sichuan from '/assets/sichuan.json';
-import guizhou from '/assets/guizhou.json';
-import yunnan from '/assets/yunnan.json';
-import tibet from '/assets/tibet.json';
-import shaanxi from '/assets/shaanxi.json';
-import gansu from '/assets/gansu.json';
-import qinghai from '/assets/qinghai.json';
-import ningxia from '/assets/ningxia.json';
-import xinjiang from '/assets/xinjiang.json';
-import taiwan from '/assets/taiwan.json';
-import hongkong from '/assets/hongkong.json';
-import macao from '/assets/macao.json';
+import Liaoning from '/assets/Liaoning.json';
+import Jilin from '/assets/Jilin.json';
+import Heilongjiang from '/assets/Heilongjiang.json';
+import Shanghai from '/assets/Shanghai.json';
+import Jiangsu from '/assets/Jiangsu.json';
+import Zhejiang from '/assets/Zhejiang.json';
+import Anhui from '/assets/Anhui.json';
+import Fujian from '/assets/Fujian.json';
+import Jiangxi from '/assets/Jiangxi.json';
+import Shandong from '/assets/Shandong.json';
+import Henan from '/assets/Henan.json';
+import Hubei from '/assets/Hubei.json';
+import Hunan from '/assets/Hunan.json';
+import Guangdong from '/assets/Guangdong.json';
+import Guangxi from '/assets/Guangxi.json';
+import Hainan from '/assets/Hainan.json';
+import Chongqing from '/assets/Chongqing.json';
+import Sichuan from '/assets/Sichuan.json';
+import Guizhou from '/assets/Guizhou.json';
+import Yunnan from '/assets/Yunnan.json';
+import Tibet from '/assets/Tibet.json';
+import Shaanxi from '/assets/Shaanxi.json';
+import Gansu from '/assets/Gansu.json';
+import Qinghai from '/assets/Qinghai.json';
+import Ningxia from '/assets/Ningxia.json';
+import Xinjiang from '/assets/Xinjiang.json';
+import Taiwan from '/assets/Taiwan.json';
+import Hongkong from '/assets/Hongkong.json';
+import Macao from '/assets/Macao.json';
 
 import solarProvinceData from '/assets/statisticData/solar_province.json';
+import solarProvinceAllData from '/assets/statisticData/solar.json';
 import windProvinceData from '/assets/statisticData/wind_province.json';
 import nuclearProvinceData from '/assets/statisticData/nuclear_province.json';
 
 import BaseCard from "@/components/UI/BaseCard.vue";
 
-import {load} from "three/addons/libs/opentype.module";
 import BaseButton from "@/components/UI/BaseButton.vue";
 export default {
   name: "MapVisualization",
@@ -66,40 +66,40 @@ export default {
       myChart: null,
       nowSelectedProvince: 'mapData',
       areaDic: {
-        '北京市': 'beijing',
-        '天津市': 'tianjin',
-        '河北省': 'hebei',
-        '山西省': 'shanxi',
+        '北京市': 'Beijing',
+        '天津市': 'Tianjin',
+        '河北省': 'Hebei',
+        '山西省': 'Shanxi',
         '内蒙古自治区': 'InnerMongolia',
-        '辽宁省': 'liaoning',
-        '吉林省': 'jilin',
-        '黑龙江省': 'heilongjiang',
-        '上海市': 'shanghai',
-        '江苏省': 'jiangsu',
-        '浙江省': 'zhejiang',
-        '安徽省': 'anhui',
-        '福建省': 'fujian',
-        '江西省': 'jiangxi',
-        '山东省': 'shandong',
-        '河南省': 'henan',
-        '湖北省': 'hubei',
-        '湖南省': 'hunan',
-        '广东省': 'guangdong',
-        '广西壮族自治区': 'guangxi',
-        '海南省': 'hainan',
-        '重庆市': 'chongqing',
-        '四川省': 'sichuan',
-        '贵州省': 'guizhou',
-        '云南省': 'yunnan',
-        '西藏自治区': 'tibet',
-        '陕西省': 'shaanxi',
-        '甘肃省': 'gansu',
-        '青海省': 'qinghai',
-        '宁夏回族自治区': 'ningxia',
-        '新疆维吾尔自治区': 'xinjiang',
-        '台湾省': 'taiwan',
-        '香港特别行政区': 'hongkong',
-        '澳门特别行政区': 'macao'
+        '辽宁省': 'Liaoning',
+        '吉林省': 'Jilin',
+        '黑龙江省': 'Heilongjiang',
+        '上海市': 'Shanghai',
+        '江苏省': 'Jiangsu',
+        '浙江省': 'Zhejiang',
+        '安徽省': 'Anhui',
+        '福建省': 'Fujian',
+        '江西省': 'Jiangxi',
+        '山东省': 'Shandong',
+        '河南省': 'Henan',
+        '湖北省': 'Hubei',
+        '湖南省': 'Hunan',
+        '广东省': 'Guangdong',
+        '广西壮族自治区': 'Guangxi',
+        '海南省': 'Hainan',
+        '重庆市': 'Chongqing',
+        '四川省': 'Sichuan',
+        '贵州省': 'Guizhou',
+        '云南省': 'Yunnan',
+        '西藏自治区': 'Tibet',
+        '陕西省': 'Shaanxi',
+        '甘肃省': 'Gansu',
+        '青海省': 'Qinghai',
+        '宁夏回族自治区': 'Ningxia',
+        '新疆维吾尔自治区': 'Xinjiang',
+        '台湾省': 'Taiwan',
+        '香港特别行政区': 'Hongkong',
+        '澳门特别行政区': 'Macao'
       }
     };
   },
@@ -119,6 +119,22 @@ export default {
         title: {
           text: `全国${this.energyChinese}发电项目`,
           left: 'middle'
+        },
+        geo:{
+          type:'map',
+          map:'myMapName',
+          roam:true, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
+          // selectedMode:'multiple',  //是否点击选中地区,'single'|'multiple'
+          emphasis:{	//设置鼠标滑动高亮样式
+            // itemStyle:{
+            //   color:'purple'
+            // }
+            label:{
+              show:true
+            },
+          }
+          // zoom:2,  //设置初始化缩放比例
+          // center:[87.6,43.79],  //设置地图中心点,值为经纬度
         },
         tooltip: {
           show: true,
@@ -183,13 +199,14 @@ export default {
           {
             name: `全国${this.energyChinese}发电项目`,
             type: 'map',
-            roam: 'move', // true/scale/move
-            map: 'myMapName',
-            emphasis: {
-              label: {
-                show: true
-              }
-            },
+            // roam: 'move', // true/scale/move
+            // map: 'myMapName',
+            // emphasis: {
+            //   label: {
+            //     show: true
+            //   }
+            // },
+            geoIndex: 0,
             data: [
               {name: '北京市', value: this.getNumberByProvince('Beijing')},
               {name: '天津市', value: this.getNumberByProvince('Tianjin')},
@@ -227,15 +244,18 @@ export default {
               {name: '澳门特别行政区', value: 0},
             ]
           },
-          // {
-          //   // 散点坐标每个能源项目
-          //   type: 'effectScatter',
-          //   data: scatterData, //配置散点的坐标数据
-          //   coordinateSystem:'geo', //指明散点使用的坐标系统  geo的坐标系统
-          //   rippleEffect:{
-          //     scale: 10
-          //   }
-          // }
+          {
+            // 散点坐标每个能源项目
+            type: 'effectScatter',
+            data: this.formScatterData(), //配置散点的坐标数据
+            coordinateSystem:'geo', //散点使用的坐标系统 geo
+            symbolSize: 10,
+            // rippleEffect:{
+            //   scale: 5,
+            //   color:'purple'
+            // },
+            zlevel: 1,
+          }
         ]
       };
       this.myChart.on('click', (params) => {
@@ -245,7 +265,7 @@ export default {
         if (this.nowSelectedProvince !== 'mapData')
         // 此时为中国地图，点击省份进行下钻
         if (!this.areaDic[this.nowSelectedProvince]) {
-          tempSelected = 'mapData';
+          // tempSelected = 'mapData';
         } else {
           tempSelected = this.areaDic[this.nowSelectedProvince];
           console.log(tempSelected);
@@ -277,10 +297,16 @@ export default {
     },
     formScatterData(){
       let tempData = [];
-      for (let i = 0; i < this.provinceData.length; i++){
-
+      for (let i = 0; i < solarProvinceAllData.length; i++){
+        if (solarProvinceAllData[i][5] === this.areaDic[this.nowSelectedProvince]){
+          tempData.push({
+            value: [solarProvinceAllData[i][3], solarProvinceAllData[i][4]]
+        });
+        }
       }
-    }
+      console.log(tempData);
+      return tempData;
+    },
   },
   computed: {
     provinceData() {
@@ -306,17 +332,21 @@ export default {
   },
   watch: {
     provinceData() {
+      echarts.dispose(this.myChart);
+      this.nowSelectedProvince =  'mapData'
       this.loadMap('mapData');
     }
   },
   mounted() {
     let tempSelected = 'map';
+    // console.log(tempSelected);
 
     if (!this.areaDic[this.nowSelectedProvince]) {
       tempSelected = 'mapData';
     } else {
       tempSelected = this.areaDic[this.nowSelectedProvince];
     }
+    // console.log(tempSelected);
     this.loadMap(tempSelected);
   }
 }
