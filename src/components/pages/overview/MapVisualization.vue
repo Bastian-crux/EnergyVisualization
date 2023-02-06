@@ -45,25 +45,31 @@ import Hongkong from '/assets/Hongkong.json';
 import Macao from '/assets/Macao.json';
 
 import solarProvinceData from '/assets/statisticData/solar_province.json';
+import solarPowerProvinceData from '/assets/statisticData/solar_province_sum.json';
 import solarProvinceAllData from '/assets/statisticData/solar.json';
 import windProvinceData from '/assets/statisticData/wind_province.json';
+import windPowerProvinceData from '/assets/statisticData/wind_province_sum.json';
 import windProvinceAllData from '/assets/statisticData/wind.json';
 import nuclearProvinceData from '/assets/statisticData/nuclear_province.json';
+import nuclearPowerProvinceData from '/assets/statisticData/nuclear_province_sum.json';
 import nuclearProvinceAllData from '/assets/statisticData/nuclear.json';
 import biologyProvinceData from '/assets/statisticData/bioenergy_province.json';
+import biologyPowerProvinceData from '/assets/statisticData/bioenergy_province_sum.json';
 import biologyProvinceAllData from '/assets/statisticData/bioenergy.json';
 
 import BaseCard from "@/components/UI/BaseCard.vue";
 
-import BaseButton from "@/components/UI/BaseButton.vue";
-
 export default {
   name: "MapVisualization",
-  components: {BaseButton, BaseCard},
+  components: {BaseCard},
   props: {
     energyType: {
       type: String,
       default: 'solar'
+    },
+    mode: {
+      type: String,
+      default: 'quantity'
     }
   },
   data() {
@@ -123,6 +129,7 @@ export default {
       option = {
         title: {
           text: `全国${this.energyChinese}发电项目`,
+          subtext: `按照${this.modeChinese}进行可视化`,
           left: 'middle'
         },
         geo: {
@@ -169,7 +176,7 @@ export default {
         },
         visualMap: {
           left: 'right',
-          min: 0,
+          min: this.findSmallestValue(this.provinceData),
           max: this.findBiggestValue(this.provinceData),
           inRange: {
             color: [
@@ -291,8 +298,14 @@ export default {
       }, -Infinity);
     },
     getNumberByProvince(province) {
-      if (!isNaN(this.provinceData[province])) {
-        return this.provinceData[province];
+      let data;
+      if (this.mode === 'quantity') {
+        data = this.provinceData;
+      } else if (this.mode === 'power') {
+        data = this.provincePowerData;
+      }
+      if (!isNaN(data[province])) {
+        return data[province];
       } else {
         return 0;
       }
@@ -317,15 +330,40 @@ export default {
   },
   computed: {
     provinceData() {
+      if (this.mode === 'quantity') {
+        switch (this.energyType) {
+          case 'solar':
+            return solarProvinceData;
+          case 'wind':
+            return windProvinceData;
+          case 'nuclear':
+            return nuclearProvinceData;
+          case 'bio':
+            return biologyProvinceData;
+        }
+      } else if (this.mode === 'power') {
+        switch (this.energyType) {
+          case 'solar':
+            return solarPowerProvinceData;
+          case 'wind':
+            return windPowerProvinceData;
+          case 'nuclear':
+            return nuclearPowerProvinceData;
+          case 'bio':
+            return biologyPowerProvinceData;
+        }
+      }
+    },
+    provincePowerData() {
       switch (this.energyType) {
         case 'solar':
-          return solarProvinceData;
+          return solarPowerProvinceData;
         case 'wind':
-          return windProvinceData;
+          return windPowerProvinceData;
         case 'nuclear':
-          return nuclearProvinceData;
+          return nuclearPowerProvinceData;
         case 'bio':
-          return biologyProvinceData;
+          return biologyPowerProvinceData;
       }
     },
     provinceAllData() {
@@ -351,10 +389,23 @@ export default {
         case 'bio':
           return '生物能';
       }
+    },
+    modeChinese() {
+      switch (this.mode) {
+        case 'quantity':
+          return '发电站数';
+        case 'power':
+          return '发电量';
+      }
     }
   },
   watch: {
     provinceData() {
+      echarts.dispose(this.myChart);
+      this.nowSelectedProvince = 'mapData'
+      this.loadMap('mapData');
+    },
+    mode() {
       echarts.dispose(this.myChart);
       this.nowSelectedProvince = 'mapData'
       this.loadMap('mapData');
