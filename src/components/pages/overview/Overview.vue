@@ -8,6 +8,7 @@
         <el-radio-button label="solar">太阳能</el-radio-button>
         <el-radio-button label="wind">风能</el-radio-button>
         <el-radio-button label="nuclear">核能</el-radio-button>
+        <el-radio-button label="bio">生物能</el-radio-button>
       </el-radio-group>
     </div>
   </base-card>

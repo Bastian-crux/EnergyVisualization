@@ -50,10 +50,13 @@ import windProvinceData from '/assets/statisticData/wind_province.json';
 import windProvinceAllData from '/assets/statisticData/wind.json';
 import nuclearProvinceData from '/assets/statisticData/nuclear_province.json';
 import nuclearProvinceAllData from '/assets/statisticData/nuclear.json';
+import biologyProvinceData from '/assets/statisticData/bioenergy_province.json';
+import biologyProvinceAllData from '/assets/statisticData/bioenergy.json';
 
 import BaseCard from "@/components/UI/BaseCard.vue";
 
 import BaseButton from "@/components/UI/BaseButton.vue";
+
 export default {
   name: "MapVisualization",
   components: {BaseButton, BaseCard},
@@ -109,7 +112,7 @@ export default {
     loadMap(params) {
       const chartDom = document.getElementById('mainChart');
       // 省份下钻，将当前全国地图清空
-      if (!(this.nowSelectedProvince === 'mapData')){
+      if (!(this.nowSelectedProvince === 'mapData')) {
         echarts.dispose(this.myChart);
       }
       this.myChart = echarts.init(chartDom);
@@ -122,17 +125,17 @@ export default {
           text: `全国${this.energyChinese}发电项目`,
           left: 'middle'
         },
-        geo:{
-          type:'map',
-          map:'myMapName',
-          roam:true, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
+        geo: {
+          type: 'map',
+          map: 'myMapName',
+          roam: true, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
           // selectedMode:'multiple',  //是否点击选中地区,'single'|'multiple'
-          emphasis:{	//设置鼠标滑动高亮样式
+          emphasis: {	//设置鼠标滑动高亮样式
             // itemStyle:{
             //   color:'purple'
             // }
-            label:{
-              show:true
+            label: {
+              show: true
             },
           }
           // zoom:2,  //设置初始化缩放比例
@@ -250,7 +253,7 @@ export default {
             // 散点坐标每个能源项目
             type: 'effectScatter',
             data: this.formScatterData(), //配置散点的坐标数据
-            coordinateSystem:'geo', //散点使用的坐标系统 geo
+            coordinateSystem: 'geo', //散点使用的坐标系统 geo
             symbolSize: 10,
             // rippleEffect:{
             //   scale: 5,
@@ -265,14 +268,14 @@ export default {
         console.log(this.nowSelectedProvince);
         let tempSelected;
         if (this.nowSelectedProvince !== 'mapData')
-        // 此时为中国地图，点击省份进行下钻
-        if (!this.areaDic[this.nowSelectedProvince]) {
-          // tempSelected = 'mapData';
-        } else {
-          tempSelected = this.areaDic[this.nowSelectedProvince];
-          console.log(tempSelected);
-          this.loadMap(tempSelected);
-        }
+            // 此时为中国地图，点击省份进行下钻
+          if (!this.areaDic[this.nowSelectedProvince]) {
+            // tempSelected = 'mapData';
+          } else {
+            tempSelected = this.areaDic[this.nowSelectedProvince];
+            console.log(tempSelected);
+            this.loadMap(tempSelected);
+          }
       })
       this.myChart.setOption(option);
       // option && myChart.setOption(option);
@@ -294,18 +297,18 @@ export default {
         return 0;
       }
     },
-    returnMain(){
+    returnMain() {
       echarts.dispose(this.myChart);
       this.nowSelectedProvince = 'mapData';
       this.loadMap('mapData')
     },
-    formScatterData(){
+    formScatterData() {
       let tempData = [];
-      for (let i = 0; i < this.provinceAllData.length; i++){
-        if (this.provinceAllData[i][5] === this.areaDic[this.nowSelectedProvince]){
+      for (let i = 0; i < this.provinceAllData.length; i++) {
+        if (this.provinceAllData[i][5] === this.areaDic[this.nowSelectedProvince]) {
           tempData.push({
             value: [this.provinceAllData[i][3], this.provinceAllData[i][4]]
-        });
+          });
         }
       }
       console.log(tempData);
@@ -314,40 +317,46 @@ export default {
   },
   computed: {
     provinceData() {
-      switch(this.energyType) {
+      switch (this.energyType) {
         case 'solar':
           return solarProvinceData;
         case 'wind':
           return windProvinceData;
         case 'nuclear':
           return nuclearProvinceData;
+        case 'bio':
+          return biologyProvinceData;
       }
     },
     provinceAllData() {
-      switch(this.energyType) {
+      switch (this.energyType) {
         case 'solar':
           return solarProvinceAllData;
         case 'wind':
           return windProvinceAllData;
         case 'nuclear':
           return nuclearProvinceAllData;
+        case 'bio':
+          return biologyProvinceAllData;
       }
     },
     energyChinese() {
-      switch(this.energyType) {
+      switch (this.energyType) {
         case 'solar':
           return '太阳能';
         case 'wind':
           return '风能';
         case 'nuclear':
           return '核能';
+        case 'bio':
+          return '生物能';
       }
     }
   },
   watch: {
     provinceData() {
       echarts.dispose(this.myChart);
-      this.nowSelectedProvince =  'mapData'
+      this.nowSelectedProvince = 'mapData'
       this.loadMap('mapData');
     }
   },
