@@ -57,6 +57,8 @@ import biologyProvinceData from '/assets/statisticData/bioenergy_province.json';
 import biologyPowerProvinceData from '/assets/statisticData/bioenergy_province_sum.json';
 import biologyProvinceAllData from '/assets/statisticData/bioenergy.json';
 
+import solarMajorProjects from '/assets/statisticData/solar_major_projects.json';
+
 export default {
   name: "MapVisualization",
   components: {},
@@ -109,7 +111,8 @@ export default {
         '台湾省': 'Taiwan',
         '香港特别行政区': 'Hongkong',
         '澳门特别行政区': 'Macao'
-      }
+      },
+      majorScatterData: this.formMajorScatterData(),
     };
   },
   methods: {
@@ -250,32 +253,33 @@ export default {
               {name: '澳门特别行政区', value: 0},
             ]
           },
-          // {
-          //   // 散点坐标每个能源项目
-          //   type: 'effectScatter',
-          //   data: this.formScatterData(), //配置散点的坐标数据
-          //   coordinateSystem: 'geo', //散点使用的坐标系统 geo
-          //   symbolSize: 10,
-          //   // rippleEffect:{
-          //   //   scale: 5,
-          //   //   color:'purple'
-          //   // },
-          //   zlevel: 1,
-          // }
+          {
+            // 重点项目
+            type: 'effectScatter',
+            data: this.majorScatterData,
+            coordinateSystem: 'geo',
+            symbolSize: 10,
+            // rippleEffect:{
+            //   scale: 5,
+            //   color:'purple'
+            // },
+            zlevel: 1,
+          }
         ]
       };
       this.myChart.on('click', (params) => {
         this.nowSelectedProvince = params.name;
-        // console.log(this.nowSelectedProvince);
-        // let tempSelected;
+        for (let i = 0; i < this.majorScatterData.length; i++){
+          if (this.nowSelectedProvince === this.majorScatterData[i][name]){
+
+          }
+        } // 判断是否选择到重点项目
         if (this.nowSelectedProvince !== 'mapData')
             // 此时为中国地图，点击省份进行下钻
           if (!this.areaDic[this.nowSelectedProvince]) {
             // tempSelected = 'mapData';
           } else {
             // tempSelected = this.areaDic[this.nowSelectedProvince];
-            // console.log(tempSelected);
-            // this.loadMap(tempSelected);
             this.loadRegionMap(this.nowSelectedProvince);
           }
       })
@@ -329,7 +333,7 @@ export default {
           formatter: (params) => {
             return `<div>${params.name}</div>
                     <div>发电站状态: ${params.value[2]}</div>
-                    <div>发电站容量: ${params.value[3]} MW</div>
+                    <div>发电站功率: ${params.value[3]} MW</div>
                     `;
           }
         },
@@ -350,9 +354,9 @@ export default {
             type: 'effectScatter',
             data: this.formScatterData(), //配置散点的坐标数据
             coordinateSystem: 'geo', //散点使用的坐标系统 geo
-            symbolSize: 5,
-            rippleEffect: {
-              scale: 5,
+            symbolSize: 10,
+            rippleEffect:{
+              scale: 0,
               // color:'purple'
             },
             zlevel: 1,
@@ -398,6 +402,17 @@ export default {
             value: [this.provinceAllData[i][3], this.provinceAllData[i][4], this.statusChinese(this.provinceAllData[i][1]), this.provinceAllData[i][2]],
           });
         }
+      }
+      console.log(tempData);
+      return tempData;
+    },
+    formMajorScatterData() {
+      let tempData = [];
+      for (let i = 0; i < this.provinceMajorAllData.length; i++) {
+          tempData.push({
+            name: this.provinceMajorAllData[i][0],
+            value: [this.provinceMajorAllData[i][3], this.provinceMajorAllData[i][4], this.statusChinese(this.provinceMajorAllData[i][1]), this.provinceMajorAllData[i][2]],
+          });
       }
       console.log(tempData);
       return tempData;
@@ -465,6 +480,18 @@ export default {
           return nuclearProvinceAllData;
         case 'bio':
           return biologyProvinceAllData;
+      }
+    },
+    provinceMajorAllData() {
+      switch (this.energyType) {
+        case 'solar':
+          return solarMajorProjects;
+        case 'wind':
+          return solarMajorProjects;
+        case 'nuclear':
+          return solarMajorProjects;
+        case 'bio':
+          return solarMajorProjects;
       }
     },
     energyChinese() {

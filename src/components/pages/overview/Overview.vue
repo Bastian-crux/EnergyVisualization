@@ -59,6 +59,7 @@ export default {
       radio2: ref('quantity'),
       energyType: 'solar',
       mode: 'quantity',
+      majorProjectName: null,
     }
   },
   methods:{
