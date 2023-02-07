@@ -117,10 +117,6 @@ export default {
   methods: {
     loadMap(params) {
       const chartDom = document.getElementById('mainChart');
-      // 省份下钻，将当前全国地图清空
-      if (!(this.nowSelectedProvince === 'mapData')) {
-        echarts.dispose(this.myChart);
-      }
       this.myChart = echarts.init(chartDom);
       let option;
       this.myChart.showLoading();
@@ -167,12 +163,12 @@ export default {
             height: 10,
             overflow: 'break',
           },
-          formatter: (params) => {
-            return `<div>${params.name}</div>
-                    <div>发电站状态: ${params.value[2]}</div>
-                    <div>发电站容量: ${params.value[3]} MW</div>
-                    `;
-          }
+          // formatter: (params) => {
+          //   return `<div>${params.name}</div>
+          //           <div>发电站状态: ${params.value[2]}</div>
+          //           <div>发电站容量: ${params.value[3]} MW</div>
+          //           `;
+          // }
         },
         visualMap: {
           left: 'right',
@@ -256,6 +252,101 @@ export default {
               {name: '澳门特别行政区', value: 0},
             ]
           },
+          // {
+          //   // 散点坐标每个能源项目
+          //   type: 'effectScatter',
+          //   data: this.formScatterData(), //配置散点的坐标数据
+          //   coordinateSystem: 'geo', //散点使用的坐标系统 geo
+          //   symbolSize: 10,
+          //   // rippleEffect:{
+          //   //   scale: 5,
+          //   //   color:'purple'
+          //   // },
+          //   zlevel: 1,
+          // }
+        ]
+      };
+      this.myChart.on('click', (params) => {
+        this.nowSelectedProvince = params.name;
+        // console.log(this.nowSelectedProvince);
+        // let tempSelected;
+        if (this.nowSelectedProvince !== 'mapData')
+            // 此时为中国地图，点击省份进行下钻
+          if (!this.areaDic[this.nowSelectedProvince]) {
+            // tempSelected = 'mapData';
+          } else {
+            // tempSelected = this.areaDic[this.nowSelectedProvince];
+            // console.log(tempSelected);
+            // this.loadMap(tempSelected);
+            this.loadRegionMap(this.nowSelectedProvince);
+          }
+      })
+      this.myChart.setOption(option);
+      // option && myChart.setOption(option);
+    },
+    loadRegionMap(params) {
+      const chartDom = document.getElementById('mainChart');
+      const mapName = this.areaDic[params];
+      // 清空全国地图
+      echarts.dispose(this.myChart);
+      // 新建新的区域地图
+      this.myChart = echarts.init(chartDom);
+      let option;
+      this.myChart.showLoading();
+      this.myChart.hideLoading();
+      echarts.registerMap('myMapName', eval(mapName), {});
+      option = {
+        title: {
+          text: `${params}${this.energyChinese}发电项目`,
+          left: 'middle'
+        },
+        geo: {
+          type: 'map',
+          map: 'myMapName',
+          roam: true, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
+          emphasis: {	//设置鼠标滑动高亮样式
+            label: {
+              show: true
+            },
+          }
+        },
+        tooltip: {
+          show: true,
+          alwaysShowContent: false,
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          borderColor: 'rgba(0, 0, 0, 0)',
+          showDelay: 0,
+          hideDelay: 100,
+          triggerOn: 'click',
+          trigger: 'item', //
+          enterable: true,
+          transitionDuration: 0.2,
+          textStyle: {
+            color: "rgb(137,20,20)",
+            fontsize: '14',
+            width: 10,
+            height: 10,
+            overflow: 'break',
+          },
+          formatter: (params) => {
+            return `<div>${params.name}</div>
+                    <div>发电站状态: ${params.value[2]}</div>
+                    <div>发电站容量: ${params.value[3]} MW</div>
+                    `;
+          }
+        },
+        toolbox: {
+          show: true,
+          orient: 'vertical',
+          left: 'left',
+          top: 'top',
+          feature: {
+            dataView: {readOnly: false},
+            restore: {},
+            saveAsImage: {}
+          }
+        },
+        series: [
           {
             // 散点坐标每个能源项目
             type: 'effectScatter',
@@ -270,22 +361,7 @@ export default {
           }
         ]
       };
-      this.myChart.on('click', (params) => {
-        this.nowSelectedProvince = params.name;
-        console.log(this.nowSelectedProvince);
-        let tempSelected;
-        if (this.nowSelectedProvince !== 'mapData')
-            // 此时为中国地图，点击省份进行下钻
-          if (!this.areaDic[this.nowSelectedProvince]) {
-            // tempSelected = 'mapData';
-          } else {
-            tempSelected = this.areaDic[this.nowSelectedProvince];
-            console.log(tempSelected);
-            this.loadMap(tempSelected);
-          }
-      })
       this.myChart.setOption(option);
-      // option && myChart.setOption(option);
     },
     findSmallestValue(obj) {
       return Object.keys(obj).reduce((acc, val) => {
