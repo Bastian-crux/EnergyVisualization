@@ -1,19 +1,21 @@
 <template>
-  <base-card>
+  <el-card class="box-card">
     <h2>Index</h2>
     <el-button>test</el-button>
-  </base-card>
+  </el-card>
 </template>
 
 <script>
-import BaseCard from "@/components/UI/BaseCard.vue";
 
 export default {
   name: "Index",
-  components: {BaseCard}
+  components: {}
 }
 </script>
 
 <style scoped>
-
+.box-card {
+  max-width: 60rem;
+  margin: 2rem auto;
+}
 </style>

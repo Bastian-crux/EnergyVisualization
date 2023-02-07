@@ -57,11 +57,9 @@ import biologyProvinceData from '/assets/statisticData/bioenergy_province.json';
 import biologyPowerProvinceData from '/assets/statisticData/bioenergy_province_sum.json';
 import biologyProvinceAllData from '/assets/statisticData/bioenergy.json';
 
-import BaseCard from "@/components/UI/BaseCard.vue";
-
 export default {
   name: "MapVisualization",
-  components: {BaseCard},
+  components: {},
   props: {
     energyType: {
       type: String,

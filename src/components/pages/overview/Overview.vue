@@ -1,5 +1,5 @@
 <template>
-  <base-card>
+  <el-card class="box-card">
     <el-row>
       <el-col :span="12">
         <div>
@@ -30,20 +30,19 @@
         </div>
       </el-col>
     </el-row>
-  </base-card>
-  <base-card>
+  </el-card>
+  <el-card class="box-card">
     <map-visualization :energy-type="energyType" :mode="mode"></map-visualization>
-  </base-card>
+  </el-card>
 </template>
 
 <script>
-import BaseCard from "@/components/UI/BaseCard.vue";
 import MapVisualization from "@/components/pages/overview/MapVisualization.vue";
 import {ref} from 'vue';
 
 export default {
   name: "Overview",
-  components: {MapVisualization, BaseCard},
+  components: {MapVisualization},
 
   data() {
     return {
@@ -68,5 +67,8 @@ export default {
 </script>
 
 <style scoped>
-
+.box-card {
+  max-width: 60rem;
+  margin: 2rem auto;
+}
 </style>
