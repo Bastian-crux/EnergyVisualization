@@ -15,7 +15,7 @@ export default {
 
 <style scoped>
 .box-card {
-  max-width: 60rem;
-  margin: 2rem auto;
+  width: 80%;
+  margin: 1rem auto;
 }
 </style>

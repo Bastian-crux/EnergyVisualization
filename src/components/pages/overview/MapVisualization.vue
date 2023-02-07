@@ -351,7 +351,7 @@ export default {
             data: this.formScatterData(), //配置散点的坐标数据
             coordinateSystem: 'geo', //散点使用的坐标系统 geo
             symbolSize: 5,
-            rippleEffect:{
+            rippleEffect: {
               scale: 5,
               // color:'purple'
             },
@@ -517,7 +517,7 @@ export default {
 
 <style scoped>
 .chart {
-  width: 800px;
+  width: 100%;
   height: 600px;
 }
 </style>

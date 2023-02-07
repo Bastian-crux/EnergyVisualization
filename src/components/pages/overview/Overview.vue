@@ -31,9 +31,18 @@
       </el-col>
     </el-row>
   </el-card>
-  <el-card class="box-card">
-    <map-visualization :energy-type="energyType" :mode="mode"></map-visualization>
-  </el-card>
+  <el-row class="box-card">
+    <el-col :span="17">
+      <el-card class="chart-card">
+        <map-visualization :energy-type="energyType" :mode="mode"></map-visualization>
+      </el-card>
+    </el-col>
+    <el-col :span="6" :offset="1">
+      <el-card class="detail-card">
+        Details
+      </el-card>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
@@ -68,7 +77,17 @@ export default {
 
 <style scoped>
 .box-card {
-  max-width: 60rem;
-  margin: 2rem auto;
+  width: 80%;
+  margin: 1rem auto;
+}
+
+.chart-card {
+  /*width: 75%;*/
+  margin: 1rem auto;
+}
+
+.detail-card {
+  /*width: 25%;*/
+  margin: 1rem auto;
 }
 </style>
