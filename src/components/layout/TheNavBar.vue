@@ -1,70 +1,34 @@
 <template>
   <header>
-    <nav>
-      <ul>
-        <li>
-          <router-link to="/">首页</router-link>
-        </li>
-        <li>
-          <router-link to="/overview">能源概览</router-link>
-        </li>
-<!--        <li>-->
-<!--          <router-link>基础设施</router-link>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <router-link>碳中和</router-link>-->
-<!--        </li>-->
-      </ul>
-    </nav>
+    <el-menu
+        :default-active="activeIndex"
+        class="el-menu-demo"
+        mode="horizontal"
+        :router="true"
+        :ellipsis="false"
+    >
+      <el-menu-item index="0">LOGO</el-menu-item>
+      <div class="flex-grow"/>
+      <el-menu-item index="/">首页</el-menu-item>
+      <el-menu-item index="/overview">能源概览</el-menu-item>
+    </el-menu>
   </header>
 </template>
 
 <script>
 export default {
-  name: "TheNavBar"
+  name: "TheNavBar",
+  computed: {
+    activeIndex: function () {
+      return this.$route.path;
+    }
+  }
 }
 </script>
 
 <style scoped>
-header {
-  width: 100%;
-  height: 5rem;
-  background-color: #11005c;
+.flex-grow {
+  flex-grow: 1;
 }
 
-nav {
-  height: 100%;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-li {
-  margin: 0 2rem;
-}
-
-a {
-  text-decoration: none;
-  font: inherit;
-  background: transparent;
-  border: 1px solid transparent;
-  cursor: pointer;
-  color: white;
-  padding: 0.5rem 1.5rem;
-  display: inline-block;
-}
-
-a:hover,
-a:active {
-  color: #f1a80a;
-  border-color: #f1a80a;
-  background-color: #1a037e;
-}
 </style>
