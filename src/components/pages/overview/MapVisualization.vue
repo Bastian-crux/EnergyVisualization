@@ -261,11 +261,11 @@ export default {
             type: 'effectScatter',
             data: this.formScatterData(), //配置散点的坐标数据
             coordinateSystem: 'geo', //散点使用的坐标系统 geo
-            symbolSize: 10,
-            // rippleEffect:{
-            //   scale: 5,
-            //   color:'purple'
-            // },
+            symbolSize: 5,
+            rippleEffect:{
+              scale: 5,
+              // color:'purple'
+            },
             zlevel: 1,
           }
         ]
