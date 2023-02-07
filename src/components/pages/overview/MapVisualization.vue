@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="returnMain">返回</el-button>
+  <el-button @click="returnMain" :disabled="nowSelectedProvince === 'mapData'">返回</el-button>
   <div>
     <div class="chart" id="mainChart"></div>
   </div>
@@ -168,10 +168,10 @@ export default {
             overflow: 'break',
           },
           formatter: (params) => {
-            return `
-                      <div>${params.name}</div>
-                      <div>${params.value}</div>
-                      `;
+            return `<div>${params.name}</div>
+                    <div>发电站状态: ${params.value[2]}</div>
+                    <div>发电站容量: ${params.value[3]} MW</div>
+                    `;
           }
         },
         visualMap: {
@@ -320,13 +320,28 @@ export default {
       for (let i = 0; i < this.provinceAllData.length; i++) {
         if (this.provinceAllData[i][5] === this.areaDic[this.nowSelectedProvince]) {
           tempData.push({
-            value: [this.provinceAllData[i][3], this.provinceAllData[i][4]]
+            name: this.provinceAllData[i][0],
+            value: [this.provinceAllData[i][3], this.provinceAllData[i][4], this.statusChinese(this.provinceAllData[i][1]), this.provinceAllData[i][2]],
           });
         }
       }
       console.log(tempData);
       return tempData;
     },
+    statusChinese(str) {
+      switch (str) {
+        case 'announced':
+          return '已启动';
+        case 'construction':
+          return '建设中';
+        case 'development':
+          return '规划中';
+        case 'operating':
+          return '运行中';
+        case 'retired':
+          return '已退役';
+      }
+    }
   },
   computed: {
     provinceData() {
