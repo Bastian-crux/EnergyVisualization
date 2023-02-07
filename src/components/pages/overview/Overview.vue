@@ -34,12 +34,12 @@
   <el-row class="box-card">
     <el-col :span="17">
       <el-card class="chart-card">
-        <map-visualization :energy-type="energyType" :mode="mode"></map-visualization>
+        <map-visualization :energy-type="energyType" :mode="mode" @choose-project="chooseMajorProject"></map-visualization>
       </el-card>
     </el-col>
     <el-col :span="6" :offset="1">
       <el-card class="detail-card">
-        Details
+        <project-details></project-details>
       </el-card>
     </el-col>
   </el-row>
@@ -48,10 +48,11 @@
 <script>
 import MapVisualization from "@/components/pages/overview/MapVisualization.vue";
 import {ref} from 'vue';
+import ProjectDetails from "@/components/pages/overview/ProjectDetails.vue";
 
 export default {
   name: "Overview",
-  components: {MapVisualization},
+  components: {ProjectDetails, MapVisualization},
 
   data() {
     return {
@@ -59,11 +60,13 @@ export default {
       radio2: ref('quantity'),
       energyType: 'solar',
       mode: 'quantity',
-      majorProjectName: null,
+      selectedProjectInfo: null,
     }
   },
   methods:{
-
+    chooseMajorProject(projectInfo){
+      this.selectedProjectInfo = projectInfo;
+    }
   },
   watch: {
     radio1: function (val) {

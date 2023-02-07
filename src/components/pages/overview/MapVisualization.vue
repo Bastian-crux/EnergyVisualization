@@ -72,6 +72,7 @@ export default {
       default: 'quantity'
     }
   },
+  emits:['choose-project'],
   data() {
     return {
       myChart: null,
@@ -269,9 +270,9 @@ export default {
       };
       this.myChart.on('click', (params) => {
         this.nowSelectedProvince = params.name;
-        for (let i = 0; i < this.majorScatterData.length; i++){
-          if (this.nowSelectedProvince === this.majorScatterData[i][name]){
-
+        for (let i = 0; i < solarMajorProjects.length; i++){
+          if (this.nowSelectedProvince === solarMajorProjects[i][0]){
+            this.$emit('choose-project', solarMajorProjects[i]);
           }
         } // 判断是否选择到重点项目
         if (this.nowSelectedProvince !== 'mapData')
