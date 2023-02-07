@@ -34,12 +34,12 @@
   <el-row class="box-card">
     <el-col :span="17">
       <el-card class="chart-card">
-        <map-visualization :energy-type="energyType" :mode="mode" @choose-project="chooseMajorProject"></map-visualization>
+        <map-visualization :energy-type="energyType" :mode="mode" @choose-project="chooseMajorProject"/>
       </el-card>
     </el-col>
     <el-col :span="6" :offset="1">
       <el-card class="detail-card">
-        <project-details></project-details>
+        <project-details :project-detail="selectedProjectInfo" />
       </el-card>
     </el-col>
   </el-row>
@@ -47,8 +47,8 @@
 
 <script>
 import MapVisualization from "@/components/pages/overview/MapVisualization.vue";
-import {ref} from 'vue';
 import ProjectDetails from "@/components/pages/overview/ProjectDetails.vue";
+import {ref} from 'vue';
 
 export default {
   name: "Overview",
