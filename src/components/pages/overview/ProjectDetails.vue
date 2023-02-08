@@ -6,10 +6,15 @@
       <el-descriptions-item label="介绍">{{ projectDetail[8] }}</el-descriptions-item>
     </el-descriptions>
     <el-image :src="projectDetail[7]" style="margin-top: 20px"></el-image>
-    <el-link :href="projectDetail[9]" type="primary" style="margin-top: 20px">相关资料</el-link>
+    <el-link :href="projectDetail[9]" type="primary" style="margin-top: 20px" target="_blank">相关资料</el-link>
   </div>
   <div v-else>
-    <el-empty description="请在地图上选择一个项目来查看对应的介绍。" />
+    <el-result icon="info" title="发电站介绍">
+      <template #sub-title>
+        <p>请在地图上选择一个项目来查看对应的介绍。</p>
+      </template>
+    </el-result>
+<!--    <el-empty description="请在地图上选择一个项目来查看对应的介绍。" />-->
   </div>
 </template>
 

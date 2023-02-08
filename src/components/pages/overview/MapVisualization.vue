@@ -72,7 +72,7 @@ export default {
       default: 'quantity'
     }
   },
-  emits:['choose-project'],
+  emits: ['choose-project'],
   data() {
     return {
       myChart: null,
@@ -148,7 +148,7 @@ export default {
         tooltip: {
           show: true,
           alwaysShowContent: false,
-          backgroundColor: 'rgba(0, 0, 0, 0)',
+          backgroundColor: 'rgba(100, 100, 100, 0.6)',
           borderColor: 'rgba(0, 0, 0, 0)',
           showDelay: 0,
           hideDelay: 100,
@@ -191,7 +191,8 @@ export default {
             ]
           },
           text: ['High', 'Low'],
-          calculable: true
+          calculable: true,
+          seriesIndex: 0,
         },
         toolbox: {
           show: true,
@@ -259,10 +260,9 @@ export default {
             data: this.formMajorScatterData(),
             coordinateSystem: 'geo',
             symbolSize: 10,
-            // rippleEffect:{
-            //   scale: 5,
-            //   color:'purple'
-            // },
+            rippleEffect:{
+              scale: 0,
+            },
             zlevel: 1,
           }
         ]
@@ -270,8 +270,8 @@ export default {
       this.myChart.on('click', (params) => {
         this.nowSelectedProvince = params.name;
         // 判断是否选择到重点项目
-        for (let i = 0; i < this.provinceMajorAllData.length; i++){
-          if (this.nowSelectedProvince === this.provinceMajorAllData[i][0]){
+        for (let i = 0; i < this.provinceMajorAllData.length; i++) {
+          if (this.nowSelectedProvince === this.provinceMajorAllData[i][0]) {
             this.$emit('choose-project', this.provinceMajorAllData[i]);
           }
         }
@@ -315,7 +315,7 @@ export default {
         tooltip: {
           show: true,
           alwaysShowContent: false,
-          backgroundColor: 'rgba(0, 0, 0, 0)',
+          backgroundColor: 'rgba(100, 100, 100, 0.6)',
           borderColor: 'rgba(0, 0, 0, 0)',
           showDelay: 0,
           hideDelay: 100,
@@ -355,9 +355,8 @@ export default {
             data: this.formScatterData(), //配置散点的坐标数据
             coordinateSystem: 'geo', //散点使用的坐标系统 geo
             symbolSize: 10,
-            rippleEffect:{
+            rippleEffect: {
               scale: 0,
-              // color:'purple'
             },
             zlevel: 1,
           }
@@ -408,10 +407,10 @@ export default {
     formMajorScatterData() {
       let tempData = [];
       for (let i = 0; i < this.provinceMajorAllData.length; i++) {
-          tempData.push({
-            name: this.provinceMajorAllData[i][0],
-            value: [this.provinceMajorAllData[i][3], this.provinceMajorAllData[i][4], this.statusChinese(this.provinceMajorAllData[i][1]), this.provinceMajorAllData[i][2]],
-          });
+        tempData.push({
+          name: this.provinceMajorAllData[i][0],
+          value: [this.provinceMajorAllData[i][3], this.provinceMajorAllData[i][4], this.statusChinese(this.provinceMajorAllData[i][1]), this.provinceMajorAllData[i][2]],
+        });
       }
       return tempData;
     },
