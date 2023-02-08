@@ -7,7 +7,7 @@
         :router="true"
         :ellipsis="false"
     >
-      <el-menu-item index="/">能源可视化</el-menu-item>
+      <el-menu-item index="">能源可视化</el-menu-item>
       <div class="flex-grow"/>
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/overview">能源概览</el-menu-item>
