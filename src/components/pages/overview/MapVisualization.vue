@@ -113,7 +113,6 @@ export default {
         '香港特别行政区': 'Hongkong',
         '澳门特别行政区': 'Macao'
       },
-      majorScatterData: this.formMajorScatterData(),
     };
   },
   methods: {
@@ -165,12 +164,12 @@ export default {
             height: 10,
             overflow: 'break',
           },
-          // formatter: (params) => {
-          //   return `<div>${params.name}</div>
-          //           <div>发电站状态: ${params.value[2]}</div>
-          //           <div>发电站容量: ${params.value[3]} MW</div>
-          //           `;
-          // }
+          formatter: (params) => {
+            return `<div>${params.name}</div>
+                    <div>发电站状态: ${params.value[2]}</div>
+                    <div>发电站容量: ${params.value[3]} MW</div>
+                    `;
+          }
         },
         visualMap: {
           left: 'right',
@@ -257,7 +256,7 @@ export default {
           {
             // 重点项目
             type: 'effectScatter',
-            data: this.majorScatterData,
+            data: this.formMajorScatterData(),
             coordinateSystem: 'geo',
             symbolSize: 10,
             // rippleEffect:{
@@ -270,17 +269,17 @@ export default {
       };
       this.myChart.on('click', (params) => {
         this.nowSelectedProvince = params.name;
-        for (let i = 0; i < solarMajorProjects.length; i++){
-          if (this.nowSelectedProvince === solarMajorProjects[i][0]){
-            this.$emit('choose-project', solarMajorProjects[i]);
+        // 判断是否选择到重点项目
+        for (let i = 0; i < this.provinceMajorAllData.length; i++){
+          if (this.nowSelectedProvince === this.provinceMajorAllData[i][0]){
+            this.$emit('choose-project', this.provinceMajorAllData[i]);
           }
-        } // 判断是否选择到重点项目
+        }
         if (this.nowSelectedProvince !== 'mapData')
-            // 此时为中国地图，点击省份进行下钻
           if (!this.areaDic[this.nowSelectedProvince]) {
-            // tempSelected = 'mapData';
+            this.nowSelectedProvince = 'mapData';
           } else {
-            // tempSelected = this.areaDic[this.nowSelectedProvince];
+            // 此时点的是省份，调用加载区域地图的方法
             this.loadRegionMap(this.nowSelectedProvince);
           }
       })
@@ -404,7 +403,6 @@ export default {
           });
         }
       }
-      console.log(tempData);
       return tempData;
     },
     formMajorScatterData() {
@@ -415,7 +413,6 @@ export default {
             value: [this.provinceMajorAllData[i][3], this.provinceMajorAllData[i][4], this.statusChinese(this.provinceMajorAllData[i][1]), this.provinceMajorAllData[i][2]],
           });
       }
-      console.log(tempData);
       return tempData;
     },
     statusChinese(str) {

@@ -39,7 +39,7 @@
     </el-col>
     <el-col :span="6" :offset="1">
       <el-card class="detail-card">
-        <project-details :project-detail="selectedProjectInfo" />
+<!--        <project-details :project-detail="selectedProjectInfo" />-->
       </el-card>
     </el-col>
   </el-row>
