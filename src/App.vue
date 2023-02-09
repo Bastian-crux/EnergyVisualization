@@ -20,7 +20,7 @@ export default {
 }
 
 html {
-  font-family: sans-serif;
+  font-family: "Hiragino Sans GB", "华文细黑", "STHeiti", "微软雅黑", "Microsoft YaHei", SimHei, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   background-color: #d2ecad;
 }
 

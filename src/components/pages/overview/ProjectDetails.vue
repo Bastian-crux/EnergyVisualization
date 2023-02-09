@@ -1,10 +1,11 @@
 <template>
   <div v-if="enable === true">
-    <el-descriptions :title="projectDetail[0]" :column="2">
-      <el-descriptions-item label="状态">{{ statusChinese(projectDetail[1]) }}</el-descriptions-item>
-      <el-descriptions-item label="功率">{{ projectDetail[2] }} MW</el-descriptions-item>
-      <el-descriptions-item label="介绍">{{ projectDetail[8] }}</el-descriptions-item>
-    </el-descriptions>
+    <tool-tip :name="projectDetail[0]" :year="projectDetail[6]" :status="statusChinese(projectDetail[1])"
+              :capacity="projectDetail[2]"/>
+    <el-divider border-style="double"/>
+    <el-scrollbar height="150px">
+      <p class="description">{{ projectDetail[8] }}</p>
+    </el-scrollbar>
     <el-image :src="projectDetail[7]" style="margin-top: 20px"></el-image>
     <el-link :href="projectDetail[9]" type="primary" style="margin-top: 20px" target="_blank">相关资料</el-link>
   </div>
@@ -14,14 +15,16 @@
         <p>请在地图上选择一个项目来查看对应的介绍。</p>
       </template>
     </el-result>
-<!--    <el-empty description="请在地图上选择一个项目来查看对应的介绍。" />-->
   </div>
 </template>
 
 <script>
 import {statusChinese} from "@/utils";
+import ToolTip from "@/components/pages/overview/ToolTip.vue";
+
 export default {
   name: "ProjectDetails",
+  components: {ToolTip},
   props: ['projectDetail', 'enable'],
   data() {
     return {
@@ -35,5 +38,7 @@ export default {
 </script>
 
 <style scoped>
-
+.description {
+  font-size: 14px;
+}
 </style>
