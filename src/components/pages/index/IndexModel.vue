@@ -26,6 +26,11 @@ export default {
     Renderer,
     Scene,
   },
+  mounted() {
+    const renderer = this.$refs.renderer.renderer;
+    renderer.alpha = true;
+    renderer.setClearColor( 0x000000, 0 );
+  }
 };
 </script>
 

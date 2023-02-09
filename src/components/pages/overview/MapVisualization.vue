@@ -148,7 +148,7 @@ export default {
         tooltip: {
           show: true,
           alwaysShowContent: false,
-          backgroundColor: 'rgba(100, 100, 100, 0.6)',
+          backgroundColor: 'rgba(255, 255, 255, 1)',
           borderColor: 'rgba(0, 0, 0, 0)',
           showDelay: 0,
           hideDelay: 100,
@@ -315,7 +315,7 @@ export default {
         tooltip: {
           show: true,
           alwaysShowContent: false,
-          backgroundColor: 'rgba(100, 100, 100, 0.6)',
+          backgroundColor: 'rgba(255, 255, 255, 1)',
           borderColor: 'rgba(0, 0, 0, 0)',
           showDelay: 0,
           hideDelay: 100,

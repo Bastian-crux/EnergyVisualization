@@ -6,6 +6,7 @@
         mode="horizontal"
         :router="true"
         :ellipsis="false"
+        background-color="#6db139"
     >
       <el-menu-item index="">能源可视化</el-menu-item>
       <div class="flex-grow"/>

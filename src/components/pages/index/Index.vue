@@ -1,8 +1,8 @@
 <template>
-  <el-card class="box-card">
+  <div class="box-card background-color">
     <index-model style="width: 100%; height: 1000px"></index-model>
     <el-button>test</el-button>
-  </el-card>
+  </div>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .box-card {
   width: 80%;
   margin: 1rem auto;
