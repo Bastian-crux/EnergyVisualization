@@ -11,6 +11,7 @@
     "echarts": "^5.4.1",
     "element-plus": "^2.2.29",
     "three": "^0.148.0",
+    "troisjs": "^0.3.4",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },

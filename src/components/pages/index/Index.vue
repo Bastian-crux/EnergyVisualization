@@ -1,15 +1,17 @@
 <template>
   <el-card class="box-card">
-    <h2>Index</h2>
+    <index-model style="width: 100%; height: 1000px"></index-model>
     <el-button>test</el-button>
   </el-card>
 </template>
 
 <script>
 
+import IndexModel from "@/components/pages/index/IndexModel.vue";
+
 export default {
   name: "Index",
-  components: {}
+  components: {IndexModel}
 }
 </script>
 
