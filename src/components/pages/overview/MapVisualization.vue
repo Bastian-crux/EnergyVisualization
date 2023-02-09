@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import {formatterHelper, statusChinese} from "@/utils";
 import * as echarts from 'echarts';
 import mapData from '/assets/mapData/china_base.json';
 
@@ -157,19 +158,7 @@ export default {
           // position: ['50%', '50%'],
           enterable: true,
           transitionDuration: 0.2,
-          textStyle: {
-            color: "rgb(137,20,20)",
-            fontsize: '14',
-            width: 10,
-            height: 10,
-            overflow: 'break',
-          },
-          formatter: (params) => {
-            return `<div>${params.name}</div>
-                    <div>发电站状态: ${params.value[2]}</div>
-                    <div>发电站容量: ${params.value[3]} MW</div>
-                    `;
-          }
+          formatter: formatterHelper
         },
         visualMap: {
           left: 'right',
@@ -260,7 +249,7 @@ export default {
             data: this.formMajorScatterData(),
             coordinateSystem: 'geo',
             symbolSize: 10,
-            rippleEffect:{
+            rippleEffect: {
               scale: 0,
             },
             zlevel: 1,
@@ -330,12 +319,7 @@ export default {
             height: 10,
             overflow: 'break',
           },
-          formatter: (params) => {
-            return `<div>${params.name}</div>
-                    <div>发电站状态: ${params.value[2]}</div>
-                    <div>发电站功率: ${params.value[3]} MW</div>
-                    `;
-          }
+          formatter: formatterHelper
         },
         toolbox: {
           show: true,
@@ -398,7 +382,7 @@ export default {
         if (this.provinceAllData[i][5] === this.areaDic[this.nowSelectedProvince]) {
           tempData.push({
             name: this.provinceAllData[i][0],
-            value: [this.provinceAllData[i][3], this.provinceAllData[i][4], this.statusChinese(this.provinceAllData[i][1]), this.provinceAllData[i][2]],
+            value: [this.provinceAllData[i][3], this.provinceAllData[i][4], statusChinese(this.provinceAllData[i][1]), this.provinceAllData[i][2], this.provinceAllData[i][6]],
           });
         }
       }
@@ -409,25 +393,11 @@ export default {
       for (let i = 0; i < this.provinceMajorAllData.length; i++) {
         tempData.push({
           name: this.provinceMajorAllData[i][0],
-          value: [this.provinceMajorAllData[i][3], this.provinceMajorAllData[i][4], this.statusChinese(this.provinceMajorAllData[i][1]), this.provinceMajorAllData[i][2]],
+          value: [this.provinceMajorAllData[i][3], this.provinceMajorAllData[i][4], statusChinese(this.provinceMajorAllData[i][1]), this.provinceMajorAllData[i][2], this.provinceMajorAllData[i][6]],
         });
       }
       return tempData;
     },
-    statusChinese(str) {
-      switch (str) {
-        case 'announced':
-          return '已启动';
-        case 'construction':
-          return '建设中';
-        case 'development':
-          return '规划中';
-        case 'operating':
-          return '运行中';
-        case 'retired':
-          return '已退役';
-      }
-    }
   },
   computed: {
     provinceData() {

@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import {statusChinese} from "@/utils";
 export default {
   name: "ProjectDetails",
   props: ['projectDetail', 'enable'],
@@ -28,20 +29,7 @@ export default {
     };
   },
   methods: {
-    statusChinese(str) {
-      switch (str) {
-        case 'announced':
-          return '已启动';
-        case 'construction':
-          return '建设中';
-        case 'development':
-          return '规划中';
-        case 'operating':
-          return '运行中';
-        case 'retired':
-          return '已退役';
-      }
-    }
+    statusChinese
   },
 }
 </script>
