@@ -15,12 +15,13 @@ export default {
 </script>
 
 <style>
+@import '../assets/fonts/font.css';
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-family: "Hiragino Sans GB", "华文细黑", "STHeiti", "微软雅黑", "Microsoft YaHei", SimHei, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: sans-serif, 'Sarasa Gothic';
   background-color: #d2ecad;
 }
 
