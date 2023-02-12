@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import gridIndex from '/assets/monthlyStatisticData/gridIndex.json'
 import fossil from '/assets/monthlyStatisticData/fossil.json'
 import hydro from '/assets/monthlyStatisticData/hydro.json'
 import nuclear from '/assets/monthlyStatisticData/nuclear.json';
@@ -17,12 +18,12 @@ export default {
   data() {
     return {
       myChart: null,
-      gridIndex: Array(),
-      fossilValue: Array(),
-      hydroValue: Array(),
-      nuclearValue: Array(),
-      solarValue: Array(),
-      windValue: Array()
+      gridIndex: null,
+      fossilValue: null,
+      hydroValue: null,
+      nuclearValue: null,
+      solarValue: null,
+      windValue: null
     }
   },
   methods: {
@@ -61,7 +62,7 @@ export default {
           {
             type: 'category',
             boundaryGap: false,
-            data: Array.from(this.gridIndex)
+            data: this.gridIndex
           }
         ],
         yAxis: [
@@ -78,7 +79,9 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: Array.from(this.fossilValue)
+            data: this.fossilValue.map(item => {
+              return item[1]
+            })
           },
           {
             name: '水力',
@@ -88,7 +91,9 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: Array.from(this.hydroValue)
+            data: this.hydroValue.map(item => {
+              return item[1]
+            })
           },
           {
             name: '核能',
@@ -98,7 +103,9 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: Array.from(this.nuclearValue)
+            data: this.nuclearValue.map(item => {
+              return item[1]
+            })
           },
           {
             name: '太阳能',
@@ -108,43 +115,62 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: Array.from(this.solarValue)
+            data: this.solarValue.map(item => {
+              return item[1]
+            })
           },
           {
             name: '风能',
             type: 'line',
             stack: 'Total',
+            label: {
+              show: true,
+              position: 'top'
+            },
             areaStyle: {},
             emphasis: {
               focus: 'series'
             },
-            data: Array.from(this.windValue)
+            data: this.windValue.map(item => {
+              return item[1]
+            })
           }
-        ]
+        ],
+        dataZoom: [
+          {
+            id: 'dataZoomX',
+            type: 'slider',
+            xAxisIndex: [0],
+            filterMode: 'filter'
+          },
+          {
+            id: 'dataZoomY',
+            type: 'slider',
+            yAxisIndex: [0],
+            filterMode: 'empty'
+          }
+        ],
       };
       this.myChart.setOption(option);
     },
     getData() {
-      Object.keys(fossil[0]).forEach(index => {
-        this.gridIndex.unshift(index);
-        this.fossilValue.unshift(fossil[0][index]);
-      })
-      Object.keys(hydro[0]).forEach(index => {
-        this.hydroValue.unshift(hydro[0][index])
-      })
-      Object.keys(nuclear[0]).forEach(index => {
-        this.nuclearValue.unshift(nuclear[0][index])
-      })
-      Object.keys(solar[0]).forEach(index => {
-        this.solarValue.unshift(solar[0][index])
-      })
-      Object.keys(wind[0]).forEach(index => {
-        this.windValue.unshift(wind[0][index])
-      })
+      this.gridIndex = gridIndex[0];
+      this.fossilValue = fossil;
+      this.hydroValue = hydro;
+      this.nuclearValue = nuclear;
+      this.solarValue = solar;
+      this.windValue = wind;
     }
   },
   mounted() {
+    window.onresize = (() => {
+      echarts.dispose(this.myChart);
+      this.loadChart();
+    });
     this.getData();
+    console.log(this.windValue.map(item => {
+      return item[1]
+    }))
     this.loadChart();
   }
 }

@@ -6,6 +6,7 @@
 
 <script>
 import MonthlyChart from "@/components/pages/statistic/MonthlyChart.vue";
+
 export default {
   name: "Statistic",
   components: {MonthlyChart}
