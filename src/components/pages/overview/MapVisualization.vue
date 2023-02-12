@@ -496,7 +496,11 @@ export default {
   },
   mounted() {
     let tempSelected = 'map';
-    // console.log(tempSelected);
+    window.onresize = (() => {
+      echarts.dispose(this.myChart);
+      this.nowSelectedProvince = 'mapData';
+      this.loadMap('mapData');
+    });
 
     if (!this.areaDic[this.nowSelectedProvince]) {
       tempSelected = 'mapData';
