@@ -12,24 +12,19 @@ import nuclear from '/assets/monthlyStatisticData/nuclear.json';
 import solar from '/assets/monthlyStatisticData/solar.json';
 import wind from '/assets/monthlyStatisticData/wind.json';
 import * as echarts from "echarts";
+import { markRaw } from 'vue'
 
 export default {
   name: "MonthlyChart",
   data() {
     return {
-      myChart: null,
-      gridIndex: null,
-      fossilValue: null,
-      hydroValue: null,
-      nuclearValue: null,
-      solarValue: null,
-      windValue: null
+      myChart: null
     }
   },
   methods: {
     loadChart() {
       const chartDom = document.getElementById('monthlyChart');
-      this.myChart = echarts.init(chartDom);
+      this.myChart = markRaw(echarts.init(chartDom));
       let option;
       option = {
         title: {
@@ -62,7 +57,7 @@ export default {
           {
             type: 'category',
             boundaryGap: false,
-            data: this.gridIndex
+            data: gridIndex[0]
           }
         ],
         yAxis: [
@@ -79,7 +74,7 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: this.fossilValue.map(item => {
+            data: fossil.map(item => {
               return item[1]
             })
           },
@@ -91,7 +86,7 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: this.hydroValue.map(item => {
+            data: hydro.map(item => {
               return item[1]
             })
           },
@@ -103,7 +98,7 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: this.nuclearValue.map(item => {
+            data: nuclear.map(item => {
               return item[1]
             })
           },
@@ -115,7 +110,7 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: this.solarValue.map(item => {
+            data: solar.map(item => {
               return item[1]
             })
           },
@@ -123,15 +118,11 @@ export default {
             name: '风能',
             type: 'line',
             stack: 'Total',
-            label: {
-              show: true,
-              position: 'top'
-            },
             areaStyle: {},
             emphasis: {
               focus: 'series'
             },
-            data: this.windValue.map(item => {
+            data: wind.map(item => {
               return item[1]
             })
           }
@@ -141,7 +132,8 @@ export default {
             id: 'dataZoomX',
             type: 'slider',
             xAxisIndex: [0],
-            filterMode: 'filter'
+            filterMode: 'filter',
+            startValue: '2018年1-2月'
           },
           {
             id: 'dataZoomY',
@@ -153,24 +145,12 @@ export default {
       };
       this.myChart.setOption(option);
     },
-    getData() {
-      this.gridIndex = gridIndex[0];
-      this.fossilValue = fossil;
-      this.hydroValue = hydro;
-      this.nuclearValue = nuclear;
-      this.solarValue = solar;
-      this.windValue = wind;
-    }
   },
   mounted() {
     window.onresize = (() => {
       echarts.dispose(this.myChart);
       this.loadChart();
     });
-    this.getData();
-    console.log(this.windValue.map(item => {
-      return item[1]
-    }))
     this.loadChart();
   }
 }
