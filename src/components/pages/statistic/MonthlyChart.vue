@@ -133,13 +133,14 @@ export default {
             type: 'slider',
             xAxisIndex: [0],
             filterMode: 'filter',
-            startValue: '2018年1-2月'
+            startValue: '2020年1月'
           },
           {
             id: 'dataZoomY',
             type: 'slider',
             yAxisIndex: [0],
-            filterMode: 'empty'
+            filterMode: 'empty',
+            startValue: 3000
           }
         ],
       };
