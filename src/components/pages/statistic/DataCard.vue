@@ -1,50 +1,65 @@
 <template>
-    <el-col>
-      <el-row :span="8">
-        <div class="statistic-card">
-          <el-statistic :value="53289">
-            <template #title>
-              <div style="display: inline-flex; align-items: center">
-                2030年x能发电总量
-              </div>
-            </template>
-          </el-statistic>
-          <div class="statistic-footer">
-            <div class="footer-item">
-              <span>同比增长</span>
-              <span class="green">
-                24%
-                <el-icon>
-                  <CaretTop />
-                </el-icon>
-              </span>
+  <el-row>
+    <el-col :span="24">
+      <div class="statistic-card">
+        <el-statistic :value="data[year]">
+          <template #title>
+            <div style="display: inline-flex; align-items: center">
+              {{ year }}年{{ type }}能发电总量
             </div>
+          </template>
+        </el-statistic>
+        <div class="statistic-footer">
+          <div class="footer-item">
+            <span>同比{{ this.increment >= 0 ? '增长' : '减少' }}</span>
+            <span class="green" v-if="increment >= 0">
+                {{ increment }}%
+                <el-icon>
+                  <CaretTop/>
+                </el-icon>
+            </span>
+            <span class="red" v-if="increment < 0">
+                {{ increment }}%
+                <el-icon>
+                  <CaretBottom/>
+                </el-icon>
+            </span>
           </div>
         </div>
-      </el-row>
+      </div>
+    </el-col>
+    <el-col :span="24">
       <el-card>
-        <el-row :span="8">
-          <p class="description">描述：测试测试测试测试测试测试测试测试测试测试测试测试测试测试testtest1111110101010100101不知道写什么</p>
-        </el-row>
-        <el-row :span="4" >
-          <div style="height: 300px; width: 100%">
-            <energy-pie-chart />
-          </div>
+        <el-row>
+          <el-col :span="24">
+            <p class="description">描述：测试测试测试测试测试测试</p>
+          </el-col>
+          <el-col :span="24">
+            <div style="height: 300px; width: 100%">
+              <energy-pie-chart/>
+            </div>
+          </el-col>
         </el-row>
       </el-card>
     </el-col>
+  </el-row>
 
 
 </template>
 
 <script>
-// import {CaretTop} from "@element-plus/icons-vue/global";
-import {CaretTop} from "@element-plus/icons-vue";
+import {CaretTop, CaretBottom} from "@element-plus/icons-vue";
 import EnergyPieChart from "@/components/pages/statistic/EnergyPieChart.vue";
 
 export default {
   name: "DataCard",
   components: {EnergyPieChart},
+  props: ['year', 'type', 'data'],
+  computed: {
+    increment() {
+      return ((this.data[this.year] - this.data[this.year - 1]) / this.data[this.year - 1] * 100).toFixed(2)
+    }
+  }
 }
 </script>
 
@@ -52,6 +67,7 @@ export default {
 <style scoped>
 
 .description {
+  width: 100%;
   font-size: 14px;
 }
 
@@ -86,6 +102,10 @@ export default {
 
 .green {
   color: var(--el-color-success);
+}
+
+.red {
+  color: var(--el-color-error);
 }
 
 </style>
