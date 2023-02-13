@@ -45,20 +45,20 @@ import Taiwan from '/assets/mapData/Taiwan.json';
 import Hongkong from '/assets/mapData/Hongkong.json';
 import Macao from '/assets/mapData/Macao.json';
 
-import solarProvinceData from '/assets/statisticData/solar_province.json';
-import solarPowerProvinceData from '/assets/statisticData/solar_province_sum.json';
-import solarProvinceAllData from '/assets/statisticData/solar.json';
-import windProvinceData from '/assets/statisticData/wind_province.json';
-import windPowerProvinceData from '/assets/statisticData/wind_province_sum.json';
-import windProvinceAllData from '/assets/statisticData/wind.json';
-import nuclearProvinceData from '/assets/statisticData/nuclear_province.json';
-import nuclearPowerProvinceData from '/assets/statisticData/nuclear_province_sum.json';
-import nuclearProvinceAllData from '/assets/statisticData/nuclear.json';
-import biologyProvinceData from '/assets/statisticData/bioenergy_province.json';
-import biologyPowerProvinceData from '/assets/statisticData/bioenergy_province_sum.json';
-import biologyProvinceAllData from '/assets/statisticData/bioenergy.json';
+import solarProvinceData from '/assets/powerstationData/solar_province.json';
+import solarPowerProvinceData from '/assets/powerstationData/solar_province_sum.json';
+import solarProvinceAllData from '/assets/powerstationData/solar.json';
+import windProvinceData from '/assets/powerstationData/wind_province.json';
+import windPowerProvinceData from '/assets/powerstationData/wind_province_sum.json';
+import windProvinceAllData from '/assets/powerstationData/wind.json';
+import nuclearProvinceData from '/assets/powerstationData/nuclear_province.json';
+import nuclearPowerProvinceData from '/assets/powerstationData/nuclear_province_sum.json';
+import nuclearProvinceAllData from '/assets/powerstationData/nuclear.json';
+import biologyProvinceData from '/assets/powerstationData/bioenergy_province.json';
+import biologyPowerProvinceData from '/assets/powerstationData/bioenergy_province_sum.json';
+import biologyProvinceAllData from '/assets/powerstationData/bioenergy.json';
 
-import solarMajorProjects from '/assets/statisticData/solar_major_projects.json';
+import solarMajorProjects from '/assets/powerstationData/solar_major_projects.json';
 
 export default {
   name: "MapVisualization",
