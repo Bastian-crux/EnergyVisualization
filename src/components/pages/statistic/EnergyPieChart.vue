@@ -1,22 +1,23 @@
 <template>
   <div>
-    <div class="pie" id="myPie"></div>
+    <div class="pie" ref="myPie"></div>
   </div>
 </template>
 
 <script>
 import * as echarts from 'echarts';
+
 export default {
   name: "EnergyPieChart",
-  data(){
-    return{
-
+  props: ['type', 'data', 'total'],
+  data() {
+    return {
+      myChart: null
     };
   },
-  methods:{
-    loadPie(){
-      let chartDom = document.getElementById('myPie');
-      let myChart = echarts.init(chartDom);
+  methods: {
+    loadPie() {
+      this.myChart = echarts.init(this.$refs.myPie);
       let option;
       option = {
         // tooltip: {
@@ -54,7 +55,7 @@ export default {
                 num: {
                   color: 'rgba(135,218,118,0.3)',
                   fontSize: '25',
-                  fontWeight:'bolder'
+                  fontWeight: 'bolder'
                 }
               }
             },
@@ -69,25 +70,37 @@ export default {
               show: false
             },
             data: [
-              { value: 200,
-                name: '太阳能',
+              {
+                value: this.data,
+                name: this.type,
 
               },
-              { value: 800,
-                name: '没用的',
+              {
+                value: this.total - this.data,
+                name: '其他能源',
                 label: {
-                    show: false
+                  show: false
                 }
               },
             ]
           }
         ]
       };
-      option && myChart.setOption(option);
+      option && this.myChart.setOption(option);
     },
   },
   mounted() {
+    window.addEventListener('resize', ()=> {
+        echarts.dispose(this.myChart);
+        this.loadPie();
+    })
     this.loadPie();
+  },
+  watch: {
+    data() {
+      echarts.dispose(this.myChart);
+      this.loadPie();
+    }
   }
 }
 </script>

@@ -2,28 +2,33 @@
   <el-row>
     <el-col :span="24">
       <div class="statistic-card">
-        <el-statistic :value="data[year]">
+        <el-statistic :value="data[year] === 0 ? '暂无数据' : data[year]">
           <template #title>
             <div style="display: inline-flex; align-items: center">
-              {{ year }}年{{ type }}能发电总量
+              {{ year }}年{{ type }}发电总量
             </div>
           </template>
         </el-statistic>
         <div class="statistic-footer">
           <div class="footer-item">
-            <span>同比{{ this.increment >= 0 ? '增长' : '减少' }}</span>
-            <span class="green" v-if="increment >= 0">
+            <div v-if="increment !== 0 && year !== 2003">
+              <span>同比{{ this.increment >= 0 ? '增长' : '减少' }}</span>
+              <span class="green" v-if="increment > 0">
                 {{ increment }}%
                 <el-icon>
                   <CaretTop/>
                 </el-icon>
-            </span>
-            <span class="red" v-if="increment < 0">
+              </span>
+              <span class="red" v-else-if="increment < 0">
                 {{ increment }}%
                 <el-icon>
                   <CaretBottom/>
                 </el-icon>
-            </span>
+              </span>
+            </div>
+            <div v-else>
+              <span>暂无同比数据</span>
+            </div>
           </div>
         </div>
       </div>
@@ -36,15 +41,13 @@
           </el-col>
           <el-col :span="24">
             <div style="height: 300px; width: 100%">
-              <energy-pie-chart/>
+              <energy-pie-chart :data="data[year]" :total="total" :type="type"/>
             </div>
           </el-col>
         </el-row>
       </el-card>
     </el-col>
   </el-row>
-
-
 </template>
 
 <script>
@@ -54,10 +57,14 @@ import EnergyPieChart from "@/components/pages/statistic/EnergyPieChart.vue";
 export default {
   name: "DataCard",
   components: {EnergyPieChart},
-  props: ['year', 'type', 'data'],
+  props: ['year', 'type', 'data', 'total'],
   computed: {
     increment() {
-      return ((this.data[this.year] - this.data[this.year - 1]) / this.data[this.year - 1] * 100).toFixed(2)
+      if (this.data[this.year - 1] === 0) {
+        return 0
+      } else{
+        return ((this.data[this.year] - this.data[this.year - 1]) / this.data[this.year - 1] * 100).toFixed(2)
+      }
     }
   }
 }
