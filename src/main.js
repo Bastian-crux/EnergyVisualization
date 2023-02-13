@@ -2,10 +2,13 @@ import {createApp} from 'vue';
 import {createRouter, createWebHistory} from 'vue-router';
 import App from './App.vue';
 import ElementPlus from 'element-plus'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/dist/index.css'
+
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faGauge, faBolt, faCalendar} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
+
 import Index from "@/components/pages/index/Index.vue";
 import Overview from "@/components/pages/overview/Overview.vue";
 import Statistic from "@/components/pages/statistic/Statistic.vue";
@@ -29,5 +32,7 @@ app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.use(router);
 app.use(ElementPlus);
-
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component);
+}
 app.mount('#app');
