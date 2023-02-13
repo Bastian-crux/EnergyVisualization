@@ -12,7 +12,7 @@ import nuclear from '/assets/monthlyStatisticData/nuclear.json';
 import solar from '/assets/monthlyStatisticData/solar.json';
 import wind from '/assets/monthlyStatisticData/wind.json';
 import * as echarts from "echarts";
-import { markRaw } from 'vue'
+import {markRaw} from 'vue'
 
 export default {
   name: "MonthlyChart",
@@ -144,7 +144,7 @@ export default {
           }
         ],
       };
-      this.myChart.setOption(option);
+      option && this.myChart.setOption(option);
     },
   },
   mounted() {

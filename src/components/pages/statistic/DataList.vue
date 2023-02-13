@@ -13,19 +13,19 @@
   </el-row>
   <el-row justify="space-around">
     <el-col :span="4">
-      <data-card :year="selectedYear" :type="'火'" :data="fossil"/>
+      <data-card :year="selectedYear" :type="'火能'" :data="fossil" :total="total"/>
     </el-col>
     <el-col :span="4">
-      <data-card :year="selectedYear" :type="'水'" :data="hydro"/>
+      <data-card :year="selectedYear" :type="'水能'" :data="hydro" :total="total"/>
     </el-col>
     <el-col :span="4">
-      <data-card :year="selectedYear" :type="'核'" :data="nuclear"/>
+      <data-card :year="selectedYear" :type="'核能'" :data="nuclear" :total="total"/>
     </el-col>
     <el-col :span="4">
-      <data-card :year="selectedYear" :type="'太阳'" :data="solar"/>
+      <data-card :year="selectedYear" :type="'太阳能'" :data="solar" :total="total"/>
     </el-col>
     <el-col :span="4">
-      <data-card :year="selectedYear" :type="'风'" :data="wind"/>
+      <data-card :year="selectedYear" :type="'风能'" :data="wind" :total="total"/>
     </el-col>
   </el-row>
 </template>
@@ -52,6 +52,11 @@ export default {
       options: [2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     }
   },
+  computed: {
+    total() {
+      return this.fossil[this.selectedYear] + this.hydro[this.selectedYear] + this.nuclear[this.selectedYear] + this.solar[this.selectedYear] + this.wind[this.selectedYear]
+    }
+  }
 }
 </script>
 
