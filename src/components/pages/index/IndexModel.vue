@@ -7,7 +7,7 @@
         <AmbientLight></AmbientLight>
 <!--        <GltfModel src="assets/models/PowerStationMergeWind1.glb" @pointerOver="windOver" @click="windClick" />-->
 <!--        <GltfModel src="assets/models/PowerStationMergeNuclear.glb" />-->
-        <GltfModel src="assets/models/PowerStationMergeSolar.glb" />
+          <GltfModel src="assets/models/PowerStationMergeSolar.glb" />
         <Box ref="box" @pointerOver="windOver" @click="windClick" :rotation="{ y: Math.PI / 4, z: Math.PI / 4 }">
           <LambertMaterial :color="boxColor" />
         </Box>

@@ -27,7 +27,8 @@ export default {
           {
             name: 'Access From',
             type: 'pie',
-            radius: ['40%', '70%'],
+            radius: ['40%', '80%'],
+            // center:['50%', '50%'],
 
             avoidLabelOverlap: false, // 启用防止标签重叠策略
             hoverAnimation: true,
