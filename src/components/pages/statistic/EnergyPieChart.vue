@@ -9,7 +9,7 @@ import * as echarts from 'echarts';
 
 export default {
   name: "EnergyPieChart",
-  props: ['type', 'data', 'total'],
+  props: ['type', 'data', 'total', 'color'],
   data() {
     return {
       myChart: null
@@ -20,9 +20,6 @@ export default {
       this.myChart = echarts.init(this.$refs.myPie);
       let option;
       option = {
-        // tooltip: {
-        //   trigger: 'item'
-        // },
         series: [
           {
             name: 'Access From',
@@ -32,7 +29,7 @@ export default {
 
             avoidLabelOverlap: false, // 启用防止标签重叠策略
             hoverAnimation: true,
-            color: ["rgba(135,218,118,0.3)", "rgba(50,50,50,0.3)"],
+            color: [this.color, "rgba(50,50,50,0.3)"],
             itemStyle: {
               borderRadius: 10,
               borderColor: '#fff',
@@ -47,26 +44,13 @@ export default {
               },
               //富文本编辑，用于设置文本样式
               rich: {
-                // name: {
-                //   color: 'rgba(50,50,50,0.3)',
-                //   fontSize: '40',
-                //   // textShadowColor: 'rgba(0,255,252,1)',
-                //   // textShadowBlur: '4'
-                // },
                 num: {
-                  color: 'rgba(135,218,118,0.3)',
+                  color: this.color,
                   fontSize: '25',
                   fontWeight: 'bolder'
                 }
               }
             },
-            // emphasis: {
-            //   label: {
-            //     show: true,
-            //     fontSize: 40,
-            //     fontWeight: 'bold'
-            //   }
-            // },
             labelLine: {
               show: false
             },
@@ -91,9 +75,9 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener('resize', ()=> {
-        echarts.dispose(this.myChart);
-        this.loadPie();
+    window.addEventListener('resize', () => {
+      echarts.dispose(this.myChart);
+      this.loadPie();
     });
     this.loadPie();
   },

@@ -34,14 +34,14 @@
       </div>
     </el-col>
     <el-col :span="24">
-      <el-card>
+      <el-card :body-style="'background-color: ' + background">
         <el-row>
           <el-col :span="24">
             <p class="description">描述：测试测试测试测试测试测试</p>
           </el-col>
           <el-col :span="24">
             <div style="height: 300px; width: 100%">
-              <energy-pie-chart :data="data[year]" :total="total" :type="type"/>
+              <energy-pie-chart :data="data[year]" :total="total" :type="type" :color="color"/>
             </div>
           </el-col>
         </el-row>
@@ -57,12 +57,12 @@ import EnergyPieChart from "@/components/pages/statistic/EnergyPieChart.vue";
 export default {
   name: "DataCard",
   components: {EnergyPieChart},
-  props: ['year', 'type', 'data', 'total'],
+  props: ['year', 'type', 'data', 'total', 'color', 'background'],
   computed: {
     increment() {
       if (this.data[this.year - 1] === 0) {
         return 0
-      } else{
+      } else {
         return ((this.data[this.year] - this.data[this.year - 1]) / this.data[this.year - 1] * 100).toFixed(2)
       }
     }
