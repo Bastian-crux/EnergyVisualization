@@ -3,15 +3,10 @@
     <el-row>
       <el-col :span="24">
         <div>
-          <div>
-            切换数据
-          </div>
-          <div>
-            <el-radio-group v-model="radio1" style="margin-top: 20px">
-              <el-radio-button label="monthly">月度数据</el-radio-button>
-              <el-radio-button label="annual">年度数据</el-radio-button>
-            </el-radio-group>
-          </div>
+          <el-radio-group v-model="radio1">
+            <el-radio-button label="monthly">月度数据</el-radio-button>
+            <el-radio-button label="annual">年度数据</el-radio-button>
+          </el-radio-group>
         </div>
       </el-col>
     </el-row>
