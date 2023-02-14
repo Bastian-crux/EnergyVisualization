@@ -13,6 +13,7 @@
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/overview">能源概览</el-menu-item>
       <el-menu-item index="/statistic">能源月报</el-menu-item>
+      <el-menu-item index="/heatmap">热力图</el-menu-item>
     </el-menu>
   </header>
 </template>

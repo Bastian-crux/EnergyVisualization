@@ -6,12 +6,13 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/dist/index.css'
 
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {faGauge, faBolt, faCalendar} from '@fortawesome/free-solid-svg-icons';
+import {faGauge, faBolt, faCalendar, faCircleInfo} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 
 import Index from "@/components/pages/index/Index.vue";
 import Overview from "@/components/pages/overview/Overview.vue";
 import Statistic from "@/components/pages/statistic/Statistic.vue";
+import HeatMapIndex from "@/components/pages/heatmap/HeatMapIndex.vue";
 
 const router = createRouter({
   history: createWebHistory(), routes: [{
@@ -20,13 +21,15 @@ const router = createRouter({
     path: '/overview', component: Overview,
   }, {
     path: '/statistic', component: Statistic,
+  }, {
+    path: '/heatmap', component: HeatMapIndex,
   }]
 });
 
 const app = createApp(App);
 
 // Add icon here
-library.add(faGauge, faBolt, faCalendar);
+library.add(faGauge, faBolt, faCalendar, faCircleInfo);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 
