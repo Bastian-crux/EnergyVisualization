@@ -93,7 +93,7 @@ export default {
     window.addEventListener('resize', ()=> {
         echarts.dispose(this.myChart);
         this.loadPie();
-    })
+    });
     this.loadPie();
   },
   watch: {
