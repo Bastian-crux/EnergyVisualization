@@ -165,19 +165,7 @@ export default {
           min: this.findSmallestValue(this.provinceData),
           max: this.findBiggestValue(this.provinceData),
           inRange: {
-            color: [
-              '#313695',
-              '#4575b4',
-              '#74add1',
-              '#abd9e9',
-              '#e0f3f8',
-              '#ffffbf',
-              '#fee090',
-              '#fdae61',
-              '#f46d43',
-              '#d73027',
-              '#a50026'
-            ]
+            color: this.colorScheme
           },
           text: ['High', 'Low'],
           calculable: true,
@@ -479,6 +467,58 @@ export default {
           return '发电站数';
         case 'power':
           return '发电量';
+      }
+    },
+    colorScheme() {
+      switch (this.energyType) {
+        case 'solar':
+          return [
+            '#FFC771',
+            '#FFAB57',
+            '#F6903D',
+            '#D77622',
+            '#B85C00',
+            '#9B4300',
+            '#7D2A00',
+            '#601000',
+            '#450000',
+          ];
+        case 'wind':
+          return [
+            '#B8E1FF',
+            '#9AC5FF',
+            '#7DAAFF',
+            '#5B8FF9',
+            '#3D76DD',
+            '#085EC0',
+            '#0047A5',
+            '#00318A',
+            '#001D70',
+          ];
+        case 'nuclear':
+          return [
+            '#9DF5CA',
+            '#61DDAA',
+            '#42C090',
+            '#19A576',
+            '#008A5D',
+            '#006F45',
+            '#00562F',
+            '#003E19',
+            '#002800',
+          ];
+        case 'bio':
+          return [
+            '#FFCCFF',
+            '#EBB0FF',
+            '#CE95F5',
+            '#B27AD8',
+            '#9661BC',
+            '#7B48A1',
+            '#613086',
+            '#48186C',
+            '#2E0054',
+          ];
       }
     }
   },
