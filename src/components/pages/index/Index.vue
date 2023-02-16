@@ -5,12 +5,11 @@
 
 <script>
 
-import IndexModel from "@/components/pages/index/IndexModel.vue";
 import IndexModels from "@/components/pages/index/IndexModels.vue";
 
 export default {
   name: "Index",
-  components: {IndexModels, IndexModel}
+  components: {IndexModels}
 }
 </script>
 

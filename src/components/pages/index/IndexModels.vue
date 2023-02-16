@@ -9,12 +9,19 @@ import * as THREE from "three";
 import {ThreeMFLoader} from "three/examples/jsm/loaders/3MFLoader.js";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
+import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer.js"
+import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js"
+import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass.js"
+import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass.js"
+import {FXAAShader} from "three/examples/jsm/shaders/FXAAShader.js"
+
 import {onMounted} from "vue";
 
-function initScene() {
-  let camera, scene, renderer;
-  let model, settings;
+let camera, scene, renderer;
+let model, settings;
+let composer, outlinePass, renderPass;
 
+function initScene() {
   // 创建场景
   scene = new THREE.Scene();
   scene.background = new THREE.Color("#AAAAAA");
@@ -132,19 +139,68 @@ function initScene() {
         // 相机离原点的最远距离
         viewControls2.maxDistance = 1000;
       });
+}
 
-  function animate() {
-    requestAnimationFrame(animate);
-    render();
-  }
+function animate() {
+  requestAnimationFrame(animate);
+  render();
+}
 
-  function render() {
-    renderer.render(scene, camera);
+function render() {
+  renderer.render(scene, camera);
+  if (composer) {
+    composer.render()
   }
+}
+
+function clickEvent(event) {
+  //获取在射线上的接触点
+  //获取鼠标坐标
+  let mouse = new THREE.Vector2();
+  let raycaster = new THREE.Raycaster();
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  let intersects = raycaster.intersectObjects(scene.children);
+  if (intersects && intersects.length > 0) {
+    outlineObj([intersects[0].object])
+  }
+  console.log('111')
+}
+
+//高亮显示模型（呼吸灯）
+function outlineObj(selectedObjects) {
+  // 创建一个EffectComposer（效果组合器）对象，然后在该对象上添加后期处理通道。
+  composer = new EffectComposer(renderer)
+  // 新建一个场景通道  为了覆盖到原理来的场景上
+  renderPass = new RenderPass(scene, camera)
+  composer.addPass(renderPass);
+  // 物体边缘发光通道
+  outlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera, selectedObjects)
+  outlinePass.selectedObjects = selectedObjects
+  outlinePass.edgeStrength = 15.0 // 边框的亮度
+  outlinePass.edgeGlow = 2// 光晕[0,1]
+  outlinePass.usePatternTexture = false // 是否使用父级的材质
+  outlinePass.edgeThickness = 1.0 // 边框宽度
+  outlinePass.downSampleRatio = 1 // 边框弯曲度
+  outlinePass.pulsePeriod = 5 // 呼吸闪烁的速度
+  outlinePass.visibleEdgeColor.set(parseInt(0xff0000)) // 呼吸显示的颜色
+  outlinePass.hiddenEdgeColor = new THREE.Color(0, 0, 0) // 呼吸消失的颜色
+  outlinePass.clear = true
+  composer.addPass(outlinePass)
+  // 自定义的着色器通道 作为参数
+  let effectFXAA = new ShaderPass(FXAAShader)
+  effectFXAA.uniforms.resolution.value.set(1 / window.innerWidth, 1 / window.innerHeight)
+  effectFXAA.renderToScreen = true
+  composer.addPass(effectFXAA)
 }
 
 onMounted(() => {
   initScene();
+  window.addEventListener('click', event => {
+    clickEvent(event)
+  });
 });
 </script>
 
