@@ -136,41 +136,39 @@ function initScene() {
         // gltf.scene.traverse(function (child){
         //   child.castShadow = true;
         // })
-        model.push(gltf.scene);
-        // model[0].scale.set(10, 10, 10);
-        model[0].position.set(-1, 2, -1);
-        model[0].castShadow = true;
-        scene.add(gltf.scene);
-        // that.createPanel();
+        const temp = gltf.scene;
+        temp.position.set(-1, 2, -1);
+        temp.castShadow = true;
+        scene.add(temp);
+        model.push(temp);
         animate();
       });
   const loader1 = new GLTFLoader();
-  loader1.load('/assets/models/solarPS.glb',
+  loader1.load('/assets/models/nuclearPS.glb',
       function (gltf) {
         // gltf.scene.traverse(function (child){
         //   child.castShadow = true;
         // })
-        model.push(gltf.scene);
-        model[1].position.set(1, 2, -1);
-        model[1].castShadow = true;
-        scene.add(gltf.scene);
+        const temp = gltf.scene;
+        temp.position.set(1, 2, -1);
+        temp.castShadow = true;
+        scene.add(temp);
+        model.push(temp);
         animate();
       });
-  // const loader2 = new GLTFLoader();
-  // loader2.load('/assets/models/solarPS.glb',
-  //     function (gltf) {
-  //       // gltf.scene.traverse(function (child){
-  //       //   child.castShadow = true;
-  //       // })
-  //       model.push(gltf.scene);
-  //       console.log(gltf.scene)
-  //       console.log(model)
-  //       // model[2].scale.set(10, 10, 10);
-  //       model[2].position.set(0, 2, 1);
-  //       model[2].castShadow = true;
-  //       scene.add(gltf.scene);
-  //       animate();
-  //     });
+  const loader2 = new GLTFLoader();
+  loader2.load('/assets/models/windPS.glb',
+      function (gltf) {
+        // gltf.scene.traverse(function (child){
+        //   child.castShadow = true;
+        // })
+        const temp = gltf.scene;
+        temp.position.set(0, 2, 1);
+        temp.castShadow = true;
+        scene.add(temp);
+        model.push(temp);
+        animate();
+      });
 }
 
 function animate() {
