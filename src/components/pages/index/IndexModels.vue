@@ -1,109 +1,149 @@
 <template>
   <div>
-    <div class="center" id="container"></div>
+    <div class="center" id="three"></div>
   </div>
 </template>
 
-<script>
-import * as THREE from 'three';
+<script setup>
+import * as THREE from "three";
+import { ThreeMFLoader } from "three/examples/jsm/loaders/3MFLoader.js";
+import { GLTFLoader} from "three/addons/loaders/GLTFLoader";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import {onMounted} from "vue";
 
+function initScene () {
+  let camera, scene, renderer;
+  let model, settings;
 
-import {OrbitControls} from "three/addons/controls/OrbitControls";
-import {GLTFLoader} from "three/addons/loaders/GLTFLoader";
+  // 创建场景
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color("#AAAAAA");
+  // scene.fog = new THREE.Fog(0xa0a0a0, 10, 500);
 
-import {GUI} from "three/examples/jsm/libs/lil-gui.module.min"
+  // 创建相机，这里创建的是一个透视相机
+  camera = new THREE.PerspectiveCamera(35, (window.innerWidth - 201) / window.innerHeight, 1, 500);
+  camera.position.set(-100, 80, 100); // 相机的位置
+  scene.add(camera);
 
+  // 半球光
+  // 天空发出的光的颜色是0xffffff，地面发出的光的颜色是0x444444
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+  // 灯光的位置
+  hemiLight.position.set(0, 100, 0);
+  scene.add(hemiLight);
 
-import {EffectComposer} from "three/addons/postprocessing/EffectComposer";
-import {RenderPass} from "three/addons/postprocessing/RenderPass";
-import {OutlinePass} from "three/addons/postprocessing/OutlinePass";
+  // 平行光
+  const dirLight = new THREE.DirectionalLight(0xffffff);
+  // 平行光的位置
+  dirLight.position.set(-0, 40, 50);
+  // 是否显示阴影
+  dirLight.castShadow = true;
+  dirLight.shadow.camera.top = 50;
+  dirLight.shadow.camera.bottom = -25;
+  dirLight.shadow.camera.left = -25;
+  dirLight.shadow.camera.right = 25;
+  dirLight.shadow.camera.near = 0.1;
+  dirLight.shadow.camera.far = 200;
+  dirLight.shadow.mapSize.set(1024, 1024);
+  scene.add(dirLight);
 
-export default {
-  data() {
-    return {
-      // publicPath: process.env.BASE_URL,
-    }
-  },
-  mounted() {
-    this.mesh = null;
-    this.camera = null;
-    this.scene = null;
-    this.renderer = null;
-    this.controls = null;
-    this.init();
-  },
-  methods: {
-    // 初始化
-    init() {
-      this.createScene() // 创建场景
-      this.loadGLTF() // 加载GLTF模型
-      this.createLight() // 创建光源
-      this.createCamera() // 创建相机
-      this.createRender() // 创建渲染器
-      this.createControls() // 创建控件对象
-      this.render() // 渲染
-    },
-    // 创建场景
-    createScene() {
-      this.scene = new THREE.Scene()
-    },
-    // 加载GLTF模型
-    loadGLTF() {
-      const THIS = this
-      const loader = new GLTFLoader()
-      loader.load('/assets/models/windPS.glb', model => {
-        this.scene.add(model.scene);
-      })
-    },
-    // 创建光源
-    createLight() {
-      // 环境光
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.1) // 创建环境光
-      this.scene.add(ambientLight) // 将环境光添加到场景
+  // 渲染器
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  const canvasFrame = document.querySelector("#three");
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth - 201, window.innerHeight);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  // 是否允许阴影贴图
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  canvasFrame.appendChild(renderer.domElement);
 
-      const spotLight = new THREE.SpotLight(0xffffff) // 创建聚光灯
-      spotLight.position.set(150, 150, 150)
-      spotLight.castShadow = true
-      this.scene.add(spotLight)
-    },
-    // 创建相机
-    createCamera() {
-      const element = document.getElementById('container')
-      const width = element.clientWidth // 窗口宽度
-      const height = element.clientHeight // 窗口高度
-      const k = width / height // 窗口宽高比
-      // PerspectiveCamera( fov, aspect, near, far )
-      this.camera = new THREE.PerspectiveCamera(35, k, 0.1, 1000)
-      this.camera.position.set(150, 150, 150) // 设置相机位置
+  // 地面
+  const ground = new THREE.Mesh(
+      new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
+      new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
+  );
+  // x轴旋转90度
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.set(0, 0, 0);
+  // 地面接收阴影
+  ground.receiveShadow = true;
+  scene.add(ground);
 
-      this.camera.lookAt(new THREE.Vector3(10, 40, 0)) // 设置相机方向
-      this.scene.add(this.camera)
-    },
-    // 创建渲染器
-    createRender() {
-      const element = document.getElementById('container')
-      this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true})
-      this.renderer.setSize(window.clientWidth, window.clientHeight) // 设置渲染区域尺寸
-      this.renderer.shadowMap.enabled = true // 显示阴影
-      this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
-      this.renderer.setClearColor(0x3f3f3f, 1) // 设置背景颜色
-      element.appendChild(this.renderer.domElement)
-    },
+  // 加载3D模型
+  // const loader3mf = new ThreeMFLoader();
+  // loader3mf.load("3dMode/island.3mf", function (object) {
+  //   object.quaternion.setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0));
+  //   object.position.set(-10, 25, -30);
+  //   object.scale.set(150, 150, 150);
+  //   object.traverse(function (child) {
+  //     child.castShadow = true;
+  //     if (child.material) {
+  //       child.material.transparent = true; // 每个材质都开启透明度设置，这个不开启改了opacity的值也不会生效
+  //       child.material.opacity = 1; // 默认设置透明度为1
+  //     }
+  //   });
+  //   model = object;
+  //   scene.add(model);
+  //   // 渲染
+  //   animate();
+  //
+  //   // 添加鼠标控制
+  //   const viewControls2 = new OrbitControls(camera, renderer.domElement);
+  //   // 开启阻尼
+  //   viewControls2.enableDamping = true;
+  //   // 阻尼系数
+  //   viewControls2.dampingFactor = 0.25;
+  //   // 开启缩放
+  //   viewControls2.enableZoom = true;
+  //   // 自动旋转
+  //   viewControls2.autoRotate = true;
+  //   // 开启鼠标右键拖拽
+  //   viewControls2.enablePan = true;
+  //   // 相机离原点的最远距离
+  //   viewControls2.maxDistance = 1000;
+  // });
+  const loader = new GLTFLoader();
+  loader.load('/assets/models/windPS.glb',
+      function (gltf) {
+        // gltf.scene.traverse(function (child){
+        //   child.castShadow = true;
+        // })
+        model = gltf.scene;
+        model.scale.set(10, 10, 10);
+        model.castShadow = true;
+        scene.add(gltf.scene);
+        // that.createPanel();
+        animate();
+          // 添加鼠标控制
+          const viewControls2 = new OrbitControls(camera, renderer.domElement);
+          // 开启阻尼
+          viewControls2.enableDamping = true;
+          // 阻尼系数
+          viewControls2.dampingFactor = 0.25;
+          // 开启缩放
+          viewControls2.enableZoom = true;
+          // 自动旋转
+          viewControls2.autoRotate = true;
+          // 开启鼠标右键拖拽
+          viewControls2.enablePan = true;
+          // 相机离原点的最远距离
+          viewControls2.maxDistance = 1000;
+      });
 
-    render() {
-      if (this.mesh) {
-        this.mesh.rotation.z += 0.006
-      }
-      this.renderer.render(this.scene, this.camera)
-      requestAnimationFrame(this.render)
-    },
-    // 创建控件对象
-    createControls() {
-      this.controls = new OrbitControls(this.camera, this.renderer.domElement)
-    }
+  function animate () {
+    requestAnimationFrame(animate);
+    render();
   }
 
+  function render () {
+    renderer.render(scene, camera);
+  }
 }
+
+onMounted(() => {
+  initScene();
+});
 </script>
 
 <style scoped>
