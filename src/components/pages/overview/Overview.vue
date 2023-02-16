@@ -34,12 +34,12 @@
   <el-row class="box-card">
     <el-col :span="16">
       <el-card class="chart-card">
-        <map-visualization :energy-type="energyType" :mode="mode" @choose-project="chooseMajorProject"/>
+        <map-visualization :energy-type="energyType" :mode="mode" @choose-project="chooseMajorProject" @back="back"/>
       </el-card>
     </el-col>
     <el-col :span="7" :offset="1">
       <el-card class="detail-card">
-        <project-details :project-detail="selectedProjectInfo" :enable="selectedProjectInfo !== null" />
+        <project-details :project-detail="selectedProjectInfo" :enable="selectedProjectInfo !== null"/>
       </el-card>
     </el-col>
   </el-row>
@@ -63,9 +63,14 @@ export default {
       selectedProjectInfo: null,
     }
   },
-  methods:{
-    chooseMajorProject(projectInfo){
+  methods: {
+    chooseMajorProject(projectInfo) {
       this.selectedProjectInfo = projectInfo;
+    },
+    back(value) {
+      if (value === true) {
+        this.selectedProjectInfo = null;
+      }
     }
   },
   watch: {

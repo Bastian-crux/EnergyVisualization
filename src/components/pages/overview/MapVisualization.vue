@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="returnMain" :disabled="nowSelectedProvince === 'mapData'">返回</el-button>
+  <el-button @click="returnMain" :disabled="nowSelectedProvince === 'mapData' && this.major === false">返回</el-button>
   <div>
     <div class="chart" id="mainChart"></div>
   </div>
@@ -73,7 +73,7 @@ export default {
       default: 'quantity'
     }
   },
-  emits: ['choose-project'],
+  emits: ['choose-project', 'back'],
   data() {
     return {
       myChart: null,
@@ -114,6 +114,7 @@ export default {
         '香港特别行政区': 'Hongkong',
         '澳门特别行政区': 'Macao'
       },
+      major: false,
     };
   },
   methods: {
@@ -134,17 +135,12 @@ export default {
           type: 'map',
           map: 'myMapName',
           roam: true, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
-          // selectedMode:'multiple',  //是否点击选中地区,'single'|'multiple'
           emphasis: {	//设置鼠标滑动高亮样式
-            // itemStyle:{
-            //   color:'purple'
-            // }
             label: {
               show: true
             },
-          }
-          // zoom:2,  //设置初始化缩放比例
-          // center:[87.6,43.79],  //设置地图中心点,值为经纬度
+          },
+          zoom: 1.5,
         },
         tooltip: {
           show: true,
@@ -249,6 +245,7 @@ export default {
         // 判断是否选择到重点项目
         for (let i = 0; i < this.provinceMajorAllData.length; i++) {
           if (this.nowSelectedProvince === this.provinceMajorAllData[i][0]) {
+            this.major = true;
             this.$emit('choose-project', this.provinceMajorAllData[i]);
           }
         }
@@ -361,6 +358,8 @@ export default {
     },
     returnMain() {
       echarts.dispose(this.myChart);
+      this.$emit('back', true)
+      this.major = false;
       this.nowSelectedProvince = 'mapData';
       this.loadMap('mapData')
     },
