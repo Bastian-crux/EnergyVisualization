@@ -16,9 +16,11 @@ import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass.js"
 import {FXAAShader} from "three/examples/jsm/shaders/FXAAShader.js"
 
 import {onMounted} from "vue";
+import {GammaCorrectionShader} from "three/addons/shaders/GammaCorrectionShader";
 
 let camera, scene, renderer;
-let model, settings;
+let model = [];
+let settings;
 let composer, outlinePass, renderPass;
 
 function initScene() {
@@ -30,7 +32,7 @@ function initScene() {
   // 创建相机，这里创建的是一个透视相机
   // camera = new THREE.PerspectiveCamera(35, (window.innerWidth - 201) / window.innerHeight, 1, 500);
   camera = new THREE.PerspectiveCamera(35, (window.innerWidth) / window.innerHeight, 1, 500);
-  camera.position.set(-100, 80, 100); // 相机的位置
+  camera.position.set(10, 10, 10); // 相机的位置
   scene.add(camera);
 
   // 半球光
@@ -70,7 +72,7 @@ function initScene() {
   // 地面
   const ground = new THREE.Mesh(
       new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
-      new THREE.MeshPhongMaterial({color: 0x999999, depthWrite: false})
+      new THREE.MeshPhongMaterial({color: 0x333333, depthWrite: false})
   );
   // x轴旋转90度
   ground.rotation.x = -Math.PI / 2;
@@ -112,33 +114,63 @@ function initScene() {
   //   // 相机离原点的最远距离
   //   viewControls2.maxDistance = 1000;
   // });
+
+  // 添加鼠标控制
+  const viewControls2 = new OrbitControls(camera, renderer.domElement);
+  // 开启阻尼
+  viewControls2.enableDamping = true;
+  // 阻尼系数
+  viewControls2.dampingFactor = 0.25;
+  // 开启缩放
+  viewControls2.enableZoom = true;
+  // 自动旋转
+  viewControls2.autoRotate = true;
+  // 开启鼠标右键拖拽
+  viewControls2.enablePan = true;
+  // 相机离原点的最远距离
+  viewControls2.maxDistance = 1000;
+
   const loader = new GLTFLoader();
-  loader.load('/assets/models/windPS.glb',
+  loader.load('/assets/models/solarPS.glb',
       function (gltf) {
         // gltf.scene.traverse(function (child){
         //   child.castShadow = true;
         // })
-        model = gltf.scene;
-        model.scale.set(10, 10, 10);
-        model.castShadow = true;
+        model.push(gltf.scene);
+        // model[0].scale.set(10, 10, 10);
+        model[0].position.set(-1, 2, -1);
+        model[0].castShadow = true;
         scene.add(gltf.scene);
         // that.createPanel();
         animate();
-        // 添加鼠标控制
-        const viewControls2 = new OrbitControls(camera, renderer.domElement);
-        // 开启阻尼
-        viewControls2.enableDamping = true;
-        // 阻尼系数
-        viewControls2.dampingFactor = 0.25;
-        // 开启缩放
-        viewControls2.enableZoom = true;
-        // 自动旋转
-        viewControls2.autoRotate = true;
-        // 开启鼠标右键拖拽
-        viewControls2.enablePan = true;
-        // 相机离原点的最远距离
-        viewControls2.maxDistance = 1000;
       });
+  const loader1 = new GLTFLoader();
+  loader1.load('/assets/models/solarPS.glb',
+      function (gltf) {
+        // gltf.scene.traverse(function (child){
+        //   child.castShadow = true;
+        // })
+        model.push(gltf.scene);
+        model[1].position.set(1, 2, -1);
+        model[1].castShadow = true;
+        scene.add(gltf.scene);
+        animate();
+      });
+  // const loader2 = new GLTFLoader();
+  // loader2.load('/assets/models/solarPS.glb',
+  //     function (gltf) {
+  //       // gltf.scene.traverse(function (child){
+  //       //   child.castShadow = true;
+  //       // })
+  //       model.push(gltf.scene);
+  //       console.log(gltf.scene)
+  //       console.log(model)
+  //       // model[2].scale.set(10, 10, 10);
+  //       model[2].position.set(0, 2, 1);
+  //       model[2].castShadow = true;
+  //       scene.add(gltf.scene);
+  //       animate();
+  //     });
 }
 
 function animate() {
@@ -163,9 +195,11 @@ function clickEvent(event) {
 
   raycaster.setFromCamera(mouse, camera);
   let intersects = raycaster.intersectObjects(scene.children);
+  // let intersects = model;
   if (intersects && intersects.length > 0) {
-    outlineObj([intersects[0].object])
+    outlineObj([model[0]])
   }
+
   console.log('111')
 }
 
@@ -173,19 +207,21 @@ function clickEvent(event) {
 function outlineObj(selectedObjects) {
   // 创建一个EffectComposer（效果组合器）对象，然后在该对象上添加后期处理通道。
   composer = new EffectComposer(renderer)
+  composer.renderTarget1.texture.encoding = THREE.sRGBEncoding;
+  composer.renderTarget2.texture.encoding = THREE.sRGBEncoding;
   // 新建一个场景通道  为了覆盖到原理来的场景上
   renderPass = new RenderPass(scene, camera)
   composer.addPass(renderPass);
   // 物体边缘发光通道
   outlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera, selectedObjects)
   outlinePass.selectedObjects = selectedObjects
-  outlinePass.edgeStrength = 15.0 // 边框的亮度
+  outlinePass.edgeStrength = 100.0 // 边框的亮度
   outlinePass.edgeGlow = 2// 光晕[0,1]
   outlinePass.usePatternTexture = false // 是否使用父级的材质
   outlinePass.edgeThickness = 1.0 // 边框宽度
   outlinePass.downSampleRatio = 1 // 边框弯曲度
   outlinePass.pulsePeriod = 5 // 呼吸闪烁的速度
-  outlinePass.visibleEdgeColor.set(parseInt(0xff0000)) // 呼吸显示的颜色
+  outlinePass.visibleEdgeColor.set(parseInt(0xffffff)) // 呼吸显示的颜色
   outlinePass.hiddenEdgeColor = new THREE.Color(0, 0, 0) // 呼吸消失的颜色
   outlinePass.clear = true
   composer.addPass(outlinePass)
@@ -194,6 +230,11 @@ function outlineObj(selectedObjects) {
   effectFXAA.uniforms.resolution.value.set(1 / window.innerWidth, 1 / window.innerHeight)
   effectFXAA.renderToScreen = true
   composer.addPass(effectFXAA)
+  // 修正颜色
+  const gammaCorrectionPass = new ShaderPass(GammaCorrectionShader);
+  composer.addPass(gammaCorrectionPass)
+
+  // model[0].scale.set(12, 12, 12);
 }
 
 onMounted(() => {
