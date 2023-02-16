@@ -6,12 +6,12 @@
 
 <script setup>
 import * as THREE from "three";
-import { ThreeMFLoader } from "three/examples/jsm/loaders/3MFLoader.js";
-import { GLTFLoader} from "three/addons/loaders/GLTFLoader";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import {ThreeMFLoader} from "three/examples/jsm/loaders/3MFLoader.js";
+import {GLTFLoader} from "three/addons/loaders/GLTFLoader";
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
 import {onMounted} from "vue";
 
-function initScene () {
+function initScene() {
   let camera, scene, renderer;
   let model, settings;
 
@@ -21,7 +21,8 @@ function initScene () {
   // scene.fog = new THREE.Fog(0xa0a0a0, 10, 500);
 
   // 创建相机，这里创建的是一个透视相机
-  camera = new THREE.PerspectiveCamera(35, (window.innerWidth - 201) / window.innerHeight, 1, 500);
+  // camera = new THREE.PerspectiveCamera(35, (window.innerWidth - 201) / window.innerHeight, 1, 500);
+  camera = new THREE.PerspectiveCamera(35, (window.innerWidth) / window.innerHeight, 1, 500);
   camera.position.set(-100, 80, 100); // 相机的位置
   scene.add(camera);
 
@@ -48,10 +49,11 @@ function initScene () {
   scene.add(dirLight);
 
   // 渲染器
-  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer = new THREE.WebGLRenderer({antialias: true});
   const canvasFrame = document.querySelector("#three");
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth - 201, window.innerHeight);
+  // renderer.setSize(window.innerWidth - 201, window.innerHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.outputEncoding = THREE.sRGBEncoding;
   // 是否允许阴影贴图
   renderer.shadowMap.enabled = true;
@@ -61,7 +63,7 @@ function initScene () {
   // 地面
   const ground = new THREE.Mesh(
       new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
-      new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
+      new THREE.MeshPhongMaterial({color: 0x999999, depthWrite: false})
   );
   // x轴旋转90度
   ground.rotation.x = -Math.PI / 2;
@@ -115,28 +117,28 @@ function initScene () {
         scene.add(gltf.scene);
         // that.createPanel();
         animate();
-          // 添加鼠标控制
-          const viewControls2 = new OrbitControls(camera, renderer.domElement);
-          // 开启阻尼
-          viewControls2.enableDamping = true;
-          // 阻尼系数
-          viewControls2.dampingFactor = 0.25;
-          // 开启缩放
-          viewControls2.enableZoom = true;
-          // 自动旋转
-          viewControls2.autoRotate = true;
-          // 开启鼠标右键拖拽
-          viewControls2.enablePan = true;
-          // 相机离原点的最远距离
-          viewControls2.maxDistance = 1000;
+        // 添加鼠标控制
+        const viewControls2 = new OrbitControls(camera, renderer.domElement);
+        // 开启阻尼
+        viewControls2.enableDamping = true;
+        // 阻尼系数
+        viewControls2.dampingFactor = 0.25;
+        // 开启缩放
+        viewControls2.enableZoom = true;
+        // 自动旋转
+        viewControls2.autoRotate = true;
+        // 开启鼠标右键拖拽
+        viewControls2.enablePan = true;
+        // 相机离原点的最远距离
+        viewControls2.maxDistance = 1000;
       });
 
-  function animate () {
+  function animate() {
     requestAnimationFrame(animate);
     render();
   }
 
-  function render () {
+  function render() {
     renderer.render(scene, camera);
   }
 }
@@ -148,8 +150,7 @@ onMounted(() => {
 
 <style scoped>
 .center {
-  height: 0px;
   max-width: 100%;
-  margin: 0rem auto;
+  margin: 0 auto;
 }
 </style>
