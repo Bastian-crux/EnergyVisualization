@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="center" id="three"></div>
+  <div class="center" id="index">
+    <div id="three"></div>
   </div>
 </template>
 
@@ -22,6 +22,8 @@ let camera, scene, renderer;
 let model = [];
 let settings;
 let composer, outlinePass, renderPass;
+let controlMesh1, controlMesh2, controlMesh3;
+let element;
 
 function initScene() {
   // 创建场景
@@ -29,9 +31,11 @@ function initScene() {
   scene.background = new THREE.Color("#AAAAAA");
   // scene.fog = new THREE.Fog(0xa0a0a0, 10, 500);
 
+  element = document.getElementById('index');
+  console.log(element)
   // 创建相机，这里创建的是一个透视相机
   // camera = new THREE.PerspectiveCamera(35, (window.innerWidth - 201) / window.innerHeight, 1, 500);
-  camera = new THREE.PerspectiveCamera(35, (window.innerWidth) / window.innerHeight, 1, 500);
+  camera = new THREE.PerspectiveCamera(35, (element.clientWidth) / element.clientHeight, 1, 500);
   camera.position.set(10, 10, 10); // 相机的位置
   scene.add(camera);
 
@@ -62,7 +66,7 @@ function initScene() {
   const canvasFrame = document.querySelector("#three");
   renderer.setPixelRatio(window.devicePixelRatio);
   // renderer.setSize(window.innerWidth - 201, window.innerHeight);
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(element.clientWidth, element.clientHeight);
   renderer.outputEncoding = THREE.sRGBEncoding;
   // 是否允许阴影贴图
   renderer.shadowMap.enabled = true;
@@ -130,6 +134,10 @@ function initScene() {
   // 相机离原点的最远距离
   viewControls2.maxDistance = 1000;
 
+  controlMesh1 = new THREE.Mesh();
+  controlMesh2 = new THREE.Mesh();
+  controlMesh3 = new THREE.Mesh();
+
   const loader = new GLTFLoader();
   loader.load('/assets/models/solarPS.glb',
       function (gltf) {
@@ -139,8 +147,9 @@ function initScene() {
         const temp = gltf.scene;
         temp.position.set(-1, 2, -1);
         temp.castShadow = true;
-        scene.add(temp);
-        model.push(temp);
+        // scene.add(temp);
+        // model.push(temp);
+        controlMesh1.add(temp);
         animate();
       });
   const loader1 = new GLTFLoader();
@@ -152,8 +161,9 @@ function initScene() {
         const temp = gltf.scene;
         temp.position.set(1, 2, -1);
         temp.castShadow = true;
-        scene.add(temp);
-        model.push(temp);
+        // scene.add(temp);
+        // model.push(temp);
+        controlMesh2.add(temp);
         animate();
       });
   const loader2 = new GLTFLoader();
@@ -165,10 +175,14 @@ function initScene() {
         const temp = gltf.scene;
         temp.position.set(0, 2, 1);
         temp.castShadow = true;
-        scene.add(temp);
-        model.push(temp);
+        // scene.add(temp);
+        // model.push(temp);
+        controlMesh3.add(temp);
         animate();
       });
+  scene.add(controlMesh1);
+  scene.add(controlMesh2);
+  scene.add(controlMesh3);
 }
 
 function animate() {
@@ -188,17 +202,28 @@ function clickEvent(event) {
   //获取鼠标坐标
   let mouse = new THREE.Vector2();
   let raycaster = new THREE.Raycaster();
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  mouse.x = (event.clientX / element.clientWidth) * 2 - 1;
+  mouse.y = -(event.clientY / element.clientHeight) * 2 + 1;
 
   raycaster.setFromCamera(mouse, camera);
-  let intersects = raycaster.intersectObjects(scene.children);
-  // let intersects = model;
+  // let intersects = raycaster.intersectObjects(scene.children);
+  // console.log(controlMeshes[0]);
+  let intersects = raycaster.intersectObjects(controlMesh1, false);
+  console.log(intersects);
   if (intersects && intersects.length > 0) {
-    outlineObj([model[0]])
+    outlineObj([intersects])
+  }
+  intersects = raycaster.intersectObjects(controlMesh2, false);
+  console.log(intersects);
+  if (intersects && intersects.length > 0) {
+    outlineObj([intersects])
+  }
+  intersects = raycaster.intersectObjects(controlMesh3, false);
+  console.log(intersects);
+  if (intersects && intersects.length > 0) {
+    outlineObj([intersects])
   }
 
-  console.log('111')
 }
 
 //高亮显示模型（呼吸灯）
@@ -211,28 +236,29 @@ function outlineObj(selectedObjects) {
   renderPass = new RenderPass(scene, camera)
   composer.addPass(renderPass);
   // 物体边缘发光通道
-  outlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera, selectedObjects)
+  outlinePass = new OutlinePass(new THREE.Vector2(element.clientWidth, element.clientHeight), scene, camera, selectedObjects)
   outlinePass.selectedObjects = selectedObjects
   outlinePass.edgeStrength = 100.0 // 边框的亮度
   outlinePass.edgeGlow = 2// 光晕[0,1]
   outlinePass.usePatternTexture = false // 是否使用父级的材质
   outlinePass.edgeThickness = 1.0 // 边框宽度
   outlinePass.downSampleRatio = 1 // 边框弯曲度
-  outlinePass.pulsePeriod = 5 // 呼吸闪烁的速度
+  outlinePass.pulsePeriod = 5 // 闪烁的速度
   outlinePass.visibleEdgeColor.set(parseInt(0xffffff)) // 呼吸显示的颜色
   outlinePass.hiddenEdgeColor = new THREE.Color(0, 0, 0) // 呼吸消失的颜色
   outlinePass.clear = true
   composer.addPass(outlinePass)
   // 自定义的着色器通道 作为参数
   let effectFXAA = new ShaderPass(FXAAShader)
-  effectFXAA.uniforms.resolution.value.set(1 / window.innerWidth, 1 / window.innerHeight)
+  effectFXAA.uniforms.resolution.value.set(1 / element.clientWidth, 1 / element.clientHeight)
   effectFXAA.renderToScreen = true
   composer.addPass(effectFXAA)
   // 修正颜色
   const gammaCorrectionPass = new ShaderPass(GammaCorrectionShader);
   composer.addPass(gammaCorrectionPass)
 
-  // model[0].scale.set(12, 12, 12);
+  // model[0].scale.set(1.2, 1.2, 1.2);
+  // model[0].position.set(1,2,3);
 }
 
 onMounted(() => {
@@ -245,7 +271,8 @@ onMounted(() => {
 
 <style scoped>
 .center {
-  max-width: 100%;
+  width: 80%;
+  height: 600px;
   margin: 0 auto;
 }
 </style>
