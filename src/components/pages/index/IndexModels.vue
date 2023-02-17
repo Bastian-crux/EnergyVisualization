@@ -1,8 +1,8 @@
 <template>
   <div class="center" id="index">
-    <div class="text"></div>
     <div id="three"></div>
   </div>
+  <div class="text"></div>
 </template>
 
 <script setup>
@@ -17,20 +17,25 @@ import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass.js"
 import {FXAAShader} from "three/examples/jsm/shaders/FXAAShader.js"
 import Stats from "three/addons/libs/stats.module";
 
-import {onMounted} from "vue";
+import {onMounted, onUnmounted} from "vue";
 import {GammaCorrectionShader} from "three/addons/shaders/GammaCorrectionShader";
 import {useRoute, useRouter} from "vue-router";
 
 const props = defineProps(['itemIdx'])
 let camera, scene, renderer;
+let viewControls2;
 let model = [];
-let modelSelected = [false, false, false];
 let settings;
 let composer, outlinePass, renderPass;
 let element;
 let stats;
 
+let animateId;
+
 let textBox;
+
+let renderEnabled;
+let timeOut = null;
 
 //fps
 let clock;
@@ -93,7 +98,7 @@ function initScene() {
   canvasFrame.appendChild(renderer.domElement);
 
   stats = new Stats();
-  element.appendChild( stats.dom );
+  element.appendChild(stats.dom);
 
   // 地面
   const ground = new THREE.Mesh(
@@ -106,6 +111,7 @@ function initScene() {
   // 地面接收阴影
   // ground.receiveShadow = true;
   scene.add(ground);
+  // timeRender();
 
   // 加载3D模型
   // const loader3mf = new ThreeMFLoader();
@@ -122,12 +128,10 @@ function initScene() {
   //   });
   //   model = object;
   //   scene.add(model);
-  //   // 渲染
-  //   animate();
   // });
 
   // 添加鼠标控制
-  const viewControls2 = new OrbitControls(camera, renderer.domElement);
+  viewControls2 = new OrbitControls(camera, renderer.domElement);
   // 开启阻尼
   viewControls2.enableDamping = true;
   // 阻尼系数
@@ -154,14 +158,10 @@ function initScene() {
         temp.castShadow = true;
         scene.add(temp);
         model.push(temp);
-        animate();
       });
   const loader1 = new GLTFLoader();
   loader1.load('/assets/models/nuclearPS.glb',
       function (gltf) {
-        // gltf.scene.traverse(function (child){
-        //   child.castShadow = true;
-        // })
         const temp = gltf.scene;
         temp.name = '热力图';
 
@@ -169,37 +169,34 @@ function initScene() {
         temp.castShadow = true;
         scene.add(temp);
         model.push(temp);
-        animate();
       });
   const loader2 = new GLTFLoader();
   loader2.load('/assets/models/windPS.glb',
       function (gltf) {
-        // gltf.scene.traverse(function (child){
-        //   child.castShadow = true;
-        // })
         const temp = gltf.scene;
         temp.name = '能源月报';
         temp.position.set(0, 2, 1.5);
         temp.castShadow = true;
         scene.add(temp);
         model.push(temp);
-        animate();
       });
+  animate();
 }
 
 function animate() {
-  requestAnimationFrame(animate);
+  animateId = requestAnimationFrame(animate);
   render();
   stats.update();
 }
 
 function render() {
-  let tempT = clock.getDelta();
-  times += tempT;
-  if (times > renderT){
-    renderer.render(scene, camera);
-    times = 0;
-  }
+  // let tempT = clock.getDelta();
+  // times += tempT;
+  // if (times > renderT){
+  renderer.render(scene, camera);
+  // times = 0;
+  // }
+  console.log("111")
   if (composer) {
     composer.render()
   }
@@ -230,26 +227,9 @@ function clickEvent(event) {
     textBox.style.top = transPosition(temp).y + 'px';
     textBox.innerHTML = temp.name;
     enterPage(temp.name);
-  }
-  else {
+  } else {
     textBox.style.display = "none";
   }
-  // let intersects = raycaster.intersectObjects(controlMesh1, false);
-  // console.log(intersects);
-  // if (intersects && intersects.length > 0) {
-  //   outlineObj([intersects])
-  // }
-  // intersects = raycaster.intersectObjects(controlMesh2, false);
-  // console.log(intersects);
-  // if (intersects && intersects.length > 0) {
-  //   outlineObj([intersects])
-  // }
-  // intersects = raycaster.intersectObjects(controlMesh3, false);
-  // console.log(intersects);
-  // if (intersects && intersects.length > 0) {
-  //   outlineObj([intersects])
-  // }
-
 }
 
 //高亮显示模型（呼吸灯）
@@ -284,7 +264,6 @@ function outlineObj(selectedObjects) {
   composer.addPass(gammaCorrectionPass)
 
   // model[0].scale.set(1.2, 1.2, 1.2);
-  // model[0].position.set(1,2,3);
 }
 
 //三维坐标转屏幕坐标的方法
@@ -298,27 +277,102 @@ function transPosition(position) {
     y: Math.round(-vector.y * halfHeight + halfHeight)
   };
 }
-function enterPage(name){
-  if (name === "能源概览"){
+
+function enterPage(name) {
+  if (name === "能源概览") {
     router.push('/overview');
-  } else if (name === "热力图"){
+  } else if (name === "热力图") {
     router.push('/heatmap')
-  } else if (name === "能源月报"){
+  } else if (name === "能源月报") {
     router.push('/statistic')
+  }
+}
+
+function timeRender() {
+//设置为可渲染状态
+  renderEnabled = true;
+//清除上次的延迟器
+  if (timeOut) {
+    clearTimeout(timeOut);
+  }
+  timeOut = setTimeout(function () {
+    renderEnabled = false;
+  }, 3000);
+}
+
+function disposeScene() {
+  removeModel(null, scene);
+
+  // scene.background.dispose();
+  viewControls2.dispose();
+  //处理当前的渲染环境
+  renderer.dispose();
+
+  //模拟WebGL环境的丢失。
+  renderer.forceContextLoss();
+  //在内部用于处理场景渲染对象的排序注销
+  renderer.renderLists.dispose();
+  //renderer的渲染容器删除
+  renderer.domElement = null;
+  //释放renderer变量的内存
+  renderer = null;
+  //清除所有缓存中的值。
+  THREE.Cache.clear();
+  scene.remove();
+
+  camera = null;
+  scene = null;
+  renderer = null;
+  viewControls2 = null;
+  model = null;
+  composer = null;
+  outlinePass = null;
+  renderPass = null;
+  element = null;
+  stats = null;
+
+  cancelAnimationFrame(animateId);
+  animateId = null;
+
+}
+
+function removeModel(parent, child) {
+  if (child.children.length) {
+    let arr = child.children.filter(x => x);
+    arr.forEach(a => {
+      removeModel(child, a)
+    })
+  }
+  if (child instanceof THREE.Mesh || child instanceof THREE.Line) {
+    if (child.material.map) child.material.map.dispose();
+    child.material.dispose();
+    child.geometry.dispose();
+  } else if (child.material) {
+    child.material.dispose();
+  }
+  child.remove();
+  if (parent) {
+    parent.remove(child);
   }
 }
 
 onMounted(() => {
   initScene();
-  window.addEventListener('click', event => {
+  element.addEventListener('click', event => {
     clickEvent(event)
+    // timeRender();
   });
   window.addEventListener('resize', event => {
     element = document.getElementById('index');
     renderer.setSize(element.clientWidth, element.clientHeight);
     camera.aspect = element.clientWidth / element.clientHeight;
     camera.updateProjectionMatrix();
+    // timeRender();
   })
+
+});
+onUnmounted(() => {
+  disposeScene();
 });
 </script>
 
@@ -328,6 +382,7 @@ onMounted(() => {
   height: 750px;
   margin: 0 auto;
 }
+
 /* 文字提示框样式 */
 .text {
   display: none;
