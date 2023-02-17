@@ -74,16 +74,16 @@ function initScene() {
   canvasFrame.appendChild(renderer.domElement);
 
   // 地面
-  const ground = new THREE.Mesh(
-      new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
-      new THREE.MeshPhongMaterial({color: 0x333333, depthWrite: false})
-  );
-  // x轴旋转90度
-  ground.rotation.x = -Math.PI / 2;
-  ground.position.set(0, 0, 0);
-  // 地面接收阴影
-  ground.receiveShadow = true;
-  scene.add(ground);
+  // const ground = new THREE.Mesh(
+  //     new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
+  //     new THREE.MeshPhongMaterial({color: 0x333333, depthWrite: false})
+  // );
+  // // x轴旋转90度
+  // ground.rotation.x = -Math.PI / 2;
+  // ground.position.set(0, 0, 0);
+  // // 地面接收阴影
+  // ground.receiveShadow = true;
+  // scene.add(ground);
 
   // 加载3D模型
   // const loader3mf = new ThreeMFLoader();
@@ -134,9 +134,9 @@ function initScene() {
   // 相机离原点的最远距离
   viewControls2.maxDistance = 1000;
 
-  controlMesh1 = new THREE.Mesh();
-  controlMesh2 = new THREE.Mesh();
-  controlMesh3 = new THREE.Mesh();
+  // controlMesh1 = new THREE.Mesh();
+  // controlMesh2 = new THREE.Mesh();
+  // controlMesh3 = new THREE.Mesh();
 
   const loader = new GLTFLoader();
   loader.load('/assets/models/solarPS.glb',
@@ -147,9 +147,9 @@ function initScene() {
         const temp = gltf.scene;
         temp.position.set(-1, 2, -1);
         temp.castShadow = true;
-        // scene.add(temp);
-        // model.push(temp);
-        controlMesh1.add(temp);
+        scene.add(temp);
+        model.push(temp);
+        // controlMesh1.add(temp);
         animate();
       });
   const loader1 = new GLTFLoader();
@@ -161,9 +161,9 @@ function initScene() {
         const temp = gltf.scene;
         temp.position.set(1, 2, -1);
         temp.castShadow = true;
-        // scene.add(temp);
-        // model.push(temp);
-        controlMesh2.add(temp);
+        scene.add(temp);
+        model.push(temp);
+        // controlMesh2.add(temp);
         animate();
       });
   const loader2 = new GLTFLoader();
@@ -175,14 +175,14 @@ function initScene() {
         const temp = gltf.scene;
         temp.position.set(0, 2, 1);
         temp.castShadow = true;
-        // scene.add(temp);
-        // model.push(temp);
-        controlMesh3.add(temp);
+        scene.add(temp);
+        model.push(temp);
+        // controlMesh3.add(temp);
         animate();
       });
-  scene.add(controlMesh1);
-  scene.add(controlMesh2);
-  scene.add(controlMesh3);
+  // scene.add(controlMesh1);
+  // scene.add(controlMesh2);
+  // scene.add(controlMesh3);
 }
 
 function animate() {
@@ -206,23 +206,30 @@ function clickEvent(event) {
   mouse.y = -(event.clientY / element.clientHeight) * 2 + 1;
 
   raycaster.setFromCamera(mouse, camera);
-  // let intersects = raycaster.intersectObjects(scene.children);
-  // console.log(controlMeshes[0]);
-  let intersects = raycaster.intersectObjects(controlMesh1, false);
-  console.log(intersects);
-  if (intersects && intersects.length > 0) {
-    outlineObj([intersects])
+  let intersects = raycaster.intersectObjects(scene.children);
+  if (intersects.length > 0) {
+    let selectedObj = intersects[0].object;
+    let temp;
+    for (temp = selectedObj; temp.parent.type !== "Scene"; temp = temp.parent) {
+      ;
+    }
+    outlineObj([temp]);
   }
-  intersects = raycaster.intersectObjects(controlMesh2, false);
-  console.log(intersects);
-  if (intersects && intersects.length > 0) {
-    outlineObj([intersects])
-  }
-  intersects = raycaster.intersectObjects(controlMesh3, false);
-  console.log(intersects);
-  if (intersects && intersects.length > 0) {
-    outlineObj([intersects])
-  }
+  // let intersects = raycaster.intersectObjects(controlMesh1, false);
+  // console.log(intersects);
+  // if (intersects && intersects.length > 0) {
+  //   outlineObj([intersects])
+  // }
+  // intersects = raycaster.intersectObjects(controlMesh2, false);
+  // console.log(intersects);
+  // if (intersects && intersects.length > 0) {
+  //   outlineObj([intersects])
+  // }
+  // intersects = raycaster.intersectObjects(controlMesh3, false);
+  // console.log(intersects);
+  // if (intersects && intersects.length > 0) {
+  //   outlineObj([intersects])
+  // }
 
 }
 
