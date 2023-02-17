@@ -1,5 +1,6 @@
 <template>
   <div class="center" id="index">
+    <div class="text"></div>
     <div id="three"></div>
   </div>
 </template>
@@ -14,33 +15,48 @@ import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js"
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass.js"
 import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass.js"
 import {FXAAShader} from "three/examples/jsm/shaders/FXAAShader.js"
+import Stats from "three/addons/libs/stats.module";
 
 import {onMounted} from "vue";
 import {GammaCorrectionShader} from "three/addons/shaders/GammaCorrectionShader";
+import {useRoute, useRouter} from "vue-router";
 
 const props = defineProps(['itemIdx'])
 let camera, scene, renderer;
 let model = [];
+let modelSelected = [false, false, false];
 let settings;
 let composer, outlinePass, renderPass;
-let controlMesh1, controlMesh2, controlMesh3;
 let element;
+let stats;
+
+let textBox;
+
+//fps
+let clock;
+let renderT = 1 / 30;
+let times = 0;
+
+const router = useRouter();
 
 function initScene() {
+  // 设置fps
+  clock = new THREE.Clock();
+
+
   // 创建场景
   scene = new THREE.Scene();
   scene.background = new THREE.Color("#AAAAAA");
   // scene.fog = new THREE.Fog(0xa0a0a0, 10, 500);
 
   element = document.getElementById('index');
+  textBox = document.querySelector('.text');
   console.log(element)
   // 创建相机，这里创建的是一个透视相机
   // camera = new THREE.PerspectiveCamera(35, (window.innerWidth - 201) / window.innerHeight, 1, 500);
   camera = new THREE.PerspectiveCamera(35, (element.clientWidth) / element.clientHeight, 1, 500);
   camera.position.set(10, 10, 10); // 相机的位置
   scene.add(camera);
-  // let cameraPerspectiveHelper = new THREE.CameraHelper( camera );
-  // scene.add( cameraPerspectiveHelper );
 
   // 半球光
   // 天空发出的光的颜色是0xffffff，地面发出的光的颜色是0x444444
@@ -76,6 +92,9 @@ function initScene() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   canvasFrame.appendChild(renderer.domElement);
 
+  stats = new Stats();
+  element.appendChild( stats.dom );
+
   // 地面
   const ground = new THREE.Mesh(
       new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
@@ -85,7 +104,7 @@ function initScene() {
   ground.rotation.x = -Math.PI / 2;
   ground.position.set(0, 0, 0);
   // 地面接收阴影
-  ground.receiveShadow = true;
+  // ground.receiveShadow = true;
   scene.add(ground);
 
   // 加载3D模型
@@ -105,21 +124,6 @@ function initScene() {
   //   scene.add(model);
   //   // 渲染
   //   animate();
-  //
-  //   // 添加鼠标控制
-  //   const viewControls2 = new OrbitControls(camera, renderer.domElement);
-  //   // 开启阻尼
-  //   viewControls2.enableDamping = true;
-  //   // 阻尼系数
-  //   viewControls2.dampingFactor = 0.25;
-  //   // 开启缩放
-  //   viewControls2.enableZoom = true;
-  //   // 自动旋转
-  //   viewControls2.autoRotate = true;
-  //   // 开启鼠标右键拖拽
-  //   viewControls2.enablePan = true;
-  //   // 相机离原点的最远距离
-  //   viewControls2.maxDistance = 1000;
   // });
 
   // 添加鼠标控制
@@ -137,9 +141,6 @@ function initScene() {
   // 相机离原点的最远距离
   viewControls2.maxDistance = 1000;
 
-  // controlMesh1 = new THREE.Mesh();
-  // controlMesh2 = new THREE.Mesh();
-  // controlMesh3 = new THREE.Mesh();
 
   const loader = new GLTFLoader();
   loader.load('/assets/models/solarPS.glb',
@@ -148,11 +149,11 @@ function initScene() {
         //   child.castShadow = true;
         // })
         const temp = gltf.scene;
-        temp.position.set(-1, 2, -1);
+        temp.name = '能源概览';
+        temp.position.set(-2, 2, -2);
         temp.castShadow = true;
         scene.add(temp);
         model.push(temp);
-        // controlMesh1.add(temp);
         animate();
       });
   const loader1 = new GLTFLoader();
@@ -162,11 +163,12 @@ function initScene() {
         //   child.castShadow = true;
         // })
         const temp = gltf.scene;
-        temp.position.set(1, 2, -1);
+        temp.name = '热力图';
+
+        temp.position.set(2, 2, -2);
         temp.castShadow = true;
         scene.add(temp);
         model.push(temp);
-        // controlMesh2.add(temp);
         animate();
       });
   const loader2 = new GLTFLoader();
@@ -176,25 +178,28 @@ function initScene() {
         //   child.castShadow = true;
         // })
         const temp = gltf.scene;
-        temp.position.set(0, 2, 1);
+        temp.name = '能源月报';
+        temp.position.set(0, 2, 1.5);
         temp.castShadow = true;
         scene.add(temp);
         model.push(temp);
-        // controlMesh3.add(temp);
         animate();
       });
-  // scene.add(controlMesh1);
-  // scene.add(controlMesh2);
-  // scene.add(controlMesh3);
 }
 
 function animate() {
   requestAnimationFrame(animate);
   render();
+  stats.update();
 }
 
 function render() {
-  renderer.render(scene, camera);
+  let tempT = clock.getDelta();
+  times += tempT;
+  if (times > renderT){
+    renderer.render(scene, camera);
+    times = 0;
+  }
   if (composer) {
     composer.render()
   }
@@ -218,7 +223,16 @@ function clickEvent(event) {
     for (temp = selectedObj; temp.parent.type !== "Scene"; temp = temp.parent) {
       ;
     }
+    console.log(temp);
     outlineObj([temp]);
+    textBox.style.display = "inline-block";
+    textBox.style.left = transPosition(temp).x + 'px';
+    textBox.style.top = transPosition(temp).y + 'px';
+    textBox.innerHTML = temp.name;
+    enterPage(temp.name);
+  }
+  else {
+    textBox.style.display = "none";
   }
   // let intersects = raycaster.intersectObjects(controlMesh1, false);
   // console.log(intersects);
@@ -273,8 +287,25 @@ function outlineObj(selectedObjects) {
   // model[0].position.set(1,2,3);
 }
 
-function changeViewport(){
-
+//三维坐标转屏幕坐标的方法
+function transPosition(position) {
+  let world_vector = new THREE.Vector3(position.x, position.y, position.z);
+  let vector = world_vector.project(camera);
+  let halfWidth = element.clientWidth / 2,
+      halfHeight = element.clientHeight / 2;
+  return {
+    x: Math.round(vector.x * halfWidth + halfWidth),
+    y: Math.round(-vector.y * halfHeight + halfHeight)
+  };
+}
+function enterPage(name){
+  if (name === "能源概览"){
+    router.push('/overview');
+  } else if (name === "热力图"){
+    router.push('/heatmap')
+  } else if (name === "能源月报"){
+    router.push('/statistic')
+  }
 }
 
 onMounted(() => {
@@ -296,5 +327,14 @@ onMounted(() => {
   width: 80%;
   height: 750px;
   margin: 0 auto;
+}
+/* 文字提示框样式 */
+.text {
+  display: none;
+  box-shadow: 0 0 5px rgb(138, 138, 138);
+  padding: 10px;
+  position: relative;
+  /*font-weight: bold;*/
+  background: rgba(255, 255, 255, 0.747);
 }
 </style>
