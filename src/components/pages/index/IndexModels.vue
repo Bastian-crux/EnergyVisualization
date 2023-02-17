@@ -18,6 +18,7 @@ import {FXAAShader} from "three/examples/jsm/shaders/FXAAShader.js"
 import {onMounted} from "vue";
 import {GammaCorrectionShader} from "three/addons/shaders/GammaCorrectionShader";
 
+const props = defineProps(['itemIdx'])
 let camera, scene, renderer;
 let model = [];
 let settings;
@@ -38,6 +39,8 @@ function initScene() {
   camera = new THREE.PerspectiveCamera(35, (element.clientWidth) / element.clientHeight, 1, 500);
   camera.position.set(10, 10, 10); // 相机的位置
   scene.add(camera);
+  // let cameraPerspectiveHelper = new THREE.CameraHelper( camera );
+  // scene.add( cameraPerspectiveHelper );
 
   // 半球光
   // 天空发出的光的颜色是0xffffff，地面发出的光的颜色是0x444444
@@ -74,16 +77,16 @@ function initScene() {
   canvasFrame.appendChild(renderer.domElement);
 
   // 地面
-  // const ground = new THREE.Mesh(
-  //     new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
-  //     new THREE.MeshPhongMaterial({color: 0x333333, depthWrite: false})
-  // );
-  // // x轴旋转90度
-  // ground.rotation.x = -Math.PI / 2;
-  // ground.position.set(0, 0, 0);
-  // // 地面接收阴影
-  // ground.receiveShadow = true;
-  // scene.add(ground);
+  const ground = new THREE.Mesh(
+      new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
+      new THREE.MeshPhongMaterial({color: 0x333333, depthWrite: false})
+  );
+  // x轴旋转90度
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.set(0, 0, 0);
+  // 地面接收阴影
+  ground.receiveShadow = true;
+  scene.add(ground);
 
   // 加载3D模型
   // const loader3mf = new ThreeMFLoader();
@@ -268,18 +271,28 @@ function outlineObj(selectedObjects) {
   // model[0].position.set(1,2,3);
 }
 
+function changeViewport(){
+
+}
+
 onMounted(() => {
   initScene();
   window.addEventListener('click', event => {
     clickEvent(event)
   });
+  window.addEventListener('resize', event => {
+    element = document.getElementById('index');
+    renderer.setSize(element.clientWidth, element.clientHeight);
+    camera.aspect = element.clientWidth / element.clientHeight;
+    camera.updateProjectionMatrix();
+  })
 });
 </script>
 
 <style scoped>
 .center {
   width: 80%;
-  height: 600px;
+  height: 750px;
   margin: 0 auto;
 }
 </style>
