@@ -203,10 +203,12 @@ function render() {
 function clickEvent(event) {
   //获取在射线上的接触点
   //获取鼠标坐标
+  let marginLeft = window.innerWidth * 0.1;
+  let marginTop = 58;
   let mouse = new THREE.Vector2();
   let raycaster = new THREE.Raycaster();
-  mouse.x = (event.clientX / element.clientWidth) * 2 - 1;
-  mouse.y = -(event.clientY / element.clientHeight) * 2 + 1;
+  mouse.x = ((event.clientX - marginLeft) / element.clientWidth) * 2 - 1;
+  mouse.y = -((event.clientY - marginTop) / element.clientHeight) * 2 + 1;
 
   raycaster.setFromCamera(mouse, camera);
   let intersects = raycaster.intersectObjects(scene.children);
