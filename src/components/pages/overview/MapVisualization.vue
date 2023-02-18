@@ -114,6 +114,43 @@ export default {
         '香港特别行政区': 'Hongkong',
         '澳门特别行政区': 'Macao'
       },
+      areaDicData: {
+        'mapData': mapData,
+        'Beijing': Beijing,
+        'Tianjin': Tianjin,
+        'Hebei': Hebei,
+        'Shanxi': Shanxi,
+        'InnerMongolia': InnerMongolia,
+        'Liaoning': Liaoning,
+        'Jilin': Jilin,
+        'Heilongjiang': Heilongjiang,
+        'Shanghai': Shanghai,
+        'Jiangsu': Jiangsu,
+        'Zhejiang': Zhejiang,
+        'Anhui': Anhui,
+        'Fujian': Fujian,
+        'Jiangxi': Jiangxi,
+        'Shandong': Shandong,
+        'Henan': Henan,
+        'Hubei': Hubei,
+        'Hunan': Hunan,
+        'Guangdong': Guangdong,
+        'Guangxi': Guangxi,
+        'Hainan': Hainan,
+        'Chongqing': Chongqing,
+        'Sichuan': Sichuan,
+        'Guizhou': Guizhou,
+        'Yunnan': Yunnan,
+        'Tibet': Tibet,
+        'Shaanxi': Shaanxi,
+        'Gansu': Gansu,
+        'Qinghai': Qinghai,
+        'Ningxia': Ningxia,
+        'Xinjiang': Xinjiang,
+        'Taiwan': Taiwan,
+        'Hongkong': Hongkong,
+        'Macao': Macao
+      },
       major: false,
     };
   },
@@ -124,7 +161,7 @@ export default {
       let option;
       this.myChart.showLoading();
       this.myChart.hideLoading();
-      echarts.registerMap('myMapName', eval(params), {});
+      echarts.registerMap('myMapName', this.areaDicData[params], {});
       option = {
         title: {
           text: `全国${this.energyChinese}发电项目`,
@@ -270,7 +307,7 @@ export default {
       let option;
       this.myChart.showLoading();
       this.myChart.hideLoading();
-      echarts.registerMap('myMapName', eval(mapName), {});
+      echarts.registerMap('myMapName', this.areaDicData[mapName], {});
       option = {
         title: {
           text: `${params}${this.energyChinese}发电项目`,
