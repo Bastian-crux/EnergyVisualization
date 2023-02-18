@@ -147,7 +147,7 @@ function initScene() {
 
 
   const loader = new GLTFLoader();
-  loader.load('/assets/models/solarPS.glb',
+  loader.load('/static/solarPS.glb',
       function (gltf) {
         // gltf.scene.traverse(function (child){
         //   child.castShadow = true;
@@ -160,7 +160,7 @@ function initScene() {
         model.push(temp);
       });
   const loader1 = new GLTFLoader();
-  loader1.load('/assets/models/nuclearPS.glb',
+  loader1.load('/static/nuclearPS.glb',
       function (gltf) {
         const temp = gltf.scene;
         temp.name = '热力图';
@@ -171,7 +171,7 @@ function initScene() {
         model.push(temp);
       });
   const loader2 = new GLTFLoader();
-  loader2.load('/assets/models/windPS.glb',
+  loader2.load('/static/windPS.glb',
       function (gltf) {
         const temp = gltf.scene;
         temp.name = '能源月报';
