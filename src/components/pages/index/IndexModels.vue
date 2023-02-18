@@ -8,7 +8,9 @@
 <script setup>
 import * as THREE from "three";
 import {ThreeMFLoader} from "three/examples/jsm/loaders/3MFLoader.js";
+import {DRACOLoader} from "three/addons/loaders/DRACOLoader";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader";
+
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer.js"
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js"
@@ -145,9 +147,13 @@ function initScene() {
   // 相机离原点的最远距离
   viewControls2.maxDistance = 1000;
 
-
   const loader = new GLTFLoader();
-  loader.load('/static/solarPS.glb',
+  const dLoader = new DRACOLoader();
+  dLoader.setDecoderPath("/draco/");
+  dLoader.setDecoderConfig({type: 'js'});  //使用js方式解压
+  dLoader.preload();  //初始化_initDecoder 解码器
+  loader.setDRACOLoader(dLoader);
+  loader.load('/static/solarPS_compress.glb',
       function (gltf) {
         // gltf.scene.traverse(function (child){
         //   child.castShadow = true;
@@ -160,7 +166,12 @@ function initScene() {
         model.push(temp);
       });
   const loader1 = new GLTFLoader();
-  loader1.load('/static/nuclearPS.glb',
+  const dLoader1 = new DRACOLoader();
+  dLoader1.setDecoderPath("/draco/");
+  dLoader1.setDecoderConfig({type: 'js'});  //使用js方式解压
+  dLoader1.preload();  //初始化_initDecoder 解码器
+  loader1.setDRACOLoader(dLoader1);
+  loader1.load('/static/nuclearPS_compress.glb',
       function (gltf) {
         const temp = gltf.scene;
         temp.name = '热力图';
@@ -171,7 +182,12 @@ function initScene() {
         model.push(temp);
       });
   const loader2 = new GLTFLoader();
-  loader2.load('/static/windPS.glb',
+  const dLoader2 = new DRACOLoader();
+  dLoader2.setDecoderPath("/draco/");
+  dLoader2.setDecoderConfig({type: 'js'});  //使用js方式解压
+  dLoader2.preload();  //初始化_initDecoder 解码器
+  loader2.setDRACOLoader(dLoader2);
+  loader2.load('/static/windPS_compress.glb',
       function (gltf) {
         const temp = gltf.scene;
         temp.name = '能源月报';
