@@ -39,6 +39,8 @@ let textBox;
 let renderEnabled;
 let timeOut = null;
 
+let nowMouseOn = null;
+
 //fps
 let clock;
 let renderT = 1 / 30;
@@ -218,7 +220,7 @@ function render() {
   }
 }
 
-function clickEvent(event) {
+function mouseMoveEvent(event) {
   //获取在射线上的接触点
   //获取鼠标坐标
   let marginLeft = window.innerWidth * 0.1;
@@ -242,10 +244,15 @@ function clickEvent(event) {
     textBox.style.left = transPosition(temp).x + 'px';
     textBox.style.top = transPosition(temp).y + 'px';
     textBox.innerHTML = temp.name;
-    enterPage(temp.name);
+    nowMouseOn = temp.name;
   } else {
     textBox.style.display = "none";
+    nowMouseOn = null;
   }
+}
+
+function clickEvent(event){
+  enterPage(nowMouseOn);
 }
 
 //高亮显示模型（呼吸灯）
@@ -374,6 +381,10 @@ function removeModel(parent, child) {
 
 onMounted(() => {
   initScene();
+  element.addEventListener('mousemove', event => {
+    mouseMoveEvent(event)
+    // timeRender();
+  });
   element.addEventListener('click', event => {
     clickEvent(event)
     // timeRender();
