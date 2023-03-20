@@ -8,7 +8,9 @@
 <script setup>
 import * as THREE from "three";
 import {ThreeMFLoader} from "three/examples/jsm/loaders/3MFLoader.js";
+import {DRACOLoader} from "three/addons/loaders/DRACOLoader";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader";
+
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer.js"
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js"
@@ -36,6 +38,8 @@ let textBox;
 
 let renderEnabled;
 let timeOut = null;
+
+let nowMouseOn = null;
 
 //fps
 let clock;
@@ -98,7 +102,7 @@ function initScene() {
   canvasFrame.appendChild(renderer.domElement);
 
   stats = new Stats();
-  element.appendChild( stats.dom );
+  element.appendChild(stats.dom);
 
   // 地面
   const ground = new THREE.Mesh(
@@ -145,9 +149,13 @@ function initScene() {
   // 相机离原点的最远距离
   viewControls2.maxDistance = 1000;
 
-
   const loader = new GLTFLoader();
-  loader.load('/assets/models/solarPS.glb',
+  const dLoader = new DRACOLoader();
+  dLoader.setDecoderPath("/draco/");
+  dLoader.setDecoderConfig({type: 'js'});  //使用js方式解压
+  dLoader.preload();  //初始化_initDecoder 解码器
+  loader.setDRACOLoader(dLoader);
+  loader.load('/static/solarPS_compress.glb',
       function (gltf) {
         // gltf.scene.traverse(function (child){
         //   child.castShadow = true;
@@ -160,7 +168,12 @@ function initScene() {
         model.push(temp);
       });
   const loader1 = new GLTFLoader();
-  loader1.load('/assets/models/nuclearPS.glb',
+  const dLoader1 = new DRACOLoader();
+  dLoader1.setDecoderPath("/draco/");
+  dLoader1.setDecoderConfig({type: 'js'});  //使用js方式解压
+  dLoader1.preload();  //初始化_initDecoder 解码器
+  loader1.setDRACOLoader(dLoader1);
+  loader1.load('/static/nuclearPS_compress.glb',
       function (gltf) {
         const temp = gltf.scene;
         temp.name = '热力图';
@@ -171,7 +184,12 @@ function initScene() {
         model.push(temp);
       });
   const loader2 = new GLTFLoader();
-  loader2.load('/assets/models/windPS.glb',
+  const dLoader2 = new DRACOLoader();
+  dLoader2.setDecoderPath("/draco/");
+  dLoader2.setDecoderConfig({type: 'js'});  //使用js方式解压
+  dLoader2.preload();  //初始化_initDecoder 解码器
+  loader2.setDRACOLoader(dLoader2);
+  loader2.load('/static/windPS_compress.glb',
       function (gltf) {
         const temp = gltf.scene;
         temp.name = '能源月报';
@@ -194,7 +212,7 @@ function render() {
   // times += tempT;
   // if (times > renderT){
   renderer.render(scene, camera);
-    // times = 0;
+  // times = 0;
   // }
   console.log("111")
   if (composer) {
@@ -202,7 +220,7 @@ function render() {
   }
 }
 
-function clickEvent(event) {
+function mouseMoveEvent(event) {
   //获取在射线上的接触点
   //获取鼠标坐标
   let marginLeft = window.innerWidth * 0.1;
@@ -226,11 +244,15 @@ function clickEvent(event) {
     textBox.style.left = transPosition(temp).x + 'px';
     textBox.style.top = transPosition(temp).y + 'px';
     textBox.innerHTML = temp.name;
-    enterPage(temp.name);
-  }
-  else {
+    nowMouseOn = temp.name;
+  } else {
     textBox.style.display = "none";
+    nowMouseOn = null;
   }
+}
+
+function clickEvent(event){
+  enterPage(nowMouseOn);
 }
 
 //高亮显示模型（呼吸灯）
@@ -278,15 +300,17 @@ function transPosition(position) {
     y: Math.round(-vector.y * halfHeight + halfHeight)
   };
 }
-function enterPage(name){
-  if (name === "能源概览"){
+
+function enterPage(name) {
+  if (name === "能源概览") {
     router.push('/overview');
-  } else if (name === "热力图"){
+  } else if (name === "热力图") {
     router.push('/heatmap')
-  } else if (name === "能源月报"){
+  } else if (name === "能源月报") {
     router.push('/statistic')
   }
 }
+
 function timeRender() {
 //设置为可渲染状态
   renderEnabled = true;
@@ -299,7 +323,7 @@ function timeRender() {
   }, 3000);
 }
 
-function disposeScene(){
+function disposeScene() {
   removeModel(null, scene);
 
   // scene.background.dispose();
@@ -307,20 +331,20 @@ function disposeScene(){
   //处理当前的渲染环境
   renderer.dispose();
 
-//模拟WebGL环境的丢失。
+  //模拟WebGL环境的丢失。
   renderer.forceContextLoss();
-//在内部用于处理场景渲染对象的排序注销
+  //在内部用于处理场景渲染对象的排序注销
   renderer.renderLists.dispose();
-//renderer的渲染容器删除
+  //renderer的渲染容器删除
   renderer.domElement = null;
-//释放renderer变量的内存
+  //释放renderer变量的内存
   renderer = null;
-//清除所有缓存中的值。
+  //清除所有缓存中的值。
   THREE.Cache.clear();
   scene.remove();
 
   camera = null;
-  scene  = null;
+  scene = null;
   renderer = null;
   viewControls2 = null;
   model = null;
@@ -335,27 +359,32 @@ function disposeScene(){
 
 }
 
-function removeModel(parent,child){
-  if(child.children.length){
-    let arr  = child.children.filter(x=>x);
-    arr.forEach(a=>{
-      removeModel(child,a)
+function removeModel(parent, child) {
+  if (child.children.length) {
+    let arr = child.children.filter(x => x);
+    arr.forEach(a => {
+      removeModel(child, a)
     })
   }
-  if(child instanceof THREE.Mesh||child instanceof THREE.Line){
-    if(child.material.map) child.material.map.dispose();
+  if (child instanceof THREE.Mesh || child instanceof THREE.Line) {
+    if (child.material.map) child.material.map.dispose();
     child.material.dispose();
     child.geometry.dispose();
-  }else if(child.material){
+  } else if (child.material) {
     child.material.dispose();
   }
   child.remove();
-  if(parent) {
+  if (parent) {
     parent.remove(child);
   }
 }
+
 onMounted(() => {
   initScene();
+  element.addEventListener('mousemove', event => {
+    mouseMoveEvent(event)
+    // timeRender();
+  });
   element.addEventListener('click', event => {
     clickEvent(event)
     // timeRender();
@@ -380,6 +409,7 @@ onUnmounted(() => {
   height: 750px;
   margin: 0 auto;
 }
+
 /* 文字提示框样式 */
 .text {
   display: none;
