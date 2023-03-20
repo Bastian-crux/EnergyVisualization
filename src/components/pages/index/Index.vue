@@ -1,17 +1,19 @@
 <template>
 <!--    <index-model style="width: 100%; height: 900px"></index-model>-->
 <!--  <el-button @click="changeItemLeft"></el-button>-->
-  <index-models :item-idx="itemIdx" />
+<!--  <index-models :item-idx="itemIdx" />-->
 <!--  <el-button @click="changeItemRight"></el-button>-->
+  <Scene/>
 </template>
 
 <script>
 
-import IndexModels from "@/components/pages/index/IndexModels.vue";
+import IndexModels from "@/components/pages/index/deprecated/IndexModels.vue";
+import Scene from "@/components/pages/index/Scene.vue";
 
 export default {
   name: "Index",
-  components: {IndexModels},
+  components: {IndexModels, Scene},
   data(){
     return{
       itemIdx: 0
