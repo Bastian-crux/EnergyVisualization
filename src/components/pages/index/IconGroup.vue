@@ -14,7 +14,7 @@
 
     <n-button
       text
-      style="margin-left: 100px"
+      style="margin-left: 80px"
       @click="$emit('relocate', 9500)"
       :disabled="processing">
       <Icon size="45" :color="iconColor">
@@ -23,7 +23,7 @@
     </n-button>
     <n-button
       text
-      style="margin-left: 60px"
+      style="margin-left: 80px"
       @click="$emit('relocate', 15000)"
       :disabled="processing">
       <Icon size="45" :color="iconColor" >
@@ -32,9 +32,18 @@
     </n-button>
     <n-button
       text
-      style="margin-left: 100px"
-      @click="$emit('relocate', 22000)"
+      style="margin-left: 80px"
+      @click="$emit('relocate', 18000)"
       :disabled="processing">
+      <Icon size="45" :color="iconColor" >
+        <WeatherSunny24Regular />
+      </Icon>
+    </n-button>
+    <n-button
+        text
+        style="margin-left: 80px"
+        @click="$emit('relocate', 22000)"
+        :disabled="processing">
       <Icon size="45" :color="iconColor" >
         <WeatherSunny24Regular />
       </Icon>

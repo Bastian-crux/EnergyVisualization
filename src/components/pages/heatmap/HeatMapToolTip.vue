@@ -58,7 +58,7 @@
         <el-row justify="center">
           <el-col :span="24">
             <div class="center">
-              <font-awesome-icon icon="fa-solid fa-circle-info"/>
+              <font-awesome-icon style="color: #1a037e" icon="fa-solid fa-circle-info"/>
             </div>
           </el-col>
           <el-col :span="24">

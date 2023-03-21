@@ -32,9 +32,13 @@ export default {
 }
 </script>
 
-<style>
-.box-card {
-  width: 80%;
-  margin: 1rem auto;
-}
+<style scoped>
+/*.box-card {*/
+/*  width: 80%;*/
+/*  margin: 1rem auto;*/
+/*}*/
+
+
+
+
 </style>

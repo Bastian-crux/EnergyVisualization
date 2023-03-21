@@ -2,7 +2,8 @@
   <transition name="fade">
     <Loader v-if="loaded" :progress="percent" @initPage="initPage"/>
   </transition>
-  
+
+<!--  title-->
   <transition name="text">
     <div v-if="vPosition <500 && !loaded" class="absolute center" style="top: 20%; color: white; width: 100%; text-align: center;"
      @wheel="e => !loaded && onScroll(e)">
@@ -11,21 +12,23 @@
     </div>  
   </transition>
 
+<!--  1-->
   <transition name="switch">
     <div class="absolute" style="color: white; width: 400px; right: 0px; top: 25%;"
     v-if="vPosition> 2200 && vPosition < 6000"
      @wheel="e => !loaded && onScroll(e)">
-      <h1 style="font-size: 48px;">Vue x 3D</h1>
+      <h1 style="font-size: 48px;">阶段一</h1>
       <p style="margin-left: 0px; width: 300px">Are you a Vue developer looking to quickly add 3D content to your website? This website is built with <a href="https://troisjs.github.io/"><u>TroisJS</u></a>, a Vue framework for Three.js.
       If you prefer React, try <a href="https://docs.pmnd.rs/react-three-fiber/"><u>React Three Fiber</u></a>!</p>
     </div>  
   </transition>
 
+<!--  2-->
   <transition name="switch">
     <div class="absolute" style="color: white; width: 400px; right: 0px; top: 15%;"
     v-if="vPosition> 9000 && vPosition < 12000"
      @wheel="e => !loaded && onScroll(e)">
-      <h1 style="font-size: 48px;">SLOW ANIMATION?</h1>
+      <h1 style="font-size: 48px;">阶段二</h1>
       <p style="margin-left: 30px; width: 300px">Here are some ways to improve your browser's performance on 3D websites. If you have a dedicated GPU,
       configure your browser accordingly: <a href="https://equatorstudios.com/how-to-choose-which-gpu-chrome-uses-on-windows-10/"><u>Chrome</u></a>
       , <a href="https://www.windowscentral.com/how-force-microsoft-edge-use-best-gpu-windows-10-april-2018-update"><u>Edge</u></a>. 
@@ -33,18 +36,49 @@
     </div>  
   </transition>
 
+<!--  3-->
   <transition name="switch">
     <div class="absolute" style="color: white; width: 450px; left: 100px; top: 20%;"
     v-if="vPosition> 14000 && vPosition < 16000"
      @wheel="e => !loaded && onScroll(e)">
-      <h1 style="font-size: 48px;">THE 3D WEB</h1>
+      <h1 style="font-size: 48px;">阶段三</h1>
       <p style=" width: 300px">Want to see more 3D websites? Visit <a href="https://threejs.org/"><u>Three.js</u></a> and <a href="https://www.awwwards.com/websites/3d/"><u>Awwwards</u></a>.</p>
     </div>  
   </transition>
 
+<!--  4-->
+  <transition name="switch">
+    <div class="absolute" style="color: white; width: 450px; left: 100px; top: 20%;"
+         v-if="vPosition> 18000 && vPosition < 20000"
+         @wheel="e => !loaded && onScroll(e)">
+      <h1 style="font-size: 48px;">阶段四</h1>
+<!--      <p style=" width: 300px">Want to see more 3D websites? Visit <a href="https://threejs.org/"><u>Three.js</u></a> and <a href="https://www.awwwards.com/websites/3d/"><u>Awwwards</u></a>.</p>-->
+    </div>
+  </transition>
+
+  <transition name="switch">
+    <div class="absolute" style="color: white; width: 600px; left: 300px; top: 8%;"
+         v-if="vPosition> 18000 && vPosition < 20000"
+         @wheel="e => !loaded && onScroll(e)">
+      <h1 style="font-size: 20px;">2012年至2022年各能源发电总量</h1>
+      <data-list-main></data-list-main>
+    </div>
+  </transition>
+
+<!--  5-->
+  <transition name="switch">
+    <div class="absolute" style="color: white; width: 450px; left: 100px; top: 20%;"
+         v-if="vPosition> 22000 && vPosition < 30000"
+         @wheel="e => !loaded && onScroll(e)">
+      <h1 style="font-size: 48px;">阶段五</h1>
+      <p style=" width: 300px">Want to see more 3D websites? Visit <a href="https://threejs.org/"><u>Three.js</u></a> and <a href="https://www.awwwards.com/websites/3d/"><u>Awwwards</u></a>.</p>
+    </div>
+  </transition>
+
+<!--  进度条-->
   <transition name="switch" mode="out-in">
     <TextScroll v-if="vPosition < 500"/>
-    <div v-else> 
+    <div v-else>
       <IconGroup :vPosition="vPosition" :processing="processing" @relocate="onRelocate"/>
       <n-progress
       type="line"
@@ -58,7 +92,7 @@
     </div>
   </transition>
   
-  <Menu :vPosition="vPosition" :soundMuted="soundMuted" @toggleSound="toggleSound"/>
+<!--  <Menu :vPosition="vPosition" :soundMuted="soundMuted" @toggleSound="toggleSound"/>-->
 
   <Renderer
     ref="renderer"
@@ -106,10 +140,17 @@
       />
 
       <GltfModel
-          src="/static/nuclearPS_compress.glb"
+          src="/static/mountain_linear.glb"
           dracoPath="/draco/"
-          :position="tree[0].position"
-          :scale="{x: 10, y: 10, z: 10}"/>
+          :scale="{x: 60, y: 60, z: 60}"
+          :position="{x: -100, y: -30, z: 10}"
+      />
+
+<!--      <GltfModel-->
+<!--          src="/static/nuclearPS_compress.glb"-->
+<!--          dracoPath="/draco/"-->
+<!--          :position="tree[0].position"-->
+<!--          :scale="{x: 10, y: 10, z: 10}"/>-->
 
       <GltfModel
         src="/assets/models/plants/tree.glb"
@@ -220,11 +261,15 @@ import Loader from './Loader.vue';
 import IconGroup from './IconGroup.vue'
 import Menu from './Menu.vue'
 import TextScroll from './TextScroll.vue'
+import DataList from "@/components/pages/statistic/DataList.vue";
+import DataListMain from "@/components/pages/statistic/DataListMain.vue";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 
 export default {
   components:{
+    DataListMain,
+    DataList,
     Loader,
     NButton,
     NProgress,
@@ -240,10 +285,12 @@ export default {
     }
 
     //verticle control
-    const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]
+    const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000] // 持续时间
 
     const vPosition = ref(0)
-    const dummy = ref(0)
+    const dummy = ref(0) // 记录当前的位置
+
+    // wheel触发
     const onScroll = (ev) => {
       const delY = ev.deltaY
       dummy.value += delY
@@ -259,17 +306,19 @@ export default {
       if (old < ev && (ev - old) > 10){
         interval.value = setInterval(function(){increment(ev)},0.01) 
       } else if (old > ev && (old - ev) > 10){
-        interval.value = setInterval(function(){decrement(ev)},0.01) 
+        interval.value = setInterval(function(){decrement(ev)},0.01)
       }
     }
 
+    // 进度条快速推进
     const increment = (ev) =>{
       dummy.value += 10
       if (dummy.value >= ev){
-        clearInterval(interval.value)
+        clearInterval(interval.value) // 停止该interval id
         processing.value = false
       }
     }
+    // 进度条快速回退
     const decrement = (ev) =>{
       dummy.value -= 10
       if (dummy.value <= ev){
@@ -529,30 +578,30 @@ export default {
       }
       this.imesh.instanceMatrix.needsUpdate = true;
 
-    //water
-    const waterGeometry = new THREE.CircleGeometry( 50, 100);
-    const water = new Water(
-        waterGeometry,
-        {
-          textureWidth: 1000,
-          textureHeight: 1000,
-          waterNormals: new THREE.TextureLoader().load( '/assets/textures/water.jpg', function ( texture ) {
-            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-          } ),
-          waterColor: this.groundcolor,
-          sunColor: this.skycolor,
-          distortionScale: 4.8,
-          fog: scene.fog !== undefined
-        }
-      )
-    this.water = water
-    water.rotation.x = - Math.PI / 2;
-    scene.add( water );
-    let mesh
+    // //water
+    // const waterGeometry = new THREE.CircleGeometry( 50, 100);
+    // const water = new Water(
+    //     waterGeometry,
+    //     {
+    //       textureWidth: 1000,
+    //       textureHeight: 1000,
+    //       waterNormals: new THREE.TextureLoader().load( '/assets/textures/water.jpg', function ( texture ) {
+    //         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    //       } ),
+    //       waterColor: this.groundcolor,
+    //       sunColor: this.skycolor,
+    //       distortionScale: 4.8,
+    //       fog: scene.fog !== undefined
+    //     }
+    //   )
+    // this.water = water
+    // water.rotation.x = - Math.PI / 2;
+    // scene.add( water );
+    // let mesh
 
     //ANIMATION LOOP
     renderer.onBeforeRender(() => {
-      water.material.uniforms[ 'time' ].value += 0.7 / 60.0;
+      // water.material.uniforms[ 'time' ].value += 0.7 / 60.0;
       if (this.vPosition > 2400){
         this.camera.position.x = Math.cos((this.vPosition - 2400)/3000) * 150
         this.camera.position.z = Math.sin((this.vPosition - 2400)/3000) * 200
@@ -581,11 +630,11 @@ export default {
         this.camera.position.y = 70 + this.mouseY
       }
      
-      this.vPosition = this.lerp(this.vPosition, this.dummy, 0.1) 
+      this.vPosition = this.lerp(this.vPosition, this.dummy, 0.1) // ?
       if (this.opacity > 0) {
         this.animateMesh()
       }
-      if (!this.loaded){
+      if (!this.loaded){ // 缓慢推进
         this.dummy += 1
       }
 
@@ -627,12 +676,12 @@ export default {
       this.$refs.light.light.color.set(val)
       const fog = this.$refs.scene.scene.fog
       fog.color.set(this.skycolor)
-      this.water.material.uniforms['sunColor'].value = new THREE.Color(val);
+      // this.water.material.uniforms['sunColor'].value = new THREE.Color(val);
     },
     groundcolor(val, old){
       this.$refs.light.light.groundColor.set(val)
       this.$refs.sun.light.color.set(val)
-      this.water.material.uniforms['waterColor'].value = new THREE.Color(val);
+      // this.water.material.uniforms['waterColor'].value = new THREE.Color(val);
     },
     sunHeight(val, old){
       this.$refs.sun.light.position.y = val
@@ -681,5 +730,53 @@ export default {
 .switch-enter-active,
 .switch-leave-active{
   --transition-time: 1s;
+}
+*{
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+a{
+  text-decoration: inherit;
+  color: inherit;
+}
+canvas {
+  display: block;
+}
+.absolute{
+  position: absolute
+}
+.center{
+  transform: translate(-50%, 0);
+  left: 50%;
+}
+.menu{
+  text-align: center;
+}
+.menu h1, p, h2{
+  color: white;
+}
+.menu h1{
+  margin: 0 auto 5px;
+}
+.menu p{
+  margin: 2vh auto 0;
+}
+.btn::before{
+  content:'';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--border-height);
+  background-color: white;
+  transition: transform 300ms ease-in-out;
+  transform: scaleX(0);
+}
+.btn:hover::before,
+.btn:focus::before{
+  transform: scaleX(1);
 }
 </style>

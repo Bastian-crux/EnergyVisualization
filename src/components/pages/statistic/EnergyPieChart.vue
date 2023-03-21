@@ -20,11 +20,12 @@ export default {
       this.myChart = echarts.init(this.$refs.myPie);
       let option;
       option = {
+        backgroundColor:'',
         series: [
           {
             name: 'Access From',
             type: 'pie',
-            radius: ['40%', '80%'],
+            radius: ['50%', '120%'],
             // center:['50%', '50%'],
 
             avoidLabelOverlap: false, // 启用防止标签重叠策略
@@ -93,6 +94,6 @@ export default {
 <style scoped>
 .pie {
   width: 100%;
-  height: 300px;
+  height: 80px;
 }
 </style>
