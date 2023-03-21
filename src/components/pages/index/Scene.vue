@@ -60,7 +60,6 @@
     <div class="absolute" style="color: white; width: 600px; left: 300px; top: 8%;"
          v-if="vPosition> 18000 && vPosition < 20000"
          @wheel="e => !loaded && onScroll(e)">
-      <h1 style="font-size: 20px;">2012年至2022年各能源发电总量</h1>
       <data-list-main></data-list-main>
     </div>
   </transition>
