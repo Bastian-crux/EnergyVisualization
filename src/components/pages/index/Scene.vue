@@ -106,6 +106,12 @@
       />
 
       <GltfModel
+          src="/static/nuclearPS_compress.glb"
+          dracoPath="/draco/"
+          :position="tree[0].position"
+          :scale="{x: 10, y: 10, z: 10}"/>
+
+      <GltfModel
         src="/assets/models/plants/tree.glb"
         v-for="item in tree"
         :position="item.position" 
