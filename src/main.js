@@ -1,5 +1,5 @@
 import {createApp} from 'vue';
-import { TroisJSVuePlugin } from 'troisjs';
+import { TroisJSVuePlugin } from 'troisjs-draco';
 import {createRouter, createWebHistory} from 'vue-router';
 import App from './App.vue';
 import ElementPlus from 'element-plus'
