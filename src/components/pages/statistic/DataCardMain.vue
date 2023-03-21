@@ -34,11 +34,11 @@
       </div>
     </el-col>
     <el-col :span="24">
-      <el-card class="chart-card">
+      <div class="chart-card">
           <div style="height: 80px; width: 100%">
             <energy-pie-chart :data="data[year]" :total="total" :type="type" :color="color"/>
           </div>
-      </el-card>
+      </div>
     </el-col>
   </el-row>
 </template>
@@ -111,7 +111,7 @@ export default {
 .chart-card {
   border: 1px solid transparent;
   border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 0px;
+  background-color: rgba(255, 255, 255, 0);
 }
+
 </style>

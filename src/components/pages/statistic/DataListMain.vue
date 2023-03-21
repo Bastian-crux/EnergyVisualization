@@ -10,18 +10,21 @@
 <!--    </el-select>-->
 <!--  </el-row>-->
 
-  <el-row justify="space-around">
-    <el-col :span="4" v-for="data in cardData">
-      <data-card-main
-          :year="selectedYear"
-          :type="data.type"
-          :data="data.data"
-          :total="total"
-          :color="data.color"
-          :background="data.background"
-      />
-    </el-col>
-  </el-row>
+  <div class="frame">
+    <el-row justify="space-around">
+      <el-col :span="4" v-for="data in cardData">
+        <data-card-main
+            :year="selectedYear"
+            :type="data.type"
+            :data="data.data"
+            :total="total"
+            :color="data.color"
+            :background="data.background"
+        />
+      </el-col>
+    </el-row>
+  </div>
+
 </template>
 
 <script>
@@ -83,5 +86,11 @@ export default {
 </script>
 
 <style scoped>
-
+.frame{
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
 </style>
