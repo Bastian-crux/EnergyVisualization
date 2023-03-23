@@ -32,16 +32,16 @@
     </el-row>
   </el-card>
   <el-row class="box-card">
-    <el-col :span="16">
+    <el-col :span="24">
       <el-card class="chart-card">
         <map-visualization :energy-type="energyType" :mode="mode" @choose-project="chooseMajorProject" @back="back"/>
       </el-card>
     </el-col>
-    <el-col :span="7" :offset="1">
-      <el-card class="detail-card">
-        <project-details :project-detail="selectedProjectInfo" :enable="selectedProjectInfo !== null"/>
-      </el-card>
-    </el-col>
+<!--    <el-col :span="7" :offset="1">-->
+<!--      <el-card class="detail-card">-->
+<!--        <project-details :project-detail="selectedProjectInfo" :enable="selectedProjectInfo !== null"/>-->
+<!--      </el-card>-->
+<!--    </el-col>-->
   </el-row>
 </template>
 

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {formatterHelper, statusChinese} from "@/utils";
+import {findBiggestValue, findSmallestValue , formatterHelper, statusChinese} from "@/utils";
 import * as echarts from 'echarts';
 import mapData from '/assets/mapData/china_base.json';
 
@@ -195,8 +195,8 @@ export default {
         },
         visualMap: {
           left: 'right',
-          min: this.findSmallestValue(this.provinceData),
-          max: this.findBiggestValue(this.provinceData),
+          min: findSmallestValue(this.provinceData),
+          max: findBiggestValue(this.provinceData),
           inRange: {
             color: this.colorScheme
           },
@@ -266,19 +266,17 @@ export default {
           },
           {
             // 重点项目
-            type: 'effectScatter',
+            type: 'scatter',
             data: this.formMajorScatterData(),
             coordinateSystem: 'geo',
             symbolSize: 10,
-            rippleEffect: {
-              scale: 0,
-            },
             zlevel: 1,
           }
         ]
       };
       this.myChart.on('click', (params) => {
         this.nowSelectedProvince = params.name;
+/*
         // 判断是否选择到重点项目
         for (let i = 0; i < this.provinceMajorAllData.length; i++) {
           if (this.nowSelectedProvince === this.provinceMajorAllData[i][0]) {
@@ -286,6 +284,7 @@ export default {
             this.$emit('choose-project', this.provinceMajorAllData[i]);
           }
         }
+*/
         if (this.nowSelectedProvince !== 'mapData')
           if (!this.areaDic[this.nowSelectedProvince]) {
             this.nowSelectedProvince = 'mapData';
@@ -357,28 +356,15 @@ export default {
         series: [
           {
             // 散点坐标每个能源项目
-            type: 'effectScatter',
+            type: 'scatter',
             data: this.formScatterData(), //配置散点的坐标数据
             coordinateSystem: 'geo', //散点使用的坐标系统 geo
             symbolSize: 10,
-            rippleEffect: {
-              scale: 0,
-            },
             zlevel: 1,
           }
         ]
       };
       this.myChart.setOption(option);
-    },
-    findSmallestValue(obj) {
-      return Object.keys(obj).reduce((acc, val) => {
-        return Math.min(acc, obj[val]);
-      }, Infinity);
-    },
-    findBiggestValue(obj) {
-      return Object.keys(obj).reduce((acc, val) => {
-        return Math.max(acc, obj[val]);
-      }, -Infinity);
     },
     getNumberByProvince(province) {
       let data;
@@ -565,6 +551,11 @@ export default {
       this.loadMap('mapData');
     },
     mode() {
+      echarts.dispose(this.myChart);
+      this.nowSelectedProvince = 'mapData'
+      this.loadMap('mapData');
+    },
+    energyType() {
       echarts.dispose(this.myChart);
       this.nowSelectedProvince = 'mapData'
       this.loadMap('mapData');

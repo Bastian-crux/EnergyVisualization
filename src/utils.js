@@ -35,3 +35,15 @@ export const formatterHelper = (params) => {
   const instance = MyComponent.mount(dom);
   return instance.$el;
 };
+
+export const findSmallestValue = (obj) => {
+  return Object.keys(obj).reduce((acc, val) => {
+    return Math.min(acc, obj[val]);
+  }, Infinity);
+}
+
+export const findBiggestValue= (obj) => {
+  return Object.keys(obj).reduce((acc, val) => {
+    return Math.max(acc, obj[val]);
+  }, -Infinity);
+}
