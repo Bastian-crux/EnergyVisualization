@@ -63,8 +63,9 @@ export default {
             type: "scatter",
             data: this.formData(),
             coordinateSystem: "geo",
-            symbolSize: 5,
-            zlevel: 1,
+            symbolSize: function (data) {
+              return Math.sqrt(data[3]);
+            },
           },
         ],
       };
@@ -75,7 +76,12 @@ export default {
       for (let i = 0; i < this.allData.length; i++) {
         tempData.push({
           name: this.allData[i][0],
-          value: [this.allData[i][3], this.allData[i][4], this.allData[i][6]],
+          value: [
+            this.allData[i][3],
+            this.allData[i][4],
+            this.allData[i][6],
+            this.allData[i][2],
+          ],
         });
       }
       return tempData;
@@ -84,8 +90,8 @@ export default {
   mounted() {
     this.loadMap();
     window.onresize = () => {
-      echarts.dispose(this.myMap);
-      this.loadMap();
+      let option = this.myMap.getOption();
+      this.myMap.setOption(option);
     };
   },
   computed: {
@@ -112,15 +118,14 @@ export default {
   },
   watch: {
     energyType() {
-      echarts.dispose(this.myMap);
-      this.loadMap();
+      let option = this.myMap.getOption();
+      option.series[0].data = this.formData();
+      this.myMap.setOption(option);
     },
     currentYear() {
       let option = this.myMap.getOption();
       option.series[0].data = this.formData();
       this.myMap.setOption(option);
-      // echarts.dispose(this.myMap);
-      // this.loadMap();
     },
   },
 };
