@@ -230,7 +230,7 @@
         <GltfModel
           src="/static/solar/newSolarStat.glb"
           dracoPath="/draco/"
-          :scale="{ x: 20, y: 20, z: 20 }"
+          :scale="{ x: 15, y: 15, z: 15 }"
           :position="{
             x: solarBuildingX,
             y: solarBuildingY,
@@ -240,13 +240,24 @@
         <GltfModel
           src="/static/solar/board.glb"
           dracoPath="/draco/"
-          :scale="{ x: 20, y: 20, z: 20 }"
+          :scale="{ x: 10, y: 10, z: 10 }"
           :position="{
             x: solarBoardX,
             y: solarBoardY,
             z: solarBoardZ,
           }"
-          :rotation="boardRotate"
+          :rotation="{ y: boardRotate }"
+        />
+        <GltfModel
+          src="/static/solar/board.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 10, y: 10, z: 10 }"
+          :position="{
+            x: solarBoardX2,
+            y: solarBoardY2,
+            z: solarBoardZ2,
+          }"
+          :rotation="{ y: boardRotate2 }"
         />
         <!--        <GltfModel-->
         <!--          src="/static/tree2.glb"-->
@@ -420,7 +431,9 @@ export default {
     };
 
     //verticle control
-    const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
+    // const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
+    // TODO: Debug Only
+    const [rainTime, nightTime, dawnTime, dayTime] = [0, 0, 0, 100000]; // 持续时间
 
     const vPosition = ref(0);
     const dummy = ref(0); // 记录当前的位置
@@ -675,13 +688,17 @@ export default {
     ];
 
     // pane
-    const solarBuildingX = ref(-70);
+    const solarBuildingX = ref(-60);
     const solarBuildingY = ref(0);
     const solarBuildingZ = ref(-25);
-    const solarBoardX = ref(-100);
-    const solarBoardY = ref(-30);
-    const solarBoardZ = ref(10);
-    const boardRotate = ref(0);
+    const solarBoardX = ref(-77);
+    const solarBoardY = ref(0);
+    const solarBoardZ = ref(2);
+    const boardRotate = ref(4.78);
+    const solarBoardX2 = ref(-75.8);
+    const solarBoardY2 = ref(0);
+    const solarBoardZ2 = ref(19.39);
+    const boardRotate2 = ref(4.78);
     const mountainX = ref(-73.61);
     const mountainY = ref(-28.91);
     const mountainZ = ref(-32.61);
@@ -745,6 +762,10 @@ export default {
       solarBoardY,
       solarBoardZ,
       boardRotate,
+      solarBoardX2,
+      solarBoardY2,
+      solarBoardZ2,
+      boardRotate2,
       mountainX,
       mountainY,
       mountainZ,
@@ -756,13 +777,19 @@ export default {
   mounted() {
     // pane
     this.pane = new Pane();
+    // Solar
     this.pane.addInput(this, "solarBuildingX", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingY", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingZ", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardX", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardY", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardZ", { min: -100, max: 100 });
-    this.pane.addInput(this, "boardRotate", { min: 0, max: 360 });
+    this.pane.addInput(this, "boardRotate", { min: 0, max: 10 });
+    this.pane.addInput(this, "solarBoardX2", { min: -100, max: 100 });
+    this.pane.addInput(this, "solarBoardY2", { min: -100, max: 100 });
+    this.pane.addInput(this, "solarBoardZ2", { min: -100, max: 100 });
+    this.pane.addInput(this, "boardRotate2", { min: 0, max: 10 });
+
     // this.pane.addInput(this, "mountainX", { min: -100, max: 100 });
     // this.pane.addInput(this, "mountainY", { min: -100, max: 100 });
     // this.pane.addInput(this, "mountainZ", { min: -100, max: 100 });
@@ -907,6 +934,7 @@ export default {
       }
       if (!this.loaded) {
         // 缓慢推进
+        // TODO: Debug Only
         // this.dummy += 1;
       }
 
