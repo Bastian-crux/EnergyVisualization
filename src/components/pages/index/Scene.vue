@@ -227,6 +227,7 @@
           :scale="{ x: 45, y: 45, z: 45 }"
           :position="{ x: mountainX, y: mountainY, z: mountainZ }"
         />
+        <!--        solar-->
         <GltfModel
           src="/static/solar/newSolarStat.glb"
           dracoPath="/draco/"
@@ -260,30 +261,42 @@
           :rotation="{ y: boardRotate2 }"
         />
         <GltfModel
-            src="/static/nuclear/nuclearbuilding1.glb"
-            dracoPath="/draco/"
-            :scale="{ x: 20, y: 20, z: 20 }"
-            :position="{
+          src="/static/solar/board.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 10, y: 10, z: 10 }"
+          :position="{
+            x: solarBoardX3,
+            y: solarBoardY3,
+            z: solarBoardZ3,
+          }"
+          :rotation="{ y: boardRotate3 }"
+        />
+        <!--        nuclear-->
+        <GltfModel
+          src="/static/nuclear/nuclearbuilding1.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 20, y: 20, z: 20 }"
+          :position="{
             x: nuclearBuilding1X,
             y: nuclearBuilding1Y,
             z: nuclearBuilding1Z,
           }"
         />
         <GltfModel
-            src="/static/nuclear/nuclearbuilding2.glb"
-            dracoPath="/draco/"
-            :scale="{ x: 20, y: 20, z: 20 }"
-            :position="{
+          src="/static/nuclear/nuclearbuilding2.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 20, y: 20, z: 20 }"
+          :position="{
             x: nuclearBuilding2X,
             y: nuclearBuilding2Y,
             z: nuclearBuilding2Z,
           }"
         />
         <GltfModel
-            src="/static/nuclear/nuclearbuilding3.glb"
-            dracoPath="/draco/"
-            :scale="{ x: 20, y: 20, z: 20 }"
-            :position="{
+          src="/static/nuclear/nuclearbuilding3.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 20, y: 20, z: 20 }"
+          :position="{
             x: nuclearBuilding3X,
             y: nuclearBuilding3Y,
             z: nuclearBuilding3Z,
@@ -729,6 +742,10 @@ export default {
     const solarBoardY2 = ref(0);
     const solarBoardZ2 = ref(19.39);
     const boardRotate2 = ref(4.78);
+    const solarBoardX3 = ref(-86.96);
+    const solarBoardY3 = ref(0);
+    const solarBoardZ3 = ref(10.87);
+    const boardRotate3 = ref(4.78);
     const mountainX = ref(-73.61);
     const mountainY = ref(-28.91);
     const mountainZ = ref(-32.61);
@@ -745,8 +762,6 @@ export default {
     const nuclearBuilding3X = ref(100);
     const nuclearBuilding3Y = ref(100);
     const nuclearBuilding3Z = ref(100);
-
-
 
     return {
       //imesh
@@ -808,6 +823,10 @@ export default {
       solarBoardY2,
       solarBoardZ2,
       boardRotate2,
+      solarBoardX3,
+      solarBoardY3,
+      solarBoardZ3,
+      boardRotate3,
       mountainX,
       mountainY,
       mountainZ,
@@ -830,6 +849,7 @@ export default {
     // pane
     this.pane = new Pane();
     // Solar
+    /*
     this.pane.addInput(this, "solarBuildingX", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingY", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingZ", { min: -100, max: 100 });
@@ -841,6 +861,11 @@ export default {
     this.pane.addInput(this, "solarBoardY2", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardZ2", { min: -100, max: 100 });
     this.pane.addInput(this, "boardRotate2", { min: 0, max: 10 });
+    this.pane.addInput(this, "solarBoardX3", { min: -100, max: 100 });
+    this.pane.addInput(this, "solarBoardY3", { min: -100, max: 100 });
+    this.pane.addInput(this, "solarBoardZ3", { min: -100, max: 100 });
+    this.pane.addInput(this, "boardRotate3", { min: 0, max: 10 });
+*/
 
     // nuclear
     this.pane.addInput(this, "nuclearBuilding1X", { min: -200, max: 200 });
