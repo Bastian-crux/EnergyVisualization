@@ -1,362 +1,364 @@
 <template>
-  <transition name="fade">
-    <Loader v-if="loaded" :progress="percent" @initPage="initPage" />
-  </transition>
+  <div id="index">
+    <transition name="fade">
+      <Loader v-if="loaded" :progress="percent" @initPage="initPage" />
+    </transition>
 
-  <!--  title-->
-  <transition name="text">
-    <div
-      v-if="vPosition < 500 && !loaded"
-      class="absolute center"
-      style="top: 20%; color: white; width: 100%; text-align: center"
-      @wheel="(e) => !loaded && onScroll(e)"
-    >
-      <h1 style="font-size: 48px">EXPLORE THE OASIS</h1>
-      <p>A TroisJS Experiment</p>
-    </div>
-  </transition>
+    <!--  title-->
+    <transition name="text">
+      <div
+          v-if="vPosition < 500 && !loaded"
+          class="absolute center"
+          style="top: 20%; color: white; width: 100%; text-align: center"
+          @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <h1 style="font-size: 48px">EXPLORE THE OASIS</h1>
+        <p>A TroisJS Experiment</p>
+      </div>
+    </transition>
 
-  <!--  1-->
-  <transition name="switch">
-    <div
-      class="absolute"
-      style="color: white; width: 400px; right: 0px; top: 25%"
-      v-if="vPosition > 2200 && vPosition < 6000"
-      @wheel="(e) => !loaded && onScroll(e)"
-    >
-      <h1 style="font-size: 48px">阶段一</h1>
-      <p style="margin-left: 0px; width: 300px">
-        Are you a Vue developer looking to quickly add 3D content to your
-        website? This website is built with
-        <a href="https://troisjs.github.io/"><u>TroisJS</u></a
-        >, a Vue framework for Three.js. If you prefer React, try
-        <a href="https://docs.pmnd.rs/react-three-fiber/"
+    <!--  1-->
+    <transition name="switch">
+      <div
+          class="absolute"
+          style="color: white; width: 400px; right: 0px; top: 25%"
+          v-if="vPosition > 2200 && vPosition < 6000"
+          @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <h1 style="font-size: 48px">阶段一</h1>
+        <p style="margin-left: 0px; width: 300px">
+          Are you a Vue developer looking to quickly add 3D content to your
+          website? This website is built with
+          <a href="https://troisjs.github.io/"><u>TroisJS</u></a
+          >, a Vue framework for Three.js. If you prefer React, try
+          <a href="https://docs.pmnd.rs/react-three-fiber/"
           ><u>React Three Fiber</u></a
-        >!
-      </p>
-    </div>
-  </transition>
+          >!
+        </p>
+      </div>
+    </transition>
 
-  <!--  2-->
-  <transition name="switch">
-    <div
-      class="absolute"
-      style="color: white; width: 400px; right: 0px; top: 15%"
-      v-if="vPosition > 9000 && vPosition < 12000"
-      @wheel="(e) => !loaded && onScroll(e)"
-    >
-      <h1 style="font-size: 48px">阶段二</h1>
-      <p style="margin-left: 30px; width: 300px">
-        Here are some ways to improve your browser's performance on 3D websites.
-        If you have a dedicated GPU, configure your browser accordingly:
-        <a
-          href="https://equatorstudios.com/how-to-choose-which-gpu-chrome-uses-on-windows-10/"
+    <!--  2-->
+    <transition name="switch">
+      <div
+          class="absolute"
+          style="color: white; width: 400px; right: 0px; top: 15%"
+          v-if="vPosition > 9000 && vPosition < 12000"
+          @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <h1 style="font-size: 48px">阶段二</h1>
+        <p style="margin-left: 30px; width: 300px">
+          Here are some ways to improve your browser's performance on 3D websites.
+          If you have a dedicated GPU, configure your browser accordingly:
+          <a
+              href="https://equatorstudios.com/how-to-choose-which-gpu-chrome-uses-on-windows-10/"
           ><u>Chrome</u></a
-        >
-        ,
-        <a
-          href="https://www.windowscentral.com/how-force-microsoft-edge-use-best-gpu-windows-10-april-2018-update"
+          >
+          ,
+          <a
+              href="https://www.windowscentral.com/how-force-microsoft-edge-use-best-gpu-windows-10-april-2018-update"
           ><u>Edge</u></a
-        >. If you use Chrome or Firefox,
-        <a href="https://github.com/light-tracer/issues/issues/1"
+          >. If you use Chrome or Firefox,
+          <a href="https://github.com/light-tracer/issues/issues/1"
           ><u>enable OpenGL for ANGLE</u></a
-        >.
-      </p>
-    </div>
-  </transition>
+          >.
+        </p>
+      </div>
+    </transition>
 
-  <!--  3-->
-  <transition name="switch">
-    <div
-      class="absolute"
-      style="color: white; width: 450px; left: 100px; top: 20%"
-      v-if="vPosition > 14000 && vPosition < 16000"
-      @wheel="(e) => !loaded && onScroll(e)"
+    <!--  3-->
+    <transition name="switch">
+      <div
+          class="absolute"
+          style="color: white; width: 450px; left: 100px; top: 20%"
+          v-if="vPosition > 14000 && vPosition < 16000"
+          @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <h1 style="font-size: 48px">阶段三</h1>
+        <p style="width: 300px">
+          Want to see more 3D websites? Visit
+          <a href="https://threejs.org/"><u>Three.js</u></a> and
+          <a href="https://www.awwwards.com/websites/3d/"><u>Awwwards</u></a
+          >.
+        </p>
+      </div>
+    </transition>
+
+    <!--  4-->
+    <transition name="switch">
+      <div
+          class="absolute"
+          style="color: white; width: 450px; left: 100px; top: 20%"
+          v-if="vPosition > 18000 && vPosition < 20000"
+          @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <h1 style="font-size: 48px">阶段四</h1>
+        <!--      <p style=" width: 300px">Want to see more 3D websites? Visit <a href="https://threejs.org/"><u>Three.js</u></a> and <a href="https://www.awwwards.com/websites/3d/"><u>Awwwards</u></a>.</p>-->
+      </div>
+    </transition>
+
+    <transition name="switch">
+      <div
+          class="absolute"
+          style="color: white; width: 600px; left: 300px; top: 8%"
+          v-if="vPosition > 18000 && vPosition < 20000"
+          @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <data-list-main></data-list-main>
+      </div>
+    </transition>
+
+    <!--  5-->
+    <transition name="switch">
+      <div
+          class="absolute"
+          style="color: white; width: 450px; left: 100px; top: 20%"
+          v-if="vPosition > 22000 && vPosition < 30000"
+          @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <h1 style="font-size: 48px">阶段五</h1>
+        <p style="width: 300px">
+          Want to see more 3D websites? Visit
+          <a href="https://threejs.org/"><u>Three.js</u></a> and
+          <a href="https://www.awwwards.com/websites/3d/"><u>Awwwards</u></a
+          >.
+        </p>
+      </div>
+    </transition>
+
+    <!--  进度条-->
+    <transition name="switch" mode="out-in">
+      <TextScroll v-if="vPosition < 500" />
+      <div v-else>
+        <IconGroup
+            :vPosition="vPosition"
+            :processing="processing"
+            @relocate="onRelocate"
+        />
+        <n-progress
+            type="line"
+            :height="6"
+            :color="iconColor"
+            :rail-color="skycolor"
+            :percentage="vPosition / 240"
+            :show-indicator="false"
+            style="width: 500px; bottom: 30px"
+            class="absolute center"
+        />
+      </div>
+    </transition>
+
+    <!--  <Menu :vPosition="vPosition" :soundMuted="soundMuted" @toggleSound="toggleSound"/>-->
+
+    <Renderer
+        ref="renderer"
+        pointer
+        @wheel="(e) => !loaded && onScroll(e)"
+        @mouseMove="onMove"
+        shadow
+        antialias
+        resize="window"
     >
-      <h1 style="font-size: 48px">阶段三</h1>
-      <p style="width: 300px">
-        Want to see more 3D websites? Visit
-        <a href="https://threejs.org/"><u>Three.js</u></a> and
-        <a href="https://www.awwwards.com/websites/3d/"><u>Awwwards</u></a
-        >.
-      </p>
-    </div>
-  </transition>
-
-  <!--  4-->
-  <transition name="switch">
-    <div
-      class="absolute"
-      style="color: white; width: 450px; left: 100px; top: 20%"
-      v-if="vPosition > 18000 && vPosition < 20000"
-      @wheel="(e) => !loaded && onScroll(e)"
-    >
-      <h1 style="font-size: 48px">阶段四</h1>
-      <!--      <p style=" width: 300px">Want to see more 3D websites? Visit <a href="https://threejs.org/"><u>Three.js</u></a> and <a href="https://www.awwwards.com/websites/3d/"><u>Awwwards</u></a>.</p>-->
-    </div>
-  </transition>
-
-  <transition name="switch">
-    <div
-      class="absolute"
-      style="color: white; width: 600px; left: 300px; top: 8%"
-      v-if="vPosition > 18000 && vPosition < 20000"
-      @wheel="(e) => !loaded && onScroll(e)"
-    >
-      <data-list-main></data-list-main>
-    </div>
-  </transition>
-
-  <!--  5-->
-  <transition name="switch">
-    <div
-      class="absolute"
-      style="color: white; width: 450px; left: 100px; top: 20%"
-      v-if="vPosition > 22000 && vPosition < 30000"
-      @wheel="(e) => !loaded && onScroll(e)"
-    >
-      <h1 style="font-size: 48px">阶段五</h1>
-      <p style="width: 300px">
-        Want to see more 3D websites? Visit
-        <a href="https://threejs.org/"><u>Three.js</u></a> and
-        <a href="https://www.awwwards.com/websites/3d/"><u>Awwwards</u></a
-        >.
-      </p>
-    </div>
-  </transition>
-
-  <!--  进度条-->
-  <transition name="switch" mode="out-in">
-    <TextScroll v-if="vPosition < 500" />
-    <div v-else>
-      <IconGroup
-        :vPosition="vPosition"
-        :processing="processing"
-        @relocate="onRelocate"
+      <Camera
+          ref="camera"
+          :position="{ x: 85, y: 5, z: -50 }"
+          :lookAt="{ x: 0, y: 75, z: 0 }"
+          :far="5000"
       />
-      <n-progress
-        type="line"
-        :height="6"
-        :color="iconColor"
-        :rail-color="skycolor"
-        :percentage="vPosition / 240"
-        :show-indicator="false"
-        style="width: 500px; bottom: 30px"
-        class="absolute center"
-      />
-    </div>
-  </transition>
+      <Scene ref="scene">
+        <!--      mouse point light-->
+        <!--      <PointLight-->
+        <!--        ref="mouse"-->
+        <!--        :intensity="0"-->
+        <!--        cast-shadow>-->
+        <!--        <Sphere :radius="1"/>-->
+        <!--      </PointLight>-->
 
-  <!--  <Menu :vPosition="vPosition" :soundMuted="soundMuted" @toggleSound="toggleSound"/>-->
+        <!--      黑夜时的色彩-->
+        <HemisphereLight
+            ref="light"
+            color="rgb(1, 10, 26)"
+            groundColor="rgb(7, 16, 33)"
+            :intensity="1.78"
+        />
 
-  <Renderer
-    ref="renderer"
-    pointer
-    @wheel="(e) => !loaded && onScroll(e)"
-    @mouseMove="onMove"
-    shadow
-    antialias
-    resize="window"
-  >
-    <Camera
-      ref="camera"
-      :position="{ x: 85, y: 5, z: -50 }"
-      :lookAt="{ x: 0, y: 75, z: 0 }"
-      :far="5000"
-    />
-    <Scene ref="scene">
-      <!--      mouse point light-->
-      <!--      <PointLight-->
-      <!--        ref="mouse"-->
-      <!--        :intensity="0"-->
-      <!--        cast-shadow>-->
-      <!--        <Sphere :radius="1"/>-->
-      <!--      </PointLight>-->
+        <!--      intensity 0.13-->
+        <PointLight
+            ref="sun"
+            color="rgb(7, 16, 33)"
+            :intensity="0.13"
+            :position="{ x: 120, y: 20 }"
+            :decay="0"
+            cast-shadow
+        />
+        <PointLight
+            ref="light1"
+            color="rgb(20, 20, 100)"
+            :intensity="1.00"
+            :position="{ x: -120, y: 20 }"
+            :decay="0.5"
+            cast-shadow
+        />
 
-<!--      黑夜时的色彩-->
-      <HemisphereLight
-        ref="light"
-        color="rgb(1, 10, 26)"
-        groundColor="rgb(7, 16, 33)"
-        :intensity="1.78"
-      />
+        <!--      <SpotLight-->
+        <!--          color="#555555"-->
+        <!--          :distance="500"-->
+        <!--          :angle="Math.PI / 2"-->
+        <!--          :decay="0.5"-->
+        <!--          :intensity="1"-->
+        <!--          :position="{ y: 500 }"-->
+        <!--          :target="{ y: 30 }"-->
+        <!--      />-->
 
-      <!--      intensity 0.13-->
-      <PointLight
-        ref="sun"
-        color="rgb(7, 16, 33)"
-        :intensity="0.13"
-        :position="{ x: 120, y: 20 }"
-        :decay="0"
-        cast-shadow
-      />
-      <PointLight
-          ref="light1"
-          color="rgb(20, 20, 100)"
-          :intensity="1.00"
-          :position="{ x: -120, y: 20 }"
-          :decay="0.5"
-          cast-shadow
-      />
+        <SpotLight
+            color="#555555"
+            :distance="500"
+            :angle="Math.PI / 2"
+            :decay="0.5"
+            :intensity="5"
+            :position="{ y: 250 }"
+            :target="{ y: 500 }"
+        />
 
-<!--      <SpotLight-->
-<!--          color="#555555"-->
-<!--          :distance="500"-->
-<!--          :angle="Math.PI / 2"-->
-<!--          :decay="0.5"-->
-<!--          :intensity="1"-->
-<!--          :position="{ y: 500 }"-->
-<!--          :target="{ y: 30 }"-->
-<!--      />-->
+        <GltfModel
+            src="/static/mountain.glb"
+            dracoPath="/draco/"
+            :scale="{ x: 45, y: 45, z: 45 }"
+            :position="{ x: mountainX, y: mountainY, z: mountainZ }"
+        />
+        <!--      <GltfModel-->
+        <!--        src="/static/newSolarStat.glb"-->
+        <!--        dracoPath="/draco/"-->
+        <!--        :scale="{ x: 20, y: 20, z: 20 }"-->
+        <!--        :position="{ x: solarBuildingX, y: solarBuildingY, z: solarBuildingZ }"-->
+        <!--      />-->
+        <GltfModel
+            src="/static/tree2.glb"
+            dracoPath="/draco/"
+            v-for="item in tree"
+            :position="item.position"
+            :rotation="{ y: item.rotation }"
+            :scale="{ x: item.scale * 300, y: item.scale * 300, z: item.scale * 300 }"
+        />
 
-      <SpotLight
-        color="#555555"
-        :distance="500"
-        :angle="Math.PI / 2"
-        :decay="0.5"
-        :intensity="5"
-        :position="{ y: 250 }"
-        :target="{ y: 500 }"
-      />
+        <!--      <GltfModel-->
+        <!--          src="/static/nuclearPS_compress.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :position="tree[0].position"-->
+        <!--          :scale="{x: 10, y: 10, z: 10}"/>-->
 
-      <GltfModel
-        src="/static/mountain.glb"
-        dracoPath="/draco/"
-        :scale="{ x: 45, y: 45, z: 45 }"
-        :position="{ x: mountainX, y: mountainY, z: mountainZ }"
-      />
-      <GltfModel
-        src="/static/newSolarStat.glb"
-        dracoPath="/draco/"
-        :scale="{ x: 20, y: 20, z: 20 }"
-        :position="{ x: solarBuildingX, y: solarBuildingY, z: solarBuildingZ }"
-      />
-      <GltfModel
-          src="/static/tree2.glb"
-          dracoPath="/draco/"
-          v-for="item in tree"
-          :position="item.position"
-          :rotation="{ y: item.rotation }"
-          :scale="{ x: item.scale * 300, y: item.scale * 300, z: item.scale * 300 }"
-      />
+        <GltfModel
+            src="/assets/models/plants/tree.glb"
+            v-for="item in tree"
+            :position="item.position"
+            :rotation="{ y: item.rotation }"
+            :scale="{ x: item.scale, y: item.scale, z: item.scale }"
+        />
 
-      <!--      <GltfModel-->
-      <!--          src="/static/nuclearPS_compress.glb"-->
-      <!--          dracoPath="/draco/"-->
-      <!--          :position="tree[0].position"-->
-      <!--          :scale="{x: 10, y: 10, z: 10}"/>-->
+        <GltfModel
+            src="/assets/models/plants/cactus.glb"
+            v-for="item in cactus"
+            :position="item.position"
+            :rotation="{ y: item.rotation }"
+            :scale="{ x: item.scale, y: item.scale, z: item.scale }"
+        />
 
-      <GltfModel
-        src="/assets/models/plants/tree.glb"
-        v-for="item in tree"
-        :position="item.position"
-        :rotation="{ y: item.rotation }"
-        :scale="{ x: item.scale, y: item.scale, z: item.scale }"
-      />
+        <GltfModel
+            src="/assets/models/plants/agave.glb"
+            v-for="item in agave"
+            :position="item.position"
+            :rotation="{ y: item.rotation }"
+            :scale="{ x: item.scale, y: item.scale, z: item.scale }"
+        />
 
-      <GltfModel
-        src="/assets/models/plants/cactus.glb"
-        v-for="item in cactus"
-        :position="item.position"
-        :rotation="{ y: item.rotation }"
-        :scale="{ x: item.scale, y: item.scale, z: item.scale }"
-      />
+        <GltfModel
+            src="/assets/models/plants/bushjr.glb"
+            v-for="item in bush"
+            :position="item.position"
+            :rotation="{ y: item.rotation }"
+            :scale="{ x: item.scale, y: item.scale, z: item.scale }"
+        />
+        <GltfModel
+            src="/assets/models/plants/cactus-ball.glb"
+            v-for="item in cactusBall"
+            :position="item.position"
+            :rotation="{ y: item.rotation }"
+            :scale="{ x: item.scale, y: item.scale, z: item.scale }"
+        />
 
-      <GltfModel
-        src="/assets/models/plants/agave.glb"
-        v-for="item in agave"
-        :position="item.position"
-        :rotation="{ y: item.rotation }"
-        :scale="{ x: item.scale, y: item.scale, z: item.scale }"
-      />
+        <GltfModel
+            src="/assets/models/plants/blob.glb"
+            v-for="item in grass"
+            :position="item"
+            :rotation="{ y: Math.random() * 360 }"
+            :scale="{ x: 2, y: 2, z: 2 }"
+        />
+        <GltfModel
+            src="/assets/models/plants/line.glb"
+            v-for="item in line"
+            :position="item.position"
+            :rotation="{ y: item.rotation }"
+            :scale="{ x: 2, y: 2, z: 2 }"
+        />
 
-      <GltfModel
-        src="/assets/models/plants/bushjr.glb"
-        v-for="item in bush"
-        :position="item.position"
-        :rotation="{ y: item.rotation }"
-        :scale="{ x: item.scale, y: item.scale, z: item.scale }"
-      />
-      <GltfModel
-        src="/assets/models/plants/cactus-ball.glb"
-        v-for="item in cactusBall"
-        :position="item.position"
-        :rotation="{ y: item.rotation }"
-        :scale="{ x: item.scale, y: item.scale, z: item.scale }"
-      />
-
-      <GltfModel
-        src="/assets/models/plants/blob.glb"
-        v-for="item in grass"
-        :position="item"
-        :rotation="{ y: Math.random() * 360 }"
-        :scale="{ x: 2, y: 2, z: 2 }"
-      />
-      <GltfModel
-        src="/assets/models/plants/line.glb"
-        v-for="item in line"
-        :position="item.position"
-        :rotation="{ y: item.rotation }"
-        :scale="{ x: 2, y: 2, z: 2 }"
-      />
-
-      <!-- cloud -->
-      <Plane
-        v-for="i in 15"
-        :ref="`mesh${i}`"
-        :width="500"
-        :height="500"
-        :position="{
+        <!-- cloud -->
+        <Plane
+            v-for="i in 15"
+            :ref="`mesh${i}`"
+            :width="500"
+            :height="500"
+            :position="{
           x: Math.random() * 800 - 400,
           y: 400,
           z: Math.random() * 800 - 400,
         }"
-        :rotation="{ x: Math.PI / 2, y: 0, z: Math.random() * 360 }"
-      >
-        <StandardMaterial
-          :props="{ transparent: true, opacity: 0.6, depthWrite: false }"
+            :rotation="{ x: Math.PI / 2, y: 0, z: Math.random() * 360 }"
         >
-          <Texture src="/assets/textures/smoke.png" />
-        </StandardMaterial>
-      </Plane>
+          <StandardMaterial
+              :props="{ transparent: true, opacity: 0.6, depthWrite: false }"
+          >
+            <Texture src="/assets/textures/smoke.png" />
+          </StandardMaterial>
+        </Plane>
 
-      <Plane
-        :rotation="{ x: -Math.PI / 2 }"
-        :width="800"
-        :height="800"
-        :widthSegments="64"
-        :heightSegments="64"
-        :position="{ x: planeX, y: planeY, z: planeZ }"
-        receive-shadow
-      >
-        <StandardMaterial :props="{ displacementScale: 20 }">
-          <Texture src="/assets/textures/green3c5942.png" />
-          <Texture
-            src="/assets/textures/background.png"
-            name="displacementMap"
+        <Plane
+            :rotation="{ x: -Math.PI / 2 }"
+            :width="800"
+            :height="800"
+            :widthSegments="64"
+            :heightSegments="64"
+            :position="{ x: planeX, y: planeY, z: planeZ }"
+            receive-shadow
+        >
+          <StandardMaterial :props="{ displacementScale: 20 }">
+            <Texture src="/assets/textures/green3c5942.png" />
+            <Texture
+                src="/assets/textures/background.png"
+                name="displacementMap"
+            />
+          </StandardMaterial>
+        </Plane>
+
+        <InstancedMesh ref="imesh" :count="NUM_INSTANCES">
+          <SphereGeometry :radius="0.3" />
+          <BasicMaterial
+              color="#ffffff"
+              :props="{ opacity: 0, transparent: true }"
           />
-        </StandardMaterial>
-      </Plane>
+        </InstancedMesh>
+      </Scene>
+    </Renderer>
 
-      <InstancedMesh ref="imesh" :count="NUM_INSTANCES">
-        <SphereGeometry :radius="0.3" />
-        <BasicMaterial
-          color="#ffffff"
-          :props="{ opacity: 0, transparent: true }"
-        />
-      </InstancedMesh>
-    </Scene>
-  </Renderer>
-
-  <audio ref="rainSound" loop>
-    <source src="/assets/sounds/rain.wav" type="audio/wav" />
-  </audio>
-  <audio ref="chimes" loop>
-    <source src="/assets/sounds/chimes.wav" type="audio/wav" />
-  </audio>
-  <audio ref="desertSound" loop>
-    <source src="/assets/sounds/desert.wav" type="audio/wav" />
-  </audio>
+    <audio ref="rainSound" loop>
+      <source src="/assets/sounds/rain.wav" type="audio/wav" />
+    </audio>
+    <audio ref="chimes" loop>
+      <source src="/assets/sounds/chimes.wav" type="audio/wav" />
+    </audio>
+    <audio ref="desertSound" loop>
+      <source src="/assets/sounds/desert.wav" type="audio/wav" />
+    </audio>
+  </div>
 </template>
 
 <script>
