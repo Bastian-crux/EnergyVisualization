@@ -742,6 +742,10 @@ export default {
     this.camera = this.$refs.camera.camera;
     scene.fog = new THREE.Fog(this.skycolor, 1, 800);
 
+
+    // Set window size
+    let element = document.getElementById('index');
+    renderer.three.setSize(element.clientWidth, element.clientHeight);
     //skybox
     let texture = [];
     let material = [];
