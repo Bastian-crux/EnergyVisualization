@@ -32,8 +32,8 @@ export default {
             hoverAnimation: true,
             color: [this.color, "rgba(50,50,50,0.3)"],
             itemStyle: {
-              borderRadius: 10,
-              borderColor: '#fff',
+              borderRadius: 5,
+              borderColor: 'rgba(0, 0, 0, 0)',
               borderWidth: 2
             },
             label: {
