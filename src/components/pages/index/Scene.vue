@@ -259,6 +259,36 @@
           }"
           :rotation="{ y: boardRotate2 }"
         />
+        <GltfModel
+            src="/static/nuclear/nuclearbuilding1.glb"
+            dracoPath="/draco/"
+            :scale="{ x: 20, y: 20, z: 20 }"
+            :position="{
+            x: nuclearBuilding1X,
+            y: nuclearBuilding1Y,
+            z: nuclearBuilding1Z,
+          }"
+        />
+        <GltfModel
+            src="/static/nuclear/nuclearbuilding2.glb"
+            dracoPath="/draco/"
+            :scale="{ x: 20, y: 20, z: 20 }"
+            :position="{
+            x: nuclearBuilding2X,
+            y: nuclearBuilding2Y,
+            z: nuclearBuilding2Z,
+          }"
+        />
+        <GltfModel
+            src="/static/nuclear/nuclearbuilding3.glb"
+            dracoPath="/draco/"
+            :scale="{ x: 20, y: 20, z: 20 }"
+            :position="{
+            x: nuclearBuilding3X,
+            y: nuclearBuilding3Y,
+            z: nuclearBuilding3Z,
+          }"
+        />
         <!--        <GltfModel-->
         <!--          src="/static/tree2.glb"-->
         <!--          dracoPath="/draco/"-->
@@ -706,6 +736,18 @@ export default {
     const planeY = ref(-13.35);
     const planeZ = ref(8.7);
 
+    const nuclearBuilding1X = ref(100);
+    const nuclearBuilding1Y = ref(100);
+    const nuclearBuilding1Z = ref(100);
+    const nuclearBuilding2X = ref(100);
+    const nuclearBuilding2Y = ref(100);
+    const nuclearBuilding2Z = ref(100);
+    const nuclearBuilding3X = ref(100);
+    const nuclearBuilding3Y = ref(100);
+    const nuclearBuilding3Z = ref(100);
+
+
+
     return {
       //imesh
       NUM_INSTANCES,
@@ -772,6 +814,16 @@ export default {
       planeX,
       planeY,
       planeZ,
+
+      nuclearBuilding1X,
+      nuclearBuilding1Y,
+      nuclearBuilding1Z,
+      nuclearBuilding2X,
+      nuclearBuilding2Y,
+      nuclearBuilding2Z,
+      nuclearBuilding3X,
+      nuclearBuilding3Y,
+      nuclearBuilding3Z,
     };
   },
   mounted() {
@@ -789,6 +841,17 @@ export default {
     this.pane.addInput(this, "solarBoardY2", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardZ2", { min: -100, max: 100 });
     this.pane.addInput(this, "boardRotate2", { min: 0, max: 10 });
+
+    // nuclear
+    this.pane.addInput(this, "nuclearBuilding1X", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding1Y", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding1Z", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding2X", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding2Y", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding2Z", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding3X", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding3Y", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding3Z", { min: -200, max: 200 });
 
     // this.pane.addInput(this, "mountainX", { min: -100, max: 100 });
     // this.pane.addInput(this, "mountainY", { min: -100, max: 100 });
