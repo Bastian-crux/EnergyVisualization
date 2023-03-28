@@ -2,7 +2,6 @@
   <div id="index">
     <Renderer
       ref="renderer"
-      pointer
       shadow
       antialias
       resize="window"
@@ -54,136 +53,149 @@
         />
 
         <GltfModel
+          ref="mountain"
           src="/static/mountain.glb"
           dracoPath="/draco/"
           :scale="{ x: 45, y: 45, z: 45 }"
-          :position="{ x: mountainX, y: mountainY, z: mountainZ }"
+          :position="{ x: -73.61, y: -28.91, z: -32.61 }"
         />
         <!--        solar-->
         <GltfModel
+          ref="newSolarStat"
           src="/static/solar/newSolarStat.glb"
           dracoPath="/draco/"
           :scale="{ x: 15, y: 15, z: 15 }"
           :position="{
-            x: solarBuildingX,
-            y: solarBuildingY,
-            z: solarBuildingZ,
+            x: 56.52,
+            y: 2.17,
+            z: -43.48,
           }"
         />
         <GltfModel
+          ref="board"
           src="/static/solar/board.glb"
           dracoPath="/draco/"
           :scale="{ x: 10, y: 10, z: 10 }"
           :position="{
-            x: solarBoardX,
-            y: solarBoardY,
-            z: solarBoardZ,
+            x: 32.61,
+            y: 2.17,
+            z: -43.48,
           }"
-          :rotation="{ y: boardRotate }"
+          :rotation="{ y: 2.93 }"
         />
         <GltfModel
+          ref="board1"
           src="/static/solar/board.glb"
           dracoPath="/draco/"
           :scale="{ x: 10, y: 10, z: 10 }"
           :position="{
-            x: solarBoardX2,
-            y: solarBoardY2,
-            z: solarBoardZ2,
+            x: 65.22,
+            y: 2.17,
+            z: -26.09,
           }"
-          :rotation="{ y: boardRotate2 }"
+          :rotation="{ y: 1.2 }"
         />
         <GltfModel
+          ref="board2"
           src="/static/solar/board.glb"
           dracoPath="/draco/"
           :scale="{ x: 10, y: 10, z: 10 }"
           :position="{
-            x: solarBoardX3,
-            y: solarBoardY3,
-            z: solarBoardZ3,
+            x: 71.74,
+            y: 2.17,
+            z: -17.39,
           }"
-          :rotation="{ y: boardRotate3 }"
+          :rotation="{ y: 1.2 }"
         />
         <GltfModel
+          ref="board3"
           src="/static/solar/board.glb"
           dracoPath="/draco/"
           :scale="{ x: 10, y: 10, z: 10 }"
           :position="{
-            x: solarBoardX4,
-            y: solarBoardY4,
-            z: solarBoardZ4,
+            x: 73.91,
+            y: 2.6,
+            z: -6.52,
           }"
-          :rotation="{ y: boardRotate4 }"
+          :rotation="{ y: 1.15 }"
         />
         <!--        nuclear-->
         <GltfModel
+          ref="nuclearbuilding1"
           src="/static/nuclear/nuclearbuilding1.glb"
           dracoPath="/draco/"
           :scale="{ x: 15, y: 15, z: 15 }"
           :position="{
-            x: nuclearBuilding1X,
-            y: nuclearBuilding1Y,
-            z: nuclearBuilding1Z,
+            x: 8.04,
+            y: 2.35,
+            z: -70.57,
           }"
         />
         <GltfModel
+          ref="nuclearbuilding12"
           src="/static/nuclear/nuclearbuilding1.glb"
           dracoPath="/draco/"
           :scale="{ x: 15, y: 15, z: 15 }"
           :position="{
-            x: nuclearBuilding1X_a,
-            y: nuclearBuilding1Y_a,
-            z: nuclearBuilding1Z_a,
+            x: 28.39,
+            y: 3.35,
+            z: -60.0,
           }"
         />
         <GltfModel
+          ref="nuclearbuilding2"
           src="/static/nuclear/nuclearbuilding2.glb"
           dracoPath="/draco/"
           :scale="{ x: 17, y: 17, z: 17 }"
           :position="{
-            x: nuclearBuilding2X,
-            y: nuclearBuilding2Y,
-            z: nuclearBuilding2Z,
+            x: -33.74,
+            y: 1.65,
+            z: -54.52,
           }"
         />
         <GltfModel
+          ref="nuclearbuilding3"
           src="/static/nuclear/nuclearbuilding3.glb"
           dracoPath="/draco/"
           :scale="{ x: 17, y: 17, z: 17 }"
           :position="{
-            x: nuclearBuilding3X,
-            y: nuclearBuilding3Y,
-            z: nuclearBuilding3Z,
+            x: -22,
+            y: 1.65,
+            z: -54.52,
           }"
           :rotation="{ y: 180 }"
         />
         <!--        forest-->
         <GltfModel
+          ref="forest"
           src="/static/forest.glb"
           dracoPath="/draco/"
           :scale="{ x: 35, y: 35, z: 35 }"
           :position="{
-            x: forsetX,
-            y: forsetY,
-            z: forsetZ,
+            x: 13.48,
+            y: -1.74,
+            z: -11.2,
           }"
           :rotation="{
-            x: forest_rotateX,
-            y: forest_rotateY,
-            z: forest_rotateZ,
+            x: 0.13,
+            y: 0.0,
+            z: 0.13,
           }"
         />
         <!--        wind-->
         <GltfModel
+          ref="windbuilding"
           src="/static/wind/building.glb"
           dracoPath="/draco/"
           :scale="{ x: 18, y: 18, z: 18 }"
           :position="{
-            x: buildingX,
-            y: buildingY,
-            z: buildingZ,
+            x: 8.7,
+            y: -6.52,
+            z: 50.0,
           }"
         />
         <GltfModel
+          ref="generator"
           src="/static/wind/generator.glb"
           dracoPath="/draco/"
           :scale="{ x: 18, y: 18, z: 18 }"
@@ -191,6 +203,7 @@
           :rotation="{ y: -0.96 }"
         />
         <GltfModel
+          ref="generator2"
           src="/static/wind/generator.glb"
           dracoPath="/draco/"
           :scale="{ x: 20, y: 20, z: 20 }"
@@ -202,6 +215,7 @@
           :rotation="{ y: -0.96 }"
         />
         <GltfModel
+          ref="generator3"
           src="/static/wind/generator.glb"
           dracoPath="/draco/"
           :scale="{ x: 18, y: 18, z: 18 }"
@@ -238,7 +252,7 @@
           :height="800"
           :widthSegments="64"
           :heightSegments="64"
-          :position="{ x: planeX, y: planeY, z: planeZ }"
+          :position="{ x: -32.61, y: -13.35, z: 8.7 }"
           receive-shadow
         >
           <StandardMaterial :props="{ displacementScale: 20 }">
@@ -294,64 +308,64 @@ export default {
     const imageArray = Array(6).fill("/assets/skybox/sky.png");
 
     // pane
-    const solarBuildingX = ref(56.52);
-    const solarBuildingY = ref(2.17);
-    const solarBuildingZ = ref(-43.48);
-    const solarBoardX = ref(32.61);
-    const solarBoardY = ref(2.17);
-    const solarBoardZ = ref(-60.87);
-    const boardRotate = ref(2.93);
-    const solarBoardX2 = ref(65.22);
-    const solarBoardY2 = ref(2.17);
-    const solarBoardZ2 = ref(-26.09);
-    const boardRotate2 = ref(1.2);
-    const solarBoardX3 = ref(71.74);
-    const solarBoardY3 = ref(2.17);
-    const solarBoardZ3 = ref(-17.39);
-    const boardRotate3 = ref(1.2);
-    const solarBoardX4 = ref(73.91);
-    const solarBoardY4 = ref(2.6);
-    const solarBoardZ4 = ref(-6.52);
-    const boardRotate4 = ref(1.15);
-    const mountainX = ref(-73.61);
-    const mountainY = ref(-28.91);
-    const mountainZ = ref(-32.61);
-    const planeX = ref(-32.61);
-    const planeY = ref(-13.35);
-    const planeZ = ref(8.7);
-
-    const nuclearBuilding1X = ref(8.04);
-    const nuclearBuilding1Y = ref(2.35);
-    const nuclearBuilding1Z = ref(-70.57);
-
-    const nuclearBuilding1X_a = ref(28.39);
-    const nuclearBuilding1Y_a = ref(3.35);
-    const nuclearBuilding1Z_a = ref(-60.0);
-
-    const nuclearBuilding2X = ref(-33.74);
-    const nuclearBuilding2Y = ref(1.65);
-    const nuclearBuilding2Z = ref(-54.52);
-
-    const nuclearBuilding3X = ref(-22);
-    const nuclearBuilding3Y = ref(-2);
-    const nuclearBuilding3Z = ref(-50);
-
-    const forsetX = ref(13.48);
-    const forsetY = ref(-1.74);
-    const forsetZ = ref(-11.2);
-
-    const forest_rotateX = ref(0.13);
-    const forest_rotateY = ref(0.0);
-    const forest_rotateZ = ref(0.13);
-
-    const buildingX = ref(8.7);
-    const buildingY = ref(-6.52);
-    const buildingZ = ref(50.0);
-    const generatorX = ref(-36.96);
-    const generatorY = ref(-8.7);
-    const generatorZ = ref(54.35);
-
-    const generator_rotateY = ref(-0.96);
+    // const solarBuildingX = ref(56.52);
+    // const solarBuildingY = ref(2.17);
+    // const solarBuildingZ = ref(-43.48);
+    // const solarBoardX = ref(32.61);
+    // const solarBoardY = ref(2.17);
+    // const solarBoardZ = ref(-60.87);
+    // const boardRotate = ref(2.93);
+    // const solarBoardX2 = ref(65.22);
+    // const solarBoardY2 = ref(2.17);
+    // const solarBoardZ2 = ref(-26.09);
+    // const boardRotate2 = ref(1.2);
+    // const solarBoardX3 = ref(71.74);
+    // const solarBoardY3 = ref(2.17);
+    // const solarBoardZ3 = ref(-17.39);
+    // const boardRotate3 = ref(1.2);
+    // const solarBoardX4 = ref(73.91);
+    // const solarBoardY4 = ref(2.6);
+    // const solarBoardZ4 = ref(-6.52);
+    // const boardRotate4 = ref(1.15);
+    // const mountainX = ref(-73.61);
+    // const mountainY = ref(-28.91);
+    // const mountainZ = ref(-32.61);
+    // const planeX = ref(-32.61);
+    // const planeY = ref(-13.35);
+    // const planeZ = ref(8.7);
+    //
+    // const nuclearBuilding1X = ref(8.04);
+    // const nuclearBuilding1Y = ref(2.35);
+    // const nuclearBuilding1Z = ref(-70.57);
+    //
+    // const nuclearBuilding1X_a = ref(28.39);
+    // const nuclearBuilding1Y_a = ref(3.35);
+    // const nuclearBuilding1Z_a = ref(-60.0);
+    //
+    // const nuclearBuilding2X = ref(-33.74);
+    // const nuclearBuilding2Y = ref(1.65);
+    // const nuclearBuilding2Z = ref(-54.52);
+    //
+    // const nuclearBuilding3X = ref(-22);
+    // const nuclearBuilding3Y = ref(-2);
+    // const nuclearBuilding3Z = ref(-50);
+    //
+    // const forsetX = ref(13.48);
+    // const forsetY = ref(-1.74);
+    // const forsetZ = ref(-11.2);
+    //
+    // const forest_rotateX = ref(0.13);
+    // const forest_rotateY = ref(0.0);
+    // const forest_rotateZ = ref(0.13);
+    //
+    // const buildingX = ref(8.7);
+    // const buildingY = ref(-6.52);
+    // const buildingZ = ref(50.0);
+    // const generatorX = ref(-36.96);
+    // const generatorY = ref(-8.7);
+    // const generatorZ = ref(54.35);
+    //
+    // const generator_rotateY = ref(-0.96);
 
     return {
       //imesh
@@ -365,61 +379,61 @@ export default {
       imageArray,
 
       // pane
-      solarBuildingX,
-      solarBuildingY,
-      solarBuildingZ,
-      solarBoardX,
-      solarBoardY,
-      solarBoardZ,
-      boardRotate,
-      solarBoardX2,
-      solarBoardY2,
-      solarBoardZ2,
-      boardRotate2,
-      solarBoardX3,
-      solarBoardY3,
-      solarBoardZ3,
-      boardRotate3,
-      solarBoardX4,
-      solarBoardY4,
-      solarBoardZ4,
-      boardRotate4,
-      mountainX,
-      mountainY,
-      mountainZ,
-      planeX,
-      planeY,
-      planeZ,
+      // solarBuildingX,
+      // solarBuildingY,
+      // solarBuildingZ,
+      // solarBoardX,
+      // solarBoardY,
+      // solarBoardZ,
+      // boardRotate,
+      // solarBoardX2,
+      // solarBoardY2,
+      // solarBoardZ2,
+      // boardRotate2,
+      // solarBoardX3,
+      // solarBoardY3,
+      // solarBoardZ3,
+      // boardRotate3,
+      // solarBoardX4,
+      // solarBoardY4,
+      // solarBoardZ4,
+      // boardRotate4,
+      // mountainX,
+      // mountainY,
+      // mountainZ,
+      // planeX,
+      // planeY,
+      // planeZ,
+      //
+      // nuclearBuilding1X,
+      // nuclearBuilding1Y,
+      // nuclearBuilding1Z,
+      // nuclearBuilding1X_a,
+      // nuclearBuilding1Y_a,
+      // nuclearBuilding1Z_a,
+      // nuclearBuilding2X,
+      // nuclearBuilding2Y,
+      // nuclearBuilding2Z,
+      // nuclearBuilding3X,
+      // nuclearBuilding3Y,
+      // nuclearBuilding3Z,
 
-      nuclearBuilding1X,
-      nuclearBuilding1Y,
-      nuclearBuilding1Z,
-      nuclearBuilding1X_a,
-      nuclearBuilding1Y_a,
-      nuclearBuilding1Z_a,
-      nuclearBuilding2X,
-      nuclearBuilding2Y,
-      nuclearBuilding2Z,
-      nuclearBuilding3X,
-      nuclearBuilding3Y,
-      nuclearBuilding3Z,
-
-      forsetX,
-      forsetY,
-      forsetZ,
-
-      forest_rotateX,
-      forest_rotateY,
-      forest_rotateZ,
-
-      buildingX,
-      buildingY,
-      buildingZ,
-      generatorX,
-      generatorY,
-      generatorZ,
-
-      generator_rotateY,
+      // forsetX,
+      // forsetY,
+      // forsetZ,
+      //
+      // forest_rotateX,
+      // forest_rotateY,
+      // forest_rotateZ,
+      //
+      // buildingX,
+      // buildingY,
+      // buildingZ,
+      // generatorX,
+      // generatorY,
+      // generatorZ,
+      //
+      // generator_rotateY,
     };
   },
   mounted() {
@@ -489,14 +503,14 @@ export default {
 */
 
     //scene core
-    const renderer = this.$refs.renderer;
-    const scene = this.$refs.scene.scene;
+    this.renderer = this.$refs.renderer;
+    this.scene = this.$refs.scene.scene;
     this.camera = this.$refs.camera.camera;
-    scene.fog = new THREE.Fog(this.skycolor, 1, 800);
+    this.scene.fog = new THREE.Fog(this.skycolor, 1, 800);
 
     // Set window size
     let element = document.getElementById("index");
-    renderer.three.setSize(element.clientWidth, element.clientHeight);
+    this.renderer.three.setSize(element.clientWidth, element.clientHeight);
     //skybox
     let texture = [];
     let material = [];
@@ -509,39 +523,78 @@ export default {
     for (let i = 0; i < 6; i++) material[i].side = THREE.BackSide;
     let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
     let skybox = new THREE.Mesh(skyboxGeo, material);
-    scene.add(skybox);
-
-    //mouse
-    // const mouse = this.$refs.mouse.light;
-    this.pointer = renderer.three.pointer;
-    const mouseV3 = this.pointer.positionV3;
-
-    //rain
-    const rainMaterial = new THREE.PointsMaterial({
-      color: 0xaaaaaa,
-      size: 0.1,
-      transparent: true,
-    });
-
-    const rainGeo = new THREE.BufferGeometry();
-    let rainVert = new Float32Array(this.rainCount * 3);
-    for (let i = 0; i < this.rainCount; i++) {
-      (rainVert[i * 3] = Math.random() * 400 - 200),
-        (rainVert[i * 3 + 1] = Math.random() * 250),
-        (rainVert[i * 3 + 2] = Math.random() * 400 - 200);
-    }
-    rainGeo.setAttribute("position", new THREE.BufferAttribute(rainVert, 3));
-    this.rain = new THREE.Points(rainGeo, rainMaterial);
-    scene.add(this.rain);
-    const positions = this.rain.geometry.attributes.position.array;
+    this.scene.add(skybox);
 
     //ANIMATION LOOP
-    renderer.onBeforeRender(() => {});
+    this.renderer.onBeforeRender(() => {});
+  },
+
+  unmounted() {
+    console.log(this.scene);
+    // this.disposeScene();
   },
 
   watch: {},
 
   methods: {
+    disposeScene() {
+      // const renderer = this.$refs.renderer;
+      // const scene = this.$refs.scene.scene;
+      // this.camera = this.$refs.camera.camera;
+      // this.viewControls2 = this.$refs.renderer.three.cameraCtrl;
+
+      // this.removeModel(null, this.scene);
+
+      // scene.background.dispose();
+      // this.viewControls2.dispose();
+      //处理当前的渲染环境
+      this.renderer.dispose();
+
+      //模拟WebGL环境的丢失。
+      this.renderer.forceContextLoss();
+      //在内部用于处理场景渲染对象的排序注销
+      this.renderer.renderLists.dispose();
+      //renderer的渲染容器删除
+      this.renderer.domElement = null;
+      //释放renderer变量的内存
+      this.renderer = null;
+      //清除所有缓存中的值。
+      THREE.Cache.clear();
+      this.scene.remove();
+
+      this.camera = null;
+      this.scene = null;
+      this.renderer = null;
+      this.viewControls2 = null;
+      // model = null;
+      // composer = null;
+      // outlinePass = null;
+      // renderPass = null;
+      // element = null;
+      // stats = null;
+
+      // cancelAnimationFrame(animateId);
+      // animateId = null;
+    },
+    // removeModel(parent, child) {
+    //   if (child.children.length) {
+    //     let arr = child.children.filter((x) => x);
+    //     arr.forEach((a) => {
+    //       this.removeModel(child, a);
+    //     });
+    //   }
+    //   if (child instanceof THREE.Mesh || child instanceof THREE.Line) {
+    //     if (child.material.map) child.material.map.dispose();
+    //     child.material.dispose();
+    //     child.geometry.dispose();
+    //   } else if (child.material) {
+    //     child.material.dispose();
+    //   }
+    //   child.remove();
+    //   if (parent) {
+    //     parent.remove(child);
+    //   }
+    // },
     lerp(start, end, amt) {
       return (1 - amt) * start + amt * end;
     },

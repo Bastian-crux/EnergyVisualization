@@ -151,7 +151,6 @@
 
     <Renderer
       ref="renderer"
-      pointer
       @wheel="(e) => !loaded && onScroll(e)"
       @mouseMove="onMove"
       shadow
@@ -182,14 +181,14 @@
           :decay="0"
           cast-shadow
         />
-        <PointLight
-          ref="light1"
-          color="rgb(20, 20, 100)"
-          :intensity="1.0"
-          :position="{ x: -120, y: 20 }"
-          :decay="0.5"
-          cast-shadow
-        />
+        <!--        <PointLight-->
+        <!--          ref="light1"-->
+        <!--          color="rgb(20, 20, 100)"-->
+        <!--          :intensity="1.0"-->
+        <!--          :position="{ x: -120, y: 20 }"-->
+        <!--          :decay="0.5"-->
+        <!--          cast-shadow-->
+        <!--        />-->
 
         <SpotLight
           color="#555555"
@@ -202,136 +201,149 @@
         />
 
         <GltfModel
+          ref="mountain"
           src="/static/mountain.glb"
           dracoPath="/draco/"
           :scale="{ x: 45, y: 45, z: 45 }"
-          :position="{ x: mountainX, y: mountainY, z: mountainZ }"
+          :position="{ x: -73.61, y: -28.91, z: -32.61 }"
         />
         <!--        solar-->
         <GltfModel
+          ref="newSolarStat"
           src="/static/solar/newSolarStat.glb"
           dracoPath="/draco/"
           :scale="{ x: 15, y: 15, z: 15 }"
           :position="{
-            x: solarBuildingX,
-            y: solarBuildingY,
-            z: solarBuildingZ,
+            x: 56.52,
+            y: 2.17,
+            z: -43.48,
           }"
         />
         <GltfModel
+          ref="board"
           src="/static/solar/board.glb"
           dracoPath="/draco/"
           :scale="{ x: 10, y: 10, z: 10 }"
           :position="{
-            x: solarBoardX,
-            y: solarBoardY,
-            z: solarBoardZ,
+            x: 32.61,
+            y: 2.17,
+            z: -43.48,
           }"
-          :rotation="{ y: boardRotate }"
+          :rotation="{ y: 2.93 }"
         />
         <GltfModel
+          ref="board1"
           src="/static/solar/board.glb"
           dracoPath="/draco/"
           :scale="{ x: 10, y: 10, z: 10 }"
           :position="{
-            x: solarBoardX2,
-            y: solarBoardY2,
-            z: solarBoardZ2,
+            x: 65.22,
+            y: 2.17,
+            z: -26.09,
           }"
-          :rotation="{ y: boardRotate2 }"
+          :rotation="{ y: 1.2 }"
         />
         <GltfModel
+          ref="board2"
           src="/static/solar/board.glb"
           dracoPath="/draco/"
           :scale="{ x: 10, y: 10, z: 10 }"
           :position="{
-            x: solarBoardX3,
-            y: solarBoardY3,
-            z: solarBoardZ3,
+            x: 71.74,
+            y: 2.17,
+            z: -17.39,
           }"
-          :rotation="{ y: boardRotate3 }"
+          :rotation="{ y: 1.2 }"
         />
         <GltfModel
+          ref="board3"
           src="/static/solar/board.glb"
           dracoPath="/draco/"
           :scale="{ x: 10, y: 10, z: 10 }"
           :position="{
-            x: solarBoardX4,
-            y: solarBoardY4,
-            z: solarBoardZ4,
+            x: 73.91,
+            y: 2.6,
+            z: -6.52,
           }"
-          :rotation="{ y: boardRotate4 }"
+          :rotation="{ y: 1.15 }"
         />
         <!--        nuclear-->
         <GltfModel
+          ref="nuclearbuilding1"
           src="/static/nuclear/nuclearbuilding1.glb"
           dracoPath="/draco/"
           :scale="{ x: 15, y: 15, z: 15 }"
           :position="{
-            x: nuclearBuilding1X,
-            y: nuclearBuilding1Y,
-            z: nuclearBuilding1Z,
+            x: 8.04,
+            y: 2.35,
+            z: -70.57,
           }"
         />
         <GltfModel
+          ref="nuclearbuilding12"
           src="/static/nuclear/nuclearbuilding1.glb"
           dracoPath="/draco/"
           :scale="{ x: 15, y: 15, z: 15 }"
           :position="{
-            x: nuclearBuilding1X_a,
-            y: nuclearBuilding1Y_a,
-            z: nuclearBuilding1Z_a,
+            x: 28.39,
+            y: 3.35,
+            z: -60.0,
           }"
         />
         <GltfModel
+          ref="nuclearbuilding2"
           src="/static/nuclear/nuclearbuilding2.glb"
           dracoPath="/draco/"
           :scale="{ x: 17, y: 17, z: 17 }"
           :position="{
-            x: nuclearBuilding2X,
-            y: nuclearBuilding2Y,
-            z: nuclearBuilding2Z,
+            x: -33.74,
+            y: 1.65,
+            z: -54.52,
           }"
         />
         <GltfModel
+          ref="nuclearbuilding3"
           src="/static/nuclear/nuclearbuilding3.glb"
           dracoPath="/draco/"
           :scale="{ x: 17, y: 17, z: 17 }"
           :position="{
-            x: nuclearBuilding3X,
-            y: nuclearBuilding3Y,
-            z: nuclearBuilding3Z,
+            x: -22,
+            y: 1.65,
+            z: -54.52,
           }"
           :rotation="{ y: 180 }"
         />
         <!--        forest-->
         <GltfModel
+          ref="forest"
           src="/static/forest.glb"
           dracoPath="/draco/"
           :scale="{ x: 35, y: 35, z: 35 }"
           :position="{
-            x: forsetX,
-            y: forsetY,
-            z: forsetZ,
+            x: 13.48,
+            y: -1.74,
+            z: -11.2,
           }"
           :rotation="{
-            x: forest_rotateX,
-            y: forest_rotateY,
-            z: forest_rotateZ,
+            x: 0.13,
+            y: 0.0,
+            z: 0.13,
           }"
         />
         <!--        wind-->
         <GltfModel
+          ref="windbuilding"
           src="/static/wind/building.glb"
           dracoPath="/draco/"
           :scale="{ x: 18, y: 18, z: 18 }"
           :position="{
-            x: buildingX,
-            y: buildingY,
-            z: buildingZ,
+            x: 8.7,
+            y: -6.52,
+            z: 50.0,
           }"
         />
         <GltfModel
+          ref="generator"
           src="/static/wind/generator.glb"
           dracoPath="/draco/"
           :scale="{ x: 18, y: 18, z: 18 }"
@@ -339,6 +351,7 @@
           :rotation="{ y: -0.96 }"
         />
         <GltfModel
+          ref="generator2"
           src="/static/wind/generator.glb"
           dracoPath="/draco/"
           :scale="{ x: 20, y: 20, z: 20 }"
@@ -350,6 +363,7 @@
           :rotation="{ y: -0.96 }"
         />
         <GltfModel
+          ref="generator3"
           src="/static/wind/generator.glb"
           dracoPath="/draco/"
           :scale="{ x: 18, y: 18, z: 18 }"
@@ -387,7 +401,7 @@
           :height="800"
           :widthSegments="64"
           :heightSegments="64"
-          :position="{ x: planeX, y: planeY, z: planeZ }"
+          :position="{ x: -32.61, y: -13.35, z: 8.7 }"
           receive-shadow
         >
           <StandardMaterial :props="{ displacementScale: 20 }">
@@ -915,8 +929,8 @@ export default {
 
     //mouse
     // const mouse = this.$refs.mouse.light;
-    this.pointer = this.renderer.three.pointer;
-    const mouseV3 = this.pointer.positionV3;
+    // this.pointer = this.renderer.three.pointer;
+    // const mouseV3 = this.pointer.positionV3;
 
     //rain
     const rainMaterial = new THREE.PointsMaterial({
