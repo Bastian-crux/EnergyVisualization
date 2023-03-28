@@ -275,7 +275,7 @@
         <GltfModel
           src="/static/nuclear/nuclearbuilding1.glb"
           dracoPath="/draco/"
-          :scale="{ x: 20, y: 20, z: 20 }"
+          :scale="{ x: 15, y: 15, z: 15 }"
           :position="{
             x: nuclearBuilding1X,
             y: nuclearBuilding1Y,
@@ -283,9 +283,19 @@
           }"
         />
         <GltfModel
+          src="/static/nuclear/nuclearbuilding1.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 15, y: 15, z: 15 }"
+          :position="{
+            x: nuclearBuilding1X_a,
+            y: nuclearBuilding1Y_a,
+            z: nuclearBuilding1Z_a,
+          }"
+        />
+        <GltfModel
           src="/static/nuclear/nuclearbuilding2.glb"
           dracoPath="/draco/"
-          :scale="{ x: 20, y: 20, z: 20 }"
+          :scale="{ x: 17, y: 17, z: 17 }"
           :position="{
             x: nuclearBuilding2X,
             y: nuclearBuilding2Y,
@@ -295,12 +305,13 @@
         <GltfModel
           src="/static/nuclear/nuclearbuilding3.glb"
           dracoPath="/draco/"
-          :scale="{ x: 20, y: 20, z: 20 }"
+          :scale="{ x: 17, y: 17, z: 17 }"
           :position="{
             x: nuclearBuilding3X,
             y: nuclearBuilding3Y,
             z: nuclearBuilding3Z,
           }"
+          :rotation="{ y: 180 }"
         />
         <!--        <GltfModel-->
         <!--          src="/static/tree2.glb"-->
@@ -753,15 +764,21 @@ export default {
     const planeY = ref(-13.35);
     const planeZ = ref(8.7);
 
-    const nuclearBuilding1X = ref(100);
-    const nuclearBuilding1Y = ref(100);
-    const nuclearBuilding1Z = ref(100);
-    const nuclearBuilding2X = ref(100);
-    const nuclearBuilding2Y = ref(100);
-    const nuclearBuilding2Z = ref(100);
-    const nuclearBuilding3X = ref(100);
-    const nuclearBuilding3Y = ref(100);
-    const nuclearBuilding3Z = ref(100);
+    const nuclearBuilding1X = ref(8.04);
+    const nuclearBuilding1Y = ref(2.35);
+    const nuclearBuilding1Z = ref(-70.57);
+
+    const nuclearBuilding1X_a = ref(28.39);
+    const nuclearBuilding1Y_a = ref(3.35);
+    const nuclearBuilding1Z_a = ref(-60.0);
+
+    const nuclearBuilding2X = ref(-33.74);
+    const nuclearBuilding2Y = ref(1.65);
+    const nuclearBuilding2Z = ref(-54.52);
+
+    const nuclearBuilding3X = ref(-22);
+    const nuclearBuilding3Y = ref(-2);
+    const nuclearBuilding3Z = ref(-50);
 
     return {
       //imesh
@@ -837,6 +854,9 @@ export default {
       nuclearBuilding1X,
       nuclearBuilding1Y,
       nuclearBuilding1Z,
+      nuclearBuilding1X_a,
+      nuclearBuilding1Y_a,
+      nuclearBuilding1Z_a,
       nuclearBuilding2X,
       nuclearBuilding2Y,
       nuclearBuilding2Z,
@@ -871,6 +891,11 @@ export default {
     this.pane.addInput(this, "nuclearBuilding1X", { min: -200, max: 200 });
     this.pane.addInput(this, "nuclearBuilding1Y", { min: -200, max: 200 });
     this.pane.addInput(this, "nuclearBuilding1Z", { min: -200, max: 200 });
+
+    this.pane.addInput(this, "nuclearBuilding1X_a", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding1Y_a", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding1Z_a", { min: -200, max: 200 });
+
     this.pane.addInput(this, "nuclearBuilding2X", { min: -200, max: 200 });
     this.pane.addInput(this, "nuclearBuilding2Y", { min: -200, max: 200 });
     this.pane.addInput(this, "nuclearBuilding2Z", { min: -200, max: 200 });
