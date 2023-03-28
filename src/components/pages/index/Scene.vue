@@ -760,18 +760,18 @@ export default {
     const solarBoardY = ref(2.17);
     const solarBoardZ = ref(-60.87);
     const boardRotate = ref(2.93);
-    const solarBoardX2 = ref(63.04);
+    const solarBoardX2 = ref(65.22);
     const solarBoardY2 = ref(2.17);
-    const solarBoardZ2 = ref(-32.61);
-    const boardRotate2 = ref(1.96);
-    const solarBoardX3 = ref(65.22);
+    const solarBoardZ2 = ref(-26.09);
+    const boardRotate2 = ref(1.2);
+    const solarBoardX3 = ref(71.74);
     const solarBoardY3 = ref(2.17);
-    const solarBoardZ3 = ref(-13.04);
-    const boardRotate3 = ref(1.85);
-    const solarBoardX4 = ref(-86.96);
-    const solarBoardY4 = ref(0);
-    const solarBoardZ4 = ref(10.87);
-    const boardRotate4 = ref(4.78);
+    const solarBoardZ3 = ref(-17.39);
+    const boardRotate3 = ref(1.2);
+    const solarBoardX4 = ref(73.91);
+    const solarBoardY4 = ref(2.6);
+    const solarBoardZ4 = ref(-6.52);
+    const boardRotate4 = ref(1.15);
     const mountainX = ref(-73.61);
     const mountainY = ref(-28.91);
     const mountainZ = ref(-32.61);
@@ -888,7 +888,6 @@ export default {
     // pane
     this.pane = new Pane();
     // Solar
-    /*
     this.pane.addInput(this, "solarBuildingX", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingY", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingZ", { min: -100, max: 100 });
@@ -900,7 +899,6 @@ export default {
     this.pane.addInput(this, "solarBoardY2", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardZ2", { min: -100, max: 100 });
     this.pane.addInput(this, "boardRotate2", { min: 0, max: 10 });
-*/
     this.pane.addInput(this, "solarBoardX3", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardY3", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardZ3", { min: -100, max: 100 });
