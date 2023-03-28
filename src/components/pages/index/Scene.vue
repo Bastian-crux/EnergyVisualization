@@ -165,14 +165,6 @@
         :far="5000"
       />
       <Scene ref="scene">
-        <!--      mouse point light-->
-        <!--      <PointLight-->
-        <!--        ref="mouse"-->
-        <!--        :intensity="0"-->
-        <!--        cast-shadow>-->
-        <!--        <Sphere :radius="1"/>-->
-        <!--      </PointLight>-->
-
         <!--      黑夜时的色彩-->
         <HemisphereLight
           ref="light"
@@ -198,16 +190,6 @@
           :decay="0.5"
           cast-shadow
         />
-
-        <!--      <SpotLight-->
-        <!--          color="#555555"-->
-        <!--          :distance="500"-->
-        <!--          :angle="Math.PI / 2"-->
-        <!--          :decay="0.5"-->
-        <!--          :intensity="1"-->
-        <!--          :position="{ y: 500 }"-->
-        <!--          :target="{ y: 30 }"-->
-        <!--      />-->
 
         <SpotLight
           color="#555555"
@@ -378,72 +360,6 @@
           }"
           :rotation="{ y: -0.96 }"
         />
-        <!--        <GltfModel-->
-        <!--          src="/static/tree2.glb"-->
-        <!--          dracoPath="/draco/"-->
-        <!--          v-for="item in tree"-->
-        <!--          :position="item.position"-->
-        <!--          :rotation="{ y: item.rotation }"-->
-        <!--          :scale="{-->
-        <!--            x: item.scale * 300,-->
-        <!--            y: item.scale * 300,-->
-        <!--            z: item.scale * 300,-->
-        <!--          }"-->
-        <!--        />-->
-
-        <!--        <GltfModel-->
-        <!--          src="/assets/models/plants/tree.glb"-->
-        <!--          v-for="item in tree"-->
-        <!--          :position="item.position"-->
-        <!--          :rotation="{ y: item.rotation }"-->
-        <!--          :scale="{ x: item.scale, y: item.scale, z: item.scale }"-->
-        <!--        />-->
-
-        <!--        <GltfModel-->
-        <!--          src="/assets/models/plants/cactus.glb"-->
-        <!--          v-for="item in cactus"-->
-        <!--          :position="item.position"-->
-        <!--          :rotation="{ y: item.rotation }"-->
-        <!--          :scale="{ x: item.scale, y: item.scale, z: item.scale }"-->
-        <!--        />-->
-
-        <!--        <GltfModel-->
-        <!--          src="/assets/models/plants/agave.glb"-->
-        <!--          v-for="item in agave"-->
-        <!--          :position="item.position"-->
-        <!--          :rotation="{ y: item.rotation }"-->
-        <!--          :scale="{ x: item.scale, y: item.scale, z: item.scale }"-->
-        <!--        />-->
-
-        <!--        <GltfModel-->
-        <!--          src="/assets/models/plants/bushjr.glb"-->
-        <!--          v-for="item in bush"-->
-        <!--          :position="item.position"-->
-        <!--          :rotation="{ y: item.rotation }"-->
-        <!--          :scale="{ x: item.scale, y: item.scale, z: item.scale }"-->
-        <!--        />-->
-        <!--        <GltfModel-->
-        <!--          src="/assets/models/plants/cactus-ball.glb"-->
-        <!--          v-for="item in cactusBall"-->
-        <!--          :position="item.position"-->
-        <!--          :rotation="{ y: item.rotation }"-->
-        <!--          :scale="{ x: item.scale, y: item.scale, z: item.scale }"-->
-        <!--        />-->
-
-        <!--        <GltfModel-->
-        <!--          src="/assets/models/plants/blob.glb"-->
-        <!--          v-for="item in grass"-->
-        <!--          :position="item"-->
-        <!--          :rotation="{ y: Math.random() * 360 }"-->
-        <!--          :scale="{ x: 2, y: 2, z: 2 }"-->
-        <!--        />-->
-        <!--        <GltfModel-->
-        <!--          src="/assets/models/plants/line.glb"-->
-        <!--          v-for="item in line"-->
-        <!--          :position="item.position"-->
-        <!--          :rotation="{ y: item.rotation }"-->
-        <!--          :scale="{ x: 2, y: 2, z: 2 }"-->
-        <!--        />-->
 
         <!-- cloud -->
         <Plane
@@ -750,54 +666,6 @@ export default {
       });
     }
 
-    //plants
-
-    const tree = [
-      { position: { x: 0, y: 1, z: -60 }, scale: 0.2, rotation: 0 },
-      { position: { x: -57, y: 1.5, z: -20 }, scale: 0.25, rotation: 0.9 },
-      { position: { x: -25, y: 1.5, z: 55 }, scale: 0.2, rotation: 3 },
-      { position: { x: 60, y: 3.5, z: 30 }, scale: 0.16, rotation: 3.14 },
-    ];
-    const cactus = [
-      { position: { x: -60, y: 2.5, z: 8 }, scale: 0.18, rotation: 0.7 },
-      { position: { x: -25, y: 7, z: -70 }, scale: 0.17, rotation: 2.5 },
-    ];
-
-    const agave = [
-      { position: { x: 20, y: 5, z: 65 }, scale: 0.5, rotation: 1.3 },
-      { position: { x: 25, y: 6, z: -66 }, scale: 0.4, rotation: 0 },
-      { position: { x: -50, y: 6, z: 45 }, scale: 0.4, rotation: 2 },
-    ];
-    const bush = [
-      { position: { x: 65, y: 5.5, z: 6 }, scale: 20, rotation: 3 },
-      { position: { x: -6, y: 7, z: -80 }, scale: 16, rotation: 0 },
-      { position: { x: -60, y: 7, z: 30 }, scale: 18, rotation: 2 },
-    ];
-    const cactusBall = [
-      { position: { x: 40, y: 2.5, z: -45 }, scale: 0.4, rotation: 0 },
-      { position: { x: -45, y: 4, z: -40 }, scale: 0.35, rotation: 1 },
-      { position: { x: 0, y: 4, z: 65 }, scale: 0.35, rotation: 2 },
-    ];
-    const grass = [
-      { x: 65, y: 6, z: 25 },
-      { x: 64, y: 6, z: 35 },
-      { x: 56, y: 6, z: 40 },
-      { x: -20, y: 5, z: 65 },
-      { x: -13, y: 3, z: 62 },
-      { x: -35, y: 7, z: 60 },
-      { x: 30, y: 3, z: 52 },
-      { x: 35, y: 3, z: 48 },
-      { x: 11, y: 2, z: -56 },
-      { x: -11, y: 2, z: -56 },
-      { x: -60, y: 1.5, z: -4 },
-      { x: -54, y: 3, z: -30 },
-      { x: -35, y: 4, z: -53 },
-    ];
-    const line = [
-      { position: { x: 52, y: 2.6, z: -22 }, rotation: 1.9 },
-      { position: { x: -43, y: -0.2, z: 35 }, rotation: 2.1 },
-    ];
-
     // pane
     const solarBuildingX = ref(56.52);
     const solarBuildingY = ref(2.17);
@@ -894,14 +762,6 @@ export default {
       rainVolume,
       desertVolume,
       soundMuted,
-      //plants
-      tree,
-      cactus,
-      agave,
-      bush,
-      cactusBall,
-      grass,
-      line,
       //texture
       imageArray,
       rainCount: 3000,
@@ -1090,25 +950,6 @@ export default {
     }
     this.imesh.instanceMatrix.needsUpdate = true;
 
-    //water
-    // const waterGeometry = new THREE.CircleGeometry( 50, 100);
-    // const water = new Water(
-    //     waterGeometry,
-    //     {
-    //       textureWidth: 1000,
-    //       textureHeight: 1000,
-    //       waterNormals: new THREE.TextureLoader().load( '/assets/textures/water.jpg', function ( texture ) {
-    //         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    //       } ),
-    //       waterColor: this.groundcolor,
-    //       sunColor: this.skycolor,
-    //       distortionScale: 4.8,
-    //       fog: scene.fog !== undefined
-    //     }
-    //   )
-    // this.water = water
-    // water.rotation.x = - Math.PI / 2;
-    // scene.add( water );
     let mesh;
 
     //ANIMATION LOOP

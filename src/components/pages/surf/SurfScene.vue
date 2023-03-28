@@ -261,7 +261,6 @@ import { ref, computed, watch } from "vue";
 import { NButton, NProgress } from "naive-ui";
 import { Water } from "three/examples/jsm/objects/Water.js";
 import Loader from "./Loader.vue";
-import IconGroup from "./IconGroup.vue";
 import Menu from "./Menu.vue";
 import TextScroll from "./TextScroll.vue";
 import DataList from "@/components/pages/statistic/DataList.vue";
@@ -277,7 +276,6 @@ export default {
     Loader,
     NButton,
     NProgress,
-    IconGroup,
     Menu,
     TextScroll,
   },
@@ -291,11 +289,6 @@ export default {
     ) {
       percent.value = (itemsLoaded / itemsTotal) * 100;
     };
-
-    //verticle control
-    // const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
-    // TODO: Debug Only
-    const [rainTime, nightTime, dawnTime, dayTime] = [0, 0, 0, 100000]; // 持续时间
 
     //textures
     const imageArray = Array(6).fill("/assets/skybox/sky.png");
@@ -541,27 +534,6 @@ export default {
     this.rain = new THREE.Points(rainGeo, rainMaterial);
     scene.add(this.rain);
     const positions = this.rain.geometry.attributes.position.array;
-
-    //water
-    // const waterGeometry = new THREE.CircleGeometry( 50, 100);
-    // const water = new Water(
-    //     waterGeometry,
-    //     {
-    //       textureWidth: 1000,
-    //       textureHeight: 1000,
-    //       waterNormals: new THREE.TextureLoader().load( '/assets/textures/water.jpg', function ( texture ) {
-    //         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    //       } ),
-    //       waterColor: this.groundcolor,
-    //       sunColor: this.skycolor,
-    //       distortionScale: 4.8,
-    //       fog: scene.fog !== undefined
-    //     }
-    //   )
-    // this.water = water
-    // water.rotation.x = - Math.PI / 2;
-    // scene.add( water );
-    let mesh;
 
     //ANIMATION LOOP
     renderer.onBeforeRender(() => {});
