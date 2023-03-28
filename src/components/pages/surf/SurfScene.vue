@@ -149,6 +149,8 @@
       </div>
     </transition>
 
+    <!--  <Menu :vPosition="vPosition" :soundMuted="soundMuted" @toggleSound="toggleSound"/>-->
+
     <Renderer
       ref="renderer"
       pointer
@@ -513,6 +515,7 @@ import { NButton, NProgress } from "naive-ui";
 import { Water } from "three/examples/jsm/objects/Water.js";
 import Loader from "./Loader.vue";
 import IconGroup from "./IconGroup.vue";
+import Menu from "./Menu.vue";
 import TextScroll from "./TextScroll.vue";
 import DataList from "@/components/pages/statistic/DataList.vue";
 import DataListMain from "@/components/pages/statistic/DataListMain.vue";
@@ -528,6 +531,7 @@ export default {
     NButton,
     NProgress,
     IconGroup,
+    Menu,
     TextScroll,
   },
   setup() {
@@ -965,10 +969,10 @@ export default {
     };
   },
   mounted() {
-    /*
     // pane
     this.pane = new Pane();
     // Solar
+    /*
     this.pane.addInput(this, "solarBuildingX", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingY", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingZ", { min: -100, max: 100 });
@@ -988,6 +992,7 @@ export default {
     this.pane.addInput(this, "solarBoardY4", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardZ4", { min: -100, max: 100 });
     this.pane.addInput(this, "boardRotate4", { min: 0, max: 10 });
+*/
 
     // nuclear
     this.pane.addInput(this, "nuclearBuilding1X", { min: -200, max: 200 });
@@ -1028,7 +1033,6 @@ export default {
     this.pane.addInput(this, "generatorZ", { min: -100, max: 100 });
 
     this.pane.addInput(this, "generator_rotateY", { min: -4, max: 4 });
-*/
 
     //scene core
     const renderer = this.$refs.renderer;
@@ -1286,6 +1290,20 @@ canvas {
 .center {
   transform: translate(-50%, 0);
   left: 50%;
+}
+.menu {
+  text-align: center;
+}
+.menu h1,
+p,
+h2 {
+  color: white;
+}
+.menu h1 {
+  margin: 0 auto 5px;
+}
+.menu p {
+  margin: 2vh auto 0;
 }
 .btn::before {
   content: "";
