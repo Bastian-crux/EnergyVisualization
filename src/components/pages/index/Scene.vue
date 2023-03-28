@@ -271,6 +271,17 @@
           }"
           :rotation="{ y: boardRotate3 }"
         />
+        <GltfModel
+          src="/static/solar/board.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 10, y: 10, z: 10 }"
+          :position="{
+            x: solarBoardX4,
+            y: solarBoardY4,
+            z: solarBoardZ4,
+          }"
+          :rotation="{ y: boardRotate4 }"
+        />
         <!--        nuclear-->
         <GltfModel
           src="/static/nuclear/nuclearbuilding1.glb"
@@ -742,21 +753,25 @@ export default {
     ];
 
     // pane
-    const solarBuildingX = ref(-60);
-    const solarBuildingY = ref(0);
-    const solarBuildingZ = ref(-25);
-    const solarBoardX = ref(-77);
-    const solarBoardY = ref(0);
-    const solarBoardZ = ref(2);
-    const boardRotate = ref(4.78);
-    const solarBoardX2 = ref(-75.8);
-    const solarBoardY2 = ref(0);
-    const solarBoardZ2 = ref(19.39);
-    const boardRotate2 = ref(4.78);
-    const solarBoardX3 = ref(-86.96);
-    const solarBoardY3 = ref(0);
-    const solarBoardZ3 = ref(10.87);
-    const boardRotate3 = ref(4.78);
+    const solarBuildingX = ref(56.52);
+    const solarBuildingY = ref(2.17);
+    const solarBuildingZ = ref(-43.48);
+    const solarBoardX = ref(32.61);
+    const solarBoardY = ref(2.17);
+    const solarBoardZ = ref(-60.87);
+    const boardRotate = ref(2.93);
+    const solarBoardX2 = ref(63.04);
+    const solarBoardY2 = ref(2.17);
+    const solarBoardZ2 = ref(-32.61);
+    const boardRotate2 = ref(1.96);
+    const solarBoardX3 = ref(65.22);
+    const solarBoardY3 = ref(2.17);
+    const solarBoardZ3 = ref(-13.04);
+    const boardRotate3 = ref(1.85);
+    const solarBoardX4 = ref(-86.96);
+    const solarBoardY4 = ref(0);
+    const solarBoardZ4 = ref(10.87);
+    const boardRotate4 = ref(4.78);
     const mountainX = ref(-73.61);
     const mountainY = ref(-28.91);
     const mountainZ = ref(-32.61);
@@ -844,6 +859,10 @@ export default {
       solarBoardY3,
       solarBoardZ3,
       boardRotate3,
+      solarBoardX4,
+      solarBoardY4,
+      solarBoardZ4,
+      boardRotate4,
       mountainX,
       mountainY,
       mountainZ,
@@ -881,11 +900,15 @@ export default {
     this.pane.addInput(this, "solarBoardY2", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardZ2", { min: -100, max: 100 });
     this.pane.addInput(this, "boardRotate2", { min: 0, max: 10 });
+*/
     this.pane.addInput(this, "solarBoardX3", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardY3", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardZ3", { min: -100, max: 100 });
     this.pane.addInput(this, "boardRotate3", { min: 0, max: 10 });
-*/
+    this.pane.addInput(this, "solarBoardX4", { min: -100, max: 100 });
+    this.pane.addInput(this, "solarBoardY4", { min: -100, max: 100 });
+    this.pane.addInput(this, "solarBoardZ4", { min: -100, max: 100 });
+    this.pane.addInput(this, "boardRotate4", { min: 0, max: 10 });
 
     // nuclear
     this.pane.addInput(this, "nuclearBuilding1X", { min: -200, max: 200 });
