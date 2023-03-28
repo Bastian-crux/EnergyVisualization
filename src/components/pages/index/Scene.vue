@@ -891,14 +891,14 @@ export default {
 */
 
     //scene core
-    const renderer = this.$refs.renderer;
-    const scene = this.$refs.scene.scene;
+    this.renderer = this.$refs.renderer;
+    this.scene = this.$refs.scene.scene;
     this.camera = this.$refs.camera.camera;
-    scene.fog = new THREE.Fog(this.skycolor, 1, 800);
+    this.scene.fog = new THREE.Fog(this.skycolor, 1, 800);
 
     // Set window size
     let element = document.getElementById("index");
-    renderer.three.setSize(element.clientWidth, element.clientHeight);
+    this.renderer.three.setSize(element.clientWidth, element.clientHeight);
     //skybox
     let texture = [];
     let material = [];
@@ -911,11 +911,11 @@ export default {
     for (let i = 0; i < 6; i++) material[i].side = THREE.BackSide;
     let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
     let skybox = new THREE.Mesh(skyboxGeo, material);
-    scene.add(skybox);
+    this.scene.add(skybox);
 
     //mouse
     // const mouse = this.$refs.mouse.light;
-    this.pointer = renderer.three.pointer;
+    this.pointer = this.renderer.three.pointer;
     const mouseV3 = this.pointer.positionV3;
 
     //rain
@@ -934,7 +934,7 @@ export default {
     }
     rainGeo.setAttribute("position", new THREE.BufferAttribute(rainVert, 3));
     this.rain = new THREE.Points(rainGeo, rainMaterial);
-    scene.add(this.rain);
+    this.scene.add(this.rain);
     const positions = this.rain.geometry.attributes.position.array;
 
     //particles
@@ -953,7 +953,7 @@ export default {
     let mesh;
 
     //ANIMATION LOOP
-    renderer.onBeforeRender(() => {
+    this.renderer.onBeforeRender(() => {
       // water.material.uniforms[ 'time' ].value += 0.7 / 60.0;
       if (this.vPosition > 2400) {
         this.camera.position.x = Math.cos((this.vPosition - 2400) / 3000) * 150;
