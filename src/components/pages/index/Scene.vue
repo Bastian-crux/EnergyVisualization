@@ -324,6 +324,22 @@
           }"
           :rotation="{ y: 180 }"
         />
+        <!--        forest-->
+        <GltfModel
+          src="/static/forest.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 35, y: 35, z: 35 }"
+          :position="{
+            x: forsetX,
+            y: forsetY,
+            z: forsetZ,
+          }"
+          :rotation="{
+            x: forest_rotateX,
+            y: forest_rotateY,
+            z: forest_rotateZ,
+          }"
+        />
         <!--        <GltfModel-->
         <!--          src="/static/tree2.glb"-->
         <!--          dracoPath="/draco/"-->
@@ -795,6 +811,14 @@ export default {
     const nuclearBuilding3Y = ref(-2);
     const nuclearBuilding3Z = ref(-50);
 
+    const forsetX = ref(13.48);
+    const forsetY = ref(-1.74);
+    const forsetZ = ref(-11.2);
+
+    const forest_rotateX = ref(0.13);
+    const forest_rotateY = ref(0.0);
+    const forest_rotateZ = ref(0.13);
+
     return {
       //imesh
       NUM_INSTANCES,
@@ -882,12 +906,21 @@ export default {
       nuclearBuilding3X,
       nuclearBuilding3Y,
       nuclearBuilding3Z,
+
+      forsetX,
+      forsetY,
+      forsetZ,
+
+      forest_rotateX,
+      forest_rotateY,
+      forest_rotateZ,
     };
   },
   mounted() {
     // pane
     this.pane = new Pane();
     // Solar
+    /*
     this.pane.addInput(this, "solarBuildingX", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingY", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingZ", { min: -100, max: 100 });
@@ -907,6 +940,7 @@ export default {
     this.pane.addInput(this, "solarBoardY4", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardZ4", { min: -100, max: 100 });
     this.pane.addInput(this, "boardRotate4", { min: 0, max: 10 });
+*/
 
     // nuclear
     this.pane.addInput(this, "nuclearBuilding1X", { min: -200, max: 200 });
@@ -930,6 +964,14 @@ export default {
     // this.pane.addInput(this, "planeX", { min: -100, max: 100 });
     // this.pane.addInput(this, "planeY", { min: -100, max: 100 });
     // this.pane.addInput(this, "planeZ", { min: -100, max: 100 });
+
+    this.pane.addInput(this, "forsetX", { min: -20, max: 20 });
+    this.pane.addInput(this, "forsetY", { min: -20, max: 20 });
+    this.pane.addInput(this, "forsetZ", { min: -20, max: 10 });
+
+    this.pane.addInput(this, "forest_rotateX", { min: -3, max: 3 });
+    this.pane.addInput(this, "forest_rotateY", { min: -3, max: 3 });
+    this.pane.addInput(this, "forest_rotateZ", { min: -3, max: 3 });
 
     //scene core
     const renderer = this.$refs.renderer;
