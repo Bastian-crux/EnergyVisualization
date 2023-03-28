@@ -18,6 +18,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import Index from "@/components/pages/index/Index.vue";
+import SurfScene from "@/components/pages/surf/SurfScene.vue";
 import Overview from "@/components/pages/overview/Overview.vue";
 import Statistic from "@/components/pages/statistic/Statistic.vue";
 import HeatMapIndex from "@/components/pages/heatmap/HeatMapIndex.vue";
@@ -29,6 +30,10 @@ const router = createRouter({
     {
       path: "/",
       component: Index,
+    },
+    {
+      path: "/surf",
+      component: SurfScene,
     },
     {
       path: "/overview",

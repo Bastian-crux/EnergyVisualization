@@ -11,6 +11,7 @@
       <el-menu-item index="">能源可视化</el-menu-item>
       <div class="flex-grow" />
       <el-menu-item index="/">首页</el-menu-item>
+      <el-menu-item index="/surf">漫游</el-menu-item>
       <el-menu-item index="/overview">能源概览</el-menu-item>
       <el-menu-item index="/timeline">Timeline</el-menu-item>
       <el-menu-item index="/statistic">能源月报</el-menu-item>

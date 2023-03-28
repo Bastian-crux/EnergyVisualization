@@ -969,10 +969,10 @@ export default {
     };
   },
   mounted() {
+    /*
     // pane
     this.pane = new Pane();
     // Solar
-    /*
     this.pane.addInput(this, "solarBuildingX", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingY", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBuildingZ", { min: -100, max: 100 });
@@ -992,7 +992,6 @@ export default {
     this.pane.addInput(this, "solarBoardY4", { min: -100, max: 100 });
     this.pane.addInput(this, "solarBoardZ4", { min: -100, max: 100 });
     this.pane.addInput(this, "boardRotate4", { min: 0, max: 10 });
-*/
 
     // nuclear
     this.pane.addInput(this, "nuclearBuilding1X", { min: -200, max: 200 });
@@ -1033,6 +1032,7 @@ export default {
     this.pane.addInput(this, "generatorZ", { min: -100, max: 100 });
 
     this.pane.addInput(this, "generator_rotateY", { min: -4, max: 4 });
+*/
 
     //scene core
     const renderer = this.$refs.renderer;
