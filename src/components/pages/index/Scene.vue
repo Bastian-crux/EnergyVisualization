@@ -340,6 +340,46 @@
             z: forest_rotateZ,
           }"
         />
+        <!--        wind-->
+        <GltfModel
+          src="/static/wind/building.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 18, y: 18, z: 18 }"
+          :position="{
+            x: buildingX,
+            y: buildingY,
+            z: buildingZ,
+          }"
+        />
+        <GltfModel
+          src="/static/wind/generator.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 18, y: 18, z: 18 }"
+          :position="{ x: -19.57, y: -6.52, z: 52.17 }"
+          :rotation="{ y: -0.96 }"
+        />
+        <GltfModel
+          src="/static/wind/generator.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 20, y: 20, z: 20 }"
+          :position="{
+            x: -36.96,
+            y: -8.7,
+            z: 54.35,
+          }"
+          :rotation="{ y: -0.96 }"
+        />
+        <GltfModel
+          src="/static/wind/generator.glb"
+          dracoPath="/draco/"
+          :scale="{ x: 18, y: 18, z: 18 }"
+          :position="{
+            x: -34.78,
+            y: -2.17,
+            z: 39.13,
+          }"
+          :rotation="{ y: -0.96 }"
+        />
         <!--        <GltfModel-->
         <!--          src="/static/tree2.glb"-->
         <!--          dracoPath="/draco/"-->
@@ -352,12 +392,6 @@
         <!--            z: item.scale * 300,-->
         <!--          }"-->
         <!--        />-->
-
-        <!--      <GltfModel-->
-        <!--          src="/static/nuclearPS_compress.glb"-->
-        <!--          dracoPath="/draco/"-->
-        <!--          :position="tree[0].position"-->
-        <!--          :scale="{x: 10, y: 10, z: 10}"/>-->
 
         <!--        <GltfModel-->
         <!--          src="/assets/models/plants/tree.glb"-->
@@ -819,6 +853,15 @@ export default {
     const forest_rotateY = ref(0.0);
     const forest_rotateZ = ref(0.13);
 
+    const buildingX = ref(8.7);
+    const buildingY = ref(-6.52);
+    const buildingZ = ref(50.0);
+    const generatorX = ref(-36.96);
+    const generatorY = ref(-8.7);
+    const generatorZ = ref(54.35);
+
+    const generator_rotateY = ref(-0.96);
+
     return {
       //imesh
       NUM_INSTANCES,
@@ -914,6 +957,15 @@ export default {
       forest_rotateX,
       forest_rotateY,
       forest_rotateZ,
+
+      buildingX,
+      buildingY,
+      buildingZ,
+      generatorX,
+      generatorY,
+      generatorZ,
+
+      generator_rotateY,
     };
   },
   mounted() {
@@ -972,6 +1024,15 @@ export default {
     this.pane.addInput(this, "forest_rotateX", { min: -3, max: 3 });
     this.pane.addInput(this, "forest_rotateY", { min: -3, max: 3 });
     this.pane.addInput(this, "forest_rotateZ", { min: -3, max: 3 });
+
+    this.pane.addInput(this, "buildingX", { min: -10, max: 20 });
+    this.pane.addInput(this, "buildingY", { min: -10, max: 20 });
+    this.pane.addInput(this, "buildingZ", { min: 20, max: 80 });
+    this.pane.addInput(this, "generatorX", { min: -100, max: 100 });
+    this.pane.addInput(this, "generatorY", { min: -100, max: 100 });
+    this.pane.addInput(this, "generatorZ", { min: -100, max: 100 });
+
+    this.pane.addInput(this, "generator_rotateY", { min: -4, max: 4 });
 
     //scene core
     const renderer = this.$refs.renderer;
