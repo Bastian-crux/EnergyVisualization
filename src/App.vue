@@ -1,16 +1,10 @@
 <template>
-  <the-nav-bar />
-  <main>
-    <router-view />
-  </main>
+  <router-view />
 </template>
 
 <script>
-import TheNavBar from "@/components/layout/TheNavBar.vue";
-
 export default {
   name: "App",
-  components: { TheNavBar },
 };
 </script>
 

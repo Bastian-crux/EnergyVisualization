@@ -547,7 +547,7 @@ function initScene() {
     50,
     element.clientWidth / element.clientHeight,
     0.1,
-    500
+    5000
   );
   camera.position.set(85, 5, -50); // 相机的位置
   camera.lookAt(0, 75, 0);

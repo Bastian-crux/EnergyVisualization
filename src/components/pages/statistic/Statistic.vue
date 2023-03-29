@@ -1,4 +1,5 @@
 <template>
+  <the-nav-bar />
   <el-card class="box-card">
     <el-row>
       <el-col :span="24">
@@ -13,34 +14,35 @@
   </el-card>
   <el-card class="box-card">
     <div v-if="selectTab === 'monthly'">
-      <monthly-chart/>
+      <monthly-chart />
     </div>
     <div v-else>
-      <data-list/>
+      <data-list />
     </div>
   </el-card>
 </template>
 
 <script>
-import {ref} from 'vue';
+import { ref } from "vue";
 import MonthlyChart from "@/components/pages/statistic/MonthlyChart.vue";
 import DataList from "@/components/pages/statistic/DataList.vue";
+import TheNavBar from "@/components/layout/TheNavBar.vue";
 
 export default {
   name: "Statistic",
-  components: {DataList, MonthlyChart},
+  components: { TheNavBar, DataList, MonthlyChart },
   data() {
     return {
-      radio1: ref('monthly'),
-      selectTab: 'monthly'
-    }
+      radio1: ref("monthly"),
+      selectTab: "monthly",
+    };
   },
   watch: {
     radio1(value) {
       this.selectTab = value;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -48,5 +50,4 @@ export default {
   width: 80%;
   margin: 1rem auto;
 }
-
 </style>

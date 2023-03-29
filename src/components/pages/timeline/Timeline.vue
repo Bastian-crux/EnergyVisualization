@@ -1,4 +1,5 @@
 <template>
+  <the-nav-bar />
   <el-card class="box-card">
     <el-row>
       <el-col :span="24">
@@ -37,10 +38,11 @@
 <script>
 import { watch, ref } from "vue";
 import TimelineVisualization from "@/components/pages/timeline/TimelineVisualization.vue";
+import TheNavBar from "@/components/layout/TheNavBar.vue";
 
 export default {
   name: "Timeline",
-  components: { TimelineVisualization },
+  components: { TheNavBar, TimelineVisualization },
   data() {
     return {
       radio1: ref("solar"),

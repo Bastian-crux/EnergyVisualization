@@ -1157,4 +1157,8 @@ canvas {
 .btn:focus::before {
   transform: scaleX(1);
 }
+
+#index {
+  height: 100%;
+}
 </style>

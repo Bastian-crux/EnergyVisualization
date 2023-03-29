@@ -1,11 +1,10 @@
 <template>
+  <the-nav-bar />
   <el-card class="box-card">
     <el-row>
       <el-col :span="12">
         <div>
-          <div>
-            能源类型
-          </div>
+          <div>能源类型</div>
           <div>
             <el-radio-group v-model="radio1" style="margin-top: 20px">
               <el-radio-button label="solar">太阳能</el-radio-button>
@@ -18,9 +17,7 @@
       </el-col>
       <el-col :span="12">
         <div>
-          <div>
-            可视化依据
-          </div>
+          <div>可视化依据</div>
           <div>
             <el-radio-group v-model="radio2" style="margin-top: 20px">
               <el-radio-button label="quantity">发电站数</el-radio-button>
@@ -34,34 +31,40 @@
   <el-row class="box-card">
     <el-col :span="24">
       <el-card class="chart-card">
-        <map-visualization :energy-type="energyType" :mode="mode" @choose-project="chooseMajorProject" @back="back"/>
+        <map-visualization
+          :energy-type="energyType"
+          :mode="mode"
+          @choose-project="chooseMajorProject"
+          @back="back"
+        />
       </el-card>
     </el-col>
-<!--    <el-col :span="7" :offset="1">-->
-<!--      <el-card class="detail-card">-->
-<!--        <project-details :project-detail="selectedProjectInfo" :enable="selectedProjectInfo !== null"/>-->
-<!--      </el-card>-->
-<!--    </el-col>-->
+    <!--    <el-col :span="7" :offset="1">-->
+    <!--      <el-card class="detail-card">-->
+    <!--        <project-details :project-detail="selectedProjectInfo" :enable="selectedProjectInfo !== null"/>-->
+    <!--      </el-card>-->
+    <!--    </el-col>-->
   </el-row>
 </template>
 
 <script>
 import MapVisualization from "@/components/pages/overview/MapVisualization.vue";
 import ProjectDetails from "@/components/pages/overview/ProjectDetails.vue";
-import {ref} from 'vue';
+import { ref } from "vue";
+import TheNavBar from "@/components/layout/TheNavBar.vue";
 
 export default {
   name: "Overview",
-  components: {ProjectDetails, MapVisualization},
+  components: { TheNavBar, ProjectDetails, MapVisualization },
 
   data() {
     return {
-      radio1: ref('solar'),
-      radio2: ref('quantity'),
-      energyType: 'solar',
-      mode: 'quantity',
+      radio1: ref("solar"),
+      radio2: ref("quantity"),
+      energyType: "solar",
+      mode: "quantity",
       selectedProjectInfo: null,
-    }
+    };
   },
   methods: {
     chooseMajorProject(projectInfo) {
@@ -71,7 +74,7 @@ export default {
       if (value === true) {
         this.selectedProjectInfo = null;
       }
-    }
+    },
   },
   watch: {
     radio1: function (val) {
@@ -79,9 +82,9 @@ export default {
     },
     radio2: function (val) {
       this.mode = val;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
