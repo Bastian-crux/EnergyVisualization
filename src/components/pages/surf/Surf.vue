@@ -1,23 +1,23 @@
 <template>
   <the-nav-bar />
-  <iframe src="/scene" class="iframe" style="display: unset" scrolling="no" />
+  <iframe
+    src="/surf-scene"
+    class="iframe"
+    style="display: unset"
+    scrolling="no"
+  />
 </template>
 
 <script>
-import Scene from "@/components/pages/index/Scene.vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
 
 export default {
-  name: "Index",
+  name: "Surf",
   components: { TheNavBar },
 };
 </script>
 
 <style scoped>
-/*.box-card {*/
-/*  width: 80%;*/
-/*  margin: 1rem auto;*/
-/*}*/
 .iframe {
   position: absolute;
   left: 0;
