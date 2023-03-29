@@ -157,13 +157,7 @@
         <!--        />-->
       </div>
     </transition>
-    <div @wheel="(e) => !loaded && onScroll(e)" @mouseMove="onMove">
-      <div
-        @wheel="(e) => !loaded && onScroll(e)"
-        @mouseMove="onMove"
-        id="three"
-      ></div>
-    </div>
+    <div id="three"></div>
 
     <!--    <audio ref="rainSound" loop>-->
     <!--      <source src="/assets/sounds/rain.wav" type="audio/wav" />-->
@@ -175,7 +169,7 @@
     <!--      <source src="/assets/sounds/desert.wav" type="audio/wav" />-->
     <!--    </audio>-->
   </div>
-  <div class="text"></div>
+  <!--  <div class="text"></div>-->
 </template>
 
 <script setup>
@@ -307,86 +301,86 @@ const iconColor = computed(() =>
   vPosition.value > 15000 ? "#4d290b" : "white"
 );
 
-// const opacity = computed(() => {
-//   if (
-//     vPosition.value > rainTime + nightTime / 4 &&
-//     vPosition.value < rainTime + nightTime / 2
-//   ) {
-//     return (vPosition.value - rainTime - nightTime / 4) / (nightTime / 4);
-//   } else if (
-//     vPosition.value >= rainTime + nightTime / 4 &&
-//     vPosition.value <= rainTime + (3 * nightTime) / 4
-//   ) {
-//     return 1;
-//   } else if (
-//     vPosition.value > rainTime + (3 * nightTime) / 4 &&
-//     vPosition.value < rainTime + nightTime
-//   ) {
-//     return (
-//       1 - (vPosition.value - rainTime - (3 * nightTime) / 4) / (nightTime / 4)
-//     );
-//   } else {
-//     return 0;
-//   }
-// });
+const opacity = computed(() => {
+  if (
+    vPosition.value > rainTime + nightTime / 4 &&
+    vPosition.value < rainTime + nightTime / 2
+  ) {
+    return (vPosition.value - rainTime - nightTime / 4) / (nightTime / 4);
+  } else if (
+    vPosition.value >= rainTime + nightTime / 4 &&
+    vPosition.value <= rainTime + (3 * nightTime) / 4
+  ) {
+    return 1;
+  } else if (
+    vPosition.value > rainTime + (3 * nightTime) / 4 &&
+    vPosition.value < rainTime + nightTime
+  ) {
+    return (
+      1 - (vPosition.value - rainTime - (3 * nightTime) / 4) / (nightTime / 4)
+    );
+  } else {
+    return 0;
+  }
+});
 
-// const rainUnder = computed(() =>
-//   Math.min(Math.floor((3000 * vPosition.value) / rainTime), 3000)
-// );
+const rainUnder = computed(() =>
+  Math.min(Math.floor((3000 * vPosition.value) / rainTime), 3000)
+);
 
-// const fogDistance = computed(() => {
-//   if (vPosition.value > rainTime && vPosition.value < rainTime + nightTime) {
-//     return 800 - (500 * (vPosition.value - rainTime)) / nightTime;
-//   } else if (
-//     vPosition.value >= rainTime + nightTime &&
-//     vPosition.value <= rainTime + nightTime + dawnTime / 4
-//   ) {
-//     return 300;
-//   } else if (
-//     vPosition.value > rainTime + nightTime + dawnTime / 4 &&
-//     vPosition.value < rainTime + nightTime + dawnTime
-//   ) {
-//     return (
-//       300 +
-//       (500 * (vPosition.value - rainTime - nightTime - dawnTime / 4)) /
-//         ((3 * dawnTime) / 4)
-//     );
-//   } else {
-//     return 800;
-//   }
-// });
-//
-// const sunHeight = computed(() =>
-//   Math.min(
-//     Math.max((200 * (vPosition.value - rainTime - nightTime)) / dawnTime, 0),
-//     200
-//   )
-// );
-// const blend = function (a, b, u) {
-//   return Math.floor((1 - u) * a + u * b);
-// };
-// const skycolor = computed(() => {
-//   const colorFactor = Math.min(
-//     Math.max((vPosition.value - rainTime - nightTime) / dawnTime, 0),
-//     1
-//   );
-//   return `rgb(${blend(14, 255, colorFactor)}, ${blend(
-//     29,
-//     237,
-//     colorFactor
-//   )}, ${blend(56, 206, colorFactor)})`;
-// });
-// const groundcolor = computed(() => {
-//   const colorFactor = Math.min(
-//     Math.max((vPosition.value - rainTime - nightTime) / dawnTime, 0),
-//     1
-//   );
-//   return `rgb(${blend(7, 186, colorFactor)}, ${blend(
-//     16,
-//     165,
-//     colorFactor
-//   )}, ${blend(33, 165, colorFactor)})`;
-// });
+const fogDistance = computed(() => {
+  if (vPosition.value > rainTime && vPosition.value < rainTime + nightTime) {
+    return 800 - (500 * (vPosition.value - rainTime)) / nightTime;
+  } else if (
+    vPosition.value >= rainTime + nightTime &&
+    vPosition.value <= rainTime + nightTime + dawnTime / 4
+  ) {
+    return 300;
+  } else if (
+    vPosition.value > rainTime + nightTime + dawnTime / 4 &&
+    vPosition.value < rainTime + nightTime + dawnTime
+  ) {
+    return (
+      300 +
+      (500 * (vPosition.value - rainTime - nightTime - dawnTime / 4)) /
+        ((3 * dawnTime) / 4)
+    );
+  } else {
+    return 800;
+  }
+});
+
+const sunHeight = computed(() =>
+  Math.min(
+    Math.max((200 * (vPosition.value - rainTime - nightTime)) / dawnTime, 0),
+    200
+  )
+);
+const blend = function (a, b, u) {
+  return Math.floor((1 - u) * a + u * b);
+};
+const skycolor = computed(() => {
+  const colorFactor = Math.min(
+    Math.max((vPosition.value - rainTime - nightTime) / dawnTime, 0),
+    1
+  );
+  return `rgb(${blend(14, 255, colorFactor)}, ${blend(
+    29,
+    237,
+    colorFactor
+  )}, ${blend(56, 206, colorFactor)})`;
+});
+const groundcolor = computed(() => {
+  const colorFactor = Math.min(
+    Math.max((vPosition.value - rainTime - nightTime) / dawnTime, 0),
+    1
+  );
+  return `rgb(${blend(7, 186, colorFactor)}, ${blend(
+    16,
+    165,
+    colorFactor
+  )}, ${blend(33, 165, colorFactor)})`;
+});
 
 //mouse
 const mouseY = ref(0);
@@ -433,11 +427,11 @@ const initPage = () => {
 //textures
 const imageArray = Array(6).fill("/assets/skybox/sky.png");
 
-// const NUM_INSTANCES = 800;
-// const instances = [];
-// const target = new Vector3();
-// const dummyO = new Object3D();
-// const dummyV = new Vector3();
+const NUM_INSTANCES = 800;
+const instances = [];
+const target = new Vector3();
+const dummyO = new Object3D();
+const dummyV = new Vector3();
 // for (let i = 0; i < NUM_INSTANCES; i++) {
 //   instances.push({
 //     position: new Vector3(rndFS(30), rndFS(30), rndFS(30)),
@@ -449,38 +443,38 @@ const imageArray = Array(6).fill("/assets/skybox/sky.png");
 // }
 
 // watch ---Scene.vue
-// watch(rainUnder, (val, old) => {
-//   const positions = rain.geometry.attributes.position.array;
-//   if (val > old) {
-//     const lessRain = val - old;
-//     for (let i = 0; i < lessRain; i++) {
-//       positions[3 * (this.rainUnder - lessRain + i) + 1] = -50;
-//     }
-//   } else {
-//     const moreRain = old - val;
-//     for (let i = 0; i < moreRain; i++) {
-//       positions[3 * (rainUnder + i) + 1] = Math.random() * 250;
-//     }
-//   }
-//   rain.geometry.attributes.position.needsUpdate = true;
-// });
-// watch(skycolor, (val, old) => {
-//   hemiLight.color.set(val);
-//   // this.$refs.light.light.color.set(val);
-//   scene.fog.color.set(skycolor);
-//   // this.water.material.uniforms['sunColor'].value = new THREE.Color(val);
-// });
-// watch(groundcolor, (val, old) => {
-//   hemiLight.groundColor.set(val);
-//   pointLight1.color.set(val);
-//   // this.water.material.uniforms['waterColor'].value = new THREE.Color(val);
-// });
-// watch(sunHeight, (val, old) => {
-//   pointLight1.position.y = val;
-// });
-// watch(fogDistance, (val, old) => {
-//   scene.fog.far = val;
-// });
+watch(rainUnder, (val, old) => {
+  const positions = rain.geometry.attributes.position.array;
+  if (val > old) {
+    const lessRain = val - old;
+    for (let i = 0; i < lessRain; i++) {
+      positions[3 * (rainUnder - lessRain + i) + 1] = -50;
+    }
+  } else {
+    const moreRain = old - val;
+    for (let i = 0; i < moreRain; i++) {
+      positions[3 * (rainUnder + i) + 1] = Math.random() * 250;
+    }
+  }
+  rain.geometry.attributes.position.needsUpdate = true;
+});
+watch(skycolor, (val, old) => {
+  hemiLight.color.set(val);
+  // this.$refs.light.light.color.set(val);
+  scene.fog.color.set(skycolor);
+  // this.water.material.uniforms['sunColor'].value = new THREE.Color(val);
+});
+watch(groundcolor, (val, old) => {
+  hemiLight.groundColor.set(val);
+  pointLight1.color.set(val);
+  // this.water.material.uniforms['waterColor'].value = new THREE.Color(val);
+});
+watch(sunHeight, (val, old) => {
+  pointLight1.position.y = val;
+});
+watch(fogDistance, (val, old) => {
+  scene.fog.far = val;
+});
 // watch(opacity, (val, old) => {
 //   // const imesh = this.$refs.imesh;
 //   // this.$refs.mouse.light.intensity = val * 0.1
@@ -545,16 +539,11 @@ function initScene() {
   clock = new THREE.Clock();
 
   // 创建场景
-  element = document.getElementById("index");
+  element = document.getElementById("three");
   scene = new THREE.Scene();
-  // scene.background = new THREE.Color("#AAAAAA");
-  // scene.fog = new THREE.Fog(skycolor, 1, 800);
-  camera = new THREE.PerspectiveCamera(
-    50,
-    element.clientWidth / element.clientHeight,
-    1,
-    5000
-  );
+  scene.background = new THREE.Color("#AAAAAA");
+  scene.fog = new THREE.Fog(skycolor, 1, 800);
+  camera = new THREE.PerspectiveCamera(50, 1, 0.1, 5000);
   camera.position.set(85, 5, -50); // 相机的位置
   camera.lookAt(0, 75, 0);
   scene.add(camera);
@@ -565,7 +554,7 @@ function initScene() {
     "rgb(7, 16, 33)",
     1.78
   );
-  // hemiLight.position.set(0, 100, 0);
+  hemiLight.position.set(0, 100, 0);
   scene.add(hemiLight);
 
   // pointLight
@@ -579,18 +568,21 @@ function initScene() {
   spotLight1.target.y = 500;
   scene.add(spotLight1);
 
-  // const sphereGeo = new THREE.SphereGeometry(0.3);
-  // const basicMaterial = new THREE.MeshBasicMaterial({
-  //   opacity: 0,
-  //   transparent: true,
-  //   color: "#ffffff",
-  // });
-  // instanceMesh = new THREE.InstancedMesh(
-  //   sphereGeo,
-  //   basicMaterial,
-  //   NUM_INSTANCES
-  // );
-  // scene.add(instanceMesh);
+  let ambientLight = new THREE.AmbientLight(0xffffff); //设置环境光
+  scene.add(ambientLight); //将环境光添加到场景中
+
+  const sphereGeo = new THREE.SphereGeometry(0.3);
+  const basicMaterial = new THREE.MeshBasicMaterial({
+    opacity: 0,
+    transparent: true,
+    color: "#ffffff",
+  });
+  instanceMesh = new THREE.InstancedMesh(
+    sphereGeo,
+    basicMaterial,
+    NUM_INSTANCES
+  );
+  scene.add(instanceMesh);
 
   // // 平行光
   // const dirLight = new THREE.DirectionalLight(0xffffff);
@@ -611,10 +603,10 @@ function initScene() {
   renderer = new THREE.WebGLRenderer({ antialias: true });
   const canvasFrame = document.querySelector("#three");
   renderer.setPixelRatio(window.devicePixelRatio);
-  // renderer.setSize(window.innerWidth - 201, window.innerHeight);
-  renderer.setSize(element.clientWidth, element.clientHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  // renderer.setSize(element.clientWidth, element.clientHeight);
   renderer.outputEncoding = THREE.sRGBEncoding;
-  // 是否允许阴影贴图
+  // // 是否允许阴影贴图
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   canvasFrame.appendChild(renderer.domElement);
@@ -623,16 +615,16 @@ function initScene() {
   // element.appendChild(stats.dom);
 
   // 地面
-  // const ground = new THREE.Mesh(
-  //   new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
-  //   new THREE.MeshPhongMaterial({ color: 0x333333, depthWrite: false })
-  // );
-  // x轴旋转90度
-  // ground.rotation.x = -Math.PI / 2;
-  // ground.position.set(0, 0, 0);
-  // // 地面接收阴影
-  // // ground.receiveShadow = true;
-  // scene.add(ground);
+  const ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
+    new THREE.MeshPhongMaterial({ color: 0x333333, depthWrite: false })
+  );
+  // x轴旋转90度;
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.set(0, 0, 0);
+  // 地面接收阴影
+  // ground.receiveShadow = true;
+  scene.add(ground);
 
   // 加载3D模型
   // const loader3mf = new ThreeMFLoader();
@@ -652,19 +644,19 @@ function initScene() {
   // });
 
   // 添加鼠标控制
-  viewControls2 = new OrbitControls(camera, renderer.domElement);
-  // 开启阻尼
-  viewControls2.enableDamping = true;
-  // 阻尼系数
-  viewControls2.dampingFactor = 0.25;
-  // 开启缩放
-  viewControls2.enableZoom = true;
-  // 自动旋转
-  viewControls2.autoRotate = true;
-  // 开启鼠标右键拖拽
-  viewControls2.enablePan = true;
-  // 相机离原点的最远距离
-  viewControls2.maxDistance = 1000;
+  // viewControls2 = new OrbitControls(camera, renderer.domElement);
+  // // 开启阻尼
+  // viewControls2.enableDamping = true;
+  // // 阻尼系数
+  // viewControls2.dampingFactor = 0.25;
+  // // 开启缩放
+  // viewControls2.enableZoom = true;
+  // // 自动旋转
+  // viewControls2.autoRotate = true;
+  // // 开启鼠标右键拖拽
+  // viewControls2.enablePan = true;
+  // // 相机离原点的最远距离
+  // viewControls2.maxDistance = 1000;
 
   // models
   // let tempPos = new THREE.Vector3(-73.61, -28.91, -32.61);
@@ -722,13 +714,13 @@ function initScene() {
   let texture = [];
   let material = [];
   imageArray.forEach((el) => texture.push(new THREE.TextureLoader().load(el)));
-  // texture.forEach((el) =>
-  //   material.push(new THREE.MeshStandardMaterial({ map: el }))
-  // );
-  // for (let i = 0; i < 6; i++) material[i].side = THREE.BackSide;
-  // let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
-  // let skybox = new THREE.Mesh(skyboxGeo, material);
-  // scene.add(skybox);
+  texture.forEach((el) =>
+    material.push(new THREE.MeshStandardMaterial({ map: el }))
+  );
+  for (let i = 0; i < 6; i++) material[i].side = THREE.BackSide;
+  let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
+  let skybox = new THREE.Mesh(skyboxGeo, material);
+  scene.add(skybox);
 
   //mouse ---Scene.vue
   // const mouse = this.$refs.mouse.light;
@@ -736,24 +728,24 @@ function initScene() {
   // const mouseV3 = this.pointer.positionV3;
 
   // rain ---Scene.vue
-  // const rainMaterial = new THREE.PointsMaterial({
-  //   color: 0xaaaaaa,
-  //   size: 0.1,
-  //   transparent: true,
-  // });
+  const rainMaterial = new THREE.PointsMaterial({
+    color: 0xaaaaaa,
+    size: 0.1,
+    transparent: true,
+  });
 
-  // const rainCount = 3000;
-  // const rainGeo = new THREE.BufferGeometry();
-  // let rainVert = new Float32Array(rainCount * 3);
-  // for (let i = 0; i < rainCount; i++) {
-  //   (rainVert[i * 3] = Math.random() * 400 - 200),
-  //     (rainVert[i * 3 + 1] = Math.random() * 250),
-  //     (rainVert[i * 3 + 2] = Math.random() * 400 - 200);
-  // }
-  // rainGeo.setAttribute("position", new THREE.BufferAttribute(rainVert, 3));
-  // rain = new THREE.Points(rainGeo, rainMaterial);
-  // scene.add(rain);
-  // const positions = rain.geometry.attributes.position.array;
+  const rainCount = 3000;
+  const rainGeo = new THREE.BufferGeometry();
+  let rainVert = new Float32Array(rainCount * 3);
+  for (let i = 0; i < rainCount; i++) {
+    (rainVert[i * 3] = Math.random() * 400 - 200),
+      (rainVert[i * 3 + 1] = Math.random() * 250),
+      (rainVert[i * 3 + 2] = Math.random() * 400 - 200);
+  }
+  rainGeo.setAttribute("position", new THREE.BufferAttribute(rainVert, 3));
+  rain = new THREE.Points(rainGeo, rainMaterial);
+  scene.add(rain);
+  const positions = rain.geometry.attributes.position.array;
 
   //particles ---Scene.vue
   // this.pointerV3 = new THREE.Vector3();
@@ -793,8 +785,6 @@ function initScene() {
 }
 
 function animate() {
-  // console.log(999);
-  // console.log(vPosition);
   if (vPosition.value > 2400) {
     camera.position.x = Math.cos((vPosition.value - 2400) / 3000) * 150;
     camera.position.z = Math.sin((vPosition.value - 2400) / 3000) * 200;
@@ -853,15 +843,11 @@ function animate() {
 }
 
 function render() {
-  // let tempT = clock.getDelta();
-  // times += tempT;
-  // if (times > renderT){
+  console.log(scene);
   renderer.render(scene, camera);
-  // times = 0;
+  // if (composer) {
+  //   composer.render();
   // }
-  if (composer) {
-    composer.render();
-  }
 }
 
 function mouseMoveEvent(event) {
@@ -1070,14 +1056,14 @@ onUnmounted(() => {
 }
 
 /* 文字提示框样式 */
-.text {
-  display: none;
-  box-shadow: 0 0 5px rgb(138, 138, 138);
-  padding: 10px;
-  position: relative;
-  /*font-weight: bold;*/
-  background: rgba(255, 255, 255, 0.747);
-}
+/*.text {*/
+/*  display: none;*/
+/*  box-shadow: 0 0 5px rgb(138, 138, 138);*/
+/*  padding: 10px;*/
+/*  position: relative;*/
+/*  !*font-weight: bold;*!*/
+/*  background: rgba(255, 255, 255, 0.747);*/
+/*}*/
 .switch-enter-active,
 .switch-leave-active {
   --transition-time: 1s;
