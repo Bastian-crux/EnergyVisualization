@@ -525,9 +525,9 @@ const loadGltfModelUsingDraco = (src, name, pos, scale, rota) => {
     // })
     const temp = gltf.scene;
     temp.name = name;
-    temp.position.set(pos);
-    temp.scale.set(scale);
-    temp.rotation.set(rota);
+    temp.position.set(pos[0], pos[1], pos[2]);
+    temp.scale.set(scale[0], scale[1], scale[2]);
+    temp.rotation.set(rota[0], rota[1], rota[2]);
     temp.castShadow = true;
     scene.add(temp);
     model.push(temp);
@@ -541,13 +541,12 @@ function initScene() {
   // 创建场景
   element = document.getElementById("index");
   scene = new THREE.Scene();
-  scene.background = new THREE.Color("#000000");
+  // scene.background = new THREE.Color("#000000");
   scene.fog = new THREE.Fog(skycolor, 1, 800);
-  // camera = new THREE.PerspectiveCamera(50, 1, 0.1, 5000);
   camera = new THREE.PerspectiveCamera(
-    35,
+    50,
     element.clientWidth / element.clientHeight,
-    1,
+    0.1,
     500
   );
   camera.position.set(85, 5, -50); // 相机的位置
@@ -575,8 +574,8 @@ function initScene() {
   spotLight1.target.y = 500;
   scene.add(spotLight1);
 
-  let ambientLight = new THREE.AmbientLight(0xffffff); //设置环境光
-  scene.add(ambientLight); //将环境光添加到场景中
+  // let ambientLight = new THREE.AmbientLight(0xffffff); //设置环境光
+  // scene.add(ambientLight); //将环境光添加到场景中
 
   const sphereGeo = new THREE.SphereGeometry(0.3);
   const basicMaterial = new THREE.MeshBasicMaterial({
@@ -612,43 +611,16 @@ function initScene() {
   renderer.setPixelRatio(window.devicePixelRatio);
   // renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setSize(element.clientWidth, element.clientHeight);
-  renderer.outputEncoding = THREE.sRGBEncoding;
+  // renderer.outputEncoding = THREE.sRGBEncoding;
   // 是否允许阴影贴图
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  // renderer.shadowMap.enabled = true;
+  // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   canvasFrame.appendChild(renderer.domElement);
 
   // stats = new Stats();
   // element.appendChild(stats.dom);
 
   // 地面
-  const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
-    new THREE.MeshPhongMaterial({ color: 0x333333, depthWrite: false })
-  );
-  // x轴旋转90度;
-  ground.rotation.x = -Math.PI / 2;
-  ground.position.set(0, 0, 0);
-  // 地面接收阴影
-  // ground.receiveShadow = true;
-  scene.add(ground);
-
-  // 加载3D模型
-  // const loader3mf = new ThreeMFLoader();
-  // loader3mf.load("3dMode/island.3mf", function (object) {
-  //   object.quaternion.setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0));
-  //   object.position.set(-10, 25, -30);
-  //   object.scale.set(150, 150, 150);
-  //   object.traverse(function (child) {
-  //     child.castShadow = true;
-  //     if (child.material) {
-  //       child.material.transparent = true; // 每个材质都开启透明度设置，这个不开启改了opacity的值也不会生效
-  //       child.material.opacity = 1; // 默认设置透明度为1
-  //     }
-  //   });
-  //   model = object;
-  //   scene.add(model);
-  // });
 
   // 添加鼠标控制
   // viewControls2 = new OrbitControls(camera, renderer.domElement);
@@ -665,57 +637,99 @@ function initScene() {
   // // 相机离原点的最远距离
   // viewControls2.maxDistance = 1000;
 
+  // plane
+  const plane = new THREE.PlaneGeometry(800, 800, 64, 64);
+  const loader = new THREE.TextureLoader();
+  const planeTexture = loader.load("/assets/textures/green3c5942.png");
+  const planeDisplacement = loader.load("/assets/textures/Background.png");
+
+  const planeMaterial = new THREE.MeshStandardMaterial({
+    map: planeTexture,
+    displacementMap: planeDisplacement,
+  });
+
+  plane.reciveShadow = true;
+  const ground = new THREE.Mesh(plane, planeMaterial);
+  ground.position.set(-32.61, -13.35, 8.7);
+  ground.rotation.set(-Math.PI / 2, 0, 0);
+  scene.add(ground);
+
   // models
-  // let tempPos = new THREE.Vector3(-73.61, -28.91, -32.61);
-  // let tempScale = new THREE.Vector3(45, 45, 45);
-  // let constRota = new THREE.Vector3();
-  // loadGltfModelUsingDraco(
-  //   "/static/mountain.glb",
-  //   "mountain",
-  //   tempPos,
-  //   tempScale,
-  //   constRota
-  // );
-  // tempPos = new THREE.Vector3(56.52, 2.17, -43.48);
-  // tempScale = new THREE.Vector3(15, 15, 15);
-  // constRota = new THREE.Vector3();
-  // loadGltfModelUsingDraco(
-  //   "/static/solar/newSolarStat.glb",
-  //   "newSolarStat",
-  //   tempPos,
-  //   tempScale,
-  //   constRota
-  // );
-  // tempPos = new THREE.Vector3(56.52, 2.17, -43.48);
-  // tempScale = new THREE.Vector3(10, 10, 10);
-  // constRota = new THREE.Vector3(0, 2.93, 0);
-  // loadGltfModelUsingDraco(
-  //   "/static/solar/board.glb",
-  //   "board",
-  //   tempPos,
-  //   tempScale,
-  //   constRota
-  // );
-  // tempPos = new THREE.Vector3(32.61, 2.17, -43.48);
-  // tempScale = new THREE.Vector3(10, 10, 10);
-  // constRota = new THREE.Vector3(0, 1.2, 0);
-  // loadGltfModelUsingDraco(
-  //   "/static/solar/board.glb",
-  //   "board2",
-  //   tempPos,
-  //   tempScale,
-  //   constRota
-  // );
-  // tempPos = new THREE.Vector3(65.22, 2.17, -26.09);
-  // tempScale = new THREE.Vector3(15, 15, 15);
-  // constRota = new THREE.Vector3(0, 1.2, 0);
-  // loadGltfModelUsingDraco(
-  //   "/static/solar/newSolarStat.glb",
-  //   "board3",
-  //   tempPos,
-  //   tempScale,
-  //   constRota
-  // );
+  let tempPos = [-73.61, -28.91, -32.61];
+  let tempScale = [45, 45, 45];
+  let constRota = [0, 0, 0];
+  loadGltfModelUsingDraco(
+    "/static/mountain.glb",
+    "mountain",
+    tempPos,
+    tempScale,
+    constRota
+  );
+  tempPos = [56.52, 2.17, -43.48];
+  tempScale = [15, 15, 15];
+  constRota = [0, 0, 0];
+  loadGltfModelUsingDraco(
+    "/static/solar/newSolarStat.glb",
+    "newSolarStat",
+    tempPos,
+    tempScale,
+    constRota
+  );
+  tempPos = [32.61, 2.17, -43.48];
+  tempScale = [10, 10, 10];
+  constRota = [0, 2.93, 0];
+  loadGltfModelUsingDraco(
+    "/static/solar/board.glb",
+    "board",
+    tempPos,
+    tempScale,
+    constRota
+  );
+  tempPos = [65.22, 2.17, -26.09];
+  tempScale = [10, 10, 10];
+  constRota = [0, 1.2, 0];
+  loadGltfModelUsingDraco(
+    "/static/solar/board.glb",
+    "board1",
+    tempPos,
+    tempScale,
+    constRota
+  );
+  tempPos = [71.74, 2.17, -17.39];
+  tempScale = [10, 10, 10];
+  constRota = [0, 1.2, 0];
+  loadGltfModelUsingDraco(
+    "/static/solar/board.glb",
+    "board2",
+    tempPos,
+    tempScale,
+    constRota
+  );
+  tempPos = [73.91, 2.6, -6.52];
+  tempScale = [10, 10, 10];
+  constRota = [0, 1.15, 0];
+  loadGltfModelUsingDraco(
+    "/static/solar/board.glb",
+    "board3",
+    tempPos,
+    tempScale,
+    constRota
+  );
+  // const loader2 = new GLTFLoader();
+  // const dLoader2 = new DRACOLoader();
+  // dLoader2.setDecoderPath("/draco/");
+  // dLoader2.setDecoderConfig({ type: "js" }); //使用js方式解压
+  // dLoader2.preload(); //初始化_initDecoder 解码器
+  // loader2.setDRACOLoader(dLoader2);
+  // loader2.load("/static/solarPS_compress.glb", function (gltf) {
+  //   const temp = gltf.scene;
+  //   temp.name = "能源月报";
+  //   temp.position.set(32, 2, -43);
+  //   temp.scale.set(20, 20, 20);
+  //   temp.castShadow = true;
+  //   scene.add(temp);
+  //   model.push(temp);
+  // });
 
   //skybox ---Scene.vue
   let texture = [];
@@ -792,7 +806,6 @@ function initScene() {
 }
 
 function animate() {
-  console.log(camera);
   if (vPosition.value > 2400) {
     camera.position.x = Math.cos((vPosition.value - 2400) / 3000) * 150;
     camera.position.z = Math.sin((vPosition.value - 2400) / 3000) * 200;
