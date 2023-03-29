@@ -20,4 +20,5 @@ export default {
   width: 80%;
   margin: 1rem auto;
 }
+
 </style>

@@ -180,9 +180,9 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader";
 import { MathUtils, Object3D, Vector3 } from "three";
 import { ref, computed, watch } from "vue";
 import { NButton, NProgress } from "naive-ui";
-import Loader from "./Loader.vue";
-import IconGroup from "./IconGroup.vue";
-import TextScroll from "./TextScroll.vue";
+import Loader from "../Loader.vue";
+import IconGroup from "../IconGroup.vue";
+import TextScroll from "../TextScroll.vue";
 import DataList from "@/components/pages/statistic/DataList.vue";
 import DataListMain from "@/components/pages/statistic/DataListMain.vue";
 import { Pane } from "tweakpane";
@@ -990,7 +990,7 @@ function disposeScene() {
   removeModel(null, scene);
 
   // scene.background.dispose();
-  viewControls2.dispose();
+  // viewControls2.dispose();
   //处理当前的渲染环境
   renderer.dispose();
 
@@ -1033,10 +1033,9 @@ function removeModel(parent, child) {
     child.material.dispose();
     child.geometry.dispose();
   } else if (child.material) {
-    o;
     child.material.dispose();
   }
-  child.remove();
+  scene.remove(child);
   if (parent) {
     parent.remove(child);
   }

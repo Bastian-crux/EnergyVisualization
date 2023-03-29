@@ -660,6 +660,61 @@ export default {
       chimes.value.muted = soundMuted.value;
     };
 
+    const disposeScene = () => {
+      removeModel(null, scene);
+
+      // scene.background.dispose();
+      // viewControls2.dispose();
+      //处理当前的渲染环境
+      this.renderer.dispose();
+
+      //模拟WebGL环境的丢失。
+      this.renderer.forceContextLoss();
+      //在内部用于处理场景渲染对象的排序注销
+      this.renderer.renderLists.dispose();
+      //renderer的渲染容器删除
+      this.renderer.domElement = null;
+      //释放renderer变量的内存
+      // this.renderer = null;
+      //清除所有缓存中的值。
+      THREE.Cache.clear();
+      // scene.remove();
+
+      // this.camera = null;
+      // this.scene = null;
+      // renderer = null;
+      // viewControls2 = null;
+      // model = null;
+      // composer = null;
+      // outlinePass = null;
+      // renderPass = null;
+      // element = null;
+      // stats = null;
+
+      // cancelAnimationFrame(animateId);
+      // animateId = null;
+    };
+
+    const removeModel = (parent, child) => {
+      if (child.children.length) {
+        let arr = child.children.filter((x) => x);
+        arr.forEach((a) => {
+          removeModel(child, a);
+        });
+      }
+      if (child instanceof THREE.Mesh || child instanceof THREE.Line) {
+        if (child.material.map) child.material.map.dispose();
+        child.material.dispose();
+        child.geometry.dispose();
+      } else if (child.material) {
+        child.material.dispose();
+      }
+      this.scene.remove(child);
+      if (parent) {
+        parent.remove(child);
+      }
+    };
+
     const soundMuted = ref(false);
 
     //textures
@@ -965,6 +1020,8 @@ export default {
     this.imesh.instanceMatrix.needsUpdate = true;
 
     let mesh;
+
+    console.log(this.scene);
 
     //ANIMATION LOOP
     this.renderer.onBeforeRender(() => {

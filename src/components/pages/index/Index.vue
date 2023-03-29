@@ -11,13 +11,13 @@
     style="display: unset"
     scrolling="no"
   ></iframe>
-  <!--  <Scene />-->
+  <!--    <Scene />-->
   <!--  <IndexModels />-->
 </template>
 
 <script>
 import IndexModels from "@/components/pages/index/deprecated/IndexModels.vue";
-import IndexModelTest from "@/components/pages/index/IndexModelTest.vue";
+import IndexModelTest from "@/components/pages/index/deprecated/IndexModelTest.vue";
 import Scene from "@/components/pages/index/Scene.vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
 
