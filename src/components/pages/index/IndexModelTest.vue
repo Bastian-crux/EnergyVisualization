@@ -1,5 +1,5 @@
 <template>
-  <div id="index">
+  <div class="center1" id="index">
     <transition name="fade">
       <Loader v-if="loaded" :progress="percent" @initPage="initPage" />
     </transition>
@@ -389,7 +389,7 @@ const onMove = (ev) => {
 };
 
 //sound
-const rainSound = ref(null);
+// const rainSound = ref(null);
 // const desertSound = ref(null);
 // const chimes = ref(null);
 const loaded = ref(true);
@@ -539,11 +539,17 @@ function initScene() {
   clock = new THREE.Clock();
 
   // 创建场景
-  element = document.getElementById("three");
+  element = document.getElementById("index");
   scene = new THREE.Scene();
-  scene.background = new THREE.Color("#AAAAAA");
+  scene.background = new THREE.Color("#000000");
   scene.fog = new THREE.Fog(skycolor, 1, 800);
-  camera = new THREE.PerspectiveCamera(50, 1, 0.1, 5000);
+  // camera = new THREE.PerspectiveCamera(50, 1, 0.1, 5000);
+  camera = new THREE.PerspectiveCamera(
+    35,
+    element.clientWidth / element.clientHeight,
+    1,
+    500
+  );
   camera.position.set(85, 5, -50); // 相机的位置
   camera.lookAt(0, 75, 0);
   scene.add(camera);
@@ -561,6 +567,7 @@ function initScene() {
   pointLight1 = new THREE.PointLight("rgb(7, 16, 33)", 0.13, 0, 0);
   pointLight1.castShadow = true;
   pointLight1.position.set(120, 20, 0);
+  scene.add(pointLight1);
 
   // spotLight
   spotLight1 = new THREE.SpotLight("#555555", 5, 500, Math.PI / 2, 0, 0.5);
@@ -603,10 +610,10 @@ function initScene() {
   renderer = new THREE.WebGLRenderer({ antialias: true });
   const canvasFrame = document.querySelector("#three");
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  // renderer.setSize(element.clientWidth, element.clientHeight);
+  // renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(element.clientWidth, element.clientHeight);
   renderer.outputEncoding = THREE.sRGBEncoding;
-  // // 是否允许阴影贴图
+  // 是否允许阴影贴图
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   canvasFrame.appendChild(renderer.domElement);
@@ -785,6 +792,7 @@ function initScene() {
 }
 
 function animate() {
+  console.log(camera);
   if (vPosition.value > 2400) {
     camera.position.x = Math.cos((vPosition.value - 2400) / 3000) * 150;
     camera.position.z = Math.sin((vPosition.value - 2400) / 3000) * 200;
@@ -793,7 +801,7 @@ function animate() {
   if (vPosition.value < 2000) {
     camera.position.set(
       (-150 * vPosition.value) / 2000 + 300,
-      (-40 * vPosition.value) / 2000 + 100 + mouseY,
+      (-40 * vPosition.value) / 2000 + 100 + mouseY.value,
       (-100 * vPosition.value) / 2000 + 100
     );
     camera.lookAt(
@@ -802,17 +810,19 @@ function animate() {
       (-30 * vPosition.value) / 2000
     );
   } else if (vPosition.value < 2400) {
-    camera.position.y = 60 + mouseY;
+    camera.position.y = 60 + mouseY.value;
     camera.lookAt(0, 20, -30 - (20 * (vPosition.value - 2000)) / 400);
   } else if (vPosition.value < 9000) {
-    camera.position.y = 60 + 40 * ((vPosition.value - 2400) / 6600) + mouseY;
+    camera.position.y =
+      60 + 40 * ((vPosition.value - 2400) / 6600) + mouseY.value;
     camera.lookAt(
       (30 * (vPosition.value - 2400)) / 6600,
       20,
       -50 + (80 * (vPosition.value - 2400)) / 6600
     );
   } else if (vPosition.value < 12000) {
-    camera.position.y = 100 - (50 * (vPosition.value - 9000)) / 3000 + mouseY;
+    camera.position.y =
+      100 - (50 * (vPosition.value - 9000)) / 3000 + mouseY.value;
     camera.lookAt(30, 20 - (20 * (vPosition.value - 9000)) / 3000, 30);
   } else if (vPosition.value < 14000) {
     camera.lookAt(
@@ -820,13 +830,14 @@ function animate() {
       0,
       30 - (30 * (vPosition.value - 12000)) / 2000
     );
-    camera.position.y = 50 + (20 * (vPosition.value - 12009)) / 2000 + mouseY;
+    camera.position.y =
+      50 + (20 * (vPosition.value - 12009)) / 2000 + mouseY.value;
   } else if (vPosition.value < 18000) {
     camera.lookAt(0, (20 * (vPosition.value - 14000)) / 4000, 0);
-    camera.position.y = 70 + mouseY;
+    camera.position.y = 70 + mouseY.value;
   } else {
     camera.lookAt(0, 20, 0);
-    camera.position.y = 70 + mouseY;
+    camera.position.y = 70 + mouseY.value;
   }
 
   vPosition.value = lerp(vPosition.value, dummy.value, 0.1); // ?
@@ -843,7 +854,6 @@ function animate() {
 }
 
 function render() {
-  console.log(scene);
   renderer.render(scene, camera);
   // if (composer) {
   //   composer.render();
@@ -1021,14 +1031,6 @@ function removeModel(parent, child) {
 
 onMounted(() => {
   initScene();
-  // element.addEventListener("mousemove", (event) => {
-  //   mouseMoveEvent(event);
-  //   // timeRender();
-  // });
-  // element.addEventListener("click", (event) => {
-  //   clickEvent(event);
-  //   // timeRender();
-  // });
   window.addEventListener("wheel", (e) => {
     if (loaded) onScroll(e);
   });
@@ -1036,21 +1038,19 @@ onMounted(() => {
   //   onMove();
   // });
   window.addEventListener("resize", (event) => {
-    element = document.getElementById("index");
     renderer.setSize(element.clientWidth, element.clientHeight);
-    camera.aspect = element.clientWidth / element.clientHeight;
+    // camera.aspect = element.clientWidth / element.clientHeight;
     camera.updateProjectionMatrix();
     // timeRender();
   });
 });
 onUnmounted(() => {
-  // disposeScene();
+  disposeScene();
 });
 </script>
 
 <style scoped>
 .center1 {
-  width: 80%;
   height: 750px;
   margin: 0 auto;
 }

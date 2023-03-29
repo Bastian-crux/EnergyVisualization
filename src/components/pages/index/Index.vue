@@ -4,6 +4,8 @@
   <!--  <index-models :item-idx="itemIdx" />-->
   <!--  <el-button @click="changeItemRight"></el-button>-->
   <IndexModelTest />
+  <!--  <Scene />-->
+  <!--  <IndexModels />-->
 </template>
 
 <script>
