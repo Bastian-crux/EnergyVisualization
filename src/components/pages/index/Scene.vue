@@ -661,7 +661,7 @@ export default {
     };
 
     const disposeScene = () => {
-      removeModel(null, scene);
+      removeModel(null, this.scene);
 
       // scene.background.dispose();
       // viewControls2.dispose();
@@ -891,6 +891,7 @@ export default {
       generatorZ,
 
       generator_rotateY,
+      disposeScene,
     };
   },
   mounted() {
@@ -1097,7 +1098,10 @@ export default {
       this.rain.geometry.attributes.position.needsUpdate = true;
     });
   },
-
+  unmounted() {
+    // console.log(this.scene);
+    this.disposeScene();
+  },
   watch: {
     rainUnder(val, old) {
       const positions = this.rain.geometry.attributes.position.array;
