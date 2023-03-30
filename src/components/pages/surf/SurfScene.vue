@@ -1,19 +1,21 @@
 <template>
   <div id="blocker">
-    <div id="instructions"></div>
+    <div id="instructions">
+      <p style="font-size: 36px">Click to play</p>
+      <p>
+        Move: WASD<br />
+        Jump: SPACE<br />
+        Look: MOUSE
+      </p>
+    </div>
   </div>
   <div id="index">
-    <Renderer
-      ref="myRenderer"
-      shadow
-      antialias
-      resize="window"
-      :orbit-ctrl="{
-        autoRotate: false,
-        enableDamping: true,
-        dampingFactor: 0.05,
-      }"
-    >
+    <Renderer ref="myRenderer" shadow antialias resize="window">
+      <!--      :orbit-ctrl="{-->
+      <!--      autoRotate: false,-->
+      <!--      enableDamping: true,-->
+      <!--      dampingFactor: 0.05,-->
+      <!--      }"-->
       <Camera
         ref="myCamera"
         :position="{ x: 85, y: 5, z: -50 }"
@@ -334,10 +336,12 @@ const color = new THREE.Color();
 // scene.add( light );
 
 const onKeyDown = function (event) {
+  console.log("keyDown");
   switch (event.code) {
     case "ArrowUp":
     case "KeyW":
       moveForward = true;
+      console.log("keyW");
       break;
 
     case "ArrowLeft":
@@ -405,6 +409,7 @@ onMounted(() => {
   const instructions = document.getElementById("instructions");
 
   instructions.addEventListener("click", function () {
+    console.log("click");
     controls.lock();
   });
 
