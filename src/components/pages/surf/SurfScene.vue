@@ -1,7 +1,10 @@
 <template>
+  <div id="blocker">
+    <div id="instructions"></div>
+  </div>
   <div id="index">
     <Renderer
-      ref="renderer"
+      ref="myRenderer"
       shadow
       antialias
       resize="window"
@@ -12,12 +15,12 @@
       }"
     >
       <Camera
-        ref="camera"
+        ref="myCamera"
         :position="{ x: 85, y: 5, z: -50 }"
         :lookAt="{ x: 0, y: 75, z: 0 }"
         :far="5000"
       />
-      <Scene ref="scene">
+      <Scene ref="myScene">
         <HemisphereLight
           ref="light"
           color="rgb(1, 10, 26)"
@@ -34,14 +37,14 @@
           :decay="0"
           cast-shadow
         />
-        <PointLight
-          ref="light1"
-          color="rgb(20, 20, 100)"
-          :intensity="1.0"
-          :position="{ x: -120, y: 20 }"
-          :decay="0.5"
-          cast-shadow
-        />
+        <!--        <PointLight-->
+        <!--          ref="light1"-->
+        <!--          color="rgb(20, 20, 100)"-->
+        <!--          :intensity="1.0"-->
+        <!--          :position="{ x: -120, y: 20 }"-->
+        <!--          :decay="0.5"-->
+        <!--          cast-shadow-->
+        <!--        />-->
         <SpotLight
           color="#555555"
           :distance="500"
@@ -268,160 +271,255 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import * as THREE from "three";
 import { MathUtils, Object3D, Vector3 } from "three";
-import { ref, computed, watch } from "vue";
+import {
+  ref,
+  computed,
+  watch,
+  onMounted,
+  onUnmounted,
+  getCurrentInstance,
+} from "vue";
 import { NButton, NProgress } from "naive-ui";
-import { Water } from "three/examples/jsm/objects/Water.js";
-import Loader from "./Loader.vue";
-import Menu from "./Menu.vue";
-import TextScroll from "./TextScroll.vue";
-import DataList from "@/components/pages/statistic/DataList.vue";
-import DataListMain from "@/components/pages/statistic/DataListMain.vue";
-import { Pane } from "tweakpane";
-
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
+import { PointerLockControls } from "three/addons/controls/PointerLockControls";
 
-export default {
-  components: {
-    DataListMain,
-    DataList,
-    Loader,
-    NButton,
-    NProgress,
-    Menu,
-    TextScroll,
-  },
-  setup() {
-    //Loading Manager
-    const percent = ref(0);
-    THREE.DefaultLoadingManager.onProgress = function (
-      url,
-      itemsLoaded,
-      itemsTotal
-    ) {
-      percent.value = (itemsLoaded / itemsTotal) * 100;
-    };
+const currentInstance = getCurrentInstance();
 
-    //textures
-    const imageArray = Array(6).fill("/assets/skybox/sky.png");
-
-    return {
-      //imesh
-      //vert ctrl
-      //page load
-      percent,
-      //mouse
-      //sound ctrl
-      //plants
-      //texture
-      imageArray,
-    };
-  },
-  mounted() {
-    // pane
-    // this.pane = new Pane();
-    // this.pane.addInput(this, "solarBuildingX", { min: -100, max: 100 });
-
-    //scene core
-    this.renderer = this.$refs.renderer;
-    this.scene = this.$refs.scene.scene;
-    this.camera = this.$refs.camera.camera;
-    this.scene.fog = new THREE.Fog(this.skycolor, 1, 800);
-
-    // Set window size
-    let element = document.getElementById("index");
-    this.renderer.three.setSize(element.clientWidth, element.clientHeight);
-    //skybox
-    let texture = [];
-    let material = [];
-    this.imageArray.forEach((el) =>
-      texture.push(new THREE.TextureLoader().load(el))
-    );
-    texture.forEach((el) =>
-      material.push(new THREE.MeshStandardMaterial({ map: el }))
-    );
-    for (let i = 0; i < 6; i++) material[i].side = THREE.BackSide;
-    let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
-    let skybox = new THREE.Mesh(skyboxGeo, material);
-    this.scene.add(skybox);
-
-    //ANIMATION LOOP
-    this.renderer.onBeforeRender(() => {});
-  },
-
-  unmounted() {
-    console.log(this.scene);
-    this.disposeScene();
-  },
-
-  watch: {},
-
-  methods: {
-    disposeScene() {
-      // const renderer = this.$refs.renderer;
-      // const scene = this.$refs.scene.scene;
-      // this.camera = this.$refs.camera.camera;
-      // this.viewControls2 = this.$refs.renderer.three.cameraCtrl;
-
-      // this.removeModel(null, this.scene);
-
-      // scene.background.dispose();
-      // this.viewControls2.dispose();
-      //处理当前的渲染环境
-      this.renderer.dispose();
-
-      //模拟WebGL环境的丢失。
-      this.renderer.forceContextLoss();
-      //在内部用于处理场景渲染对象的排序注销
-      this.renderer.renderLists.dispose();
-      //renderer的渲染容器删除
-      this.renderer.domElement = null;
-      //释放renderer变量的内存
-      this.renderer = null;
-      //清除所有缓存中的值。
-      THREE.Cache.clear();
-      this.scene.remove();
-
-      // this.camera = null;
-      // this.scene = null;
-      // this.renderer = null;
-      // this.viewControls2 = null;
-      // model = null;
-      // composer = null;
-      // outlinePass = null;
-      // renderPass = null;
-      // element = null;
-      // stats = null;
-
-      // cancelAnimationFrame(animateId);
-      // animateId = null;
-    },
-    removeModel(parent, child) {
-      if (child.children.length) {
-        let arr = child.children.filter((x) => x);
-        arr.forEach((a) => {
-          this.removeModel(child, a);
-        });
-      }
-      if (child instanceof THREE.Mesh || child instanceof THREE.Line) {
-        if (child.material.map) child.material.map.dispose();
-        child.material.dispose();
-        child.geometry.dispose();
-      } else if (child.material) {
-        child.material.dispose();
-      }
-      scene.remove(child);
-      if (parent) {
-        parent.remove(child);
-      }
-    },
-    lerp(start, end, amt) {
-      return (1 - amt) * start + amt * end;
-    },
-  },
+//Loading Manager
+const percent = ref(0);
+THREE.DefaultLoadingManager.onProgress = function (
+  url,
+  itemsLoaded,
+  itemsTotal
+) {
+  percent.value = (itemsLoaded / itemsTotal) * 100;
 };
+
+//textures
+
+// threejs/troisjs
+let renderer, scene, camera;
+
+// wander
+let controls;
+
+const objects = [];
+
+let raycaster;
+
+let moveForward = false;
+let moveBackward = false;
+let moveLeft = false;
+let moveRight = false;
+let canJump = false;
+
+let prevTime = performance.now();
+const velocity = new THREE.Vector3();
+const direction = new THREE.Vector3();
+const vertex = new THREE.Vector3();
+const color = new THREE.Color();
+
+// camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
+// camera.position.y = 10;
+//
+// scene = new THREE.Scene();
+// scene.background = new THREE.Color( 0xffffff );
+// scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
+//
+// const light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
+// light.position.set( 0.5, 1, 0.75 );
+// scene.add( light );
+
+const onKeyDown = function (event) {
+  switch (event.code) {
+    case "ArrowUp":
+    case "KeyW":
+      moveForward = true;
+      break;
+
+    case "ArrowLeft":
+    case "KeyA":
+      moveLeft = true;
+      break;
+
+    case "ArrowDown":
+    case "KeyS":
+      moveBackward = true;
+      break;
+
+    case "ArrowRight":
+    case "KeyD":
+      moveRight = true;
+      break;
+
+    case "Space":
+      if (canJump === true) velocity.y += 350;
+      canJump = false;
+      break;
+  }
+};
+
+const onKeyUp = function (event) {
+  switch (event.code) {
+    case "ArrowUp":
+    case "KeyW":
+      moveForward = false;
+      break;
+
+    case "ArrowLeft":
+    case "KeyA":
+      moveLeft = false;
+      break;
+
+    case "ArrowDown":
+    case "KeyS":
+      moveBackward = false;
+      break;
+
+    case "ArrowRight":
+    case "KeyD":
+      moveRight = false;
+      break;
+  }
+};
+
+onMounted(() => {
+  //scene core
+  renderer = currentInstance.ctx.$refs.myRenderer;
+  scene = currentInstance.ctx.$refs.myScene.scene;
+  console.log(scene);
+  camera = currentInstance.ctx.$refs.myCamera.camera;
+  // scene.fog = new THREE.Fog(this.skycolor, 1, 800);
+
+  // Set window size
+  let element = document.getElementById("index");
+  renderer.three.setSize(element.clientWidth, element.clientHeight);
+
+  // wander
+  controls = new PointerLockControls(camera, document.body);
+
+  const blocker = document.getElementById("blocker");
+  const instructions = document.getElementById("instructions");
+
+  instructions.addEventListener("click", function () {
+    controls.lock();
+  });
+
+  controls.addEventListener("lock", function () {
+    instructions.style.display = "none";
+    blocker.style.display = "none";
+  });
+
+  controls.addEventListener("unlock", function () {
+    blocker.style.display = "block";
+    instructions.style.display = "";
+  });
+
+  scene.add(controls.getObject());
+
+  document.addEventListener("keydown", onKeyDown);
+  document.addEventListener("keyup", onKeyUp);
+
+  raycaster = new THREE.Raycaster(
+    new THREE.Vector3(),
+    new THREE.Vector3(0, -1, 0),
+    0,
+    10
+  );
+
+  //skybox
+  let texture = [];
+  let material = [];
+  const imageArray = Array(6).fill("/assets/skybox/sky.png");
+  imageArray.forEach((el) => texture.push(new THREE.TextureLoader().load(el)));
+  texture.forEach((el) =>
+    material.push(new THREE.MeshStandardMaterial({ map: el }))
+  );
+  for (let i = 0; i < 6; i++) material[i].side = THREE.BackSide;
+  let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
+  let skybox = new THREE.Mesh(skyboxGeo, material);
+  scene.add(skybox);
+
+  //ANIMATION LOOP
+  renderer.onBeforeRender(() => {
+    const time = performance.now();
+
+    if (controls.isLocked === true) {
+      raycaster.ray.origin.copy(controls.getObject().position);
+      raycaster.ray.origin.y -= 10;
+
+      const intersections = raycaster.intersectObjects(objects, false);
+
+      const onObject = intersections.length > 0;
+
+      const delta = (time - prevTime) / 1000;
+
+      velocity.x -= velocity.x * 10.0 * delta;
+      velocity.z -= velocity.z * 10.0 * delta;
+
+      velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
+
+      direction.z = Number(moveForward) - Number(moveBackward);
+      direction.x = Number(moveRight) - Number(moveLeft);
+      direction.normalize(); // this ensures consistent movements in all directions
+
+      if (moveForward || moveBackward)
+        velocity.z -= direction.z * 400.0 * delta;
+      if (moveLeft || moveRight) velocity.x -= direction.x * 400.0 * delta;
+
+      if (onObject === true) {
+        velocity.y = Math.max(0, velocity.y);
+        canJump = true;
+      }
+
+      controls.moveRight(-velocity.x * delta);
+      controls.moveForward(-velocity.z * delta);
+
+      controls.getObject().position.y += velocity.y * delta; // new behavior
+
+      if (controls.getObject().position.y < 10) {
+        velocity.y = 0;
+        controls.getObject().position.y = 10;
+
+        canJump = true;
+      }
+    }
+
+    prevTime = time;
+  });
+});
+
+onUnmounted(() => {
+  // console.log(this.scene);
+  // disposeScene();
+});
+
+// export default {
+// components: {
+//   NButton,
+//   NProgress,
+// },
+
+// setup() {
+
+// return {
+//   percent,
+//   imageArray,
+// };
+// },
+// mounted() {
+//
+// },
+
+// unmounted() {
+//
+// },
+// watch: {},
+// methods: {},
+// };
 </script>
 
 <style scoped>
