@@ -169,7 +169,7 @@
           ref="light"
           color="rgb(1, 10, 26)"
           groundColor="rgb(7, 16, 33)"
-          :intensity="1.78"
+          :intensity="0.78"
         />
 
         <!--      intensity 0.13-->
@@ -181,14 +181,22 @@
           :decay="0"
           cast-shadow
         />
-        <!--        <PointLight-->
-        <!--          ref="light1"-->
-        <!--          color="rgb(20, 20, 100)"-->
-        <!--          :intensity="1.0"-->
-        <!--          :position="{ x: -120, y: 20 }"-->
-        <!--          :decay="0.5"-->
-        <!--          cast-shadow-->
-        <!--        />-->
+        <DirectionalLight
+          ref="dir"
+          color="rgb(100, 100, 100)"
+          :intensity="0.83"
+          :position="{ x: 120, y: 120 }"
+          cast-shadow
+        >
+        </DirectionalLight>
+        <PointLight
+          ref="light1"
+          color="rgb(20, 20, 100)"
+          :intensity="1.0"
+          :position="{ x: -120, y: 20 }"
+          :decay="0.5"
+          cast-shadow
+        />
 
         <SpotLight
           color="#555555"
@@ -200,178 +208,174 @@
           :target="{ y: 500 }"
         />
 
-        <GltfModel
-          ref="mountain"
-          src="/static/mountain.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 45, y: 45, z: 45 }"
-          :position="{ x: -73.61, y: -28.91, z: -32.61 }"
-        />
-        <!--        solar-->
-        <GltfModel
-          ref="newSolarStat"
-          src="/static/solar/newSolarStat.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 15, y: 15, z: 15 }"
-          :position="{
-            x: 56.52,
-            y: 2.17,
-            z: -43.48,
-          }"
-        />
-        <GltfModel
-          ref="board"
-          src="/static/solar/board.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 10, y: 10, z: 10 }"
-          :position="{
-            x: 32.61,
-            y: 2.17,
-            z: -43.48,
-          }"
-          :rotation="{ y: 2.93 }"
-        />
-        <GltfModel
-          ref="board1"
-          src="/static/solar/board.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 10, y: 10, z: 10 }"
-          :position="{
-            x: 65.22,
-            y: 2.17,
-            z: -26.09,
-          }"
-          :rotation="{ y: 1.2 }"
-        />
-        <GltfModel
-          ref="board2"
-          src="/static/solar/board.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 10, y: 10, z: 10 }"
-          :position="{
-            x: 71.74,
-            y: 2.17,
-            z: -17.39,
-          }"
-          :rotation="{ y: 1.2 }"
-        />
-        <GltfModel
-          ref="board3"
-          src="/static/solar/board.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 10, y: 10, z: 10 }"
-          :position="{
-            x: 73.91,
-            y: 2.6,
-            z: -6.52,
-          }"
-          :rotation="{ y: 1.15 }"
-        />
-        <!--        nuclear-->
-        <GltfModel
-          ref="nuclearbuilding1"
-          src="/static/nuclear/nuclearbuilding1.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 15, y: 15, z: 15 }"
-          :position="{
-            x: 8.04,
-            y: 2.35,
-            z: -70.57,
-          }"
-        />
-        <GltfModel
-          ref="nuclearbuilding12"
-          src="/static/nuclear/nuclearbuilding1.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 15, y: 15, z: 15 }"
-          :position="{
-            x: 28.39,
-            y: 3.35,
-            z: -60.0,
-          }"
-        />
-        <GltfModel
-          ref="nuclearbuilding2"
-          src="/static/nuclear/nuclearbuilding2.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 17, y: 17, z: 17 }"
-          :position="{
-            x: -33.74,
-            y: 1.65,
-            z: -54.52,
-          }"
-        />
-        <GltfModel
-          ref="nuclearbuilding3"
-          src="/static/nuclear/nuclearbuilding3.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 17, y: 17, z: 17 }"
-          :position="{
-            x: -22,
-            y: 1.65,
-            z: -54.52,
-          }"
-          :rotation="{ y: 180 }"
-        />
-        <!--        forest-->
-        <GltfModel
-          ref="forest"
-          src="/static/forest.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 35, y: 35, z: 35 }"
-          :position="{
-            x: 13.48,
-            y: -1.74,
-            z: -11.2,
-          }"
-          :rotation="{
-            x: 0.13,
-            y: 0.0,
-            z: 0.13,
-          }"
-        />
-        <!--        wind-->
-        <GltfModel
-          ref="windbuilding"
-          src="/static/wind/building.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 18, y: 18, z: 18 }"
-          :position="{
-            x: 8.7,
-            y: -6.52,
-            z: 50.0,
-          }"
-        />
-        <GltfModel
-          ref="generator"
-          src="/static/wind/generator.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 18, y: 18, z: 18 }"
-          :position="{ x: -19.57, y: -6.52, z: 52.17 }"
-          :rotation="{ y: -0.96 }"
-        />
-        <GltfModel
-          ref="generator2"
-          src="/static/wind/generator.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 20, y: 20, z: 20 }"
-          :position="{
-            x: -36.96,
-            y: -8.7,
-            z: 54.35,
-          }"
-          :rotation="{ y: -0.96 }"
-        />
+        <!--        <GltfModel-->
+        <!--          ref="mountain"-->
+        <!--          src="/static/mountain.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 45, y: 45, z: 45 }"-->
+        <!--          :position="{ x: -73.61, y: -28.91, z: -32.61 }"-->
+        <!--        />-->
+        <!--        &lt;!&ndash;        solar&ndash;&gt;-->
+        <!--        <GltfModel-->
+        <!--          ref="newSolarStat"-->
+        <!--          src="/static/solar/newSolarStat.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 15, y: 15, z: 15 }"-->
+        <!--          :position="{-->
+        <!--            x: 56.52,-->
+        <!--            y: 2.17,-->
+        <!--            z: -43.48,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="board"-->
+        <!--          src="/static/solar/board.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 10, y: 10, z: 10 }"-->
+        <!--          :position="{-->
+        <!--            x: 32.61,-->
+        <!--            y: 2.17,-->
+        <!--            z: -43.48,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: 2.93 }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="board1"-->
+        <!--          src="/static/solar/board.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 10, y: 10, z: 10 }"-->
+        <!--          :position="{-->
+        <!--            x: 65.22,-->
+        <!--            y: 2.17,-->
+        <!--            z: -26.09,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: 1.2 }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="board2"-->
+        <!--          src="/static/solar/board.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 10, y: 10, z: 10 }"-->
+        <!--          :position="{-->
+        <!--            x: 71.74,-->
+        <!--            y: 2.17,-->
+        <!--            z: -17.39,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: 1.2 }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="board3"-->
+        <!--          src="/static/solar/board.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 10, y: 10, z: 10 }"-->
+        <!--          :position="{-->
+        <!--            x: 73.91,-->
+        <!--            y: 2.6,-->
+        <!--            z: -6.52,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: 1.15 }"-->
+        <!--        />-->
+        <!--        &lt;!&ndash;        nuclear&ndash;&gt;-->
+        <!--        <GltfModel-->
+        <!--          ref="nuclearbuilding1"-->
+        <!--          src="/static/nuclear/nuclearbuilding1.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 15, y: 15, z: 15 }"-->
+        <!--          :position="{-->
+        <!--            x: 8.04,-->
+        <!--            y: 2.35,-->
+        <!--            z: -70.57,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="nuclearbuilding12"-->
+        <!--          src="/static/nuclear/nuclearbuilding1.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 15, y: 15, z: 15 }"-->
+        <!--          :position="{-->
+        <!--            x: 28.39,-->
+        <!--            y: 3.35,-->
+        <!--            z: -60.0,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="nuclearbuilding2"-->
+        <!--          src="/static/nuclear/nuclearbuilding2.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 17, y: 17, z: 17 }"-->
+        <!--          :position="{-->
+        <!--            x: -33.74,-->
+        <!--            y: 1.65,-->
+        <!--            z: -54.52,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="nuclearbuilding3"-->
+        <!--          src="/static/nuclear/nuclearbuilding3.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 17, y: 17, z: 17 }"-->
+        <!--          :position="{-->
+        <!--            x: -22,-->
+        <!--            y: 1.65,-->
+        <!--            z: -54.52,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: 180 }"-->
+        <!--        />-->
+        <!--        &lt;!&ndash;        forest&ndash;&gt;-->
+        <!--        <GltfModel-->
+        <!--          ref="forest"-->
+        <!--          src="/static/forest.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 35, y: 35, z: 35 }"-->
+        <!--          :position="{-->
+        <!--            x: 13.48,-->
+        <!--            y: -1.74,-->
+        <!--            z: -11.2,-->
+        <!--          }"-->
+        <!--          :rotation="{-->
+        <!--            x: 0.13,-->
+        <!--            y: 0.0,-->
+        <!--            z: 0.13,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        &lt;!&ndash;        wind&ndash;&gt;-->
+        <!--        <GltfModel-->
+        <!--          ref="windbuilding"-->
+        <!--          src="/static/wind/building.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 18, y: 18, z: 18 }"-->
+        <!--          :position="{-->
+        <!--            x: 8.7,-->
+        <!--            y: -6.52,-->
+        <!--            z: 50.0,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="generator"-->
+        <!--          src="/static/wind/generator.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 18, y: 18, z: 18 }"-->
+        <!--          :position="{ x: -19.57, y: -6.52, z: 52.17 }"-->
+        <!--          :rotation="{ y: -0.96 }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="generator2"-->
+        <!--          src="/static/wind/generator.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 20, y: 20, z: 20 }"-->
+        <!--          :position="{-->
+        <!--            x: -36.96,-->
+        <!--            y: -8.7,-->
+        <!--            z: 54.35,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: -0.96 }"-->
+        <!--        />-->
         <GltfModel
           ref="generator3"
-          src="/static/wind/generator.glb"
+          src="/static/mainscenetest2_scale.glb"
           dracoPath="/draco/"
-          :scale="{ x: 18, y: 18, z: 18 }"
-          :position="{
-            x: -34.78,
-            y: -2.17,
-            z: 39.13,
-          }"
+          :scale="{ x: 15, y: 15, z: 15 }"
+          :position="{ x: -73.61, y: 0, z: -32.61 }"
           :rotation="{ y: -0.96 }"
         />
 
@@ -472,9 +476,9 @@ export default {
     };
 
     //verticle control
-    // const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
+    const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
     // TODO: Debug Only
-    const [rainTime, nightTime, dawnTime, dayTime] = [0, 0, 0, 100000]; // 持续时间
+    // const [rainTime, nightTime, dawnTime, dayTime] = [0, 0, 0, 100000]; // 持续时间
 
     const vPosition = ref(0);
     const dummy = ref(0); // 记录当前的位置
