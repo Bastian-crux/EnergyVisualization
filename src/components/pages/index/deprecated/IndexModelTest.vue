@@ -246,7 +246,6 @@ const router = useRouter();
 
 //verticle control
 const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
-// TODO: Debug Only
 // const [rainTime, nightTime, dawnTime, dayTime] = [0, 0, 0, 100000]; // 持续时间
 
 const vPosition = ref(0);
