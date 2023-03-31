@@ -1,31 +1,31 @@
 <template>
   <div class="point point-0">
     <div class="label label-0">1</div>
-    <div :class="points[0].activate === true ? 'activate' : '' + ' text'">
+    <div class="text text-0">
       灯塔：矗立在海岸的岩石之上，白色的塔身以及红色的塔屋，在湛蓝色的天空和深蓝色大海的映衬下，显得如此醒目和美丽。
     </div>
   </div>
   <div class="point point-1">
     <div class="label label-1">2</div>
-    <div :class="points[1].activate === true ? 'activate' : '' + ' text'">
+    <div class="text text-1">
       小船：梦中又见那宁静的大海，我前进了，驶向远方，我知道我是船，只属于远方。这一天，我用奋斗作为白帆，要和明天一起飘扬，呼喊。
     </div>
   </div>
   <div class="point point-2">
     <div class="label label-2">3</div>
-    <div :class="points[2].activate === true ? 'activate' : '' + ' text'">
+    <div class="text text-2">
       沙滩：宇宙展开的一小角。不想说来这里是暗自疗伤，那过于矫情，只想对每一粒沙子，每一朵浪花问声你们好吗
     </div>
   </div>
   <div class="point point-3">
     <div class="label label-3">4</div>
-    <div :class="points[3].activate === true ? 'activate' : '' + ' text'">
+    <div class="text text-3">
       飞鸟：在苍茫的大海上，狂风卷集着乌云。在乌云和大海之间，海燕像黑色的闪电，在高傲地飞翔。
     </div>
   </div>
   <div class="point point-4">
     <div class="label label-4">5</div>
-    <div :class="points[4].activate === true ? 'activate' : '' + ' text'">
+    <div class="text text-4">
       礁石：寂寞又怎么样？礁石都不说话，但是水流过去之后，礁石留下。
     </div>
   </div>
@@ -198,33 +198,7 @@ const direction = new THREE.Vector3();
 const vertex = new THREE.Vector3();
 const color = new THREE.Color();
 
-let points = [
-  {
-    position: new THREE.Vector3(10, 46, 0),
-    element: null,
-    activate: false,
-  },
-  {
-    position: new THREE.Vector3(-10, 8, 24),
-    element: null,
-    activate: false,
-  },
-  {
-    position: new THREE.Vector3(30, 10, 70),
-    element: null,
-    activate: false,
-  },
-  {
-    position: new THREE.Vector3(-100, 50, -300),
-    element: null,
-    activate: false,
-  },
-  {
-    position: new THREE.Vector3(-120, 50, -100),
-    element: null,
-    activate: false,
-  },
-];
+let points;
 
 // camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 // camera.position.y = 10;
@@ -309,9 +283,9 @@ const checkLabelVisible = function () {
       const dis = controlsPos.distanceTo(point.position);
       if (dis < 30) {
         // TODO: Show text
-        point.activate = true;
+        point.text.classList.add("activate");
       } else {
-        point.activate = false;
+        point.text.classList.remove("activate");
       }
 
       if (intersects.length === 0) {
@@ -339,12 +313,33 @@ const checkLabelVisible = function () {
 };
 
 onMounted(() => {
-  // points
-  points[0].element = document.querySelector(".point-0");
-  points[1].element = document.querySelector(".point-1");
-  points[2].element = document.querySelector(".point-2");
-  points[3].element = document.querySelector(".point-3");
-  points[4].element = document.querySelector(".point-4");
+  points = [
+    {
+      position: new THREE.Vector3(10, 46, 0),
+      element: document.querySelector(".point-0"),
+      text: document.querySelector(".text-0"),
+    },
+    {
+      position: new THREE.Vector3(-10, 8, 24),
+      element: document.querySelector(".point-1"),
+      text: document.querySelector(".text-1"),
+    },
+    {
+      position: new THREE.Vector3(30, 10, 70),
+      element: document.querySelector(".point-2"),
+      text: document.querySelector(".text-2"),
+    },
+    {
+      position: new THREE.Vector3(-100, 50, -300),
+      element: document.querySelector(".point-3"),
+      text: document.querySelector(".text-3"),
+    },
+    {
+      position: new THREE.Vector3(-120, 50, -100),
+      element: document.querySelector(".point-4"),
+      text: document.querySelector(".text-4"),
+    },
+  ];
 
   //scene core
   renderer = currentInstance.ctx.$refs.myRenderer;
@@ -682,7 +677,7 @@ h2 {
   width: 200px;
 }
 
-.point .activate .text {
+.point .text.activate {
   opacity: 1;
 }
 
