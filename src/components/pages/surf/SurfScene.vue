@@ -1,4 +1,34 @@
 <template>
+  <div class="point point-0">
+    <div class="label label-0">1</div>
+    <div class="text text-0">
+      灯塔：矗立在海岸的岩石之上，白色的塔身以及红色的塔屋，在湛蓝色的天空和深蓝色大海的映衬下，显得如此醒目和美丽。
+    </div>
+  </div>
+  <div class="point point-1">
+    <div class="label label-1">2</div>
+    <div class="text text-1">
+      小船：梦中又见那宁静的大海，我前进了，驶向远方，我知道我是船，只属于远方。这一天，我用奋斗作为白帆，要和明天一起飘扬，呼喊。
+    </div>
+  </div>
+  <div class="point point-2">
+    <div class="label label-2">3</div>
+    <div class="text text-2">
+      沙滩：宇宙展开的一小角。不想说来这里是暗自疗伤，那过于矫情，只想对每一粒沙子，每一朵浪花问声你们好吗
+    </div>
+  </div>
+  <div class="point point-3">
+    <div class="label label-3">4</div>
+    <div class="text text-3">
+      飞鸟：在苍茫的大海上，狂风卷集着乌云。在乌云和大海之间，海燕像黑色的闪电，在高傲地飞翔。
+    </div>
+  </div>
+  <div class="point point-4">
+    <div class="label label-4">5</div>
+    <div class="text text-4">
+      礁石：寂寞又怎么样？礁石都不说话，但是水流过去之后，礁石留下。
+    </div>
+  </div>
   <div id="blocker">
     <div id="instructions">
       <p style="font-size: 36px">Click to play</p>
@@ -29,6 +59,14 @@
           groundColor="rgb(7, 16, 33)"
           :intensity="1.78"
         />
+        <DirectionalLight
+          ref="dir"
+          color="rgb(100, 100, 100)"
+          :intensity="0.83"
+          :position="{ x: 120, y: 120 }"
+          cast-shadow
+        >
+        </DirectionalLight>
 
         <!--      intensity 0.13-->
         <PointLight
@@ -58,103 +96,14 @@
         />
 
         <GltfModel
-          ref="mountain"
-          src="/static/mountain.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 45, y: 45, z: 45 }"
-          :position="{ x: -73.61, y: -28.91, z: -32.61 }"
-        />
-        <!--        solar-->
-        <GltfModel
-          ref="newSolarStat"
-          src="/static/solar/newSolarStat.glb"
+          ref="mainscene"
+          src="/static/mainscenetest2_scale.glb"
           dracoPath="/draco/"
           :scale="{ x: 15, y: 15, z: 15 }"
-          :position="{
-            x: 56.52,
-            y: 2.17,
-            z: -43.48,
-          }"
+          :position="{ x: -73.61, y: 0, z: -32.61 }"
+          :rotation="{ y: -0.96 }"
         />
-        <GltfModel
-          v-for="item in boardList"
-          :ref="item.ref"
-          src="/static/solar/board.glb"
-          dracoPath="/draco/"
-          :scale="item.scale"
-          :position="item.position"
-          :rotation="item.rotation"
-        />
-        <!--        nuclear-->
-        <GltfModel
-          v-for="item in nuclearBuildingList"
-          :ref="item.ref"
-          src="/static/nuclear/nuclearbuilding1.glb"
-          dracoPath="/draco/"
-          :scale="item.scale"
-          :position="item.position"
-        />
-        <GltfModel
-          ref="nuclearbuilding2"
-          src="/static/nuclear/nuclearbuilding2.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 17, y: 17, z: 17 }"
-          :position="{
-            x: -33.74,
-            y: 1.65,
-            z: -54.52,
-          }"
-        />
-        <GltfModel
-          ref="nuclearbuilding3"
-          src="/static/nuclear/nuclearbuilding3.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 17, y: 17, z: 17 }"
-          :position="{
-            x: -22,
-            y: 1.65,
-            z: -54.52,
-          }"
-          :rotation="{ y: 180 }"
-        />
-        <!--        forest-->
-        <GltfModel
-          ref="forest"
-          src="/static/forest.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 35, y: 35, z: 35 }"
-          :position="{
-            x: 13.48,
-            y: -1.74,
-            z: -11.2,
-          }"
-          :rotation="{
-            x: 0.13,
-            y: 0.0,
-            z: 0.13,
-          }"
-        />
-        <!--        wind-->
-        <GltfModel
-          ref="windbuilding"
-          src="/static/wind/building.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 18, y: 18, z: 18 }"
-          :position="{
-            x: 8.7,
-            y: -6.52,
-            z: 50.0,
-          }"
-        />
-        <GltfModel
-          v-for="item in windGeneratorList"
-          :ref="item.ref"
-          src="/static/wind/generator.glb"
-          dracoPath="/draco/"
-          :scale="item.scale"
-          :position="item.position"
-          :rotation="item.rotation"
-        /><!-- cloud -->
+        <!-- cloud -->
         <Plane
           v-for="i in 15"
           :ref="`mesh${i}`"
@@ -208,8 +157,10 @@ import {
   getCurrentInstance,
 } from "vue";
 import { NButton, NProgress } from "naive-ui";
+
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 import { PointerLockControls } from "three/addons/controls/PointerLockControls";
+import { OrbitControls } from "three/addons/controls/OrbitControls";
 
 const currentInstance = getCurrentInstance();
 
@@ -247,6 +198,8 @@ const direction = new THREE.Vector3();
 const vertex = new THREE.Vector3();
 const color = new THREE.Color();
 
+let points;
+
 // camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 // camera.position.y = 10;
 //
@@ -258,153 +211,7 @@ const color = new THREE.Color();
 // light.position.set( 0.5, 1, 0.75 );
 // scene.add( light );
 
-// Position Array List
-const boardList = ref([
-  {
-    ref: "board1",
-    scale: {
-      x: 10,
-      y: 10,
-      z: 10,
-    },
-    position: {
-      x: 32.61,
-      y: 2.17,
-      z: -60.87,
-    },
-    rotation: {
-      y: 2.93,
-    },
-  },
-  {
-    ref: "board2",
-    scale: {
-      x: 10,
-      y: 10,
-      z: 10,
-    },
-    position: {
-      x: 65.22,
-      y: 2.17,
-      z: -26.09,
-    },
-    rotation: {
-      y: 1.2,
-    },
-  },
-  {
-    ref: "board3",
-    scale: {
-      x: 10,
-      y: 10,
-      z: 10,
-    },
-    position: {
-      x: 71.74,
-      y: 2.17,
-      z: -17.39,
-    },
-    rotation: {
-      y: 1.2,
-    },
-  },
-  {
-    ref: "board4",
-    scale: {
-      x: 10,
-      y: 10,
-      z: 10,
-    },
-    position: {
-      x: 73.91,
-      y: 2.6,
-      z: -6.52,
-    },
-    rotation: {
-      y: 1.15,
-    },
-  },
-]);
-
-const nuclearBuildingList = [
-  {
-    ref: "nuclearBuilding1-1",
-    scale: {
-      x: 15,
-      y: 15,
-      z: 15,
-    },
-    position: {
-      x: 8.04,
-      y: 2.35,
-      z: -70.57,
-    },
-  },
-  {
-    ref: "nuclearBuilding1-2",
-    scale: {
-      x: 15,
-      y: 15,
-      z: 15,
-    },
-    position: {
-      x: 28.39,
-      y: 3.35,
-      z: -60.0,
-    },
-  },
-];
-
-const windGeneratorList = [
-  {
-    ref: "windGenerator1",
-    scale: {
-      x: 18,
-      y: 18,
-      z: 18,
-    },
-    position: {
-      x: -19.57,
-      y: -6.52,
-      z: 52.17,
-    },
-    rotation: {
-      y: -0.96,
-    },
-  },
-  {
-    ref: "windGenerator2",
-    scale: {
-      x: 20,
-      y: 20,
-      z: 20,
-    },
-    position: {
-      x: -36.96,
-      y: -8.7,
-      z: 54.35,
-    },
-    rotation: {
-      y: -0.96,
-    },
-  },
-  {
-    ref: "windGenerator3",
-    scale: {
-      x: 18,
-      y: 18,
-      z: 18,
-    },
-    position: {
-      x: -34.78,
-      y: -2.17,
-      z: 39.13,
-    },
-    rotation: {
-      y: -0.96,
-    },
-  },
-];
+const rayCaster_labelVisible = new THREE.Raycaster();
 
 const onKeyDown = function (event) {
   switch (event.code) {
@@ -429,7 +236,7 @@ const onKeyDown = function (event) {
       break;
 
     case "Space":
-      if (canJump === true) velocity.y += 100;
+      if (canJump === true) velocity.y += 350;
       canJump = false;
       break;
   }
@@ -459,16 +266,96 @@ const onKeyUp = function (event) {
   }
 };
 
+const checkLabelVisible = function () {
+  if (true) {
+    // 遍历每个点
+    for (const point of points) {
+      // 获取2D屏幕位置
+      const screenPosition = point.position.clone();
+      screenPosition.project(camera);
+      rayCaster_labelVisible.setFromCamera(screenPosition, camera);
+      const intersects = rayCaster_labelVisible.intersectObjects(
+        scene.children,
+        true
+      );
+
+      const controlsPos = controls.getObject().position;
+      const dis = controlsPos.distanceTo(point.position);
+      if (dis < 30) {
+        // TODO: Show text
+        point.text.classList.add("activate");
+      } else {
+        point.text.classList.remove("activate");
+      }
+
+      if (intersects.length === 0) {
+        // 未找到相交点，显示
+        point.element.classList.add("visible");
+        // 计算距离 显示文字
+        if (dis < 100) {
+        }
+      } else {
+        // 找到相交点
+        // 获取相交点的距离和点的距离
+        const intersectionDistance = intersects[0].distance;
+        const pointDistance = point.position.distanceTo(camera.position);
+        // 相交点距离比点距离近，隐藏；相交点距离比点距离远，显示
+        intersectionDistance < pointDistance
+          ? point.element.classList.remove("visible")
+          : point.element.classList.add("visible");
+      }
+      let element = document.getElementById("index");
+      const translateX = screenPosition.x * element.clientWidth * 0.5;
+      const translateY = -screenPosition.y * element.clientHeight * 0.5;
+      point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+    }
+  }
+};
+
 onMounted(() => {
+  points = [
+    {
+      position: new THREE.Vector3(10, 46, 0),
+      element: document.querySelector(".point-0"),
+      text: document.querySelector(".text-0"),
+    },
+    {
+      position: new THREE.Vector3(-10, 8, 24),
+      element: document.querySelector(".point-1"),
+      text: document.querySelector(".text-1"),
+    },
+    {
+      position: new THREE.Vector3(30, 10, 70),
+      element: document.querySelector(".point-2"),
+      text: document.querySelector(".text-2"),
+    },
+    {
+      position: new THREE.Vector3(-100, 50, -300),
+      element: document.querySelector(".point-3"),
+      text: document.querySelector(".text-3"),
+    },
+    {
+      position: new THREE.Vector3(-120, 50, -100),
+      element: document.querySelector(".point-4"),
+      text: document.querySelector(".text-4"),
+    },
+  ];
+
   //scene core
   renderer = currentInstance.ctx.$refs.myRenderer;
   scene = currentInstance.ctx.$refs.myScene.scene;
+  // console.log(scene);
   camera = currentInstance.ctx.$refs.myCamera.camera;
   // scene.fog = new THREE.Fog(this.skycolor, 1, 800);
 
   // Set window size
   let element = document.getElementById("index");
   renderer.three.setSize(element.clientWidth, element.clientHeight);
+
+  // const orbitCtrl = new OrbitControls(camera, renderer.domElement);
+  // orbitCtrl.enableRotate = false;
+  // orbitCtrl.enableZoom = false;
+  // scene.add(orbitCtrl);
 
   // wander
   controls = new PointerLockControls(camera, document.body);
@@ -561,6 +448,9 @@ onMounted(() => {
     }
 
     prevTime = time;
+
+    // visible
+    checkLabelVisible();
   });
 });
 
@@ -599,41 +489,52 @@ onUnmounted(() => {
 .switch-leave-active {
   --transition-time: 1s;
 }
+
 * {
   font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
 }
+
 a {
   text-decoration: inherit;
   color: inherit;
 }
+
 canvas {
   display: block;
 }
+
 .absolute {
   position: absolute;
 }
+
 .center {
   transform: translate(-50%, 0);
   left: 50%;
 }
+
 .menu {
   text-align: center;
 }
+
 .menu h1,
 p,
 h2 {
   color: white;
 }
+
 .menu h1 {
   margin: 0 auto 5px;
 }
+
 .menu p {
   margin: 2vh auto 0;
 }
+
 .btn::before {
   content: "";
   position: absolute;
@@ -645,10 +546,12 @@ h2 {
   transition: transform 300ms ease-in-out;
   transform: scaleX(0);
 }
+
 .btn:hover::before,
 .btn:focus::before {
   transform: scaleX(1);
 }
+
 #blocker {
   position: absolute;
   width: 100%;
@@ -668,5 +571,118 @@ h2 {
   text-align: center;
   font-size: 14px;
   cursor: pointer;
+}
+
+.ocean {
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
+}
+
+.loading {
+  align-items: center;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: rgba(46, 66, 77, 0.8);
+  display: flex;
+  -webkit-filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
+  height: 100%;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+}
+
+.loading .progress {
+  color: #fff;
+  font-size: 3.6rem;
+  text-shadow: 0 1px 0 #c9cfce, 0 2px 0 #bcc2c2, 0 3px 0 #afb6b6,
+    0 4px 0 #a4adac, 0 5px 0 #9fa8a7, 0 6px 0 #99a3a2, 0 7px 0 #97a1a0,
+    0 8px 0 #949e9d, 0 0 5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.2),
+    0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.3);
+}
+
+.github {
+  align-items: center;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  left: 16px;
+  opacity: 0.5;
+  position: fixed;
+  text-decoration: none;
+  z-index: 11;
+}
+
+.github .author {
+  color: #fff;
+  font-size: 14px;
+  /*font-style: none;*/
+  font-weight: 400;
+  margin-top: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.point {
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  z-index: 10;
+}
+
+.point .label {
+  background: rgba(0, 0, 0, 0.467);
+  border: 1px solid hsla(0, 0%, 100%, 0.467);
+  border-radius: 50%;
+  cursor: help;
+  height: 32px;
+  left: -16px;
+  line-height: 32px;
+  text-align: center;
+  top: -16px;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+  width: 32px;
+}
+
+.point .label,
+.point .text {
+  color: #fff;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+  position: absolute;
+}
+
+.point .text {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid hsla(0, 0%, 100%, 0.467);
+  border-radius: 4px;
+  left: -120px;
+  line-height: 1.3em;
+  opacity: 0;
+  padding: 20px;
+  pointer-events: none;
+  text-align: justify;
+  text-align-last: left;
+  top: 30px;
+  transition: opacity 0.3s;
+  width: 200px;
+}
+
+.point .text.activate {
+  opacity: 1;
+}
+
+.point.visible .label {
+  -webkit-transform: scale(1);
+  transform: scale(1);
 }
 </style>

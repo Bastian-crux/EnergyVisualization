@@ -1,15 +1,17 @@
 <template>
   <the-nav-bar />
   <iframe src="/scene" class="iframe" style="display: unset" scrolling="no" />
+  <!--  <IndexModels></IndexModels>-->
 </template>
 
 <script>
 import Scene from "@/components/pages/index/Scene.vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
+import IndexModels from "@/components/pages/index/deprecated/IndexModels.vue";
 
 export default {
   name: "Index",
-  components: { TheNavBar },
+  components: { IndexModels, TheNavBar },
 };
 </script>
 

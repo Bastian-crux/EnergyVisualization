@@ -7,23 +7,23 @@
 
 <script setup>
 import * as THREE from "three";
-import {ThreeMFLoader} from "three/examples/jsm/loaders/3MFLoader.js";
-import {DRACOLoader} from "three/addons/loaders/DRACOLoader";
-import {GLTFLoader} from "three/addons/loaders/GLTFLoader";
+import { ThreeMFLoader } from "three/examples/jsm/loaders/3MFLoader.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader";
 
-import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
-import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer.js"
-import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js"
-import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass.js"
-import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass.js"
-import {FXAAShader} from "three/examples/jsm/shaders/FXAAShader.js"
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { OutlinePass } from "three/examples/jsm/postprocessing/OutlinePass.js";
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
+import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
 import Stats from "three/addons/libs/stats.module";
 
-import {onMounted, onUnmounted} from "vue";
-import {GammaCorrectionShader} from "three/addons/shaders/GammaCorrectionShader";
-import {useRoute, useRouter} from "vue-router";
+import { onMounted, onUnmounted } from "vue";
+import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
+import { useRoute, useRouter } from "vue-router";
 
-const props = defineProps(['itemIdx'])
+const props = defineProps(["itemIdx"]);
 let camera, scene, renderer;
 let viewControls2;
 let model = [];
@@ -52,18 +52,22 @@ function initScene() {
   // 设置fps
   clock = new THREE.Clock();
 
-
   // 创建场景
   scene = new THREE.Scene();
   scene.background = new THREE.Color("#AAAAAA");
   // scene.fog = new THREE.Fog(0xa0a0a0, 10, 500);
 
-  element = document.getElementById('index');
-  textBox = document.querySelector('.text');
-  console.log(element)
+  element = document.getElementById("index");
+  textBox = document.querySelector(".text");
+  console.log(element);
   // 创建相机，这里创建的是一个透视相机
   // camera = new THREE.PerspectiveCamera(35, (window.innerWidth - 201) / window.innerHeight, 1, 500);
-  camera = new THREE.PerspectiveCamera(35, (element.clientWidth) / element.clientHeight, 1, 500);
+  camera = new THREE.PerspectiveCamera(
+    35,
+    element.clientWidth / element.clientHeight,
+    1,
+    500
+  );
   camera.position.set(10, 10, 10); // 相机的位置
   scene.add(camera);
 
@@ -90,7 +94,7 @@ function initScene() {
   scene.add(dirLight);
 
   // 渲染器
-  renderer = new THREE.WebGLRenderer({antialias: true});
+  renderer = new THREE.WebGLRenderer({ antialias: true });
   const canvasFrame = document.querySelector("#three");
   renderer.setPixelRatio(window.devicePixelRatio);
   // renderer.setSize(window.innerWidth - 201, window.innerHeight);
@@ -106,8 +110,8 @@ function initScene() {
 
   // 地面
   const ground = new THREE.Mesh(
-      new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
-      new THREE.MeshPhongMaterial({color: 0x333333, depthWrite: false})
+    new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
+    new THREE.MeshPhongMaterial({ color: 0x333333, depthWrite: false })
   );
   // x轴旋转90度
   ground.rotation.x = -Math.PI / 2;
@@ -150,54 +154,54 @@ function initScene() {
   viewControls2.maxDistance = 1000;
 
   const loader = new GLTFLoader();
-  const dLoader = new DRACOLoader();
-  dLoader.setDecoderPath("/draco/");
-  dLoader.setDecoderConfig({type: 'js'});  //使用js方式解压
-  dLoader.preload();  //初始化_initDecoder 解码器
-  loader.setDRACOLoader(dLoader);
-  loader.load('/static/solarPS_compress.glb',
-      function (gltf) {
-        // gltf.scene.traverse(function (child){
-        //   child.castShadow = true;
-        // })
-        const temp = gltf.scene;
-        temp.name = '能源概览';
-        temp.position.set(-2, 2, -2);
-        temp.castShadow = true;
-        scene.add(temp);
-        model.push(temp);
-      });
-  const loader1 = new GLTFLoader();
-  const dLoader1 = new DRACOLoader();
-  dLoader1.setDecoderPath("/draco/");
-  dLoader1.setDecoderConfig({type: 'js'});  //使用js方式解压
-  dLoader1.preload();  //初始化_initDecoder 解码器
-  loader1.setDRACOLoader(dLoader1);
-  loader1.load('/static/nuclearPS_compress.glb',
-      function (gltf) {
-        const temp = gltf.scene;
-        temp.name = '热力图';
-
-        temp.position.set(2, 2, -2);
-        temp.castShadow = true;
-        scene.add(temp);
-        model.push(temp);
-      });
-  const loader2 = new GLTFLoader();
-  const dLoader2 = new DRACOLoader();
-  dLoader2.setDecoderPath("/draco/");
-  dLoader2.setDecoderConfig({type: 'js'});  //使用js方式解压
-  dLoader2.preload();  //初始化_initDecoder 解码器
-  loader2.setDRACOLoader(dLoader2);
-  loader2.load('/static/windPS_compress.glb',
-      function (gltf) {
-        const temp = gltf.scene;
-        temp.name = '能源月报';
-        temp.position.set(0, 2, 1.5);
-        temp.castShadow = true;
-        scene.add(temp);
-        model.push(temp);
-      });
+  // const dLoader = new DRACOLoader();
+  // dLoader.setDecoderPath("/draco/");
+  // dLoader.setDecoderConfig({type: 'js'});  //使用js方式解压
+  // dLoader.preload();  //初始化_initDecoder 解码器
+  // loader.setDRACOLoader(dLoader);
+  loader.load("/static/mainscenetest2_scale.glb", function (gltf) {
+    // gltf.scene.traverse(function (child){
+    //   child.castShadow = true;
+    // })
+    const temp = gltf.scene;
+    temp.name = "能源概览";
+    temp.position.set(-2, 2, -2);
+    temp.castShadow = true;
+    scene.add(temp);
+    model.push(temp);
+  });
+  console.log(scene);
+  // const loader1 = new GLTFLoader();
+  // const dLoader1 = new DRACOLoader();
+  // dLoader1.setDecoderPath("/draco/");
+  // dLoader1.setDecoderConfig({type: 'js'});  //使用js方式解压
+  // dLoader1.preload();  //初始化_initDecoder 解码器
+  // loader1.setDRACOLoader(dLoader1);
+  // loader1.load('/static/nuclearPS_compress.glb',
+  //     function (gltf) {
+  //       const temp = gltf.scene;
+  //       temp.name = '热力图';
+  //
+  //       temp.position.set(2, 2, -2);
+  //       temp.castShadow = true;
+  //       scene.add(temp);
+  //       model.push(temp);
+  //     });
+  // const loader2 = new GLTFLoader();
+  // const dLoader2 = new DRACOLoader();
+  // dLoader2.setDecoderPath("/draco/");
+  // dLoader2.setDecoderConfig({type: 'js'});  //使用js方式解压
+  // dLoader2.preload();  //初始化_initDecoder 解码器
+  // loader2.setDRACOLoader(dLoader2);
+  // loader2.load('/static/windPS_compress.glb',
+  //     function (gltf) {
+  //       const temp = gltf.scene;
+  //       temp.name = '能源月报';
+  //       temp.position.set(0, 2, 1.5);
+  //       temp.castShadow = true;
+  //       scene.add(temp);
+  //       model.push(temp);
+  //     });
   animate();
 }
 
@@ -214,9 +218,9 @@ function render() {
   renderer.render(scene, camera);
   // times = 0;
   // }
-  console.log("111")
+  console.log("111");
   if (composer) {
-    composer.render()
+    composer.render();
   }
 }
 
@@ -235,14 +239,16 @@ function mouseMoveEvent(event) {
   if (intersects.length > 0) {
     let selectedObj = intersects[0].object;
     let temp;
-    for (temp = selectedObj; temp.parent.type !== "Scene"; temp = temp.parent) {
-      ;
-    }
+    for (
+      temp = selectedObj;
+      temp.parent.type !== "Scene";
+      temp = temp.parent
+    ) {}
     console.log(temp);
     outlineObj([temp]);
     textBox.style.display = "inline-block";
-    textBox.style.left = transPosition(temp).x + 'px';
-    textBox.style.top = transPosition(temp).y + 'px';
+    textBox.style.left = transPosition(temp).x + "px";
+    textBox.style.top = transPosition(temp).y + "px";
     textBox.innerHTML = temp.name;
     nowMouseOn = temp.name;
   } else {
@@ -251,40 +257,48 @@ function mouseMoveEvent(event) {
   }
 }
 
-function clickEvent(event){
+function clickEvent(event) {
   enterPage(nowMouseOn);
 }
 
 //高亮显示模型（呼吸灯）
 function outlineObj(selectedObjects) {
   // 创建一个EffectComposer（效果组合器）对象，然后在该对象上添加后期处理通道。
-  composer = new EffectComposer(renderer)
+  composer = new EffectComposer(renderer);
   composer.renderTarget1.texture.encoding = THREE.sRGBEncoding;
   composer.renderTarget2.texture.encoding = THREE.sRGBEncoding;
   // 新建一个场景通道  为了覆盖到原理来的场景上
-  renderPass = new RenderPass(scene, camera)
+  renderPass = new RenderPass(scene, camera);
   composer.addPass(renderPass);
   // 物体边缘发光通道
-  outlinePass = new OutlinePass(new THREE.Vector2(element.clientWidth, element.clientHeight), scene, camera, selectedObjects)
-  outlinePass.selectedObjects = selectedObjects
-  outlinePass.edgeStrength = 100.0 // 边框的亮度
-  outlinePass.edgeGlow = 2// 光晕[0,1]
-  outlinePass.usePatternTexture = false // 是否使用父级的材质
-  outlinePass.edgeThickness = 1.0 // 边框宽度
-  outlinePass.downSampleRatio = 1 // 边框弯曲度
-  outlinePass.pulsePeriod = 5 // 闪烁的速度
-  outlinePass.visibleEdgeColor.set(parseInt(0xffffff)) // 呼吸显示的颜色
-  outlinePass.hiddenEdgeColor = new THREE.Color(0, 0, 0) // 呼吸消失的颜色
-  outlinePass.clear = true
-  composer.addPass(outlinePass)
+  outlinePass = new OutlinePass(
+    new THREE.Vector2(element.clientWidth, element.clientHeight),
+    scene,
+    camera,
+    selectedObjects
+  );
+  outlinePass.selectedObjects = selectedObjects;
+  outlinePass.edgeStrength = 100.0; // 边框的亮度
+  outlinePass.edgeGlow = 2; // 光晕[0,1]
+  outlinePass.usePatternTexture = false; // 是否使用父级的材质
+  outlinePass.edgeThickness = 1.0; // 边框宽度
+  outlinePass.downSampleRatio = 1; // 边框弯曲度
+  outlinePass.pulsePeriod = 5; // 闪烁的速度
+  outlinePass.visibleEdgeColor.set(parseInt(0xffffff)); // 呼吸显示的颜色
+  outlinePass.hiddenEdgeColor = new THREE.Color(0, 0, 0); // 呼吸消失的颜色
+  outlinePass.clear = true;
+  composer.addPass(outlinePass);
   // 自定义的着色器通道 作为参数
-  let effectFXAA = new ShaderPass(FXAAShader)
-  effectFXAA.uniforms.resolution.value.set(1 / element.clientWidth, 1 / element.clientHeight)
-  effectFXAA.renderToScreen = true
-  composer.addPass(effectFXAA)
+  let effectFXAA = new ShaderPass(FXAAShader);
+  effectFXAA.uniforms.resolution.value.set(
+    1 / element.clientWidth,
+    1 / element.clientHeight
+  );
+  effectFXAA.renderToScreen = true;
+  composer.addPass(effectFXAA);
   // 修正颜色
   const gammaCorrectionPass = new ShaderPass(GammaCorrectionShader);
-  composer.addPass(gammaCorrectionPass)
+  composer.addPass(gammaCorrectionPass);
 
   // model[0].scale.set(1.2, 1.2, 1.2);
 }
@@ -294,27 +308,27 @@ function transPosition(position) {
   let world_vector = new THREE.Vector3(position.x, position.y, position.z);
   let vector = world_vector.project(camera);
   let halfWidth = element.clientWidth / 2,
-      halfHeight = element.clientHeight / 2;
+    halfHeight = element.clientHeight / 2;
   return {
     x: Math.round(vector.x * halfWidth + halfWidth),
-    y: Math.round(-vector.y * halfHeight + halfHeight)
+    y: Math.round(-vector.y * halfHeight + halfHeight),
   };
 }
 
 function enterPage(name) {
   if (name === "能源概览") {
-    router.push('/overview');
+    router.push("/overview");
   } else if (name === "热力图") {
-    router.push('/heatmap')
+    router.push("/heatmap");
   } else if (name === "能源月报") {
-    router.push('/statistic')
+    router.push("/statistic");
   }
 }
 
 function timeRender() {
-//设置为可渲染状态
+  //设置为可渲染状态
   renderEnabled = true;
-//清除上次的延迟器
+  //清除上次的延迟器
   if (timeOut) {
     clearTimeout(timeOut);
   }
@@ -356,15 +370,14 @@ function disposeScene() {
 
   cancelAnimationFrame(animateId);
   animateId = null;
-
 }
 
 function removeModel(parent, child) {
   if (child.children.length) {
-    let arr = child.children.filter(x => x);
-    arr.forEach(a => {
-      removeModel(child, a)
-    })
+    let arr = child.children.filter((x) => x);
+    arr.forEach((a) => {
+      removeModel(child, a);
+    });
   }
   if (child instanceof THREE.Mesh || child instanceof THREE.Line) {
     if (child.material.map) child.material.map.dispose();
@@ -381,22 +394,21 @@ function removeModel(parent, child) {
 
 onMounted(() => {
   initScene();
-  element.addEventListener('mousemove', event => {
-    mouseMoveEvent(event)
+  element.addEventListener("mousemove", (event) => {
+    mouseMoveEvent(event);
     // timeRender();
   });
-  element.addEventListener('click', event => {
-    clickEvent(event)
+  element.addEventListener("click", (event) => {
+    clickEvent(event);
     // timeRender();
   });
-  window.addEventListener('resize', event => {
-    element = document.getElementById('index');
+  window.addEventListener("resize", (event) => {
+    element = document.getElementById("index");
     renderer.setSize(element.clientWidth, element.clientHeight);
     camera.aspect = element.clientWidth / element.clientHeight;
     camera.updateProjectionMatrix();
     // timeRender();
-  })
-
+  });
 });
 onUnmounted(() => {
   disposeScene();

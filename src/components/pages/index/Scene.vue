@@ -169,7 +169,7 @@
           ref="light"
           color="rgb(1, 10, 26)"
           groundColor="rgb(7, 16, 33)"
-          :intensity="1.78"
+          :intensity="0.78"
         />
 
         <!--      intensity 0.13-->
@@ -181,14 +181,22 @@
           :decay="0"
           cast-shadow
         />
-        <!--        <PointLight-->
-        <!--          ref="light1"-->
-        <!--          color="rgb(20, 20, 100)"-->
-        <!--          :intensity="1.0"-->
-        <!--          :position="{ x: -120, y: 20 }"-->
-        <!--          :decay="0.5"-->
-        <!--          cast-shadow-->
-        <!--        />-->
+        <DirectionalLight
+          ref="dir"
+          color="rgb(100, 100, 100)"
+          :intensity="0.83"
+          :position="{ x: 120, y: 120 }"
+          cast-shadow
+        >
+        </DirectionalLight>
+        <PointLight
+          ref="light1"
+          color="rgb(20, 20, 100)"
+          :intensity="1.0"
+          :position="{ x: -120, y: 20 }"
+          :decay="0.5"
+          cast-shadow
+        />
 
         <SpotLight
           color="#555555"
@@ -200,103 +208,175 @@
           :target="{ y: 500 }"
         />
 
+        <!--        <GltfModel-->
+        <!--          ref="mountain"-->
+        <!--          src="/static/mountain.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 45, y: 45, z: 45 }"-->
+        <!--          :position="{ x: -73.61, y: -28.91, z: -32.61 }"-->
+        <!--        />-->
+        <!--        &lt;!&ndash;        solar&ndash;&gt;-->
+        <!--        <GltfModel-->
+        <!--          ref="newSolarStat"-->
+        <!--          src="/static/solar/newSolarStat.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 15, y: 15, z: 15 }"-->
+        <!--          :position="{-->
+        <!--            x: 56.52,-->
+        <!--            y: 2.17,-->
+        <!--            z: -43.48,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="board"-->
+        <!--          src="/static/solar/board.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 10, y: 10, z: 10 }"-->
+        <!--          :position="{-->
+        <!--            x: 32.61,-->
+        <!--            y: 2.17,-->
+        <!--            z: -43.48,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: 2.93 }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="board1"-->
+        <!--          src="/static/solar/board.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 10, y: 10, z: 10 }"-->
+        <!--          :position="{-->
+        <!--            x: 65.22,-->
+        <!--            y: 2.17,-->
+        <!--            z: -26.09,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: 1.2 }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="board2"-->
+        <!--          src="/static/solar/board.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 10, y: 10, z: 10 }"-->
+        <!--          :position="{-->
+        <!--            x: 71.74,-->
+        <!--            y: 2.17,-->
+        <!--            z: -17.39,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: 1.2 }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="board3"-->
+        <!--          src="/static/solar/board.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 10, y: 10, z: 10 }"-->
+        <!--          :position="{-->
+        <!--            x: 73.91,-->
+        <!--            y: 2.6,-->
+        <!--            z: -6.52,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: 1.15 }"-->
+        <!--        />-->
+        <!--        &lt;!&ndash;        nuclear&ndash;&gt;-->
+        <!--        <GltfModel-->
+        <!--          ref="nuclearbuilding1"-->
+        <!--          src="/static/nuclear/nuclearbuilding1.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 15, y: 15, z: 15 }"-->
+        <!--          :position="{-->
+        <!--            x: 8.04,-->
+        <!--            y: 2.35,-->
+        <!--            z: -70.57,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="nuclearbuilding12"-->
+        <!--          src="/static/nuclear/nuclearbuilding1.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 15, y: 15, z: 15 }"-->
+        <!--          :position="{-->
+        <!--            x: 28.39,-->
+        <!--            y: 3.35,-->
+        <!--            z: -60.0,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="nuclearbuilding2"-->
+        <!--          src="/static/nuclear/nuclearbuilding2.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 17, y: 17, z: 17 }"-->
+        <!--          :position="{-->
+        <!--            x: -33.74,-->
+        <!--            y: 1.65,-->
+        <!--            z: -54.52,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="nuclearbuilding3"-->
+        <!--          src="/static/nuclear/nuclearbuilding3.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 17, y: 17, z: 17 }"-->
+        <!--          :position="{-->
+        <!--            x: -22,-->
+        <!--            y: 1.65,-->
+        <!--            z: -54.52,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: 180 }"-->
+        <!--        />-->
+        <!--        &lt;!&ndash;        forest&ndash;&gt;-->
+        <!--        <GltfModel-->
+        <!--          ref="forest"-->
+        <!--          src="/static/forest.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 35, y: 35, z: 35 }"-->
+        <!--          :position="{-->
+        <!--            x: 13.48,-->
+        <!--            y: -1.74,-->
+        <!--            z: -11.2,-->
+        <!--          }"-->
+        <!--          :rotation="{-->
+        <!--            x: 0.13,-->
+        <!--            y: 0.0,-->
+        <!--            z: 0.13,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        &lt;!&ndash;        wind&ndash;&gt;-->
+        <!--        <GltfModel-->
+        <!--          ref="windbuilding"-->
+        <!--          src="/static/wind/building.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 18, y: 18, z: 18 }"-->
+        <!--          :position="{-->
+        <!--            x: 8.7,-->
+        <!--            y: -6.52,-->
+        <!--            z: 50.0,-->
+        <!--          }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="generator"-->
+        <!--          src="/static/wind/generator.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 18, y: 18, z: 18 }"-->
+        <!--          :position="{ x: -19.57, y: -6.52, z: 52.17 }"-->
+        <!--          :rotation="{ y: -0.96 }"-->
+        <!--        />-->
+        <!--        <GltfModel-->
+        <!--          ref="generator2"-->
+        <!--          src="/static/wind/generator.glb"-->
+        <!--          dracoPath="/draco/"-->
+        <!--          :scale="{ x: 20, y: 20, z: 20 }"-->
+        <!--          :position="{-->
+        <!--            x: -36.96,-->
+        <!--            y: -8.7,-->
+        <!--            z: 54.35,-->
+        <!--          }"-->
+        <!--          :rotation="{ y: -0.96 }"-->
+        <!--        />-->
         <GltfModel
-          ref="mountain"
-          src="/static/mountain.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 45, y: 45, z: 45 }"
-          :position="{ x: -73.61, y: -28.91, z: -32.61 }"
-        />
-        <!--        solar-->
-        <GltfModel
-          ref="newSolarStat"
-          src="/static/solar/newSolarStat.glb"
+          ref="generator3"
+          src="/static/mainscenetest2_scale.glb"
           dracoPath="/draco/"
           :scale="{ x: 15, y: 15, z: 15 }"
-          :position="{
-            x: 56.52,
-            y: 2.17,
-            z: -43.48,
-          }"
-        />
-        <GltfModel
-          v-for="item in boardList"
-          :ref="item.ref"
-          src="/static/solar/board.glb"
-          dracoPath="/draco/"
-          :scale="item.scale"
-          :position="item.position"
-          :rotation="item.rotation"
-        />
-        <!--        nuclear-->
-        <GltfModel
-          v-for="item in nuclearBuildingList"
-          :ref="item.ref"
-          src="/static/nuclear/nuclearbuilding1.glb"
-          dracoPath="/draco/"
-          :scale="item.scale"
-          :position="item.position"
-        />
-        <GltfModel
-          ref="nuclearbuilding2"
-          src="/static/nuclear/nuclearbuilding2.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 17, y: 17, z: 17 }"
-          :position="{
-            x: -33.74,
-            y: 1.65,
-            z: -54.52,
-          }"
-        />
-        <GltfModel
-          ref="nuclearbuilding3"
-          src="/static/nuclear/nuclearbuilding3.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 17, y: 17, z: 17 }"
-          :position="{
-            x: -22,
-            y: 1.65,
-            z: -54.52,
-          }"
-          :rotation="{ y: 180 }"
-        />
-        <!--        forest-->
-        <GltfModel
-          ref="forest"
-          src="/static/forest.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 35, y: 35, z: 35 }"
-          :position="{
-            x: 13.48,
-            y: -1.74,
-            z: -11.2,
-          }"
-          :rotation="{
-            x: 0.13,
-            y: 0.0,
-            z: 0.13,
-          }"
-        />
-        <!--        wind-->
-        <GltfModel
-          ref="windbuilding"
-          src="/static/wind/building.glb"
-          dracoPath="/draco/"
-          :scale="{ x: 18, y: 18, z: 18 }"
-          :position="{
-            x: 8.7,
-            y: -6.52,
-            z: 50.0,
-          }"
-        />
-        <GltfModel
-          v-for="item in windGeneratorList"
-          :ref="item.ref"
-          src="/static/wind/generator.glb"
-          dracoPath="/draco/"
-          :scale="item.scale"
-          :position="item.position"
-          :rotation="item.rotation"
+          :position="{ x: -73.61, y: 0, z: -32.61 }"
+          :rotation="{ y: -0.96 }"
         />
 
         <!-- cloud -->
@@ -396,9 +476,9 @@ export default {
     };
 
     //verticle control
-    // const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
+    const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
     // TODO: Debug Only
-    const [rainTime, nightTime, dawnTime, dayTime] = [0, 0, 0, 100000]; // 持续时间
+    // const [rainTime, nightTime, dawnTime, dayTime] = [0, 0, 0, 100000]; // 持续时间
 
     const vPosition = ref(0);
     const dummy = ref(0); // 记录当前的位置
@@ -604,153 +684,6 @@ export default {
       });
     }
 
-    const boardList = ref([
-      {
-        ref: "board1",
-        scale: {
-          x: 10,
-          y: 10,
-          z: 10,
-        },
-        position: {
-          x: 32.61,
-          y: 2.17,
-          z: -60.87,
-        },
-        rotation: {
-          y: 2.93,
-        },
-      },
-      {
-        ref: "board2",
-        scale: {
-          x: 10,
-          y: 10,
-          z: 10,
-        },
-        position: {
-          x: 65.22,
-          y: 2.17,
-          z: -26.09,
-        },
-        rotation: {
-          y: 1.2,
-        },
-      },
-      {
-        ref: "board3",
-        scale: {
-          x: 10,
-          y: 10,
-          z: 10,
-        },
-        position: {
-          x: 71.74,
-          y: 2.17,
-          z: -17.39,
-        },
-        rotation: {
-          y: 1.2,
-        },
-      },
-      {
-        ref: "board4",
-        scale: {
-          x: 10,
-          y: 10,
-          z: 10,
-        },
-        position: {
-          x: 73.91,
-          y: 2.6,
-          z: -6.52,
-        },
-        rotation: {
-          y: 1.15,
-        },
-      },
-    ]);
-
-    const nuclearBuildingList = [
-      {
-        ref: "nuclearBuilding1-1",
-        scale: {
-          x: 15,
-          y: 15,
-          z: 15,
-        },
-        position: {
-          x: 8.04,
-          y: 2.35,
-          z: -70.57,
-        },
-      },
-      {
-        ref: "nuclearBuilding1-2",
-        scale: {
-          x: 15,
-          y: 15,
-          z: 15,
-        },
-        position: {
-          x: 28.39,
-          y: 3.35,
-          z: -60.0,
-        },
-      },
-    ];
-
-    const windGeneratorList = [
-      {
-        ref: "windGenerator1",
-        scale: {
-          x: 18,
-          y: 18,
-          z: 18,
-        },
-        position: {
-          x: -19.57,
-          y: -6.52,
-          z: 52.17,
-        },
-        rotation: {
-          y: -0.96,
-        },
-      },
-      {
-        ref: "windGenerator2",
-        scale: {
-          x: 20,
-          y: 20,
-          z: 20,
-        },
-        position: {
-          x: -36.96,
-          y: -8.7,
-          z: 54.35,
-        },
-        rotation: {
-          y: -0.96,
-        },
-      },
-      {
-        ref: "windGenerator3",
-        scale: {
-          x: 18,
-          y: 18,
-          z: 18,
-        },
-        position: {
-          x: -34.78,
-          y: -2.17,
-          z: 39.13,
-        },
-        rotation: {
-          y: -0.96,
-        },
-      },
-    ];
-
     // pane
     const solarBuildingX = ref(56.52);
     const solarBuildingY = ref(2.17);
@@ -851,11 +784,6 @@ export default {
       imageArray,
       rainCount: 3000,
 
-      // Position Array
-      boardList,
-      nuclearBuildingList,
-      windGeneratorList,
-
       // pane
       solarBuildingX,
       solarBuildingY,
@@ -939,45 +867,45 @@ export default {
     this.pane.addInput(this, "solarBoardZ4", { min: -100, max: 100 });
     this.pane.addInput(this, "boardRotate4", { min: 0, max: 10 });
 
-// nuclear
-this.pane.addInput(this, "nuclearBuilding1X", { min: -200, max: 200 });
-this.pane.addInput(this, "nuclearBuilding1Y", { min: -200, max: 200 });
-this.pane.addInput(this, "nuclearBuilding1Z", { min: -200, max: 200 });
+    // nuclear
+    this.pane.addInput(this, "nuclearBuilding1X", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding1Y", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding1Z", { min: -200, max: 200 });
 
-this.pane.addInput(this, "nuclearBuilding1X_a", { min: -200, max: 200 });
-this.pane.addInput(this, "nuclearBuilding1Y_a", { min: -200, max: 200 });
-this.pane.addInput(this, "nuclearBuilding1Z_a", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding1X_a", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding1Y_a", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding1Z_a", { min: -200, max: 200 });
 
-this.pane.addInput(this, "nuclearBuilding2X", { min: -200, max: 200 });
-this.pane.addInput(this, "nuclearBuilding2Y", { min: -200, max: 200 });
-this.pane.addInput(this, "nuclearBuilding2Z", { min: -200, max: 200 });
-this.pane.addInput(this, "nuclearBuilding3X", { min: -200, max: 200 });
-this.pane.addInput(this, "nuclearBuilding3Y", { min: -200, max: 200 });
-this.pane.addInput(this, "nuclearBuilding3Z", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding2X", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding2Y", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding2Z", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding3X", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding3Y", { min: -200, max: 200 });
+    this.pane.addInput(this, "nuclearBuilding3Z", { min: -200, max: 200 });
 
-// this.pane.addInput(this, "mountainX", { min: -100, max: 100 });
-// this.pane.addInput(this, "mountainY", { min: -100, max: 100 });
-// this.pane.addInput(this, "mountainZ", { min: -100, max: 100 });
-// this.pane.addInput(this, "planeX", { min: -100, max: 100 });
-// this.pane.addInput(this, "planeY", { min: -100, max: 100 });
-// this.pane.addInput(this, "planeZ", { min: -100, max: 100 });
+    // this.pane.addInput(this, "mountainX", { min: -100, max: 100 });
+    // this.pane.addInput(this, "mountainY", { min: -100, max: 100 });
+    // this.pane.addInput(this, "mountainZ", { min: -100, max: 100 });
+    // this.pane.addInput(this, "planeX", { min: -100, max: 100 });
+    // this.pane.addInput(this, "planeY", { min: -100, max: 100 });
+    // this.pane.addInput(this, "planeZ", { min: -100, max: 100 });
 
-this.pane.addInput(this, "forsetX", { min: -20, max: 20 });
-this.pane.addInput(this, "forsetY", { min: -20, max: 20 });
-this.pane.addInput(this, "forsetZ", { min: -20, max: 10 });
+    this.pane.addInput(this, "forsetX", { min: -20, max: 20 });
+    this.pane.addInput(this, "forsetY", { min: -20, max: 20 });
+    this.pane.addInput(this, "forsetZ", { min: -20, max: 10 });
 
-this.pane.addInput(this, "forest_rotateX", { min: -3, max: 3 });
-this.pane.addInput(this, "forest_rotateY", { min: -3, max: 3 });
-this.pane.addInput(this, "forest_rotateZ", { min: -3, max: 3 });
+    this.pane.addInput(this, "forest_rotateX", { min: -3, max: 3 });
+    this.pane.addInput(this, "forest_rotateY", { min: -3, max: 3 });
+    this.pane.addInput(this, "forest_rotateZ", { min: -3, max: 3 });
 
-this.pane.addInput(this, "buildingX", { min: -10, max: 20 });
-this.pane.addInput(this, "buildingY", { min: -10, max: 20 });
-this.pane.addInput(this, "buildingZ", { min: 20, max: 80 });
-this.pane.addInput(this, "generatorX", { min: -100, max: 100 });
-this.pane.addInput(this, "generatorY", { min: -100, max: 100 });
-this.pane.addInput(this, "generatorZ", { min: -100, max: 100 });
+    this.pane.addInput(this, "buildingX", { min: -10, max: 20 });
+    this.pane.addInput(this, "buildingY", { min: -10, max: 20 });
+    this.pane.addInput(this, "buildingZ", { min: 20, max: 80 });
+    this.pane.addInput(this, "generatorX", { min: -100, max: 100 });
+    this.pane.addInput(this, "generatorY", { min: -100, max: 100 });
+    this.pane.addInput(this, "generatorZ", { min: -100, max: 100 });
 
-this.pane.addInput(this, "generator_rotateY", { min: -4, max: 4 });
+    this.pane.addInput(this, "generator_rotateY", { min: -4, max: 4 });
 */
 
     //scene core
