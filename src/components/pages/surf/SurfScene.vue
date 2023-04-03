@@ -99,7 +99,7 @@
           ref="mainscene"
           src="/static/mainscenetest2_scale.glb"
           dracoPath="/draco/"
-          :scale="{ x: 15, y: 15, z: 15 }"
+          :scale="{ x: 25, y: 25, z: 25 }"
           :position="{ x: -73.61, y: 0, z: -32.61 }"
           :rotation="{ y: -0.96 }"
         />
@@ -282,7 +282,6 @@ const checkLabelVisible = function () {
       const controlsPos = controls.getObject().position;
       const dis = controlsPos.distanceTo(point.position);
       if (dis < 30) {
-        // TODO: Show text
         point.text.classList.add("activate");
       } else {
         point.text.classList.remove("activate");
@@ -648,7 +647,6 @@ h2 {
   transform: scale(0);
   transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
-  transition: transform 0.3s, -webkit-transform 0.3s;
   width: 32px;
 }
 

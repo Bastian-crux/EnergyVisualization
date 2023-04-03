@@ -25,6 +25,8 @@ import Overview from "@/components/pages/overview/Overview.vue";
 import Statistic from "@/components/pages/statistic/Statistic.vue";
 import HeatMapIndex from "@/components/pages/heatmap/HeatMapIndex.vue";
 import Timeline from "@/components/pages/timeline/Timeline.vue";
+import Game from "@/components/pages/game/Game.vue";
+import GameScene from "@/components/pages/game/GameScene.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -60,6 +62,14 @@ const router = createRouter({
     {
       path: "/timeline",
       component: Timeline,
+    },
+    {
+      path: "/game",
+      component: Game,
+    },
+    {
+      path: "/game-scene",
+      component: GameScene,
     },
   ],
 });
