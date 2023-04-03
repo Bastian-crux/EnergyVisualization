@@ -450,7 +450,6 @@ import IconGroup from "./IconGroup.vue";
 import TextScroll from "./TextScroll.vue";
 import DataList from "@/components/pages/statistic/DataList.vue";
 import DataListMain from "@/components/pages/statistic/DataListMain.vue";
-import { Pane } from "tweakpane";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 
@@ -477,8 +476,6 @@ export default {
 
     //verticle control
     const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
-    // TODO: Debug Only
-    // const [rainTime, nightTime, dawnTime, dayTime] = [0, 0, 0, 100000]; // 持续时间
 
     const vPosition = ref(0);
     const dummy = ref(0); // 记录当前的位置
@@ -783,131 +780,9 @@ export default {
       //texture
       imageArray,
       rainCount: 3000,
-
-      // pane
-      solarBuildingX,
-      solarBuildingY,
-      solarBuildingZ,
-      solarBoardX,
-      solarBoardY,
-      solarBoardZ,
-      boardRotate,
-      solarBoardX2,
-      solarBoardY2,
-      solarBoardZ2,
-      boardRotate2,
-      solarBoardX3,
-      solarBoardY3,
-      solarBoardZ3,
-      boardRotate3,
-      solarBoardX4,
-      solarBoardY4,
-      solarBoardZ4,
-      boardRotate4,
-      mountainX,
-      mountainY,
-      mountainZ,
-      planeX,
-      planeY,
-      planeZ,
-
-      nuclearBuilding1X,
-      nuclearBuilding1Y,
-      nuclearBuilding1Z,
-      nuclearBuilding1X_a,
-      nuclearBuilding1Y_a,
-      nuclearBuilding1Z_a,
-      nuclearBuilding2X,
-      nuclearBuilding2Y,
-      nuclearBuilding2Z,
-      nuclearBuilding3X,
-      nuclearBuilding3Y,
-      nuclearBuilding3Z,
-
-      forsetX,
-      forsetY,
-      forsetZ,
-
-      forest_rotateX,
-      forest_rotateY,
-      forest_rotateZ,
-
-      buildingX,
-      buildingY,
-      buildingZ,
-      generatorX,
-      generatorY,
-      generatorZ,
-
-      generator_rotateY,
     };
   },
   mounted() {
-    /*
-    // pane
-    this.pane = new Pane();
-    // Solar
-    this.pane.addInput(this, "solarBuildingX", { min: -100, max: 100 });
-    this.pane.addInput(this, "solarBuildingY", { min: -100, max: 100 });
-    this.pane.addInput(this, "solarBuildingZ", { min: -100, max: 100 });
-    this.pane.addInput(this, "solarBoardX", { min: -100, max: 100 });
-    this.pane.addInput(this, "solarBoardY", { min: -100, max: 100 });
-    this.pane.addInput(this, "solarBoardZ", { min: -100, max: 100 });
-    this.pane.addInput(this, "boardRotate", { min: 0, max: 10 });
-    this.pane.addInput(this, "solarBoardX2", { min: -100, max: 100 });
-    this.pane.addInput(this, "solarBoardY2", { min: -100, max: 100 });
-    this.pane.addInput(this, "solarBoardZ2", { min: -100, max: 100 });
-    this.pane.addInput(this, "boardRotate2", { min: 0, max: 10 });
-    this.pane.addInput(this, "solarBoardX3", { min: -100, max: 100 });
-    this.pane.addInput(this, "solarBoardY3", { min: -100, max: 100 });
-    this.pane.addInput(this, "solarBoardZ3", { min: -100, max: 100 });
-    this.pane.addInput(this, "boardRotate3", { min: 0, max: 10 });
-    this.pane.addInput(this, "solarBoardX4", { min: -100, max: 100 });
-    this.pane.addInput(this, "solarBoardY4", { min: -100, max: 100 });
-    this.pane.addInput(this, "solarBoardZ4", { min: -100, max: 100 });
-    this.pane.addInput(this, "boardRotate4", { min: 0, max: 10 });
-
-    // nuclear
-    this.pane.addInput(this, "nuclearBuilding1X", { min: -200, max: 200 });
-    this.pane.addInput(this, "nuclearBuilding1Y", { min: -200, max: 200 });
-    this.pane.addInput(this, "nuclearBuilding1Z", { min: -200, max: 200 });
-
-    this.pane.addInput(this, "nuclearBuilding1X_a", { min: -200, max: 200 });
-    this.pane.addInput(this, "nuclearBuilding1Y_a", { min: -200, max: 200 });
-    this.pane.addInput(this, "nuclearBuilding1Z_a", { min: -200, max: 200 });
-
-    this.pane.addInput(this, "nuclearBuilding2X", { min: -200, max: 200 });
-    this.pane.addInput(this, "nuclearBuilding2Y", { min: -200, max: 200 });
-    this.pane.addInput(this, "nuclearBuilding2Z", { min: -200, max: 200 });
-    this.pane.addInput(this, "nuclearBuilding3X", { min: -200, max: 200 });
-    this.pane.addInput(this, "nuclearBuilding3Y", { min: -200, max: 200 });
-    this.pane.addInput(this, "nuclearBuilding3Z", { min: -200, max: 200 });
-
-    // this.pane.addInput(this, "mountainX", { min: -100, max: 100 });
-    // this.pane.addInput(this, "mountainY", { min: -100, max: 100 });
-    // this.pane.addInput(this, "mountainZ", { min: -100, max: 100 });
-    // this.pane.addInput(this, "planeX", { min: -100, max: 100 });
-    // this.pane.addInput(this, "planeY", { min: -100, max: 100 });
-    // this.pane.addInput(this, "planeZ", { min: -100, max: 100 });
-
-    this.pane.addInput(this, "forsetX", { min: -20, max: 20 });
-    this.pane.addInput(this, "forsetY", { min: -20, max: 20 });
-    this.pane.addInput(this, "forsetZ", { min: -20, max: 10 });
-
-    this.pane.addInput(this, "forest_rotateX", { min: -3, max: 3 });
-    this.pane.addInput(this, "forest_rotateY", { min: -3, max: 3 });
-    this.pane.addInput(this, "forest_rotateZ", { min: -3, max: 3 });
-
-    this.pane.addInput(this, "buildingX", { min: -10, max: 20 });
-    this.pane.addInput(this, "buildingY", { min: -10, max: 20 });
-    this.pane.addInput(this, "buildingZ", { min: 20, max: 80 });
-    this.pane.addInput(this, "generatorX", { min: -100, max: 100 });
-    this.pane.addInput(this, "generatorY", { min: -100, max: 100 });
-    this.pane.addInput(this, "generatorZ", { min: -100, max: 100 });
-
-    this.pane.addInput(this, "generator_rotateY", { min: -4, max: 4 });
-*/
-
     //scene core
     this.renderer = this.$refs.renderer;
     this.scene = this.$refs.scene.scene;
