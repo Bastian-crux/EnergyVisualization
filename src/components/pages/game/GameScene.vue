@@ -1,4 +1,24 @@
 <template>
+  <!--  选择发电站-->
+  <div
+    class="absolute"
+    style="
+      color: #464646;
+      background-color: white;
+      width: 400px;
+      right: 0px;
+      top: 0%;
+    "
+  >
+    <h1 style="font-size: 28px">发电站列表</h1>
+    <el-space direction="vertical">
+      <el-card></el-card>
+      <el-card></el-card>
+    </el-space>
+  </div>
+  <!--  提示框-->
+  <div></div>
+
   <div class="center" id="index">
     <div id="three"></div>
   </div>
@@ -229,7 +249,6 @@ function disposeScene() {
   outlinePass = null;
   renderPass = null;
   element = null;
-  stats = null;
 
   cancelAnimationFrame(animateId);
   animateId = null;
@@ -274,4 +293,11 @@ onUnmounted(() => {
   height: 750px;
   margin: 0 auto;
 }
+.absolute {
+  position: absolute;
+}
+/*.center {*/
+/*  transform: translate(-50%, 0);*/
+/*  left: 50%;*/
+/*}*/
 </style>
