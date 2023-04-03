@@ -2,12 +2,10 @@
   <div class="center" id="index">
     <div id="three"></div>
   </div>
-  <div class="text"></div>
 </template>
 
 <script setup>
 import * as THREE from "three";
-import { ThreeMFLoader } from "three/examples/jsm/loaders/3MFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader";
 
@@ -21,44 +19,23 @@ import Stats from "three/addons/libs/stats.module";
 
 import { onMounted, onUnmounted } from "vue";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
-import { useRoute, useRouter } from "vue-router";
 
 const props = defineProps(["itemIdx"]);
 let camera, scene, renderer;
 let viewControls2;
 let model = [];
-let settings;
 let composer, outlinePass, renderPass;
 let element;
-let stats;
 
 let animateId;
 
-let textBox;
-
-let renderEnabled;
-let timeOut = null;
-
-let nowMouseOn = null;
-
-//fps
-let clock;
-let renderT = 1 / 30;
-let times = 0;
-
-const router = useRouter();
-
 function initScene() {
-  // 设置fps
-  clock = new THREE.Clock();
-
   // 创建场景
   scene = new THREE.Scene();
   scene.background = new THREE.Color("#AAAAAA");
   // scene.fog = new THREE.Fog(0xa0a0a0, 10, 500);
 
   element = document.getElementById("index");
-  textBox = document.querySelector(".text");
   console.log(element);
   // 创建相机，这里创建的是一个透视相机
   // camera = new THREE.PerspectiveCamera(35, (window.innerWidth - 201) / window.innerHeight, 1, 500);
@@ -105,39 +82,6 @@ function initScene() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   canvasFrame.appendChild(renderer.domElement);
 
-  stats = new Stats();
-  element.appendChild(stats.dom);
-
-  // 地面
-  const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(150, 150), // 一个长150，宽150的正方形
-    new THREE.MeshPhongMaterial({ color: 0x333333, depthWrite: false })
-  );
-  // x轴旋转90度
-  ground.rotation.x = -Math.PI / 2;
-  ground.position.set(0, 0, 0);
-  // 地面接收阴影
-  // ground.receiveShadow = true;
-  scene.add(ground);
-  // timeRender();
-
-  // 加载3D模型
-  // const loader3mf = new ThreeMFLoader();
-  // loader3mf.load("3dMode/island.3mf", function (object) {
-  //   object.quaternion.setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0));
-  //   object.position.set(-10, 25, -30);
-  //   object.scale.set(150, 150, 150);
-  //   object.traverse(function (child) {
-  //     child.castShadow = true;
-  //     if (child.material) {
-  //       child.material.transparent = true; // 每个材质都开启透明度设置，这个不开启改了opacity的值也不会生效
-  //       child.material.opacity = 1; // 默认设置透明度为1
-  //     }
-  //   });
-  //   model = object;
-  //   scene.add(model);
-  // });
-
   // 添加鼠标控制
   viewControls2 = new OrbitControls(camera, renderer.domElement);
   // 开启阻尼
@@ -159,13 +103,13 @@ function initScene() {
   // dLoader.setDecoderConfig({type: 'js'});  //使用js方式解压
   // dLoader.preload();  //初始化_initDecoder 解码器
   // loader.setDRACOLoader(dLoader);
-  loader.load("/static/mainscenetest2_scale.glb", function (gltf) {
+  loader.load("/static/islandtest.glb", function (gltf) {
     // gltf.scene.traverse(function (child){
     //   child.castShadow = true;
     // })
     const temp = gltf.scene;
-    temp.name = "能源概览";
-    temp.position.set(-2, 2, -2);
+    temp.name = "mainScene";
+    // temp.position.set(-2, 2, -2);
     temp.castShadow = true;
     scene.add(temp);
     model.push(temp);
@@ -187,78 +131,19 @@ function initScene() {
   //       scene.add(temp);
   //       model.push(temp);
   //     });
-  // const loader2 = new GLTFLoader();
-  // const dLoader2 = new DRACOLoader();
-  // dLoader2.setDecoderPath("/draco/");
-  // dLoader2.setDecoderConfig({type: 'js'});  //使用js方式解压
-  // dLoader2.preload();  //初始化_initDecoder 解码器
-  // loader2.setDRACOLoader(dLoader2);
-  // loader2.load('/static/windPS_compress.glb',
-  //     function (gltf) {
-  //       const temp = gltf.scene;
-  //       temp.name = '能源月报';
-  //       temp.position.set(0, 2, 1.5);
-  //       temp.castShadow = true;
-  //       scene.add(temp);
-  //       model.push(temp);
-  //     });
   animate();
 }
 
 function animate() {
   animateId = requestAnimationFrame(animate);
   render();
-  stats.update();
 }
 
 function render() {
-  // let tempT = clock.getDelta();
-  // times += tempT;
-  // if (times > renderT){
   renderer.render(scene, camera);
-  // times = 0;
-  // }
-  console.log("111");
   if (composer) {
     composer.render();
   }
-}
-
-function mouseMoveEvent(event) {
-  //获取在射线上的接触点
-  //获取鼠标坐标
-  let marginLeft = window.innerWidth * 0.1;
-  let marginTop = 58;
-  let mouse = new THREE.Vector2();
-  let raycaster = new THREE.Raycaster();
-  mouse.x = ((event.clientX - marginLeft) / element.clientWidth) * 2 - 1;
-  mouse.y = -((event.clientY - marginTop) / element.clientHeight) * 2 + 1;
-
-  raycaster.setFromCamera(mouse, camera);
-  let intersects = raycaster.intersectObjects(scene.children);
-  if (intersects.length > 0) {
-    let selectedObj = intersects[0].object;
-    let temp;
-    for (
-      temp = selectedObj;
-      temp.parent.type !== "Scene";
-      temp = temp.parent
-    ) {}
-    console.log(temp);
-    outlineObj([temp]);
-    textBox.style.display = "inline-block";
-    textBox.style.left = transPosition(temp).x + "px";
-    textBox.style.top = transPosition(temp).y + "px";
-    textBox.innerHTML = temp.name;
-    nowMouseOn = temp.name;
-  } else {
-    textBox.style.display = "none";
-    nowMouseOn = null;
-  }
-}
-
-function clickEvent(event) {
-  enterPage(nowMouseOn);
 }
 
 //高亮显示模型（呼吸灯）
@@ -315,28 +200,6 @@ function transPosition(position) {
   };
 }
 
-function enterPage(name) {
-  if (name === "能源概览") {
-    router.push("/overview");
-  } else if (name === "热力图") {
-    router.push("/heatmap");
-  } else if (name === "能源月报") {
-    router.push("/statistic");
-  }
-}
-
-function timeRender() {
-  //设置为可渲染状态
-  renderEnabled = true;
-  //清除上次的延迟器
-  if (timeOut) {
-    clearTimeout(timeOut);
-  }
-  timeOut = setTimeout(function () {
-    renderEnabled = false;
-  }, 3000);
-}
-
 function disposeScene() {
   removeModel(null, scene);
 
@@ -386,7 +249,7 @@ function removeModel(parent, child) {
   } else if (child.material) {
     child.material.dispose();
   }
-  child.remove();
+  scene.remove(child);
   if (parent) {
     parent.remove(child);
   }
@@ -394,20 +257,11 @@ function removeModel(parent, child) {
 
 onMounted(() => {
   initScene();
-  element.addEventListener("mousemove", (event) => {
-    mouseMoveEvent(event);
-    // timeRender();
-  });
-  element.addEventListener("click", (event) => {
-    clickEvent(event);
-    // timeRender();
-  });
   window.addEventListener("resize", (event) => {
     element = document.getElementById("index");
     renderer.setSize(element.clientWidth, element.clientHeight);
     camera.aspect = element.clientWidth / element.clientHeight;
     camera.updateProjectionMatrix();
-    // timeRender();
   });
 });
 onUnmounted(() => {
@@ -417,18 +271,7 @@ onUnmounted(() => {
 
 <style scoped>
 .center {
-  width: 80%;
   height: 750px;
   margin: 0 auto;
-}
-
-/* 文字提示框样式 */
-.text {
-  display: none;
-  box-shadow: 0 0 5px rgb(138, 138, 138);
-  padding: 10px;
-  position: relative;
-  /*font-weight: bold;*/
-  background: rgba(255, 255, 255, 0.747);
 }
 </style>
