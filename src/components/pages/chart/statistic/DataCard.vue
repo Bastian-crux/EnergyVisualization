@@ -12,17 +12,17 @@
         <div class="statistic-footer">
           <div class="footer-item">
             <div v-if="increment !== 0 && year !== 2003">
-              <span>同比{{ this.increment >= 0 ? '增长' : '减少' }}</span>
+              <span>同比{{ this.increment >= 0 ? "增长" : "减少" }}</span>
               <span class="green" v-if="increment > 0">
                 {{ increment }}%
                 <el-icon>
-                  <CaretTop/>
+                  <CaretTop />
                 </el-icon>
               </span>
               <span class="red" v-else-if="increment < 0">
                 {{ increment }}%
                 <el-icon>
-                  <CaretBottom/>
+                  <CaretBottom />
                 </el-icon>
               </span>
             </div>
@@ -41,7 +41,12 @@
           </el-col>
           <el-col :span="24">
             <div style="height: 300px; width: 100%">
-              <energy-pie-chart :data="data[year]" :total="total" :type="type" :color="color"/>
+              <energy-pie-chart
+                :data="data[year]"
+                :total="total"
+                :type="type"
+                :color="color"
+              />
             </div>
           </el-col>
         </el-row>
@@ -51,28 +56,30 @@
 </template>
 
 <script>
-import {CaretTop, CaretBottom} from "@element-plus/icons-vue";
-import EnergyPieChart from "@/components/pages/statistic/EnergyPieChart.vue";
+import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
+import EnergyPieChart from "@/components/pages/chart/statistic/EnergyPieChart.vue";
 
 export default {
   name: "DataCard",
-  components: {EnergyPieChart},
-  props: ['year', 'type', 'data', 'total', 'color', 'background'],
+  components: { EnergyPieChart },
+  props: ["year", "type", "data", "total", "color", "background"],
   computed: {
     increment() {
       if (this.data[this.year - 1] === 0) {
-        return 0
+        return 0;
       } else {
-        return ((this.data[this.year] - this.data[this.year - 1]) / this.data[this.year - 1] * 100).toFixed(2)
+        return (
+          ((this.data[this.year] - this.data[this.year - 1]) /
+            this.data[this.year - 1]) *
+          100
+        ).toFixed(2);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-
 <style scoped>
-
 .description {
   width: 100%;
   font-size: 14px;
@@ -114,5 +121,4 @@ export default {
 .red {
   color: var(--el-color-error);
 }
-
 </style>

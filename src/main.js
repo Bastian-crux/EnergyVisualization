@@ -21,12 +21,9 @@ import Index from "@/components/pages/index/Index.vue";
 import Scene from "@/components/pages/index/Scene.vue";
 import Surf from "@/components/pages/surf/Surf.vue";
 import SurfScene from "@/components/pages/surf/SurfScene.vue";
-import Overview from "@/components/pages/overview/Overview.vue";
-import Statistic from "@/components/pages/statistic/Statistic.vue";
-import HeatMapIndex from "@/components/pages/heatmap/HeatMapIndex.vue";
-import Timeline from "@/components/pages/timeline/Timeline.vue";
 import Game from "@/components/pages/game/Game.vue";
 import GameScene from "@/components/pages/game/GameScene.vue";
+import Chart from "@/components/pages/chart/Chart.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -48,28 +45,16 @@ const router = createRouter({
       component: SurfScene,
     },
     {
-      path: "/overview",
-      component: Overview,
-    },
-    {
-      path: "/statistic",
-      component: Statistic,
-    },
-    {
-      path: "/heatmap",
-      component: HeatMapIndex,
-    },
-    {
-      path: "/timeline",
-      component: Timeline,
-    },
-    {
       path: "/game",
       component: Game,
     },
     {
       path: "/game-scene",
       component: GameScene,
+    },
+    {
+      path: "/chart",
+      component: Chart,
     },
   ],
 });

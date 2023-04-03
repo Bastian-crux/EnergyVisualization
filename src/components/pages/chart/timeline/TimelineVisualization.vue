@@ -14,10 +14,10 @@ import {
 } from "@/utils";
 
 import world from "/assets/mapData/world.json";
-import solarProvinceAllData from "../../../../assets/powerstationData/solar.json";
-import windProvinceAllData from "../../../../assets/powerstationData/wind.json";
-import nuclearProvinceAllData from "../../../../assets/powerstationData/nuclear.json";
-import biologyProvinceAllData from "../../../../assets/powerstationData/bioenergy.json";
+import solarProvinceAllData from "../../../../../assets/powerstationData/solar.json";
+import windProvinceAllData from "../../../../../assets/powerstationData/wind.json";
+import nuclearProvinceAllData from "../../../../../assets/powerstationData/nuclear.json";
+import biologyProvinceAllData from "../../../../../assets/powerstationData/bioenergy.json";
 
 export default {
   name: "TimelineVisualization",
@@ -132,11 +132,6 @@ export default {
 </script>
 
 <style scoped>
-.box-card {
-  width: 80%;
-  margin: 1rem auto;
-}
-
 .chart {
   width: 100%;
   height: 600px;

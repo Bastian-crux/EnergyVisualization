@@ -1,12 +1,11 @@
 <template>
-  <the-nav-bar />
   <el-card class="box-card">
     <capacity-heatmap />
   </el-card>
 </template>
 
 <script>
-import CapacityHeatmap from "@/components/pages/heatmap/CapacityHeatmap.vue";
+import CapacityHeatmap from "@/components/pages/chart/heatmap/CapacityHeatmap.vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
 
 export default {
@@ -20,5 +19,4 @@ export default {
   width: 80%;
   margin: 1rem auto;
 }
-
 </style>

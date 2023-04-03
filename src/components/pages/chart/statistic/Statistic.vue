@@ -1,5 +1,4 @@
 <template>
-  <the-nav-bar />
   <el-card class="box-card">
     <el-row>
       <el-col :span="24">
@@ -24,8 +23,8 @@
 
 <script>
 import { ref } from "vue";
-import MonthlyChart from "@/components/pages/statistic/MonthlyChart.vue";
-import DataList from "@/components/pages/statistic/DataList.vue";
+import MonthlyChart from "@/components/pages/chart/statistic/MonthlyChart.vue";
+import DataList from "@/components/pages/chart/statistic/DataList.vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
 
 export default {
