@@ -4,21 +4,15 @@
 </template>
 
 <script>
-import Scene from "@/components/pages/index/Scene.vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
-import IndexModels from "@/components/pages/game/GameScene.vue";
 
 export default {
   name: "Index",
-  components: { IndexModels, TheNavBar },
+  components: { TheNavBar },
 };
 </script>
 
 <style scoped>
-/*.box-card {*/
-/*  width: 80%;*/
-/*  margin: 1rem auto;*/
-/*}*/
 .iframe {
   position: absolute;
   left: 0;
