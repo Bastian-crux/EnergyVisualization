@@ -18,38 +18,62 @@
     "
   >
     <h1 style="font-size: 20px; text-align: center">发电站列表</h1>
-    <el-card style="width: 80%; margin: 10px auto" body-style=" padding: 10px">
+    <button
+      class="buildingList"
+      :class="grab ? 'grab' : ''"
+      style="width: 80%; margin: 10px auto"
+      :disabled="grab"
+      @click="gamePrompt"
+    >
       <div class="choose" style="display: flex; justify-content: center">
         <img
           src="/images/icon1.png"
           style="width: 90%; height: 90%; border-radius: 5px"
         />
       </div>
-    </el-card>
-    <el-card style="width: 80%; margin: 10px auto" body-style=" padding: 10px">
+    </button>
+    <button
+      class="buildingList"
+      :class="grab ? 'grab' : ''"
+      style="width: 80%; margin: 10px auto"
+      :disabled="grab"
+      @click="gamePrompt"
+    >
       <div class="choose" style="display: flex; justify-content: center">
         <img
           src="/images/icon2.png"
           style="width: 90%; height: 90%; border-radius: 5px"
         />
       </div>
-    </el-card>
-    <el-card style="width: 80%; margin: 10px auto" body-style=" padding: 10px">
+    </button>
+    <button
+      class="buildingList"
+      :class="grab ? 'grab' : ''"
+      style="width: 80%; margin: 10px auto"
+      :disabled="grab"
+      @click="gamePrompt"
+    >
       <div class="choose" style="display: flex; justify-content: center">
         <img
           src="/images/icon3.png"
           style="width: 90%; height: 90%; border-radius: 5px"
         />
       </div>
-    </el-card>
-    <el-card style="width: 80%; margin: 10px auto" body-style=" padding: 10px">
+    </button>
+    <button
+      class="buildingList"
+      :class="grab ? 'grab' : ''"
+      style="width: 80%; margin: 10px auto"
+      :disabled="grab"
+      @click="gamePrompt"
+    >
       <div class="choose" style="display: flex; justify-content: center">
         <img
           src="/images/icon1.png"
           style="width: 90%; height: 90%; border-radius: 5px"
         />
       </div>
-    </el-card>
+    </button>
   </div>
   <!--  提示框-->
   <div></div>
@@ -76,6 +100,7 @@ import { GUI } from "three/examples/jsm/libs/lil-gui.module.min";
 
 import { onMounted, onUnmounted, ref } from "vue";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
+import { ElMessage } from "element-plus";
 
 const props = defineProps(["itemIdx"]);
 let camera, scene, renderer;
@@ -87,6 +112,9 @@ let element;
 let animateId;
 
 let points;
+
+const grab = ref(false);
+
 const pointPosList = ref([
   "point-0",
   "point-1",
@@ -351,6 +379,15 @@ const clickIcon = function () {
   }
 };
 
+const gamePrompt = () => {
+  grab.value = true;
+  ElMessage({
+    message: "点击+来添加对应的设施",
+    type: "info",
+    duration: 0,
+  });
+};
+
 onMounted(() => {
   points = [
     {
@@ -491,5 +528,14 @@ onUnmounted(() => {
   transform: scale(1.2);
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
+}
+.buildingList {
+  position: relative;
+  left: 10%;
+  background-color: Transparent;
+  border: none;
+}
+.grab {
+  cursor: not-allowed;
 }
 </style>
