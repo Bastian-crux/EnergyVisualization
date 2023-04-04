@@ -1,11 +1,11 @@
 <template>
   <the-nav-bar />
   <el-tabs v-model="activeName" class="box-card" type="card">
-    <el-tab-pane label="User" name="timeline">
-      <timeline />
+    <el-tab-pane label="User" name="timeline" lazy>
+      <timeline :visible="activeName === 'timeline'" />
     </el-tab-pane>
-    <el-tab-pane label="Config" name="overview">
-      <overview />
+    <el-tab-pane label="Config" name="overview" lazy>
+      <overview :visible="activeName === 'overview'" />
     </el-tab-pane>
   </el-tabs>
   <heat-map />
