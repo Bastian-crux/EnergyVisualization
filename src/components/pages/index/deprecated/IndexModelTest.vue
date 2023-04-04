@@ -184,7 +184,7 @@ import Loader from "../Loader.vue";
 import IconGroup from "../IconGroup.vue";
 import TextScroll from "../TextScroll.vue";
 import DataList from "@/components/pages/chart/statistic/DataList.vue";
-import DataListMain from "@/components/pages/chart/statistic/DataListMain.vue";
+import DataListMain from "@/components/pages/chart/statistic/deprecated/DataListMain.vue";
 import { Pane } from "tweakpane";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;

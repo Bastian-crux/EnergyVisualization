@@ -79,9 +79,10 @@ export default {
               "#001D70",
             ],
           },
-          top: "middle",
+          left: "center",
           dimension: 2,
           calculable: true,
+          orient: "horizontal",
         },
         angleAxis: {
           type: "category",
@@ -140,8 +141,8 @@ export default {
   mounted() {
     this.loadHeatMap();
     window.onresize = () => {
-      echarts.dispose(this.myChart);
-      this.loadHeatMap();
+      let option = this.myChart.getOption();
+      this.myChart.setOption(option);
     };
   },
 };
@@ -150,6 +151,6 @@ export default {
 <style scoped>
 .chart {
   width: 100%;
-  height: 600px;
+  height: 400px;
 }
 </style>
