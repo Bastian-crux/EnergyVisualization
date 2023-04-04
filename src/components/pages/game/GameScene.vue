@@ -1,7 +1,7 @@
 <template>
   <!--  选址-->
-  <div v-for="item in pointPosList">
-    <div class="point" :class="item" @click="placeNew(item)">
+  <div v-for="item in points">
+    <div class="point" :class="item.name" @click="placeNew(item)">
       <div class="label">+</div>
     </div>
   </div>
@@ -86,13 +86,37 @@ let element;
 
 let animateId;
 
-let points;
-const pointPosList = ref([
-  "point-0",
-  "point-1",
-  "point-2",
-  "point-3",
-  "point-4",
+const points = ref([
+  {
+    name: "point-0",
+    position: new THREE.Vector3(0, 0, 0),
+    element: null,
+    placed: false,
+  },
+  {
+    name: "point-1",
+    position: new THREE.Vector3(-10, 8, 1),
+    element: document.querySelector(".point-1"),
+    placed: false,
+  },
+  {
+    name: "point-2",
+    position: new THREE.Vector3(30, 10, 1),
+    element: document.querySelector(".point-2"),
+    placed: false,
+  },
+  {
+    name: "point-3",
+    position: new THREE.Vector3(-3, 2, 2),
+    element: document.querySelector(".point-3"),
+    placed: false,
+  },
+  {
+    name: "point-4",
+    position: new THREE.Vector3(-10, 20, -10),
+    element: document.querySelector(".point-4"),
+    placed: false,
+  },
 ]);
 
 // test variable
@@ -334,12 +358,12 @@ function removeModel(parent, child) {
   }
 }
 
-function placeNew(item) {
+function clickPoint(item) {
   console.log(item);
 }
 
-const clickIcon = function () {
-  for (const point of points) {
+const showIcon = function () {
+  for (const point of points.value) {
     // 获取2D屏幕位置
     const screenPosition = point.position.clone();
     screenPosition.project(camera);
@@ -352,35 +376,13 @@ const clickIcon = function () {
 };
 
 onMounted(() => {
-  points = [
-    {
-      position: new THREE.Vector3(0, 0, 0),
-      element: document.querySelector(".point-0"),
-      placed: false,
-    },
-    {
-      position: new THREE.Vector3(-10, 8, 1),
-      element: document.querySelector(".point-1"),
-      placed: false,
-    },
-    {
-      position: new THREE.Vector3(30, 10, 1),
-      element: document.querySelector(".point-2"),
-      placed: false,
-    },
-    {
-      position: new THREE.Vector3(-30, 20, 2),
-      element: document.querySelector(".point-3"),
-      placed: false,
-    },
-    {
-      position: new THREE.Vector3(-120, 50, -100),
-      element: document.querySelector(".point-4"),
-      placed: false,
-    },
-  ];
+  points.value[0].element = document.querySelector(".point-0");
+  points.value[1].element = document.querySelector(".point-1");
+  points.value[2].element = document.querySelector(".point-2");
+  points.value[3].element = document.querySelector(".point-3");
+  points.value[4].element = document.querySelector(".point-4");
   initScene();
-  clickIcon();
+  showIcon();
   console.log(obj);
   // gui
   //   .add(obj, "cameraPosX", -100, 100)
