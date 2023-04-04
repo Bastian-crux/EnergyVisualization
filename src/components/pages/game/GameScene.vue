@@ -1,20 +1,11 @@
 <template>
   <!--  选址-->
-  <div class="point point-0">
-    <div class="label label-0">+</div>
+  <div v-for="item in pointPosList">
+    <div class="point" :class="item" @click="placeNew(item)">
+      <div class="label">+</div>
+    </div>
   </div>
-  <div class="point point-1">
-    <div class="label label-1">+</div>
-  </div>
-  <div class="point point-2">
-    <div class="label label-2">+</div>
-  </div>
-  <div class="point point-3">
-    <div class="label label-3">+</div>
-  </div>
-  <div class="point point-4">
-    <div class="label label-4">+</div>
-  </div>
+
   <!--  选择发电站-->
   <div
     class="absolute background"
@@ -83,7 +74,7 @@ import Stats from "three/addons/libs/stats.module";
 
 import { GUI } from "three/examples/jsm/libs/lil-gui.module.min";
 
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
 
 const props = defineProps(["itemIdx"]);
@@ -96,6 +87,13 @@ let element;
 let animateId;
 
 let points;
+const pointPosList = ref([
+  "point-0",
+  "point-1",
+  "point-2",
+  "point-3",
+  "point-4",
+]);
 
 // test variable
 const gui = new GUI();
@@ -336,7 +334,9 @@ function removeModel(parent, child) {
   }
 }
 
-function placeNew() {}
+function placeNew(item) {
+  console.log(item);
+}
 
 const clickIcon = function () {
   for (const point of points) {
@@ -364,12 +364,12 @@ onMounted(() => {
       placed: false,
     },
     {
-      position: new THREE.Vector3(30, 10, 70),
+      position: new THREE.Vector3(30, 10, 1),
       element: document.querySelector(".point-2"),
       placed: false,
     },
     {
-      position: new THREE.Vector3(-100, 50, -300),
+      position: new THREE.Vector3(-30, 20, 2),
       element: document.querySelector(".point-3"),
       placed: false,
     },
