@@ -68,6 +68,7 @@ let model = [];
 let composer, outlinePass, renderPass;
 let element;
 let selectedModel;
+let addModelMessage;
 
 let animateId;
 
@@ -130,7 +131,7 @@ const buildings = ref([
 ]);
 
 // test variable
-const gui = new GUI();
+// const gui = new GUI();
 let obj = {
   lookatPosX: 0,
   lookatPosY: 0,
@@ -386,6 +387,7 @@ function clickPoint(item) {
       });
     });
   grab.value = false;
+  addModelMessage.close();
 }
 
 function placeNew(item) {
@@ -408,30 +410,45 @@ function placeNew(item) {
     scene.add(temp);
     model.push(temp);
   });
+  points.value.forEach((i) => {
+    if (i.name === item.name) {
+      i.placed = true;
+    }
+  });
+  unshowIcon();
   selectedModel = null;
 }
 
 const showIcon = function () {
   for (const point of points.value) {
     // 获取2D屏幕位置
-    const screenPosition = point.position.clone();
-    screenPosition.project(camera);
-    point.element.classList.add("visible");
-    let element = document.getElementById("index");
-    const translateX = screenPosition.x * element.clientWidth * 0.5;
-    const translateY = -screenPosition.y * element.clientHeight * 0.5;
-    point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+    if (point.placed === false) {
+      const screenPosition = point.position.clone();
+      screenPosition.project(camera);
+      point.element.classList.add("visible");
+      let element = document.getElementById("index");
+      const translateX = screenPosition.x * element.clientWidth * 0.5;
+      const translateY = -screenPosition.y * element.clientHeight * 0.5;
+      point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+    }
+  }
+};
+
+const unshowIcon = () => {
+  for (const point of points.value) {
+    point.element.classList.remove("visible");
   }
 };
 
 const addBuilding = (item) => {
   grab.value = true;
-  ElMessage({
+  addModelMessage = ElMessage({
     message: "点击+来添加对应的设施",
     type: "info",
     duration: 0,
   });
   selectedModel = item;
+  showIcon();
 };
 
 onMounted(() => {
@@ -441,7 +458,6 @@ onMounted(() => {
   points.value[3].element = document.querySelector(".point-3");
   points.value[4].element = document.querySelector(".point-4");
   initScene();
-  showIcon();
   console.log(obj);
   // gui
   //   .add(obj, "cameraPosX", -100, 100)
