@@ -380,6 +380,29 @@ function clickPoint(item) {
       });
     });
   grab.value = false;
+  placeNew(item);
+}
+
+function placeNew(item) {
+  const loader = new GLTFLoader();
+  const dLoader = new DRACOLoader();
+  dLoader.setDecoderPath("/draco/");
+  dLoader.setDecoderConfig({ type: "js" }); //使用js方式解压
+  dLoader.preload(); //初始化_initDecoder 解码器
+  loader.setDRACOLoader(dLoader);
+  loader.load("/static/nuclearPS_compress.glb", function (gltf) {
+    // gltf.scene.traverse(function (child){
+    //   child.castShadow = true;
+    // })
+    const temp = gltf.scene;
+    // temp.name = "mainScene";
+    temp.castShadow = true;
+    temp.scale.set(0.5, 0.5, 0.5);
+    temp.position.copy(item.position);
+    console.log("ok");
+    scene.add(temp);
+    model.push(temp);
+  });
 }
 
 const showIcon = function () {
