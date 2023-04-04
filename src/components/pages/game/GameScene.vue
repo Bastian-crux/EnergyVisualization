@@ -67,6 +67,7 @@ let viewControls2;
 let model = [];
 let composer, outlinePass, renderPass;
 let element;
+let selectedModel;
 
 let animateId;
 
@@ -109,18 +110,22 @@ const buildings = ref([
   {
     name: "solar",
     file: "/images/icon1.png",
+    modelPath: "/static/nuclearPS_compress.glb",
   },
   {
     name: "nuclear",
     file: "/images/icon2.png",
+    modelPath: "/static/nuclearPS_compress.glb",
   },
   {
     name: "wind",
     file: "/images/icon3.png",
+    modelPath: "/static/nuclearPS_compress.glb",
   },
   {
     name: "coal",
     file: "/images/icon1.png",
+    modelPath: "/static/nuclearPS_compress.glb",
   },
 ]);
 
@@ -372,6 +377,7 @@ function clickPoint(item) {
         type: "success",
         message: "放置成功",
       });
+      placeNew(item);
     })
     .catch(() => {
       ElMessage({
@@ -380,7 +386,6 @@ function clickPoint(item) {
       });
     });
   grab.value = false;
-  placeNew(item);
 }
 
 function placeNew(item) {
@@ -390,7 +395,7 @@ function placeNew(item) {
   dLoader.setDecoderConfig({ type: "js" }); //使用js方式解压
   dLoader.preload(); //初始化_initDecoder 解码器
   loader.setDRACOLoader(dLoader);
-  loader.load("/static/nuclearPS_compress.glb", function (gltf) {
+  loader.load(selectedModel.modelPath, function (gltf) {
     // gltf.scene.traverse(function (child){
     //   child.castShadow = true;
     // })
@@ -403,6 +408,7 @@ function placeNew(item) {
     scene.add(temp);
     model.push(temp);
   });
+  selectedModel = null;
 }
 
 const showIcon = function () {
@@ -425,6 +431,7 @@ const addBuilding = (item) => {
     type: "info",
     duration: 0,
   });
+  selectedModel = item;
 };
 
 onMounted(() => {
