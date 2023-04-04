@@ -25,43 +25,25 @@
       </div>
     </el-col>
   </el-row>
-  <map-visualization
-    :energy-type="energyType"
-    :mode="mode"
-    @choose-project="chooseMajorProject"
-    @back="back"
-    class="margin"
-  />
+  <map-visualization :energy-type="energyType" :mode="mode" class="margin" />
 </template>
 
 <script>
-import MapVisualization from "@/components/pages/chart/overview/MapVisualization.vue";
-import ProjectDetails from "@/components/pages/chart/overview/ProjectDetails.vue";
 import { ref } from "vue";
-import TheNavBar from "@/components/layout/TheNavBar.vue";
+import MapVisualization from "@/components/pages/chart/overview/MapVisualization.vue";
 
 export default {
   name: "Overview",
-  components: { TheNavBar, ProjectDetails, MapVisualization },
-
+  components: {
+    MapVisualization,
+  },
   data() {
     return {
       radio1: ref("solar"),
       radio2: ref("quantity"),
       energyType: "solar",
       mode: "quantity",
-      selectedProjectInfo: null,
     };
-  },
-  methods: {
-    chooseMajorProject(projectInfo) {
-      this.selectedProjectInfo = projectInfo;
-    },
-    back(value) {
-      if (value === true) {
-        this.selectedProjectInfo = null;
-      }
-    },
   },
   watch: {
     radio1: function (val) {

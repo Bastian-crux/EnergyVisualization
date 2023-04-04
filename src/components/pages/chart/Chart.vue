@@ -1,31 +1,47 @@
 <template>
   <the-nav-bar />
-  <el-tabs v-model="activeName" class="box-card" type="card">
-    <el-tab-pane label="User" name="timeline">
-      <overview />
-    </el-tab-pane>
-    <el-tab-pane label="Config" name="overview">
-      <timeline />
-    </el-tab-pane>
-  </el-tabs>
-  <heat-map />
-  <statistic />
+  <div class="container">
+    <div>
+      <monthly-chart />
+      <capacity-heatmap class="margin" />
+    </div>
+    <div>
+      <el-tabs v-model="activeName" class="box-card" type="card">
+        <el-tab-pane label="User" name="timeline" lazy>
+          <timeline :visible="activeName === 'timeline'" />
+        </el-tab-pane>
+        <el-tab-pane label="Config" name="overview" lazy>
+          <overview :visible="activeName === 'overview'" />
+        </el-tab-pane>
+      </el-tabs>
+    </div>
+    <div>
+      <data-list />
+    </div>
+  </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
 import Timeline from "@/components/pages/chart/timeline/Timeline.vue";
 import Overview from "@/components/pages/chart/overview/Overview.vue";
-import HeatMap from "@/components/pages/chart/heatmap/HeatMapIndex.vue";
-import Statistic from "@/components/pages/chart/statistic/Statistic.vue";
-import { ref } from "vue";
+import MonthlyChart from "@/components/pages/chart/statistic/MonthlyChart.vue";
+import DataList from "@/components/pages/chart/statistic/DataList.vue";
+import CapacityHeatmap from "@/components/pages/chart/heatmap/CapacityHeatmap.vue";
 
 const activeName = ref("timeline");
 </script>
 
 <style scoped>
 .box-card {
-  width: 60%;
   margin: 1rem auto;
+}
+.margin {
+  margin-top: 20px;
+}
+.container {
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
 }
 </style>

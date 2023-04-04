@@ -1,11 +1,12 @@
 <template>
   <el-button
+    class="margin"
     @click="returnMain"
     :disabled="nowSelectedProvince === 'mapData' && this.major === false"
     >返回</el-button
   >
   <div>
-    <div class="chart" id="mainChart"></div>
+    <div class="chart margin" id="mainChart"></div>
   </div>
 </template>
 
@@ -172,11 +173,11 @@ export default {
       this.myChart.hideLoading();
       echarts.registerMap("myMapName", this.areaDicData[params], {});
       option = {
-        title: {
-          text: `全国${this.energyChinese}发电项目`,
-          subtext: `按照${this.modeChinese}进行可视化`,
-          left: "middle",
-        },
+        // title: {
+        //   text: `全国${this.energyChinese}发电项目`,
+        //   subtext: `按照${this.modeChinese}进行可视化`,
+        //   left: "middle",
+        // },
         geo: {
           type: "map",
           map: "myMapName",
@@ -214,17 +215,17 @@ export default {
           calculable: true,
           seriesIndex: 0,
         },
-        toolbox: {
-          show: true,
-          orient: "vertical",
-          left: "left",
-          top: "top",
-          feature: {
-            dataView: { readOnly: false },
-            restore: {},
-            saveAsImage: {},
-          },
-        },
+        // toolbox: {
+        //   show: true,
+        //   orient: "vertical",
+        //   left: "left",
+        //   top: "top",
+        //   feature: {
+        //     dataView: { readOnly: false },
+        //     restore: {},
+        //     saveAsImage: {},
+        //   },
+        // },
         series: [
           {
             name: `全国${this.energyChinese}发电项目`,
@@ -604,9 +605,8 @@ export default {
   mounted() {
     let tempSelected = "map";
     window.onresize = () => {
-      echarts.dispose(this.myChart);
-      this.nowSelectedProvince = "mapData";
-      this.loadMap("mapData");
+      let option = this.myChart.getOption();
+      this.myChart.setOption(option);
     };
 
     if (!this.areaDic[this.nowSelectedProvince]) {
@@ -624,5 +624,8 @@ export default {
 .chart {
   height: 600px;
   width: 100%;
+}
+.margin {
+  margin-top: 20px;
 }
 </style>

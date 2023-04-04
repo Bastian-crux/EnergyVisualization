@@ -33,7 +33,7 @@ import hydro from "/assets/annualStatisticData/hydro.json";
 import nuclear from "/assets/annualStatisticData/nuclear.json";
 import solar from "/assets/annualStatisticData/solar.json";
 import wind from "/assets/annualStatisticData/wind.json";
-import DataCardMain from "@/components/pages/chart/statistic/DataCardMain.vue";
+import DataCardMain from "@/components/pages/chart/statistic/deprecated/DataCardMain.vue";
 
 export default {
   name: "DataListMain",
