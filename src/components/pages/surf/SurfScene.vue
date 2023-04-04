@@ -148,21 +148,12 @@
 <script setup>
 import * as THREE from "three";
 import { MathUtils, Object3D, Vector3 } from "three";
-import {
-  ref,
-  computed,
-  watch,
-  onMounted,
-  onUnmounted,
-  getCurrentInstance,
-} from "vue";
+import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 import { NButton, NProgress } from "naive-ui";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 import { PointerLockControls } from "three/addons/controls/PointerLockControls";
 import { OrbitControls } from "three/addons/controls/OrbitControls";
-
-const currentInstance = getCurrentInstance();
 
 //Loading Manager
 const percent = ref(0);
@@ -197,6 +188,10 @@ const velocity = new THREE.Vector3();
 const direction = new THREE.Vector3();
 const vertex = new THREE.Vector3();
 const color = new THREE.Color();
+
+const myRenderer = ref(null);
+const myScene = ref(null);
+const myCamera = ref(null);
 
 let points;
 
@@ -339,10 +334,10 @@ onMounted(() => {
   ];
 
   //scene core
-  renderer = currentInstance.ctx.$refs.myRenderer;
-  scene = currentInstance.ctx.$refs.myScene.scene;
+  renderer = myRenderer.value;
+  scene = myScene.value.scene;
   // console.log(scene);
-  camera = currentInstance.ctx.$refs.myCamera.camera;
+  camera = myCamera.value.camera;
   // scene.fog = new THREE.Fog(this.skycolor, 1, 800);
 
   // Set window size
