@@ -1,20 +1,64 @@
 <template>
+  <!--  选址-->
+  <div class="point point-0">
+    <div class="label label-0">+</div>
+  </div>
+  <div class="point point-1">
+    <div class="label label-1">+</div>
+  </div>
+  <div class="point point-2">
+    <div class="label label-2">+</div>
+  </div>
+  <div class="point point-3">
+    <div class="label label-3">+</div>
+  </div>
+  <div class="point point-4">
+    <div class="label label-4">+</div>
+  </div>
   <!--  选择发电站-->
   <div
-    class="absolute"
+    class="absolute background"
     style="
       color: #464646;
-      background-color: white;
-      width: 400px;
-      right: 0px;
-      top: 0%;
+      width: 200px;
+      right: 10px;
+      top: 10px;
+      border-radius: 5px;
     "
   >
-    <h1 style="font-size: 28px">发电站列表</h1>
-    <el-space direction="vertical">
-      <el-card></el-card>
-      <el-card></el-card>
-    </el-space>
+    <h1 style="font-size: 20px; text-align: center">发电站列表</h1>
+    <el-card style="width: 80%; margin: 10px auto" body-style=" padding: 10px">
+      <div class="choose" style="display: flex; justify-content: center">
+        <img
+          src="/images/icon1.png"
+          style="width: 90%; height: 90%; border-radius: 5px"
+        />
+      </div>
+    </el-card>
+    <el-card style="width: 80%; margin: 10px auto" body-style=" padding: 10px">
+      <div class="choose" style="display: flex; justify-content: center">
+        <img
+          src="/images/icon2.png"
+          style="width: 90%; height: 90%; border-radius: 5px"
+        />
+      </div>
+    </el-card>
+    <el-card style="width: 80%; margin: 10px auto" body-style=" padding: 10px">
+      <div class="choose" style="display: flex; justify-content: center">
+        <img
+          src="/images/icon3.png"
+          style="width: 90%; height: 90%; border-radius: 5px"
+        />
+      </div>
+    </el-card>
+    <el-card style="width: 80%; margin: 10px auto" body-style=" padding: 10px">
+      <div class="choose" style="display: flex; justify-content: center">
+        <img
+          src="/images/icon1.png"
+          style="width: 90%; height: 90%; border-radius: 5px"
+        />
+      </div>
+    </el-card>
   </div>
   <!--  提示框-->
   <div></div>
@@ -37,6 +81,8 @@ import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
 import Stats from "three/addons/libs/stats.module";
 
+import { GUI } from "three/examples/jsm/libs/lil-gui.module.min";
+
 import { onMounted, onUnmounted } from "vue";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
 
@@ -49,6 +95,19 @@ let element;
 
 let animateId;
 
+let points;
+
+// test variable
+const gui = new GUI();
+let obj = {
+  lookatPosX: 0,
+  lookatPosY: 0,
+  lookatPosZ: 0,
+  cameraPosX: 41,
+  cameraPosY: 48.5,
+  cameraPosZ: 9,
+};
+
 function initScene() {
   // 创建场景
   scene = new THREE.Scene();
@@ -60,13 +119,15 @@ function initScene() {
   // 创建相机，这里创建的是一个透视相机
   // camera = new THREE.PerspectiveCamera(35, (window.innerWidth - 201) / window.innerHeight, 1, 500);
   camera = new THREE.PerspectiveCamera(
-    35,
+    20,
     element.clientWidth / element.clientHeight,
     1,
     500
   );
-  camera.position.set(10, 10, 10); // 相机的位置
+  camera.position.set(65, 35, 10); // 相机的位置
+  camera.lookAt(0, 6, -2);
   scene.add(camera);
+  console.log(camera);
 
   // 半球光
   // 天空发出的光的颜色是0xffffff，地面发出的光的颜色是0x444444
@@ -102,20 +163,20 @@ function initScene() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   canvasFrame.appendChild(renderer.domElement);
 
-  // 添加鼠标控制
-  viewControls2 = new OrbitControls(camera, renderer.domElement);
-  // 开启阻尼
-  viewControls2.enableDamping = true;
-  // 阻尼系数
-  viewControls2.dampingFactor = 0.25;
-  // 开启缩放
-  viewControls2.enableZoom = true;
-  // 自动旋转
-  viewControls2.autoRotate = true;
-  // 开启鼠标右键拖拽
-  viewControls2.enablePan = true;
-  // 相机离原点的最远距离
-  viewControls2.maxDistance = 1000;
+  // // 添加鼠标控制
+  // viewControls2 = new OrbitControls(camera, renderer.domElement);
+  // // 开启阻尼
+  // viewControls2.enableDamping = true;
+  // // 阻尼系数
+  // viewControls2.dampingFactor = 0.25;
+  // // 开启缩放
+  // viewControls2.enableZoom = true;
+  // // 自动旋转
+  // viewControls2.autoRotate = true;
+  // // 开启鼠标右键拖拽
+  // viewControls2.enablePan = true;
+  // // 相机离原点的最远距离
+  // viewControls2.maxDistance = 1000;
 
   const loader = new GLTFLoader();
   // const dLoader = new DRACOLoader();
@@ -129,8 +190,9 @@ function initScene() {
     // })
     const temp = gltf.scene;
     temp.name = "mainScene";
-    // temp.position.set(-2, 2, -2);
     temp.castShadow = true;
+    temp.rotation.y = 0.2;
+    temp.scale.set(1.2, 1.2, 1.2);
     scene.add(temp);
     model.push(temp);
   });
@@ -274,8 +336,78 @@ function removeModel(parent, child) {
   }
 }
 
+function placeNew() {}
+
+const clickIcon = function () {
+  for (const point of points) {
+    // 获取2D屏幕位置
+    const screenPosition = point.position.clone();
+    screenPosition.project(camera);
+    point.element.classList.add("visible");
+    let element = document.getElementById("index");
+    const translateX = screenPosition.x * element.clientWidth * 0.5;
+    const translateY = -screenPosition.y * element.clientHeight * 0.5;
+    point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+  }
+};
+
 onMounted(() => {
+  points = [
+    {
+      position: new THREE.Vector3(10, 46, 0),
+      element: document.querySelector(".point-0"),
+      placed: false,
+    },
+    {
+      position: new THREE.Vector3(-10, 8, 24),
+      element: document.querySelector(".point-1"),
+      placed: false,
+    },
+    {
+      position: new THREE.Vector3(30, 10, 70),
+      element: document.querySelector(".point-2"),
+      placed: false,
+    },
+    {
+      position: new THREE.Vector3(-100, 50, -300),
+      element: document.querySelector(".point-3"),
+      placed: false,
+    },
+    {
+      position: new THREE.Vector3(-120, 50, -100),
+      element: document.querySelector(".point-4"),
+      placed: false,
+    },
+  ];
   initScene();
+  console.log(obj);
+  // gui
+  //   .add(obj, "cameraPosX", -100, 100)
+  //   .step(0.1)
+  //   .onChange(function (e) {
+  //     camera.position.x = e;
+  //     camera.updateProjectionMatrix();
+  //   });
+  // gui
+  //   .add(obj, "cameraPosY", -100, 100)
+  //   .step(0.1)
+  //   .onChange(function (e) {
+  //     camera.position.y = e;
+  //     camera.updateProjectionMatrix();
+  //   });
+  // gui
+  //   .add(obj, "cameraPosZ", -100, 100)
+  //   .step(0.1)
+  //   .onChange(function (e) {
+  //     camera.position.z = e;
+  //     camera.updateProjectionMatrix();
+  //   });
+  // gui
+  //   .add(obj, "lookatPosX", -100, 100)
+  //   .step(0.1)
+  //   .onChange(function (e) {
+  //     camera.lookAt(e, 0, 0);
+  //   });
   window.addEventListener("resize", (event) => {
     element = document.getElementById("index");
     renderer.setSize(element.clientWidth, element.clientHeight);
@@ -295,6 +427,23 @@ onUnmounted(() => {
 }
 .absolute {
   position: absolute;
+  padding: 5px 0 20px 0;
+}
+.background {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.choose:hover img {
+  filter: alpha(Opacity=80);
+  -moz-opacity: 0.8;
+  opacity: 0.8;
+  transform: scale(1.05);
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 /*.center {*/
 /*  transform: translate(-50%, 0);*/

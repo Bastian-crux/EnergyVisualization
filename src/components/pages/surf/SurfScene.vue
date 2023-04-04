@@ -281,6 +281,7 @@ const checkLabelVisible = function () {
 
       const controlsPos = controls.getObject().position;
       const dis = controlsPos.distanceTo(point.position);
+      // 计算距离 显示文字
       if (dis < 30) {
         point.text.classList.add("activate");
       } else {
@@ -290,9 +291,6 @@ const checkLabelVisible = function () {
       if (intersects.length === 0) {
         // 未找到相交点，显示
         point.element.classList.add("visible");
-        // 计算距离 显示文字
-        if (dis < 100) {
-        }
       } else {
         // 找到相交点
         // 获取相交点的距离和点的距离

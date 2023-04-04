@@ -2,10 +2,10 @@
   <the-nav-bar />
   <el-tabs v-model="activeName" class="box-card" type="card">
     <el-tab-pane label="User" name="timeline">
-      <timeline />
+      <overview />
     </el-tab-pane>
     <el-tab-pane label="Config" name="overview">
-      <overview />
+      <timeline />
     </el-tab-pane>
   </el-tabs>
   <heat-map />
