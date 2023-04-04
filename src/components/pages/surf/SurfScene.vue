@@ -570,60 +570,6 @@ h2 {
   cursor: pointer;
 }
 
-.ocean {
-  height: 100vh;
-  overflow: hidden;
-  width: 100%;
-}
-
-.loading {
-  align-items: center;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  background: rgba(46, 66, 77, 0.8);
-  display: flex;
-  -webkit-filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
-  height: 100%;
-  justify-content: space-around;
-  position: fixed;
-  width: 100%;
-  z-index: 99;
-}
-
-.loading .progress {
-  color: #fff;
-  font-size: 3.6rem;
-  text-shadow: 0 1px 0 #c9cfce, 0 2px 0 #bcc2c2, 0 3px 0 #afb6b6,
-    0 4px 0 #a4adac, 0 5px 0 #9fa8a7, 0 6px 0 #99a3a2, 0 7px 0 #97a1a0,
-    0 8px 0 #949e9d, 0 0 5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.2),
-    0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.2),
-    0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.3);
-}
-
-.github {
-  align-items: center;
-  bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  left: 16px;
-  opacity: 0.5;
-  position: fixed;
-  text-decoration: none;
-  z-index: 11;
-}
-
-.github .author {
-  color: #fff;
-  font-size: 14px;
-  /*font-style: none;*/
-  font-weight: 400;
-  margin-top: 4px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-}
-
 .point {
   left: 50%;
   position: fixed;

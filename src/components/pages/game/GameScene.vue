@@ -354,12 +354,12 @@ const clickIcon = function () {
 onMounted(() => {
   points = [
     {
-      position: new THREE.Vector3(10, 46, 0),
+      position: new THREE.Vector3(0, 0, 0),
       element: document.querySelector(".point-0"),
       placed: false,
     },
     {
-      position: new THREE.Vector3(-10, 8, 24),
+      position: new THREE.Vector3(-10, 8, 1),
       element: document.querySelector(".point-1"),
       placed: false,
     },
@@ -380,6 +380,7 @@ onMounted(() => {
     },
   ];
   initScene();
+  clickIcon();
   console.log(obj);
   // gui
   //   .add(obj, "cameraPosX", -100, 100)
@@ -449,4 +450,46 @@ onUnmounted(() => {
 /*  transform: translate(-50%, 0);*/
 /*  left: 50%;*/
 /*}*/
+.point {
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  z-index: 10;
+}
+.label {
+  padding: 3px 0;
+}
+
+.point .label {
+  background: rgba(0, 0, 0, 0.467);
+  border: 1px solid hsla(0, 0%, 100%, 0.467);
+  border-radius: 50%;
+  cursor: grab;
+  height: 32px;
+  left: -16px;
+  /*line-height: 32px;*/
+  text-align: center;
+  top: -16px;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  width: 32px;
+
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 100;
+  position: absolute;
+}
+.point.visible .label {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+.point:hover .label {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
 </style>
