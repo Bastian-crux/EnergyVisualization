@@ -71,7 +71,7 @@
       </div>
       <div class="info">
         <div class="name">剩余资金</div>
-        <div class="value">$1</div>
+        <div class="value">₡1</div>
       </div>
     </div>
     <div class="game-panel">
@@ -80,12 +80,13 @@
       </div>
       <div class="info">
         <div class="name">支出</div>
-        <div class="value">$1/天</div>
+        <div class="value">₡1/天</div>
       </div>
     </div>
+    <div style="text-align: center">
+      <el-button>新游戏</el-button>
+    </div>
   </div>
-  <!--  提示框-->
-  <div></div>
 
   <div class="center" id="index">
     <div id="three"></div>
