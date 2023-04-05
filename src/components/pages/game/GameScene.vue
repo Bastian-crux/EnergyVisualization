@@ -113,10 +113,11 @@ import { ElMessage, ElMessageBox } from "element-plus";
 
 const props = defineProps(["itemIdx"]);
 let camera, scene, renderer;
-let viewControls2;
+// let viewControls2;
 let model = [];
 let composer, outlinePass, renderPass;
 let element;
+
 let selectedModel;
 let addModelMessage;
 
@@ -127,31 +128,49 @@ const grab = ref(false);
 const points = ref([
   {
     name: "point-0",
-    position: new THREE.Vector3(0, 0, 0),
+    position: new THREE.Vector3(0, 1.5, -1),
     element: null,
     placed: false,
   },
   {
     name: "point-1",
-    position: new THREE.Vector3(-10, 8, 1),
+    position: new THREE.Vector3(6, 1.2, 3),
     element: null,
     placed: false,
   },
   {
     name: "point-2",
-    position: new THREE.Vector3(30, 10, 1),
+    position: new THREE.Vector3(9, 2, -3),
     element: null,
     placed: false,
   },
   {
     name: "point-3",
-    position: new THREE.Vector3(-3, 2, 2),
+    position: new THREE.Vector3(-3, 3, 3),
     element: null,
     placed: false,
   },
   {
     name: "point-4",
-    position: new THREE.Vector3(-10, 20, -10),
+    position: new THREE.Vector3(-3, 3.8, -10),
+    element: null,
+    placed: false,
+  },
+  {
+    name: "point-5",
+    position: new THREE.Vector3(7, 1.2, 10),
+    element: null,
+    placed: false,
+  },
+  {
+    name: "point-6",
+    position: new THREE.Vector3(8, 3, -8),
+    element: null,
+    placed: false,
+  },
+  {
+    name: "point-7",
+    position: new THREE.Vector3(0, 3.8, -13),
     element: null,
     placed: false,
   },
@@ -161,22 +180,22 @@ const buildings = ref([
   {
     name: "solar",
     file: "/images/icon1.png",
-    modelPath: "/static/nuclearPS_compress.glb",
+    modelPath: "/static/nuclear_game1.glb",
   },
   {
     name: "nuclear",
     file: "/images/icon2.png",
-    modelPath: "/static/nuclearPS_compress.glb",
+    modelPath: "/static/nuclear_game1.glb",
   },
   {
     name: "wind",
     file: "/images/icon3.png",
-    modelPath: "/static/nuclearPS_compress.glb",
+    modelPath: "/static/nuclear_game1.glb",
   },
   {
     name: "coal",
     file: "/images/icon1.png",
-    modelPath: "/static/nuclearPS_compress.glb",
+    modelPath: "/static/nuclear_game1.glb",
   },
 ]);
 
@@ -262,12 +281,12 @@ function initScene() {
   // viewControls2.maxDistance = 1000;
 
   const loader = new GLTFLoader();
-  // const dLoader = new DRACOLoader();
-  // dLoader.setDecoderPath("/draco/");
-  // dLoader.setDecoderConfig({type: 'js'});  //使用js方式解压
-  // dLoader.preload();  //初始化_initDecoder 解码器
-  // loader.setDRACOLoader(dLoader);
-  loader.load("/static/islandtest.glb", function (gltf) {
+  const dLoader = new DRACOLoader();
+  dLoader.setDecoderPath("/draco/");
+  dLoader.setDecoderConfig({ type: "js" }); //使用js方式解压
+  dLoader.preload(); //初始化_initDecoder 解码器
+  loader.setDRACOLoader(dLoader);
+  loader.load("/static/islandtest_compress.glb", function (gltf) {
     // gltf.scene.traverse(function (child){
     //   child.castShadow = true;
     // })
@@ -388,7 +407,7 @@ function disposeScene() {
   camera = null;
   scene = null;
   renderer = null;
-  viewControls2 = null;
+  // viewControls2 = null;
   model = null;
   composer = null;
   outlinePass = null;
@@ -420,6 +439,7 @@ function removeModel(parent, child) {
 }
 
 function clickPoint(item) {
+  console.log(item.name);
   ElMessageBox.confirm("是否要放在这个位置", "确认", {
     type: "warning",
   })
@@ -456,8 +476,11 @@ function placeNew(item) {
     const temp = gltf.scene;
     // temp.name = "mainScene";
     temp.castShadow = true;
-    temp.scale.set(0.5, 0.5, 0.5);
-    temp.position.copy(item.position);
+    temp.scale.set(0.8, 0.8, 0.8);
+    temp.rotation.y = 0.4;
+    // temp.position.copy(item.position);
+    temp.position.set(item.position.x, item.position.y + 1, item.position.z);
+    console.log("ok");
     scene.add(temp);
     model.push(temp);
   });
@@ -508,6 +531,9 @@ onMounted(() => {
   points.value[2].element = document.querySelector(".point-2");
   points.value[3].element = document.querySelector(".point-3");
   points.value[4].element = document.querySelector(".point-4");
+  points.value[5].element = document.querySelector(".point-5");
+  points.value[6].element = document.querySelector(".point-6");
+  points.value[7].element = document.querySelector(".point-7");
   initScene();
   console.log(obj);
   // gui
