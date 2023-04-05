@@ -37,7 +37,7 @@
 
   <!--  左侧信息面板-->
   <div
-    class="absolute background"
+    class="absolute panelBackground"
     style="
       color: #464646;
       width: 200px;
@@ -128,28 +128,41 @@
     <div style="text-align: center">
       <el-button>新游戏</el-button>
     </div>
+    <el-progress></el-progress>
     <el-row :gutter="10" class="game-panel" justify="center">
       <el-col :span="12">
-        <el-progress
-          width="80"
-          stroke-width="10"
-          stroke-linecap="square"
-          type="circle"
-          :percentage="75"
-          color="#e6a23c"
-          :format="formatPower"
-        />
+        <div class="circleBox">
+          <el-progress
+            width="85"
+            stroke-width="10"
+            stroke-linecap="square"
+            type="circle"
+            :percentage="75"
+            :show-text="false"
+            color="#e6a23c"
+          />
+          <div class="textCenter">
+            <div>20000MW</div>
+            <span>2000 MW</span>
+          </div>
+        </div>
       </el-col>
       <el-col :span="12">
-        <el-progress
-          width="80"
-          stroke-width="10"
-          stroke-linecap="square"
-          type="circle"
-          :percentage="50"
-          color="#e6a23c"
-          :format="formatPollution"
-        />
+        <div class="circleBox">
+          <el-progress
+            width="85"
+            stroke-width="10"
+            stroke-linecap="square"
+            type="circle"
+            :percentage="50"
+            :show-text="false"
+            color="#e6a23c"
+          />
+          <div class="textCenter">
+            <div>0</div>
+            <span>80</span>
+          </div>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -653,7 +666,6 @@ onUnmounted(() => {
 }
 .absolute {
   position: absolute;
-  padding: 5px 0 20px 0;
 }
 .background {
   border: 1px solid transparent;
@@ -661,6 +673,13 @@ onUnmounted(() => {
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.1);
   padding: 10px;
+}
+.panelBackground {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.1);
+  padding: 5px;
 }
 
 .choose:hover img {
@@ -761,5 +780,25 @@ onUnmounted(() => {
 }
 /deep/ .el-progress-circle__track {
   stroke: #e0e0e0;
+}
+.circleBox {
+  position: relative;
+  text-align: center;
+}
+.circleBox .textCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.circleBox .textCenter div {
+  font-size: 12px;
+  color: #1360fb;
+  font-weight: 600;
+  padding: 0;
+}
+.circleBox .textCenter span {
+  font-size: 8px;
 }
 </style>
