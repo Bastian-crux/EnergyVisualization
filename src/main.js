@@ -14,6 +14,11 @@ import {
   faBolt,
   faCalendar,
   faCircleInfo,
+  faCoins,
+  faClock,
+  faSmog,
+  faMoneyBillTrendUp,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -62,7 +67,17 @@ const router = createRouter({
 const app = createApp(App);
 
 // Add icon here
-library.add(faGauge, faBolt, faCalendar, faCircleInfo);
+library.add(
+  faGauge,
+  faBolt,
+  faCalendar,
+  faCircleInfo,
+  faCoins,
+  faClock,
+  faSmog,
+  faMoneyBillTrendUp,
+  faStar
+);
 
 app.component("font-awesome-icon", FontAwesomeIcon);
 

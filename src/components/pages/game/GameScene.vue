@@ -47,42 +47,84 @@
     "
   >
     <h1 style="font-size: 20px; text-align: center">游戏信息</h1>
-    <div class="game-panel">
-      <div class="icon">
-        <img :src="iconUrl" />
-      </div>
-      <div class="info">
+    <el-row :gutter="20" class="game-panel" justify="center">
+      <el-col :span="4">
+        <div class="icon">
+          <font-awesome-icon :icon="['fas', 'star']" />
+        </div>
+      </el-col>
+      <el-col :span="10">
         <div class="name">当前关卡</div>
+      </el-col>
+      <el-col :span="10">
         <div class="value">1</div>
-      </div>
-    </div>
-    <div class="game-panel">
-      <div class="icon">
-        <img :src="iconUrl" />
-      </div>
-      <div class="info">
+      </el-col>
+    </el-row>
+    <el-row :gutter="20" class="game-panel" justify="center">
+      <el-col :span="4">
+        <div class="icon">
+          <font-awesome-icon :icon="['fas', 'clock']" />
+        </div>
+      </el-col>
+      <el-col :span="10">
         <div class="name">剩余时间</div>
+      </el-col>
+      <el-col :span="10">
         <div class="value">1天</div>
-      </div>
-    </div>
-    <div class="game-panel">
-      <div class="icon">
-        <img :src="iconUrl" />
-      </div>
-      <div class="info">
+      </el-col>
+    </el-row>
+    <el-row :gutter="20" class="game-panel" justify="center">
+      <el-col :span="4">
+        <div class="icon">
+          <font-awesome-icon :icon="['fas', 'coins']" />
+        </div>
+      </el-col>
+      <el-col :span="10">
         <div class="name">剩余资金</div>
+      </el-col>
+      <el-col :span="10">
         <div class="value">₡1</div>
-      </div>
-    </div>
-    <div class="game-panel">
-      <div class="icon">
-        <img :src="iconUrl" />
-      </div>
-      <div class="info">
-        <div class="name">支出</div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20" class="game-panel" justify="center">
+      <el-col :span="4">
+        <div class="icon">
+          <font-awesome-icon :icon="['fas', 'smog']" />
+        </div>
+      </el-col>
+      <el-col :span="10">
+        <div class="name">污染指数</div>
+      </el-col>
+      <el-col :span="10">
+        <div class="value">0</div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20" class="game-panel" justify="center">
+      <el-col :span="4">
+        <div class="icon">
+          <font-awesome-icon :icon="['fa', 'money-bill-trend-up']" />
+        </div>
+      </el-col>
+      <el-col :span="10">
+        <div class="name">收益</div>
+      </el-col>
+      <el-col :span="10">
         <div class="value">₡1/天</div>
-      </div>
-    </div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20" class="game-panel" justify="center">
+      <el-col :span="4">
+        <div class="icon">
+          <font-awesome-icon :icon="['fas', 'bolt']" />
+        </div>
+      </el-col>
+      <el-col :span="10">
+        <div class="name">发电功率</div>
+      </el-col>
+      <el-col :span="10">
+        <div class="value">0 MW</div>
+      </el-col>
+    </el-row>
     <div style="text-align: center">
       <el-button>新游戏</el-button>
     </div>
@@ -111,6 +153,7 @@ import { GUI } from "three/examples/jsm/libs/lil-gui.module.min";
 import { onMounted, onUnmounted, ref } from "vue";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
 import { ElMessage, ElMessageBox } from "element-plus";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const props = defineProps(["itemIdx"]);
 let camera, scene, renderer;
@@ -657,16 +700,15 @@ onUnmounted(() => {
   cursor: not-allowed;
 }
 .game-panel {
-  display: flex;
-  align-items: center;
-  padding: 16px;
+  /*display: flex;*/
+  /*align-items: center;*/
+  padding: 7px;
   background-color: Transparent;
 }
 
 .icon {
   width: 16px;
   height: 16px;
-  margin-right: 10px;
 }
 
 .icon img {
@@ -681,13 +723,13 @@ onUnmounted(() => {
 }
 
 .name {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
-  margin-right: 4px;
+  text-align: center;
 }
 
 .value {
-  font-size: 16px;
-  padding-left: 16px;
+  font-size: 14px;
+  text-align: center;
 }
 </style>
