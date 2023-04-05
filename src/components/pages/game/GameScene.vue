@@ -47,7 +47,7 @@
     "
   >
     <h1 style="font-size: 20px; text-align: center">游戏信息</h1>
-    <el-row :gutter="20" class="game-panel" justify="center">
+    <el-row :gutter="10" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
           <font-awesome-icon :icon="['fas', 'star']" />
@@ -60,7 +60,7 @@
         <div class="value">1</div>
       </el-col>
     </el-row>
-    <el-row :gutter="20" class="game-panel" justify="center">
+    <el-row :gutter="10" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
           <font-awesome-icon :icon="['fas', 'clock']" />
@@ -73,7 +73,7 @@
         <div class="value">1天</div>
       </el-col>
     </el-row>
-    <el-row :gutter="20" class="game-panel" justify="center">
+    <el-row :gutter="10" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
           <font-awesome-icon :icon="['fas', 'coins']" />
@@ -86,7 +86,7 @@
         <div class="value">₡1</div>
       </el-col>
     </el-row>
-    <el-row :gutter="20" class="game-panel" justify="center">
+    <el-row :gutter="10" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
           <font-awesome-icon :icon="['fas', 'smog']" />
@@ -99,7 +99,7 @@
         <div class="value">0</div>
       </el-col>
     </el-row>
-    <el-row :gutter="20" class="game-panel" justify="center">
+    <el-row :gutter="10" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
           <font-awesome-icon :icon="['fa', 'money-bill-trend-up']" />
@@ -112,7 +112,7 @@
         <div class="value">₡1/天</div>
       </el-col>
     </el-row>
-    <el-row :gutter="20" class="game-panel" justify="center">
+    <el-row :gutter="10" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
           <font-awesome-icon :icon="['fas', 'bolt']" />
