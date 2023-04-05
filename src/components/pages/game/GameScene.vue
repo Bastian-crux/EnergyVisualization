@@ -34,6 +34,56 @@
       </div>
     </button>
   </div>
+
+  <!--  左侧信息面板-->
+  <div
+    class="absolute background"
+    style="
+      color: #464646;
+      width: 200px;
+      left: 10px;
+      top: 10px;
+      border-radius: 5px;
+    "
+  >
+    <h1 style="font-size: 20px; text-align: center">游戏信息</h1>
+    <div class="game-panel">
+      <div class="icon">
+        <img :src="iconUrl" />
+      </div>
+      <div class="info">
+        <div class="name">当前关卡</div>
+        <div class="value">1</div>
+      </div>
+    </div>
+    <div class="game-panel">
+      <div class="icon">
+        <img :src="iconUrl" />
+      </div>
+      <div class="info">
+        <div class="name">剩余时间</div>
+        <div class="value">1天</div>
+      </div>
+    </div>
+    <div class="game-panel">
+      <div class="icon">
+        <img :src="iconUrl" />
+      </div>
+      <div class="info">
+        <div class="name">剩余资金</div>
+        <div class="value">$1</div>
+      </div>
+    </div>
+    <div class="game-panel">
+      <div class="icon">
+        <img :src="iconUrl" />
+      </div>
+      <div class="info">
+        <div class="name">支出</div>
+        <div class="value">$1/天</div>
+      </div>
+    </div>
+  </div>
   <!--  提示框-->
   <div></div>
 
@@ -385,6 +435,8 @@ function clickPoint(item) {
         type: "info",
         message: "放置已取消",
       });
+      selectedModel = null;
+      unshowIcon();
     });
   grab.value = false;
   addModelMessage.close();
@@ -406,7 +458,6 @@ function placeNew(item) {
     temp.castShadow = true;
     temp.scale.set(0.5, 0.5, 0.5);
     temp.position.copy(item.position);
-    console.log("ok");
     scene.add(temp);
     model.push(temp);
   });
@@ -577,5 +628,39 @@ onUnmounted(() => {
 }
 .grab {
   cursor: not-allowed;
+}
+.game-panel {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background-color: Transparent;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+}
+
+.icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+.value {
+  font-size: 16px;
+  padding-left: 16px;
 }
 </style>
