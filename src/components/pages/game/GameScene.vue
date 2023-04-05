@@ -128,7 +128,34 @@
     <div style="text-align: center">
       <el-button>新游戏</el-button>
     </div>
+    <el-row :gutter="10" class="game-panel" justify="center">
+      <el-col :span="12">
+        <el-progress
+          width="80"
+          stroke-width="10"
+          stroke-linecap="square"
+          type="circle"
+          :percentage="75"
+          color="#e6a23c"
+          :format="formatPower"
+        />
+      </el-col>
+      <el-col :span="12">
+        <el-progress
+          width="80"
+          stroke-width="10"
+          stroke-linecap="square"
+          type="circle"
+          :percentage="50"
+          color="#e6a23c"
+          :format="formatPollution"
+        />
+      </el-col>
+    </el-row>
   </div>
+
+  <!--  提示框-->
+  <div></div>
 
   <div class="center" id="index">
     <div id="three"></div>
@@ -731,5 +758,8 @@ onUnmounted(() => {
 .value {
   font-size: 14px;
   text-align: center;
+}
+/deep/ .el-progress-circle__track {
+  stroke: #e0e0e0;
 }
 </style>
