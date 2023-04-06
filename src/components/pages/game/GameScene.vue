@@ -18,21 +18,38 @@
     "
   >
     <h1 style="font-size: 20px; text-align: center">发电站列表</h1>
-    <button
-      class="buildingList"
-      style="width: 95%; margin: 3px auto"
+    <el-tooltip
       v-for="item in buildings"
-      :class="grab || !gameInProgress ? 'grab' : ''"
-      :disabled="grab || !gameInProgress"
-      @click="addBuilding(item)"
+      :content="
+        powerStationTooltip(
+          item.name,
+          pollutionIndex[item.name],
+          capacityIndex[item.name],
+          constructionCost[item.name]
+        )
+      "
+      hide-after="10"
+      placement="left"
+      effect="light"
+      raw-content
     >
-      <div class="choose" style="display: flex; justify-content: center">
-        <img
-          :src="item.file"
-          style="width: 65%; height: 65%; border-radius: 5px"
-        />
+      <div>
+        <button
+          class="buildingList"
+          style="width: 95%; margin: 3px auto"
+          :class="grab || !gameInProgress ? 'grab' : ''"
+          :disabled="grab || !gameInProgress"
+          @click="addBuilding(item)"
+        >
+          <div class="choose" style="display: flex; justify-content: center">
+            <img
+              :src="item.file"
+              style="width: 65%; height: 65%; border-radius: 5px"
+            />
+          </div>
+        </button>
       </div>
-    </button>
+    </el-tooltip>
   </div>
 
   <!--  左侧信息面板-->
@@ -205,6 +222,8 @@ import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShade
 import { ElMessage, ElMessageBox } from "element-plus";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
+import { powerStationTooltip } from "@/utils";
+
 const props = defineProps(["itemIdx"]);
 let camera, scene, renderer;
 let model = [];
@@ -228,6 +247,14 @@ const smallFossilCapacity = 1000;
 const largeFossilCapacity = 3000;
 // Price of electricity each Watt
 const electricityPrice = 3;
+// Generator conpacity index
+const capacityIndex = {
+  nuclear: nuclearCapacity,
+  wind: windCapacity,
+  solar: solarCapacity,
+  smallFossil: smallFossilCapacity,
+  largeFossil: largeFossilCapacity,
+};
 // Generator construction cost
 const constructionCost = {
   nuclear: 200000,

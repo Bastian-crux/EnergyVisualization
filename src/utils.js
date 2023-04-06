@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import ToolTip from "@/components/pages/chart/overview/ToolTip.vue";
+import PowerstationToolTip from "@/components/pages/game/PowerstationToolTip.vue";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 
@@ -45,4 +46,17 @@ export const findBiggestValue = (obj) => {
   return Object.keys(obj).reduce((acc, val) => {
     return Math.max(acc, obj[val]);
   }, -Infinity);
+};
+
+export const powerStationTooltip = (name, pollution, capacity, price) => {
+  const dom = document.createElement("div");
+  const MyComponent = createApp(PowerstationToolTip, {
+    name: name,
+    pollution: pollution,
+    capacity: capacity,
+    price: price,
+  });
+  MyComponent.use(ElementPlus);
+  const instance = MyComponent.mount(dom);
+  return instance.$el.innerHTML;
 };

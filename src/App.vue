@@ -17,7 +17,7 @@ export default {
 html {
   font-family: sans-serif, "Sarasa Gothic";
   /*background-color: #d2ecad;*/
-  background-color: #d9dedf;
+  /*background-color: #d9dedf;*/
   background-color: #eeedea;
   /*background-color: #19485b;*/
 }
