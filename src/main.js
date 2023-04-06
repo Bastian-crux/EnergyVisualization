@@ -19,6 +19,8 @@ import {
   faSmog,
   faMoneyBillTrendUp,
   faStar,
+  faChevronLeft,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -76,7 +78,9 @@ library.add(
   faClock,
   faSmog,
   faMoneyBillTrendUp,
-  faStar
+  faStar,
+  faChevronLeft,
+  faChevronRight
 );
 
 app.component("font-awesome-icon", FontAwesomeIcon);

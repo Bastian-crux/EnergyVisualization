@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import * as echarts from 'echarts';
+import * as echarts from "echarts";
 
 export default {
   name: "EnergyPieChart",
-  props: ['type', 'data', 'total', 'color'],
+  props: ["type", "data", "total", "color"],
   data() {
     return {
-      myChart: null
+      myChart: null,
     };
   },
   methods: {
@@ -20,12 +20,12 @@ export default {
       this.myChart = echarts.init(this.$refs.myPie);
       let option;
       option = {
-        backgroundColor:'',
+        backgroundColor: "",
         series: [
           {
-            name: 'Access From',
-            type: 'pie',
-            radius: ['60%', '100%'],
+            name: "Access From",
+            type: "pie",
+            radius: ["60%", "100%"],
             // center:['50%', '50%'],
 
             avoidLabelOverlap: false, // 启用防止标签重叠策略
@@ -33,50 +33,49 @@ export default {
             color: [this.color, "rgba(50,50,50,0.3)"],
             itemStyle: {
               borderRadius: 5,
-              borderColor: 'rgba(0, 0, 0, 0)',
-              borderWidth: 2
+              borderColor: "rgba(0, 0, 0, 0)",
+              borderWidth: 2,
             },
             label: {
               show: true,
-              position: 'center',
+              position: "center",
               formatter: function (data) {
                 // return '{name|' + data.name + '}\n\n{num|' + data.percent + '%}';
-                return '{num|' + data.percent + '%}';
+                return "{num|" + data.percent + "%}";
               },
               //富文本编辑，用于设置文本样式
               rich: {
                 num: {
                   color: this.color,
-                  fontSize: '25',
-                  fontWeight: 'bolder'
-                }
-              }
+                  fontSize: "25",
+                  fontWeight: "bolder",
+                },
+              },
             },
             labelLine: {
-              show: false
+              show: false,
             },
             data: [
               {
                 value: this.data,
                 name: this.type,
-
               },
               {
                 value: this.total - this.data,
-                name: '其他能源',
+                name: "其他能源",
                 label: {
-                  show: false
-                }
+                  show: false,
+                },
               },
-            ]
-          }
-        ]
+            ],
+          },
+        ],
       };
       option && this.myChart.setOption(option);
     },
   },
   mounted() {
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       echarts.dispose(this.myChart);
       this.loadPie();
     });
@@ -86,14 +85,14 @@ export default {
     data() {
       echarts.dispose(this.myChart);
       this.loadPie();
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
 .pie {
   width: 100%;
-  height: 80px;
+  height: 800px;
 }
 </style>
