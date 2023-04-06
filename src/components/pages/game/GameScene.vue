@@ -22,8 +22,8 @@
       class="buildingList"
       style="width: 95%; margin: 3px auto"
       v-for="item in buildings"
-      :class="grab || !gameStart ? 'grab' : ''"
-      :disabled="grab || !gameStart"
+      :class="grab || !gameInProgress ? 'grab' : ''"
+      :disabled="grab || !gameInProgress"
       @click="addBuilding(item)"
     >
       <div class="choose" style="display: flex; justify-content: center">
@@ -218,7 +218,7 @@ let animateId;
 
 // Game related parameters
 let timer = null;
-let gameStart = false;
+let gameInProgress = false;
 let generatorList = [];
 // Capacity of each generator
 const nuclearCapacity = 1000;
@@ -655,11 +655,32 @@ function clickPoint(item) {
     type: "warning",
   })
     .then(() => {
-      ElMessage({
-        type: "success",
-        message: "放置成功",
-      });
-      placeNew(item);
+      if (constructionCost[selectedModel.name] <= money.value) {
+        if (
+          pollutionIndex[selectedModel.name] + pollution.value <=
+          pollutionTarget.value
+        ) {
+          ElMessage({
+            type: "success",
+            message: "放置成功",
+          });
+          placeNew(item);
+        } else {
+          ElMessage({
+            type: "error",
+            message: "污染指数超标",
+          });
+          selectedModel = null;
+          unshowIcon();
+        }
+      } else {
+        ElMessage({
+          type: "error",
+          message: "资金不足",
+        });
+        selectedModel = null;
+        unshowIcon();
+      }
     })
     .catch(() => {
       ElMessage({
@@ -750,7 +771,7 @@ const initGameParameters = () => {
 };
 
 const newGame = () => {
-  gameStart = true;
+  gameInProgress = true;
   if (timer != null) {
     clearInterval(timer);
     initGameParameters();
@@ -784,6 +805,28 @@ const updateGame = (item) => {
 watch(timePassed, () => {
   if (timePassed.value < timeTarget.value * 24) {
     money.value += profit.value / 12;
+  } else {
+    gameInProgress = false;
+    selectedModel = null;
+    unshowIcon();
+    if (power.value >= powerTarget.value) {
+      ElMessageBox.confirm("你过关了，是否进入下一关？", "过关", {
+        distinguishCancelAndClose: true,
+        confirmButtonText: "下一关",
+        cancelButtonText: "关闭",
+      }).then(() => {
+        //TODO: Change difficulty
+        newGame();
+      });
+    } else {
+      ElMessageBox.confirm("你没有过关，是否重新开始？", "Game Over", {
+        distinguishCancelAndClose: true,
+        confirmButtonText: "重新开始",
+        cancelButtonText: "关闭",
+      }).then(() => {
+        newGame();
+      });
+    }
   }
 });
 
