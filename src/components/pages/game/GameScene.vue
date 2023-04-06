@@ -241,16 +241,16 @@ const maintenanceCost = {
   nuclear: 1.2,
   wind: 0.3,
   solar: 0.3,
-  smallFossil: 1,
-  largeFossil: 1.1,
+  smallFossil: 1.1,
+  largeFossil: 1,
 };
 // Generator penalty cost
 const penaltyCost = {
   nuclear: 0,
   wind: 0,
   solar: 0,
-  smallFossil: 1.5,
-  largeFossil: 0.9,
+  smallFossil: 0.9,
+  largeFossil: 1.5,
 };
 const pollutionIndex = {
   nuclear: 0,
@@ -448,7 +448,6 @@ function initScene() {
   // scene.fog = new THREE.Fog(0xa0a0a0, 10, 500);
 
   element = document.getElementById("index");
-  console.log(element);
   // 创建相机，这里创建的是一个透视相机
   // camera = new THREE.PerspectiveCamera(35, (window.innerWidth - 201) / window.innerHeight, 1, 500);
   camera = new THREE.PerspectiveCamera(
@@ -460,7 +459,6 @@ function initScene() {
   camera.position.set(65, 35, 10); // 相机的位置
   camera.lookAt(0, 6, -2);
   scene.add(camera);
-  console.log(camera);
 
   // 半球光
   // 天空发出的光的颜色是0xffffff，地面发出的光的颜色是0x444444
@@ -529,23 +527,6 @@ function initScene() {
     scene.add(temp);
     model.push(temp);
   });
-  console.log(scene);
-  // const loader1 = new GLTFLoader();
-  // const dLoader1 = new DRACOLoader();
-  // dLoader1.setDecoderPath("/draco/");
-  // dLoader1.setDecoderConfig({type: 'js'});  //使用js方式解压
-  // dLoader1.preload();  //初始化_initDecoder 解码器
-  // loader1.setDRACOLoader(dLoader1);
-  // loader1.load('/static/nuclearPS_compress.glb',
-  //     function (gltf) {
-  //       const temp = gltf.scene;
-  //       temp.name = '热力图';
-  //
-  //       temp.position.set(2, 2, -2);
-  //       temp.castShadow = true;
-  //       scene.add(temp);
-  //       model.push(temp);
-  //     });
   animate();
 }
 
@@ -670,7 +651,6 @@ function removeModel(parent, child) {
 }
 
 function clickPoint(item) {
-  console.log(item.name);
   ElMessageBox.confirm("是否要放在这个位置", "确认", {
     type: "warning",
   })
@@ -712,7 +692,6 @@ function placeNew(item) {
     temp.rotation.y = 0.4;
     // temp.position.copy(item.position);
     temp.position.set(item.position.x, item.position.y + 1, item.position.z);
-    console.log("ok");
     scene.add(temp);
     model.push(temp);
   });
@@ -818,34 +797,6 @@ onMounted(() => {
   points.value[6].element = document.querySelector(".point-6");
   points.value[7].element = document.querySelector(".point-7");
   initScene();
-  console.log(obj);
-  // gui
-  //   .add(obj, "cameraPosX", -100, 100)
-  //   .step(0.1)
-  //   .onChange(function (e) {
-  //     camera.position.x = e;
-  //     camera.updateProjectionMatrix();
-  //   });
-  // gui
-  //   .add(obj, "cameraPosY", -100, 100)
-  //   .step(0.1)
-  //   .onChange(function (e) {
-  //     camera.position.y = e;
-  //     camera.updateProjectionMatrix();
-  //   });
-  // gui
-  //   .add(obj, "cameraPosZ", -100, 100)
-  //   .step(0.1)
-  //   .onChange(function (e) {
-  //     camera.position.z = e;
-  //     camera.updateProjectionMatrix();
-  //   });
-  // gui
-  //   .add(obj, "lookatPosX", -100, 100)
-  //   .step(0.1)
-  //   .onChange(function (e) {
-  //     camera.lookAt(e, 0, 0);
-  //   });
   window.addEventListener("resize", (event) => {
     element = document.getElementById("index");
     renderer.setSize(element.clientWidth, element.clientHeight);
