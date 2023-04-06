@@ -97,7 +97,7 @@
         </div>
       </el-col>
       <el-col :span="10">
-        <div class="name">剩余时间</div>
+        <div class="name">当前时间</div>
       </el-col>
       <el-col :span="10">
         <div class="value">
@@ -525,7 +525,6 @@ function initScene() {
     temp.rotation.y = 0.2;
     temp.scale.set(1.2, 1.2, 1.2);
     scene.add(temp);
-    model.push(temp);
   });
   animate();
 }
@@ -776,6 +775,9 @@ const newGame = () => {
     clearInterval(timer);
     initGameParameters();
   }
+  model.forEach((item) => {
+    scene.remove(item);
+  });
   ElMessage({
     message: "游戏开始",
     type: "success",
@@ -783,6 +785,21 @@ const newGame = () => {
   timer = setInterval(() => {
     if (timePassed.value < timeTarget.value * 24) timePassed.value += 2;
   }, 1000);
+};
+
+const nextLevel = () => {
+  gameInProgress = true;
+  clearInterval(timer);
+  ElMessage({
+    message: "游戏开始",
+    type: "success",
+  });
+  timer = setInterval(() => {
+    if (timePassed.value < timeTarget.value * 24) timePassed.value += 2;
+  }, 1000);
+  // TODO: 更新游戏的目标
+  level.value++;
+  timePassed.value = 0;
 };
 
 const updateGame = (item) => {
@@ -815,8 +832,7 @@ watch(timePassed, () => {
         confirmButtonText: "下一关",
         cancelButtonText: "关闭",
       }).then(() => {
-        //TODO: Change difficulty
-        newGame();
+        nextLevel();
       });
     } else {
       ElMessageBox.confirm("你没有过关，是否重新开始？", "Game Over", {
