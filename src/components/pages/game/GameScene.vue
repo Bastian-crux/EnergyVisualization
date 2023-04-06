@@ -57,7 +57,7 @@
         <div class="name">当前关卡</div>
       </el-col>
       <el-col :span="10">
-        <div class="value">1</div>
+        <div class="value">{{ level }}</div>
       </el-col>
     </el-row>
 
@@ -71,7 +71,7 @@
         <div class="name">剩余资金</div>
       </el-col>
       <el-col :span="10">
-        <div class="value">₡1</div>
+        <div class="value">₡ {{ money }}</div>
       </el-col>
     </el-row>
     <el-row :gutter="10" class="game-panel" justify="center">
@@ -84,7 +84,9 @@
         <div class="name">收益</div>
       </el-col>
       <el-col :span="10">
-        <div class="value">₡1/天</div>
+        <div class="value" :class="profit > 0 ? 'green' : 'red'">
+          ₡ {{ profit }}/天
+        </div>
       </el-col>
     </el-row>
     <el-divider />
@@ -98,14 +100,16 @@
         <div class="name">剩余时间</div>
       </el-col>
       <el-col :span="10">
-        <div class="value">1 / 7 (天)</div>
+        <div class="value">
+          {{ Math.round(timePassed / 24) }} / {{ timeTarget }} (天)
+        </div>
       </el-col>
     </el-row>
     <div style="text-align: center">
       <el-progress
-        width="85"
-        stroke-width="10"
-        :percentage="75"
+        :width="85"
+        :stroke-width="10"
+        :percentage="timePercentage"
         :show-text="false"
         color="#5cb87a"
       ></el-progress>
@@ -135,17 +139,17 @@
       <el-col :span="12">
         <div class="circleBox">
           <el-progress
-            width="85"
-            stroke-width="10"
+            :width="85"
+            :stroke-width="10"
             stroke-linecap="square"
             type="circle"
-            :percentage="75"
+            :percentage="powerPercentage"
             :show-text="false"
             color="#e6a23c"
           />
           <div class="textCenter">
-            <div style="color: #e6a23c">20000MW</div>
-            <span style="">/ 2000MW</span>
+            <div style="color: #e6a23c">{{ power }}MW</div>
+            <span style="">/ {{ powerTarget }}MW</span>
           </div>
         </div>
       </el-col>
@@ -153,23 +157,23 @@
       <el-col :span="12">
         <div class="circleBox">
           <el-progress
-            width="85"
-            stroke-width="10"
+            :width="85"
+            :stroke-width="10"
             stroke-linecap="square"
             type="circle"
-            :percentage="50"
+            :percentage="pollutionPercentage"
             :show-text="false"
             color="#f56c6c"
           />
           <div class="textCenter">
-            <div style="color: #f56c6c">0</div>
-            <span>/ 100</span>
+            <div style="color: #f56c6c">{{ pollution }}</div>
+            <span>/ {{ pollutionTarget }}</span>
           </div>
         </div>
       </el-col>
     </el-row>
     <div style="text-align: center">
-      <el-button>新游戏</el-button>
+      <el-button @click="newGame">新游戏</el-button>
     </div>
   </div>
 
@@ -203,7 +207,6 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const props = defineProps(["itemIdx"]);
 let camera, scene, renderer;
-// let viewControls2;
 let model = [];
 let composer, outlinePass, renderPass;
 let element;
@@ -212,6 +215,32 @@ let selectedModel;
 let addModelMessage;
 
 let animateId;
+
+// Game related
+let timer = null;
+
+// Game related computed variables
+const level = ref(1);
+const money = ref(80000);
+const profit = ref(0);
+const timePassed = ref(0);
+const timeTarget = ref(7);
+const power = ref(0);
+const powerTarget = ref(2000);
+const pollution = ref(0);
+const pollutionTarget = ref(80);
+
+const timePercentage = computed(() => {
+  return (timePassed.value / (24 * timeTarget.value)) * 100;
+});
+
+const powerPercentage = computed(() => {
+  return (power.value / powerTarget.value) * 100;
+});
+
+const pollutionPercentage = computed(() => {
+  return (pollution.value / pollutionTarget.value) * 100;
+});
 
 const grab = ref(false);
 
@@ -617,7 +646,31 @@ const addBuilding = (item) => {
   showIcon();
 };
 
-const powerNum = computed(() => {});
+const initGameParameters = () => {
+  level.value = 1;
+  money.value = 80000;
+  profit.value = 0;
+  timePassed.value = 0;
+  timeTarget.value = 7;
+  power.value = 0;
+  powerTarget.value = 2000;
+  pollution.value = 0;
+  pollutionTarget.value = 80;
+};
+
+const newGame = () => {
+  if (timer != null) {
+    clearInterval(timer);
+    initGameParameters();
+  }
+  ElMessage({
+    message: "游戏开始",
+    type: "success",
+  });
+  timer = setInterval(() => {
+    if (timePassed.value < timeTarget.value * 24) timePassed.value += 2;
+  }, 1000);
+};
 
 onMounted(() => {
   points.value[0].element = document.querySelector(".point-0");
@@ -818,5 +871,12 @@ onUnmounted(() => {
 .el-divider--horizontal {
   margin: 8px 0;
   background: 0 0;
+}
+.green {
+  color: var(--el-color-success);
+}
+
+.red {
+  color: var(--el-color-error);
 }
 </style>
