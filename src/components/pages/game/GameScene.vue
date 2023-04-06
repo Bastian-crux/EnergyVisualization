@@ -60,19 +60,7 @@
         <div class="value">1</div>
       </el-col>
     </el-row>
-    <el-row :gutter="10" class="game-panel" justify="center">
-      <el-col :span="4">
-        <div class="icon">
-          <font-awesome-icon :icon="['fas', 'clock']" />
-        </div>
-      </el-col>
-      <el-col :span="10">
-        <div class="name">剩余时间</div>
-      </el-col>
-      <el-col :span="10">
-        <div class="value">1天</div>
-      </el-col>
-    </el-row>
+
     <el-row :gutter="10" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
@@ -89,19 +77,6 @@
     <el-row :gutter="10" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
-          <font-awesome-icon :icon="['fas', 'smog']" />
-        </div>
-      </el-col>
-      <el-col :span="10">
-        <div class="name">污染指数</div>
-      </el-col>
-      <el-col :span="10">
-        <div class="value">0</div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="10" class="game-panel" justify="center">
-      <el-col :span="4">
-        <div class="icon">
           <font-awesome-icon :icon="['fa', 'money-bill-trend-up']" />
         </div>
       </el-col>
@@ -112,23 +87,50 @@
         <div class="value">₡1/天</div>
       </el-col>
     </el-row>
+    <el-divider />
     <el-row :gutter="10" class="game-panel" justify="center">
       <el-col :span="4">
+        <div class="icon">
+          <font-awesome-icon :icon="['fas', 'clock']" />
+        </div>
+      </el-col>
+      <el-col :span="10">
+        <div class="name">剩余时间</div>
+      </el-col>
+      <el-col :span="10">
+        <div class="value">1 / 7 (天)</div>
+      </el-col>
+    </el-row>
+    <div style="text-align: center">
+      <el-progress
+        width="85"
+        stroke-width="10"
+        :percentage="75"
+        :show-text="false"
+        color="#5cb87a"
+      ></el-progress>
+    </div>
+    <el-divider />
+
+    <el-row :gutter="10" class="game-panel" justify="center">
+      <el-col :span="3">
         <div class="icon">
           <font-awesome-icon :icon="['fas', 'bolt']" />
         </div>
       </el-col>
-      <el-col :span="10">
-        <div class="name">发电功率</div>
+      <el-col :span="8">
+        <div class="name" style="font-size: 10px">发电功率</div>
       </el-col>
-      <el-col :span="10">
-        <div class="value">0 MW</div>
+      <el-col :span="2"> </el-col>
+      <el-col :span="3">
+        <div class="icon">
+          <font-awesome-icon :icon="['fas', 'smog']" />
+        </div>
+      </el-col>
+      <el-col :span="8">
+        <div class="name" style="font-size: 10px">污染指数</div>
       </el-col>
     </el-row>
-    <div style="text-align: center">
-      <el-button>新游戏</el-button>
-    </div>
-    <el-progress></el-progress>
     <el-row :gutter="10" class="game-panel" justify="center">
       <el-col :span="12">
         <div class="circleBox">
@@ -142,11 +144,12 @@
             color="#e6a23c"
           />
           <div class="textCenter">
-            <div>20000MW</div>
-            <span>2000 MW</span>
+            <div style="color: #e6a23c">20000MW</div>
+            <span style="">/ 2000MW</span>
           </div>
         </div>
       </el-col>
+
       <el-col :span="12">
         <div class="circleBox">
           <el-progress
@@ -156,15 +159,18 @@
             type="circle"
             :percentage="50"
             :show-text="false"
-            color="#e6a23c"
+            color="#f56c6c"
           />
           <div class="textCenter">
-            <div>0</div>
-            <span>80</span>
+            <div style="color: #f56c6c">0</div>
+            <span>/ 100</span>
           </div>
         </div>
       </el-col>
     </el-row>
+    <div style="text-align: center">
+      <el-button>新游戏</el-button>
+    </div>
   </div>
 
   <!--  提示框-->
@@ -190,7 +196,7 @@ import Stats from "three/addons/libs/stats.module";
 
 import { GUI } from "three/examples/jsm/libs/lil-gui.module.min";
 
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -282,6 +288,8 @@ const buildings = ref([
     modelPath: "/static/nuclear_game1.glb",
   },
 ]);
+
+// game info
 
 // test variable
 // const gui = new GUI();
@@ -609,6 +617,8 @@ const addBuilding = (item) => {
   showIcon();
 };
 
+const powerNum = computed(() => {});
+
 onMounted(() => {
   points.value[0].element = document.querySelector(".point-0");
   points.value[1].element = document.querySelector(".point-1");
@@ -781,6 +791,9 @@ onUnmounted(() => {
 /deep/ .el-progress-circle__track {
   stroke: #e0e0e0;
 }
+/deep/ .el-progress-bar__outer {
+  background-color: #e0e0e0;
+}
 .circleBox {
   position: relative;
   text-align: center;
@@ -794,11 +807,16 @@ onUnmounted(() => {
 
 .circleBox .textCenter div {
   font-size: 12px;
-  color: #1360fb;
   font-weight: 600;
   padding: 0;
 }
 .circleBox .textCenter span {
   font-size: 8px;
+  font-weight: 600;
+  color: #5e5e5e;
+}
+.el-divider--horizontal {
+  margin: 8px 0;
+  background: 0 0;
 }
 </style>
