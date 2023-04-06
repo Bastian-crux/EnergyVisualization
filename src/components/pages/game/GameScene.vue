@@ -802,6 +802,9 @@ const newGame = () => {
     clearInterval(timer);
     initGameParameters();
   }
+  points.value.forEach((item) => {
+    item.placed = false;
+  });
   model.forEach((item) => {
     scene.remove(item);
   });
