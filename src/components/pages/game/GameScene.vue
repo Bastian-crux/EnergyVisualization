@@ -20,16 +20,16 @@
     <h1 style="font-size: 20px; text-align: center">发电站列表</h1>
     <button
       class="buildingList"
-      style="width: 80%; margin: 10px auto"
+      style="width: 95%; margin: 3px auto"
       v-for="item in buildings"
-      :class="grab ? 'grab' : ''"
-      :disabled="grab"
+      :class="grab || !gameStart ? 'grab' : ''"
+      :disabled="grab || !gameStart"
       @click="addBuilding(item)"
     >
       <div class="choose" style="display: flex; justify-content: center">
         <img
           :src="item.file"
-          style="width: 90%; height: 90%; border-radius: 5px"
+          style="width: 65%; height: 65%; border-radius: 5px"
         />
       </div>
     </button>
@@ -47,7 +47,7 @@
     "
   >
     <h1 style="font-size: 20px; text-align: center">游戏信息</h1>
-    <el-row :gutter="10" class="game-panel" justify="center">
+    <el-row :gutter="5" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
           <font-awesome-icon :icon="['fas', 'star']" />
@@ -61,7 +61,7 @@
       </el-col>
     </el-row>
 
-    <el-row :gutter="10" class="game-panel" justify="center">
+    <el-row :gutter="5" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
           <font-awesome-icon :icon="['fas', 'coins']" />
@@ -71,26 +71,26 @@
         <div class="name">剩余资金</div>
       </el-col>
       <el-col :span="10">
-        <div class="value">₡ {{ money }}</div>
+        <div class="value">₡ {{ Math.round(money) }}</div>
       </el-col>
     </el-row>
-    <el-row :gutter="10" class="game-panel" justify="center">
+    <el-row :gutter="5" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
           <font-awesome-icon :icon="['fa', 'money-bill-trend-up']" />
         </div>
       </el-col>
       <el-col :span="10">
-        <div class="name">收益</div>
+        <div class="name">每日收益</div>
       </el-col>
       <el-col :span="10">
         <div class="value" :class="profit > 0 ? 'green' : 'red'">
-          ₡ {{ profit }}/天
+          ₡ {{ Math.round(profit) }}
         </div>
       </el-col>
     </el-row>
     <el-divider />
-    <el-row :gutter="10" class="game-panel" justify="center">
+    <el-row :gutter="5" class="game-panel" justify="center">
       <el-col :span="4">
         <div class="icon">
           <font-awesome-icon :icon="['fas', 'clock']" />
@@ -148,7 +148,7 @@
             color="#e6a23c"
           />
           <div class="textCenter">
-            <div style="color: #e6a23c">{{ power }}MW</div>
+            <div style="color: #e6a23c">{{ Math.round(power) }}MW</div>
             <span style="">/ {{ powerTarget }}MW</span>
           </div>
         </div>
@@ -200,7 +200,7 @@ import Stats from "three/addons/libs/stats.module";
 
 import { GUI } from "three/examples/jsm/libs/lil-gui.module.min";
 
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -216,8 +216,49 @@ let addModelMessage;
 
 let animateId;
 
-// Game related
+// Game related parameters
 let timer = null;
+let gameStart = false;
+let generatorList = [];
+// Capacity of each generator
+const nuclearCapacity = 1000;
+const windCapacity = 700;
+const solarCapacity = 400;
+const smallFossilCapacity = 1000;
+const largeFossilCapacity = 3000;
+// Price of electricity each Watt
+const electricityPrice = 3;
+// Generator construction cost
+const constructionCost = {
+  nuclear: 200000,
+  wind: 100000,
+  solar: 50000,
+  smallFossil: 100000,
+  largeFossil: 250000,
+};
+// Generator maintenance cost
+const maintenanceCost = {
+  nuclear: 1.2,
+  wind: 0.3,
+  solar: 0.3,
+  smallFossil: 1,
+  largeFossil: 1.1,
+};
+// Generator penalty cost
+const penaltyCost = {
+  nuclear: 0,
+  wind: 0,
+  solar: 0,
+  smallFossil: 1.5,
+  largeFossil: 0.9,
+};
+const pollutionIndex = {
+  nuclear: 0,
+  wind: 0,
+  solar: 0,
+  smallFossil: 40,
+  largeFossil: 80,
+};
 
 // Game related computed variables
 const level = ref(1);
@@ -250,57 +291,116 @@ const points = ref([
     position: new THREE.Vector3(0, 1.5, -1),
     element: null,
     placed: false,
+    energyProfile: {
+      nuclear: nuclearCapacity,
+      wind: windCapacity,
+      solar: solarCapacity,
+      smallFossil: smallFossilCapacity,
+      largeFossil: largeFossilCapacity,
+      fossilPenalty: 1.25,
+    },
   },
   {
     name: "point-1",
     position: new THREE.Vector3(6, 1.2, 3),
     element: null,
     placed: false,
+    energyProfile: {
+      nuclear: 0.9 * nuclearCapacity,
+      wind: 0.9 * windCapacity,
+      solar: 0.8 * solarCapacity,
+      smallFossil: smallFossilCapacity,
+      largeFossil: largeFossilCapacity,
+      fossilPenalty: 1.5,
+    },
   },
   {
     name: "point-2",
     position: new THREE.Vector3(9, 2, -3),
     element: null,
     placed: false,
+    energyProfile: {
+      nuclear: 0.7 * nuclearCapacity,
+      wind: 0.9 * windCapacity,
+      solar: 0.9 * solarCapacity,
+      smallFossil: smallFossilCapacity,
+      largeFossil: largeFossilCapacity,
+      fossilPenalty: 1.1,
+    },
   },
   {
     name: "point-3",
     position: new THREE.Vector3(-3, 3, 3),
     element: null,
     placed: false,
+    energyProfile: {
+      nuclear: nuclearCapacity,
+      wind: windCapacity,
+      solar: 0.9 * solarCapacity,
+      smallFossil: smallFossilCapacity,
+      largeFossil: largeFossilCapacity,
+      fossilPenalty: 1.25,
+    },
   },
   {
     name: "point-4",
     position: new THREE.Vector3(-3, 3.8, -10),
     element: null,
     placed: false,
+    energyProfile: {
+      nuclear: nuclearCapacity,
+      wind: 0.8 * windCapacity,
+      solar: solarCapacity,
+      smallFossil: smallFossilCapacity,
+      largeFossil: largeFossilCapacity,
+      fossilPenalty: 1,
+    },
   },
   {
     name: "point-5",
     position: new THREE.Vector3(7, 1.2, 10),
     element: null,
     placed: false,
+    energyProfile: {
+      nuclear: 0.8 * nuclearCapacity,
+      wind: 0.7 * windCapacity,
+      solar: 0.8 * solarCapacity,
+      smallFossil: smallFossilCapacity,
+      largeFossil: largeFossilCapacity,
+      fossilPenalty: 2,
+    },
   },
   {
     name: "point-6",
     position: new THREE.Vector3(8, 3, -8),
     element: null,
     placed: false,
+    energyProfile: {
+      nuclear: 0.7 * nuclearCapacity,
+      wind: 0.9 * windCapacity,
+      solar: solarCapacity,
+      smallFossil: smallFossilCapacity,
+      largeFossil: largeFossilCapacity,
+      fossilPenalty: 1,
+    },
   },
   {
     name: "point-7",
     position: new THREE.Vector3(0, 3.8, -13),
     element: null,
     placed: false,
+    energyProfile: {
+      nuclear: 0.8 * nuclearCapacity,
+      wind: 0.8 * windCapacity,
+      solar: solarCapacity,
+      smallFossil: smallFossilCapacity,
+      largeFossil: largeFossilCapacity,
+      fossilPenalty: 1,
+    },
   },
 ]);
 
 const buildings = ref([
-  {
-    name: "solar",
-    file: "/images/icon1.png",
-    modelPath: "/static/nuclear_game1.glb",
-  },
   {
     name: "nuclear",
     file: "/images/icon2.png",
@@ -312,7 +412,17 @@ const buildings = ref([
     modelPath: "/static/nuclear_game1.glb",
   },
   {
-    name: "coal",
+    name: "solar",
+    file: "/images/icon1.png",
+    modelPath: "/static/nuclear_game1.glb",
+  },
+  {
+    name: "smallFossil",
+    file: "/images/icon1.png",
+    modelPath: "/static/nuclear_game1.glb",
+  },
+  {
+    name: "largeFossil",
     file: "/images/icon1.png",
     modelPath: "/static/nuclear_game1.glb",
   },
@@ -584,6 +694,7 @@ function clickPoint(item) {
 }
 
 function placeNew(item) {
+  updateGame(item);
   const loader = new GLTFLoader();
   const dLoader = new DRACOLoader();
   dLoader.setDecoderPath("/draco/");
@@ -647,6 +758,7 @@ const addBuilding = (item) => {
 };
 
 const initGameParameters = () => {
+  generatorList = [];
   level.value = 1;
   money.value = 80000;
   profit.value = 0;
@@ -659,6 +771,7 @@ const initGameParameters = () => {
 };
 
 const newGame = () => {
+  gameStart = true;
   if (timer != null) {
     clearInterval(timer);
     initGameParameters();
@@ -671,6 +784,29 @@ const newGame = () => {
     if (timePassed.value < timeTarget.value * 24) timePassed.value += 2;
   }, 1000);
 };
+
+const updateGame = (item) => {
+  generatorList.push({
+    generatorName: selectedModel.name,
+    pointName: item.name,
+    point: item,
+  });
+  let itemProfitPerWatt =
+    electricityPrice -
+    (maintenanceCost[selectedModel.name] +
+      penaltyCost[selectedModel.name] * item.energyProfile.fossilPenalty);
+  power.value += item.energyProfile[selectedModel.name];
+  money.value -= constructionCost[selectedModel.name];
+  pollution.value += pollutionIndex[selectedModel.name];
+  profit.value +=
+    itemProfitPerWatt * item.energyProfile[selectedModel.name] * 24;
+};
+
+watch(timePassed, () => {
+  if (timePassed.value < timeTarget.value * 24) {
+    money.value += profit.value / 12;
+  }
+});
 
 onMounted(() => {
   points.value[0].element = document.querySelector(".point-0");
@@ -801,7 +937,7 @@ onUnmounted(() => {
 }
 .buildingList {
   position: relative;
-  left: 10%;
+  left: 2.5%;
   background-color: Transparent;
   border: none;
 }
@@ -841,10 +977,10 @@ onUnmounted(() => {
   font-size: 14px;
   text-align: center;
 }
-/deep/ .el-progress-circle__track {
+:deep(.el-progress-circle__track) {
   stroke: #e0e0e0;
 }
-/deep/ .el-progress-bar__outer {
+:deep(.el-progress-bar__outer) {
   background-color: #e0e0e0;
 }
 .circleBox {
