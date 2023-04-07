@@ -10,14 +10,7 @@
       <!--      <capacity-heatmap class="margin" />-->
     </div>
     <div style="border: 1px solid">
-      <el-tabs v-model="activeName" class="box-card" type="card">
-        <el-tab-pane label="User" name="timeline" lazy>
-          <!--          <timeline :visible="activeName === 'timeline'" />-->
-        </el-tab-pane>
-        <el-tab-pane label="Config" name="overview" lazy>
-          <!--          <overview :visible="activeName === 'overview'" />-->
-        </el-tab-pane>
-      </el-tabs>
+      <overview :visible="activeName === 'overview'" />
     </div>
     <div style="border: 1px solid">
       <power-sum></power-sum>

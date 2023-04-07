@@ -13,7 +13,7 @@
         </div>
       </div>
     </el-col>
-    <el-col :span="12">
+    <el-col :span="8">
       <div>
         <div>可视化依据</div>
         <div>
@@ -24,8 +24,31 @@
         </div>
       </div>
     </el-col>
+    <el-col :span="4">
+      <el-button
+        class="margin"
+        @click="returnMain"
+        :disabled="nowSelectedProvince === 'mapData' && this.major === false"
+        round
+        >返回</el-button
+      >
+    </el-col>
   </el-row>
-  <map-visualization :energy-type="energyType" :mode="mode" class="margin" />
+  <div class="margin">
+    <el-progress
+      :text-inside="true"
+      :stroke-width="26"
+      :percentage="percentage"
+    >
+      <span>{{ currentYear + "年" }}</span>
+    </el-progress>
+  </div>
+  <map-visualization
+    :energy-type="energyType"
+    :mode="mode"
+    :current-year="currentYear"
+    class="margin"
+  />
 </template>
 
 <script>
@@ -43,15 +66,29 @@ export default {
       radio2: ref("quantity"),
       energyType: "solar",
       mode: "quantity",
+      currentYear: 2010,
+      timeout: null,
     };
   },
   watch: {
     radio1: function (val) {
       this.energyType = val;
+      this.currentYear = 2010;
     },
     radio2: function (val) {
       this.mode = val;
     },
+  },
+  computed: {
+    percentage() {
+      return ((this.currentYear - 2010 + 1) / (2022 - 2010 + 1)) * 100;
+    },
+  },
+  mounted() {
+    this.timeout = setInterval(() => {
+      if (this.currentYear < 2022) this.currentYear += 1;
+      else clearTimeout(this.timeout);
+    }, 1000);
   },
 };
 </script>

@@ -68,8 +68,6 @@ import biologyProvinceData from "/assets/powerstationData/bioenergy_province.jso
 import biologyPowerProvinceData from "/assets/powerstationData/bioenergy_province_sum.json";
 import biologyProvinceAllData from "/assets/powerstationData/bioenergy.json";
 
-import solarMajorProjects from "/assets/powerstationData/solar_major_projects.json";
-
 export default {
   name: "MapVisualization",
   components: {},
@@ -81,6 +79,10 @@ export default {
     mode: {
       type: String,
       default: "quantity",
+    },
+    currentYear: {
+      type: Number,
+      default: 2010,
     },
   },
   emits: ["choose-project", "back"],
@@ -181,7 +183,7 @@ export default {
         geo: {
           type: "map",
           map: "myMapName",
-          roam: true, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
+          roam: false, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
           emphasis: {
             //设置鼠标滑动高亮样式
             label: {
@@ -295,22 +297,16 @@ export default {
             type: "scatter",
             data: this.formMajorScatterData(),
             coordinateSystem: "geo",
-            symbolSize: 10,
-            zlevel: 1,
+            itemStyle: {
+              normal: {
+                color: "#274fc9",
+              },
+            },
           },
         ],
       };
       this.myChart.on("click", (params) => {
         this.nowSelectedProvince = params.name;
-        /*
-        // 判断是否选择到重点项目
-        for (let i = 0; i < this.provinceMajorAllData.length; i++) {
-          if (this.nowSelectedProvince === this.provinceMajorAllData[i][0]) {
-            this.major = true;
-            this.$emit('choose-project', this.provinceMajorAllData[i]);
-          }
-        }
-*/
         if (this.nowSelectedProvince !== "mapData")
           if (!this.areaDic[this.nowSelectedProvince]) {
             this.nowSelectedProvince = "mapData";
@@ -501,15 +497,24 @@ export default {
       }
     },
     provinceMajorAllData() {
+      let data;
       switch (this.energyType) {
         case "solar":
-          return solarMajorProjects;
+          data = solarProvinceAllData;
+          return data.filter(
+            (item) => item[6] <= this.currentYear && item[2] >= 50
+          );
         case "wind":
-          return solarMajorProjects;
+          data = windProvinceAllData;
+          return data.filter(
+            (item) => item[6] <= this.currentYear && item[2] >= 100
+          );
         case "nuclear":
-          return solarMajorProjects;
+          data = nuclearProvinceAllData;
+          return data.filter((item) => item[6] <= this.currentYear);
         case "bio":
-          return solarMajorProjects;
+          data = biologyProvinceAllData;
+          return data.filter((item) => item[6] <= this.currentYear);
       }
     },
     energyChinese() {
@@ -597,16 +602,30 @@ export default {
       this.loadMap("mapData");
     },
     energyType() {
-      echarts.dispose(this.myChart);
-      this.nowSelectedProvince = "mapData";
-      this.loadMap("mapData");
+      let option = this.myChart.getOption();
+      option.series[1].data = this.formMajorScatterData();
+      this.myChart.setOption(option);
+    },
+    currentYear(val) {
+      if (this.nowSelectedProvince === "mapData") {
+        let option = this.myChart.getOption();
+        option.series[1].data = this.formMajorScatterData();
+        this.myChart.setOption(option);
+      }
+      if (val === 2022) {
+        let option = this.myChart.getOption();
+        option.geo[0].roam = true;
+        console.log(option);
+        this.myChart.setOption(option);
+      }
     },
   },
   mounted() {
     let tempSelected = "map";
     window.onresize = () => {
-      let option = this.myChart.getOption();
-      this.myChart.setOption(option);
+      echarts.dispose(this.myChart);
+      this.nowSelectedProvince = "mapData";
+      this.loadMap("mapData");
     };
 
     if (!this.areaDic[this.nowSelectedProvince]) {

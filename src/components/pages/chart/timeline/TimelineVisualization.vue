@@ -100,20 +100,21 @@ export default {
       switch (this.energyType) {
         case "solar":
           data = solarProvinceAllData;
-          break;
+          return data.filter(
+            (item) => item[6] <= this.currentYear && item[2] >= 50
+          );
         case "wind":
           data = windProvinceAllData;
-          break;
+          return data.filter(
+            (item) => item[6] <= this.currentYear && item[2] >= 100
+          );
         case "nuclear":
           data = nuclearProvinceAllData;
-          break;
+          return data.filter((item) => item[6] <= this.currentYear);
         case "bio":
           data = biologyProvinceAllData;
-          break;
+          return data.filter((item) => item[6] <= this.currentYear);
       }
-      return data.filter((item) => {
-        return item[6] <= this.currentYear;
-      });
     },
   },
   watch: {
