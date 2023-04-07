@@ -1,10 +1,4 @@
 <template>
-  <el-button
-    class="margin"
-    @click="returnMain"
-    :disabled="nowSelectedProvince === 'mapData' && this.major === false"
-    >返回</el-button
-  >
   <div>
     <div class="chart margin" id="mainChart"></div>
   </div>
@@ -84,8 +78,14 @@ export default {
       type: Number,
       default: 2010,
     },
+    back: {
+      type: Boolean,
+    },
+    reload: {
+      type: Boolean,
+    },
   },
-  emits: ["choose-project", "back"],
+  emits: ["back-enabled"],
   data() {
     return {
       myChart: null,
@@ -163,7 +163,6 @@ export default {
         Hongkong: Hongkong,
         Macao: Macao,
       },
-      major: false,
     };
   },
   methods: {
@@ -183,7 +182,7 @@ export default {
         geo: {
           type: "map",
           map: "myMapName",
-          roam: false, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
+          roam: this.currentYear === 2022, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
           emphasis: {
             //设置鼠标滑动高亮样式
             label: {
@@ -217,17 +216,6 @@ export default {
           calculable: true,
           seriesIndex: 0,
         },
-        // toolbox: {
-        //   show: true,
-        //   orient: "vertical",
-        //   left: "left",
-        //   top: "top",
-        //   feature: {
-        //     dataView: { readOnly: false },
-        //     restore: {},
-        //     saveAsImage: {},
-        //   },
-        // },
         series: [
           {
             name: `全国${this.energyChinese}发电项目`,
@@ -291,6 +279,9 @@ export default {
               { name: "香港特别行政区", value: 0 },
               { name: "澳门特别行政区", value: 0 },
             ],
+            tooltip: {
+              show: false,
+            },
           },
           {
             // 重点项目
@@ -312,7 +303,8 @@ export default {
             this.nowSelectedProvince = "mapData";
           } else {
             // 此时点的是省份，调用加载区域地图的方法
-            this.loadRegionMap(this.nowSelectedProvince);
+            if (this.currentYear === 2022)
+              this.loadRegionMap(this.nowSelectedProvince);
           }
       });
       this.myChart.setOption(option);
@@ -365,17 +357,6 @@ export default {
           },
           formatter: formatterHelper,
         },
-        toolbox: {
-          show: true,
-          orient: "vertical",
-          left: "left",
-          top: "top",
-          feature: {
-            dataView: { readOnly: false },
-            restore: {},
-            saveAsImage: {},
-          },
-        },
         series: [
           {
             // 散点坐标每个能源项目
@@ -404,8 +385,6 @@ export default {
     },
     returnMain() {
       echarts.dispose(this.myChart);
-      this.$emit("back", true);
-      this.major = false;
       this.nowSelectedProvince = "mapData";
       this.loadMap("mapData");
     },
@@ -615,9 +594,20 @@ export default {
       if (val === 2022) {
         let option = this.myChart.getOption();
         option.geo[0].roam = true;
-        console.log(option);
         this.myChart.setOption(option);
       }
+    },
+    back() {
+      this.returnMain();
+    },
+    reload() {
+      let option = this.myChart.getOption();
+      option.geo[0].roam = false;
+      option.series[1].data = this.formMajorScatterData();
+      this.myChart.setOption(option);
+    },
+    nowSelectedProvince() {
+      this.$emit("back-enabled", this.nowSelectedProvince === "mapData");
     },
   },
   mounted() {
@@ -633,7 +623,6 @@ export default {
     } else {
       tempSelected = this.areaDic[this.nowSelectedProvince];
     }
-    // console.log(tempSelected);
     this.loadMap(tempSelected);
   },
 };
