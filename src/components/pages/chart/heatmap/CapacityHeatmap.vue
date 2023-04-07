@@ -49,8 +49,12 @@ export default {
         legend: {
           data: ["发电站装机增量"],
         },
-        polar: {},
+        polar: {
+          center: ["50%", "100%"],
+          radius: ["20%", "150%"],
+        },
         tooltip: {
+          position: "right",
           formatter: (params) => {
             const dom = document.createElement("div");
             const MyComponent = createApp(HeatMapToolTip, {
@@ -103,7 +107,7 @@ export default {
         angleAxis: {
           type: "category",
           data: year,
-          show: true,
+          show: false,
           // startAngle: 72,
           boundaryGap: false,
           splitLine: {
