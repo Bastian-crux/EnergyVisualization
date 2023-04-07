@@ -293,6 +293,9 @@ export default {
                 color: "#274fc9",
               },
             },
+            symbolSize: function (data) {
+              return Math.log(data[3]) * 1.5;
+            },
           },
         ],
       };
@@ -481,12 +484,12 @@ export default {
         case "solar":
           data = solarProvinceAllData;
           return data.filter(
-            (item) => item[6] <= this.currentYear && item[2] >= 50
+            (item) => item[6] <= this.currentYear && item[2] >= 100
           );
         case "wind":
           data = windProvinceAllData;
           return data.filter(
-            (item) => item[6] <= this.currentYear && item[2] >= 100
+            (item) => item[6] <= this.currentYear && item[2] >= 150
           );
         case "nuclear":
           data = nuclearProvinceAllData;

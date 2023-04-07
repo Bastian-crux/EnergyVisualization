@@ -166,8 +166,8 @@ export default {
   mounted() {
     this.loadHeatMap();
     window.onresize = () => {
-      let option = this.myChart.getOption();
-      this.myChart.setOption(option);
+      echarts.dispose(this.myChart);
+      this.loadHeatMap();
     };
   },
 };
