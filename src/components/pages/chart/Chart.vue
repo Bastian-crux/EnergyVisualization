@@ -1,5 +1,6 @@
 <template>
   <the-nav-bar />
+
   <!--  <data-list />-->
   <div
     class="container"
@@ -7,7 +8,7 @@
   >
     <div style="border: 1px solid">
       <!--      <monthly-chart />-->
-      <!--      <capacity-heatmap class="margin" />-->
+      <capacity-heatmap class="margin" />
     </div>
     <div style="border: 1px solid">
       <!--      <overview :visible="activeName === 'overview'" />-->
@@ -32,11 +33,12 @@ const activeName = ref("timeline");
 </script>
 
 <style scoped>
-.box-card {
-  margin: 1rem auto;
-}
+/*.box-card {*/
+/*  margin: 1rem auto;*/
+/*}*/
 .margin {
-  margin-top: 20px;
+  width: 100%;
+  height: 200px;
 }
 .container {
   display: grid;

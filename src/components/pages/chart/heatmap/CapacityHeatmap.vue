@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="chart" id="myHeatmap"></div>
+    <hr class="hr-solid" />
+    <div>
+      <div class="chart" id="myHeatmap"></div>
+    </div>
   </div>
 </template>
 
@@ -66,17 +69,30 @@ export default {
           type: "continuous",
           min: 0,
           max: maxValue,
+          show: false,
           inRange: {
             color: [
-              "#B8E1FF",
-              "#9AC5FF",
-              "#7DAAFF",
-              "#5B8FF9",
-              "#3D76DD",
-              "#085EC0",
-              "#0047A5",
-              "#00318A",
-              "#001D70",
+              // "#d5ebff",
+              // "#9AC5FF",
+              // "#7DAAFF",
+              // "#5B8FF9",
+              // "#3D76DD",
+              // "#085EC0",
+              // "#0047A5",
+              // "#00318A",
+              // "#001D70",
+              // "rgba(240,240,240,0.8)",
+              // "rgba(217,217,217,0.8)",
+              // "rgba(140,140,140,0.8)",
+              // "rgba(89,89,89,0.8)",
+              // "rgba(67,67,67,0.8)",
+              // "#262626",
+
+              "#a5ecd6",
+              "#7bd7bc",
+              "#45af95",
+              "#287962",
+              "#084934",
             ],
           },
           left: "center",
@@ -87,9 +103,11 @@ export default {
         angleAxis: {
           type: "category",
           data: year,
+          show: true,
+          // startAngle: 72,
           boundaryGap: false,
           splitLine: {
-            show: true,
+            show: false,
             lineStyle: {
               color: "#ddd",
               type: "dashed",
@@ -103,15 +121,16 @@ export default {
           type: "category",
           data: energyType,
           z: 100,
+          show: false,
         },
         series: [
           {
-            name: "发电站装机增量",
+            // name: "发电站装机增量",
             type: "custom",
             coordinateSystem: "polar",
-            itemStyle: {
-              color: "#001D70",
-            },
+            // itemStyle: {
+            //   color: "#001D70",
+            // },
             renderItem: function (params, api) {
               let values = [api.value(0), api.value(1)];
               let coord = api.coord(values);
@@ -121,10 +140,12 @@ export default {
                 shape: {
                   cx: params.coordSys.cx,
                   cy: params.coordSys.cy,
-                  r0: coord[2] - size[0] / 2,
-                  r: coord[2] + size[0] / 2,
-                  startAngle: -(coord[3] + size[1] / 2),
-                  endAngle: -(coord[3] - size[1] / 2),
+                  r0: coord[2] - size[0] / 2 + 30,
+                  r: coord[2] + size[0] / 2 + 30,
+                  startAngle:
+                    -(coord[3] + size[1] / 2) / 3 - ((54 + 60) / 180) * Math.PI,
+                  endAngle:
+                    -(coord[3] - size[1] / 2) / 3 - ((54 + 60) / 180) * Math.PI,
                 },
                 style: api.style({
                   fill: api.visual("color"),
@@ -151,6 +172,13 @@ export default {
 <style scoped>
 .chart {
   width: 100%;
-  height: 400px;
+  height: 200px;
+  margin: 30px 0;
+  border: 5px solid;
+}
+.hr-solid {
+  border: 0;
+  border-top: 1px solid #d0d0d5;
+  margin: 20px 12px;
 }
 </style>

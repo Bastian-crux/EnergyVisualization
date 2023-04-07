@@ -77,15 +77,7 @@
       {{ yearTotal }}
     </div>
 
-    <div
-      style="
-        font-size: 14px;
-        font-weight: bolder;
-        text-align: center;
-        color: #6e6e6e;
-        margin: 5px auto 5px auto;
-      "
-    >
+    <div class="grey-content" style="margin: 5px auto 5px auto">
       所有能源发电量总和
     </div>
     <div style="height: 200px; width: 100%">
@@ -137,14 +129,8 @@
     <hr class="hr-solid" />
     <el-row
       justify="center"
-      style="
-        font-size: 14px;
-        font-weight: bolder;
-        text-align: center;
-        line-height: 120px;
-        color: #6e6e6e;
-        margin: 0 15px;
-      "
+      class="grey-content"
+      style="display: flex; align-items: center; margin: 0 15px"
     >
       <el-col :span="12">
         <div class="pie">
@@ -155,8 +141,13 @@
         <font-awesome-icon :icon="selectIcon" size="xl" :style="iconStyle" />
       </el-col>
       <el-col :span="11">
-        同比{{ this.increment >= 0 ? "增长" : "减少"
-        }}{{ Math.abs(increment) }}%
+        <div>
+          同比{{ this.increment >= 0 ? "增长" : "减少"
+          }}{{ Math.abs(increment) }}%
+        </div>
+        <div style="font-size: 8px; color: #a9a9a9">
+          {{ this.selectedYear - 1 }} -- {{ this.selectedYear }}
+        </div>
       </el-col>
     </el-row>
     <hr class="hr-solid" />
@@ -348,7 +339,7 @@ export default {
       switch (this.selectedType) {
         case "火能":
           this.selectedColor = this.colorList[0];
-          this.selectIcon = this.iconList[0];
+          this.selectIcon = this.iconList[4];
           this.iconStyle.color = this.colorList[0];
           this.computeIncrement(
             fossil[0][this.selectedYear],
@@ -357,7 +348,7 @@ export default {
           break;
         case "水能":
           this.selectedColor = this.colorList[1];
-          this.selectIcon = this.iconList[1];
+          this.selectIcon = this.iconList[3];
           this.iconStyle.color = this.colorList[1];
           this.computeIncrement(
             hydro[0][this.selectedYear],
@@ -375,7 +366,7 @@ export default {
           break;
         case "太阳能":
           this.selectedColor = this.colorList[3];
-          this.selectIcon = this.iconList[3];
+          this.selectIcon = this.iconList[1];
           this.iconStyle.color = this.colorList[3];
           this.computeIncrement(
             solar[0][this.selectedYear],
@@ -384,7 +375,7 @@ export default {
           break;
         case "风能":
           this.selectedColor = this.colorList[4];
-          this.selectIcon = this.iconList[4];
+          this.selectIcon = this.iconList[0];
           this.iconStyle.color = this.colorList[4];
           this.computeIncrement(
             wind[0][this.selectedYear],
@@ -448,5 +439,11 @@ export default {
 }
 .icon-pos {
   margin: 13px 20px;
+}
+.grey-content {
+  font-size: 14px;
+  font-weight: bolder;
+  text-align: center;
+  color: #6e6e6e;
 }
 </style>
