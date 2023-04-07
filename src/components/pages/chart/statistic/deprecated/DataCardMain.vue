@@ -50,7 +50,7 @@
 
 <script>
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
-import EnergyPieChart from "@/components/pages/chart/statistic/EnergyPieChart.vue";
+import EnergyPieChart from "@/components/pages/chart/statistic/deprecated/EnergyPieChart.vue";
 
 export default {
   name: "DataCardMain",

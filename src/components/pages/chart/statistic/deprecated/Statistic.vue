@@ -24,7 +24,7 @@
 <script>
 import { ref } from "vue";
 import MonthlyChart from "@/components/pages/chart/statistic/MonthlyChart.vue";
-import DataList from "@/components/pages/chart/statistic/DataList.vue";
+import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
 
 export default {

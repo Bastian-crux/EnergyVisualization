@@ -21,6 +21,11 @@ import {
   faStar,
   faChevronLeft,
   faChevronRight,
+  faFire,
+  faRadiation,
+  faSun,
+  faWind,
+  faDroplet,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -80,7 +85,12 @@ library.add(
   faMoneyBillTrendUp,
   faStar,
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
+  faFire,
+  faRadiation,
+  faSun,
+  faWind,
+  faDroplet
 );
 
 app.component("font-awesome-icon", FontAwesomeIcon);

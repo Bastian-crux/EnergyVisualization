@@ -9,8 +9,7 @@
         margin: 25px auto 5px auto;
       "
     >
-      <!--      各能源年度发电总量-->
-      11111
+      各能源年度发电总量 / 亿千瓦时
     </div>
     <el-row justify="center">
       <el-col :span="6" style="position: relative">
@@ -68,19 +67,79 @@
     <hr class="hr-solid" />
     <div
       style="
-        font-size: 18px;
+        font-size: 32px;
+        font-weight: bolder;
+        text-align: center;
+        color: #414141;
+        margin: 0 auto;
+      "
+    >
+      {{ yearTotal }}
+    </div>
+
+    <div
+      style="
+        font-size: 14px;
         font-weight: bolder;
         text-align: center;
         color: #6e6e6e;
-        margin: 25px auto 5px auto;
+        margin: 5px auto 5px auto;
       "
     >
-      总和
+      所有能源发电量总和
     </div>
-    <div>
-      <div class="chart" ref="main"></div>
+    <div style="height: 200px; width: 100%">
+      <el-row justify="center">
+        <el-col :span="3">
+          <div class="icon-pos">
+            <font-awesome-icon
+              :icon="['fass', 'wind']"
+              size="xl"
+              style="color: #22c749"
+            />
+          </div>
+          <div class="icon-pos">
+            <font-awesome-icon
+              :icon="['fas', 'sun']"
+              size="xl"
+              style="color: #ff9b1b"
+            />
+          </div>
+          <div class="icon-pos">
+            <font-awesome-icon
+              :icon="['fas', 'radiation']"
+              size="xl"
+              style="color: #bdbdbd"
+            />
+          </div>
+          <div class="icon-pos">
+            <font-awesome-icon
+              :icon="['fass', 'droplet']"
+              size="xl"
+              style="color: #4ea4fd"
+            />
+          </div>
+          <div class="icon-pos">
+            <font-awesome-icon
+              :icon="['fass', 'fire']"
+              size="xl"
+              style="color: #ff7171"
+            />
+          </div>
+        </el-col>
+        <el-col :span="21">
+          <div>
+            <div class="chart" ref="main"></div>
+          </div>
+        </el-col>
+      </el-row>
     </div>
     <hr class="hr-solid" />
+    <span>同比{{ this.increment >= 0 ? "+" : "-" }}</span>
+    <span> {{ increment }}% </span>
+    <div class="pie">
+      <div style="width: 100%; height: 100%" ref="myPie"></div>
+    </div>
   </div>
 </template>
 
@@ -98,12 +157,12 @@ export default {
   data() {
     return {
       myChart: null,
+      myChart2: null,
       selectedYear: 2022,
-      options: [
-        2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014,
-        2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022,
-      ],
+      selectedType: "核能",
       powerData: [],
+      yearTotal: null,
+      increment: null,
     };
   },
   methods: {
@@ -119,15 +178,17 @@ export default {
 
       option = {
         tooltip: {
-          trigger: "axis",
+          backgroundColor: "rgba(255,255,255,0.8)",
+          position: "top",
+          // trigger: "axis",
           axisPointer: {
             type: "shadow",
           },
         },
         // legend: {},
         grid: {
-          left: "10%",
-          right: "5%",
+          left: "5%",
+          right: "2%",
           bottom: "5%",
           top: "5%",
           // containLabel: true,
@@ -135,8 +196,8 @@ export default {
 
         xAxis: {
           show: false,
-          type: "value",
-          boundaryGap: [0, 0.001],
+          type: "log",
+          // boundaryGap: [0, 0.01],
         },
         yAxis: {
           show: false,
@@ -166,6 +227,7 @@ export default {
       };
 
       option && this.myChart.setOption(option);
+      this.myChart.on("mouseover", this.mouseOverBar);
     },
     getPowerData() {
       this.powerData = [
@@ -175,17 +237,136 @@ export default {
         solar[0][this.selectedYear],
         wind[0][this.selectedYear],
       ];
+      this.yearTotal = Math.round(
+        fossil[0][this.selectedYear] +
+          hydro[0][this.selectedYear] +
+          nuclear[0][this.selectedYear] +
+          solar[0][this.selectedYear] +
+          wind[0][this.selectedYear]
+      );
+    },
+    computeIncrement(now, last) {
+      if (last === 1) {
+        this.increment = 0;
+      } else {
+        this.increment = (((now - last) / last) * 100).toFixed(2);
+      }
+      this.myChart2.setOption({
+        series: [
+          {
+            data: [
+              {
+                value: this.increment,
+              },
+              {
+                value: 100 - this.increment,
+              },
+            ],
+          },
+        ],
+      });
+    },
+    mouseOverBar(param) {
+      console.log(param.name);
+      this.selectedType = param.name;
+    },
+    loadPie() {
+      this.myChart2 = echarts.init(this.$refs.myPie);
+      let option;
+      option = {
+        backgroundColor: "",
+        series: [
+          {
+            type: "pie",
+            radius: ["60%", "100%"],
+            // center:['50%', '50%'],
+
+            avoidLabelOverlap: false, // 启用防止标签重叠策略
+            hoverAnimation: true,
+            color: ["rgba(250,250,250,0.6)", "rgba(50,50,50,0.6)"],
+            itemStyle: {
+              borderRadius: 5,
+              borderColor: "rgba(0, 0, 0, 0)",
+              borderWidth: 2,
+            },
+            label: {
+              show: true,
+              position: "center",
+              //富文本编辑，用于设置文本样式
+            },
+            labelLine: {
+              show: false,
+            },
+            data: [
+              {
+                value: this.increment,
+              },
+              {
+                value: 100 - this.increment,
+              },
+            ],
+          },
+        ],
+      };
+      option && this.myChart2.setOption(option);
+    },
+    changePie() {
+      switch (this.selectedType) {
+        case "火能":
+          this.computeIncrement(
+            fossil[0][this.selectedYear],
+            fossil[0][this.selectedYear - 1]
+          );
+          break;
+        case "水能":
+          this.computeIncrement(
+            hydro[0][this.selectedYear],
+            hydro[0][this.selectedYear - 1]
+          );
+          break;
+        case "核能":
+          this.computeIncrement(
+            nuclear[0][this.selectedYear],
+            nuclear[0][this.selectedYear - 1]
+          );
+          break;
+        case "太阳能":
+          this.computeIncrement(
+            solar[0][this.selectedYear],
+            solar[0][this.selectedYear - 1]
+          );
+          break;
+        case "风能":
+          this.computeIncrement(
+            wind[0][this.selectedYear],
+            wind[0][this.selectedYear - 1]
+          );
+          break;
+      }
     },
   },
   mounted() {
     this.getPowerData();
     this.initEChart();
+    this.loadPie();
+    this.changePie();
   },
   watch: {
     selectedYear() {
       this.getPowerData();
-      echarts.dispose(this.myChart);
-      this.initEChart();
+      this.changePie();
+      // echarts.dispose(this.myChart);
+      // this.initEChart();
+      this.myChart.setOption({
+        series: [
+          {
+            data: this.powerData,
+          },
+        ],
+      });
+    },
+    selectedType() {
+      this.changePie();
     },
   },
 };
@@ -195,6 +376,10 @@ export default {
 .chart {
   width: 100%;
   height: 200px;
+}
+.pie {
+  width: 100%;
+  height: 100px;
 }
 .icon:hover {
   -webkit-transform: scale(1.2);
@@ -210,6 +395,9 @@ export default {
 .hr-solid {
   border: 0;
   border-top: 1px solid #d0d0d5;
-  margin: 15px 10px;
+  margin: 20px 12px;
+}
+.icon-pos {
+  margin: 13px 20px;
 }
 </style>

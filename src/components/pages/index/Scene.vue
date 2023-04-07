@@ -448,7 +448,7 @@ import { Water } from "three/examples/jsm/objects/Water.js";
 import Loader from "./Loader.vue";
 import IconGroup from "./IconGroup.vue";
 import TextScroll from "./TextScroll.vue";
-import DataList from "@/components/pages/chart/statistic/DataList.vue";
+import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 

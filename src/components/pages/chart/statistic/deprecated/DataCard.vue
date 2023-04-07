@@ -33,31 +33,31 @@
         </div>
       </div>
     </el-col>
-    <!--    <el-col :span="24">-->
-    <!--      <el-card :body-style="'background-color: ' + background">-->
-    <!--        <el-row>-->
-    <!--          <el-col :span="24">-->
-    <!--            <p class="description">描述：测试测试测试测试测试测试</p>-->
-    <!--          </el-col>-->
-    <!--          <el-col :span="24">-->
-    <!--            <div style="height: 300px; width: 100%">-->
-    <!--              <energy-pie-chart-->
-    <!--                :data="data[year]"-->
-    <!--                :total="total"-->
-    <!--                :type="type"-->
-    <!--                :color="color"-->
-    <!--              />-->
-    <!--            </div>-->
-    <!--          </el-col>-->
-    <!--        </el-row>-->
-    <!--      </el-card>-->
-    <!--    </el-col>-->
+    <el-col :span="24">
+      <el-card :body-style="'background-color: ' + background">
+        <el-row>
+          <el-col :span="24">
+            <p class="description">描述：测试测试测试测试测试测试</p>
+          </el-col>
+          <el-col :span="24">
+            <div style="height: 600px; width: 100%">
+              <energy-pie-chart
+                :data="data[year]"
+                :total="total"
+                :type="type"
+                :color="color"
+              />
+            </div>
+          </el-col>
+        </el-row>
+      </el-card>
+    </el-col>
   </el-row>
 </template>
 
 <script>
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
-import EnergyPieChart from "@/components/pages/chart/statistic/EnergyPieChart.vue";
+import EnergyPieChart from "@/components/pages/chart/statistic/deprecated/EnergyPieChart.vue";
 
 export default {
   name: "DataCard",

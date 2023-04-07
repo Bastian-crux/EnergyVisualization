@@ -1,5 +1,6 @@
 <template>
   <the-nav-bar />
+  <!--  <data-list />-->
   <div
     class="container"
     style="justify-content: center; align-content: center; margin: 5px auto"
@@ -20,7 +21,6 @@
     </div>
     <div style="border: 1px solid">
       <power-sum></power-sum>
-      <!--      <data-list />-->
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ import TheNavBar from "@/components/layout/TheNavBar.vue";
 import Timeline from "@/components/pages/chart/timeline/Timeline.vue";
 import Overview from "@/components/pages/chart/overview/Overview.vue";
 import MonthlyChart from "@/components/pages/chart/statistic/MonthlyChart.vue";
-import DataList from "@/components/pages/chart/statistic/DataList.vue";
+import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
 import CapacityHeatmap from "@/components/pages/chart/heatmap/CapacityHeatmap.vue";
 import PowerSum from "@/components/pages/chart/statistic/PowerSum.vue";
 

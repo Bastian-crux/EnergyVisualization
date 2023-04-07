@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import DataCard from "@/components/pages/chart/statistic/DataCard.vue";
+import DataCard from "@/components/pages/chart/statistic/deprecated/DataCard.vue";
 import fossil from "/assets/annualStatisticData/fossil.json";
 import hydro from "/assets/annualStatisticData/hydro.json";
 import nuclear from "/assets/annualStatisticData/nuclear.json";
