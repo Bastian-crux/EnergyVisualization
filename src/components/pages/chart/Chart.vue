@@ -10,7 +10,7 @@
       <!--      <capacity-heatmap class="margin" />-->
     </div>
     <div style="border: 1px solid">
-      <overview :visible="activeName === 'overview'" />
+      <!--      <overview :visible="activeName === 'overview'" />-->
     </div>
     <div style="border: 1px solid">
       <power-sum></power-sum>

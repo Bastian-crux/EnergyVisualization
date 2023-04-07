@@ -93,35 +93,35 @@
         <el-col :span="3">
           <div class="icon-pos">
             <font-awesome-icon
-              :icon="['fass', 'wind']"
+              :icon="iconList[0]"
               size="xl"
               style="color: #22c749"
             />
           </div>
           <div class="icon-pos">
             <font-awesome-icon
-              :icon="['fas', 'sun']"
+              :icon="iconList[1]"
               size="xl"
               style="color: #ff9b1b"
             />
           </div>
           <div class="icon-pos">
             <font-awesome-icon
-              :icon="['fas', 'radiation']"
+              :icon="iconList[2]"
               size="xl"
               style="color: #bdbdbd"
             />
           </div>
           <div class="icon-pos">
             <font-awesome-icon
-              :icon="['fass', 'droplet']"
+              :icon="iconList[3]"
               size="xl"
               style="color: #4ea4fd"
             />
           </div>
           <div class="icon-pos">
             <font-awesome-icon
-              :icon="['fass', 'fire']"
+              :icon="iconList[4]"
               size="xl"
               style="color: #ff7171"
             />
@@ -135,11 +135,31 @@
       </el-row>
     </div>
     <hr class="hr-solid" />
-    <span>同比{{ this.increment >= 0 ? "+" : "-" }}</span>
-    <span> {{ increment }}% </span>
-    <div class="pie">
-      <div style="width: 100%; height: 100%" ref="myPie"></div>
-    </div>
+    <el-row
+      justify="center"
+      style="
+        font-size: 14px;
+        font-weight: bolder;
+        text-align: center;
+        line-height: 120px;
+        color: #6e6e6e;
+        margin: 0 15px;
+      "
+    >
+      <el-col :span="12">
+        <div class="pie">
+          <div style="width: 100%; height: 100%" ref="myPie"></div>
+        </div>
+      </el-col>
+      <el-col :span="1">
+        <font-awesome-icon :icon="selectIcon" size="xl" :style="iconStyle" />
+      </el-col>
+      <el-col :span="11">
+        同比{{ this.increment >= 0 ? "增长" : "减少"
+        }}{{ Math.abs(increment) }}%
+      </el-col>
+    </el-row>
+    <hr class="hr-solid" />
   </div>
 </template>
 
@@ -160,9 +180,23 @@ export default {
       myChart2: null,
       selectedYear: 2022,
       selectedType: "核能",
+      selectedColor: null,
+      selectIcon: null,
+      iconStyle: {
+        color: null,
+      },
       powerData: [],
       yearTotal: null,
       increment: null,
+      left: null,
+      colorList: ["#ff7171", "#4ea4fd", "#bdbdbd", "#ff9b1b", "#22c749"],
+      iconList: [
+        ["fass", "wind"],
+        ["fas", "sun"],
+        ["fas", "radiation"],
+        ["fass", "droplet"],
+        ["fass", "fire"],
+      ],
     };
   },
   methods: {
@@ -175,7 +209,7 @@ export default {
     initEChart() {
       this.myChart = echarts.init(this.$refs.main);
       let option;
-
+      let tempColorList = this.colorList;
       option = {
         tooltip: {
           backgroundColor: "rgba(255,255,255,0.8)",
@@ -211,14 +245,7 @@ export default {
             itemStyle: {
               barBorderRadius: [15, 15, 15, 15],
               color: function (params) {
-                let colorList = [
-                  "#ff7171",
-                  "#4ea4fd",
-                  "#bdbdbd",
-                  "#ff9b1b",
-                  "#22c749",
-                ];
-                return colorList[params.dataIndex];
+                return tempColorList[params.dataIndex];
               },
             },
             barWidth: 15,
@@ -246,22 +273,26 @@ export default {
       );
     },
     computeIncrement(now, last) {
-      if (last === 1) {
+      if (last === 1 || this.selectedYear === 2003) {
         this.increment = 0;
+        this.left = Math.log(100);
       } else {
         this.increment = (((now - last) / last) * 100).toFixed(2);
+        this.left = Math.log(100) - Math.log(this.increment);
       }
+
       this.myChart2.setOption({
         series: [
           {
             data: [
               {
-                value: this.increment,
+                value: Math.log(Math.abs(this.increment)),
               },
               {
-                value: 100 - this.increment,
+                value: Math.log(100) - Math.log(Math.abs(this.increment)),
               },
             ],
+            color: [this.selectedColor, "rgba(10,10,10,0.1)"],
           },
         ],
       });
@@ -278,16 +309,19 @@ export default {
         series: [
           {
             type: "pie",
-            radius: ["60%", "100%"],
+            radius: ["50%", "90%"],
             // center:['50%', '50%'],
 
             avoidLabelOverlap: false, // 启用防止标签重叠策略
             hoverAnimation: true,
-            color: ["rgba(250,250,250,0.6)", "rgba(50,50,50,0.6)"],
+            color: [this.selectedColor, "rgba(10,10,10,0.1)"],
             itemStyle: {
-              borderRadius: 5,
+              borderRadius: 1,
               borderColor: "rgba(0, 0, 0, 0)",
               borderWidth: 2,
+            },
+            emphasis: {
+              scaleSize: 3,
             },
             label: {
               show: true,
@@ -299,10 +333,10 @@ export default {
             },
             data: [
               {
-                value: this.increment,
+                value: Math.log(Math.abs(this.increment)),
               },
               {
-                value: 100 - this.increment,
+                value: Math.log(100) - Math.log(Math.abs(this.increment)),
               },
             ],
           },
@@ -313,30 +347,45 @@ export default {
     changePie() {
       switch (this.selectedType) {
         case "火能":
+          this.selectedColor = this.colorList[0];
+          this.selectIcon = this.iconList[0];
+          this.iconStyle.color = this.colorList[0];
           this.computeIncrement(
             fossil[0][this.selectedYear],
             fossil[0][this.selectedYear - 1]
           );
           break;
         case "水能":
+          this.selectedColor = this.colorList[1];
+          this.selectIcon = this.iconList[1];
+          this.iconStyle.color = this.colorList[1];
           this.computeIncrement(
             hydro[0][this.selectedYear],
             hydro[0][this.selectedYear - 1]
           );
           break;
         case "核能":
+          this.selectedColor = this.colorList[2];
+          this.selectIcon = this.iconList[2];
+          this.iconStyle.color = this.colorList[2];
           this.computeIncrement(
             nuclear[0][this.selectedYear],
             nuclear[0][this.selectedYear - 1]
           );
           break;
         case "太阳能":
+          this.selectedColor = this.colorList[3];
+          this.selectIcon = this.iconList[3];
+          this.iconStyle.color = this.colorList[3];
           this.computeIncrement(
             solar[0][this.selectedYear],
             solar[0][this.selectedYear - 1]
           );
           break;
         case "风能":
+          this.selectedColor = this.colorList[4];
+          this.selectIcon = this.iconList[4];
+          this.iconStyle.color = this.colorList[4];
           this.computeIncrement(
             wind[0][this.selectedYear],
             wind[0][this.selectedYear - 1]
@@ -379,7 +428,7 @@ export default {
 }
 .pie {
   width: 100%;
-  height: 100px;
+  height: 120px;
 }
 .icon:hover {
   -webkit-transform: scale(1.2);
