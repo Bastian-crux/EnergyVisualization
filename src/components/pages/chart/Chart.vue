@@ -10,7 +10,7 @@
       <!--      <capacity-heatmap class="margin" />-->
     </div>
     <div style="border: 1px solid">
-      <!--      <overview :visible="activeName === 'overview'" />-->
+      <overview />
     </div>
     <div style="border: 1px solid">
       <power-sum></power-sum>
@@ -21,7 +21,6 @@
 <script setup>
 import { ref } from "vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
-import Timeline from "@/components/pages/chart/timeline/Timeline.vue";
 import Overview from "@/components/pages/chart/overview/Overview.vue";
 import MonthlyChart from "@/components/pages/chart/statistic/MonthlyChart.vue";
 import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";

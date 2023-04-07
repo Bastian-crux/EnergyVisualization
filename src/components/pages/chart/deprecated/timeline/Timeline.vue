@@ -33,7 +33,7 @@
 
 <script>
 import { watch, ref } from "vue";
-import TimelineVisualization from "@/components/pages/chart/timeline/TimelineVisualization.vue";
+import TimelineVisualization from "@/components/pages/chart/deprecated/timeline/TimelineVisualization.vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
 
 export default {
