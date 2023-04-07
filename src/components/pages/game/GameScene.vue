@@ -900,7 +900,7 @@ onUnmounted(() => {
 
 <style scoped>
 .center {
-  height: 750px;
+  height: 100%;
   margin: 0 auto;
 }
 .absolute {

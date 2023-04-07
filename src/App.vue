@@ -22,6 +22,13 @@ html {
   /*background-color: #19485b;*/
 }
 
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   margin: 0;
 }
