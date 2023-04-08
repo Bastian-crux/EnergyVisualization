@@ -431,27 +431,27 @@ const points = ref([
 const buildings = ref([
   {
     name: "nuclear",
-    file: "/images/icon2.png",
+    file: "/images/icon2.webp",
     modelPath: "/static/nuclear_game1.glb",
   },
   {
     name: "wind",
-    file: "/images/icon3.png",
+    file: "/images/icon3.webp",
     modelPath: "/static/nuclear_game1.glb",
   },
   {
     name: "solar",
-    file: "/images/icon1.png",
+    file: "/images/icon1.webp",
     modelPath: "/static/nuclear_game1.glb",
   },
   {
     name: "smallFossil",
-    file: "/images/icon1.png",
+    file: "/images/icon1.webp",
     modelPath: "/static/nuclear_game1.glb",
   },
   {
     name: "largeFossil",
-    file: "/images/icon1.png",
+    file: "/images/icon1.webp",
     modelPath: "/static/nuclear_game1.glb",
   },
 ]);
