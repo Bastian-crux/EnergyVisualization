@@ -48,13 +48,20 @@ export const findBiggestValue = (obj) => {
   }, -Infinity);
 };
 
-export const powerStationTooltip = (name, pollution, capacity, price) => {
+export const powerStationTooltip = (
+  name,
+  pollution,
+  capacity,
+  price,
+  money
+) => {
   const dom = document.createElement("div");
   const MyComponent = createApp(PowerstationToolTip, {
     name: name,
     pollution: pollution,
     capacity: capacity,
     price: price,
+    money: money,
   });
   MyComponent.use(ElementPlus);
   const instance = MyComponent.mount(dom);
