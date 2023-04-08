@@ -226,7 +226,8 @@ import { powerStationTooltip } from "@/utils";
 
 const props = defineProps(["itemIdx"]);
 let camera, scene, renderer;
-let model = [];
+let models = [];
+let modelInstances = [];
 let composer, outlinePass, renderPass;
 let element;
 
@@ -553,7 +554,38 @@ function initScene() {
     temp.scale.set(1.2, 1.2, 1.2);
     scene.add(temp);
   });
+  buildings.value.forEach((item) => {
+    initBuildingModel(item);
+  });
   animate();
+}
+function initBuildingModel(item) {
+  const loader = new GLTFLoader();
+  const dLoader = new DRACOLoader();
+  dLoader.setDecoderPath("/draco/");
+  dLoader.setDecoderConfig({ type: "js" }); //使用js方式解压
+  dLoader.preload(); //初始化_initDecoder 解码器
+  loader.setDRACOLoader(dLoader);
+  loader.load(item.modelPath, function (gltf) {
+    // gltf.scene.traverse(function (child){
+    //   child.castShadow = true;
+    // })
+    const temp = gltf.scene;
+    // temp.name = "mainScene";
+    temp.castShadow = true;
+    temp.scale.set(0.8, 0.8, 0.8);
+    temp.rotation.y = 0.4;
+    models.push({ name: item.name, mesh: temp });
+    modelInstances.push(temp);
+    // temp.position.copy(item.position);
+    // temp.position.set(item.position.x, item.position.y + 1, item.position.z);
+    // const temp2 = temp.clone();
+    // temp2.position.set(item.position.x, item.position.y + 3, item.position.z);
+
+    // scene.add(temp);
+    // scene.add(temp2);
+    modelInstances.push(temp);
+  });
 }
 
 function animate() {
@@ -646,7 +678,8 @@ function disposeScene() {
   scene = null;
   renderer = null;
   // viewControls2 = null;
-  model = null;
+  models = null;
+  modelInstances = null;
   composer = null;
   outlinePass = null;
   renderPass = null;
@@ -722,26 +755,35 @@ function clickPoint(item) {
 
 function placeNew(item) {
   updateGame(item);
-  const loader = new GLTFLoader();
-  const dLoader = new DRACOLoader();
-  dLoader.setDecoderPath("/draco/");
-  dLoader.setDecoderConfig({ type: "js" }); //使用js方式解压
-  dLoader.preload(); //初始化_initDecoder 解码器
-  loader.setDRACOLoader(dLoader);
-  loader.load(selectedModel.modelPath, function (gltf) {
-    // gltf.scene.traverse(function (child){
-    //   child.castShadow = true;
-    // })
-    const temp = gltf.scene;
-    // temp.name = "mainScene";
-    temp.castShadow = true;
-    temp.scale.set(0.8, 0.8, 0.8);
-    temp.rotation.y = 0.4;
-    // temp.position.copy(item.position);
-    temp.position.set(item.position.x, item.position.y + 1, item.position.z);
-    scene.add(temp);
-    model.push(temp);
-  });
+  // const loader = new GLTFLoader();
+  // const dLoader = new DRACOLoader();
+  // dLoader.setDecoderPath("/draco/");
+  // dLoader.setDecoderConfig({ type: "js" }); //使用js方式解压
+  // dLoader.preload(); //初始化_initDecoder 解码器
+  // loader.setDRACOLoader(dLoader);
+  // loader.load(selectedModel.modelPath, function (gltf) {
+  //   // gltf.scene.traverse(function (child){
+  //   //   child.castShadow = true;
+  //   // })
+  //   const temp = gltf.scene;
+  //   // temp.name = "mainScene";
+  //   temp.castShadow = true;
+  //   temp.scale.set(0.8, 0.8, 0.8);
+  //   temp.rotation.y = 0.4;
+  //   // temp.position.copy(item.position);
+  //   temp.position.set(item.position.x, item.position.y + 1, item.position.z);
+  //   const temp2 = temp.clone();
+  //   temp2.position.set(item.position.x, item.position.y + 3, item.position.z);
+  //
+  //   scene.add(temp);
+  //   scene.add(temp2);
+  //   models.push(temp);
+  // });
+  const tempModel = models.find((target) => target.name === selectedModel.name);
+  const tempMesh = tempModel.mesh.clone();
+  tempMesh.position.set(item.position.x, item.position.y + 1, item.position.z);
+  modelInstances.push(tempMesh);
+  scene.add(tempMesh);
   points.value.forEach((i) => {
     if (i.name === item.name) {
       i.placed = true;
@@ -805,7 +847,7 @@ const newGame = () => {
   points.value.forEach((item) => {
     item.placed = false;
   });
-  model.forEach((item) => {
+  modelInstances.forEach((item) => {
     scene.remove(item);
   });
   ElMessage({

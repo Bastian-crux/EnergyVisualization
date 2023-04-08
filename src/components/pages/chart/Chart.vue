@@ -7,7 +7,7 @@
     style="justify-content: center; align-content: center; margin: 5px auto"
   >
     <div style="border: 1px solid">
-      <!--      <monthly-chart />-->
+      <monthly-chart />
       <capacity-heatmap class="margin" />
     </div>
     <div style="border: 1px solid">

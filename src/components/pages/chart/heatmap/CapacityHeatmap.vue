@@ -1,6 +1,17 @@
 <template>
   <div>
     <hr class="hr-solid" />
+    <div
+      style="
+        font-size: 18px;
+        font-weight: bolder;
+        text-align: center;
+        color: #6e6e6e;
+        margin: 25px auto 5px auto;
+      "
+    >
+      各能源装机总量 / 增量
+    </div>
     <div>
       <div class="chart" id="myHeatmap"></div>
     </div>
@@ -55,6 +66,7 @@ export default {
         },
         tooltip: {
           position: "right",
+          backgroundColor: "rgba(255,255,255,0.8)",
           formatter: (params) => {
             const dom = document.createElement("div");
             const MyComponent = createApp(HeatMapToolTip, {
@@ -92,11 +104,15 @@ export default {
               // "rgba(67,67,67,0.8)",
               // "#262626",
 
-              "#a5ecd6",
-              "#7bd7bc",
-              "#45af95",
-              "#287962",
-              "#084934",
+              // "#a5ecd6",
+              // "#7bd7bc",
+              // "#45af95",
+              // "#287962",
+              // "#084934",
+              "#e8e8e8",
+              "#FFB499",
+              "#FF8C75",
+              "#F54F4A",
             ],
           },
           left: "center",
@@ -178,7 +194,7 @@ export default {
   width: 100%;
   height: 200px;
   margin: 30px 0;
-  border: 5px solid;
+  border: 1px solid;
 }
 .hr-solid {
   border: 0;
