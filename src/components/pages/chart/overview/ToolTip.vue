@@ -1,14 +1,16 @@
 <template>
-  <div>
-    <h3 class="value name">{{ displayName(name) }}</h3>
-    <el-divider border-style="double"/>
+  <div style="width: 200px">
+    <h3 class="value name">
+      {{ displayName(name) }}
+    </h3>
+    <el-divider border-style="double" />
     <div class="value">
       <el-row justify="center">
         <el-col :span="8">
           <el-row justify="center">
             <el-col :span="24">
               <div class="center">
-                <font-awesome-icon icon="fa-solid fa-calendar"/>
+                <font-awesome-icon icon="fa-solid fa-calendar" />
               </div>
             </el-col>
             <el-col :span="24">
@@ -17,9 +19,7 @@
               </div>
             </el-col>
             <el-col :span="24">
-              <div class="center description">
-                启用年份
-              </div>
+              <div class="center description">启用年份</div>
             </el-col>
           </el-row>
         </el-col>
@@ -27,7 +27,7 @@
           <el-row justify="center">
             <el-col :span="24">
               <div class="center">
-                <font-awesome-icon icon="fa-solid fa-gauge"/>
+                <font-awesome-icon icon="fa-solid fa-gauge" />
               </div>
             </el-col>
             <el-col :span="24">
@@ -36,9 +36,7 @@
               </div>
             </el-col>
             <el-col :span="24">
-              <div class="center description">
-                状态
-              </div>
+              <div class="center description">状态</div>
             </el-col>
           </el-row>
         </el-col>
@@ -46,18 +44,14 @@
           <el-row justify="center">
             <el-col :span="24">
               <div class="center">
-                <font-awesome-icon icon="fa-solid fa-bolt"/>
+                <font-awesome-icon icon="fa-solid fa-bolt" />
               </div>
             </el-col>
             <el-col :span="24">
-              <div class="center">
-                {{ displayCapacity(capacity) }} MW
-              </div>
+              <div class="center">{{ displayCapacity(capacity) }} MW</div>
             </el-col>
             <el-col :span="24">
-              <div class="center description">
-                功率
-              </div>
+              <div class="center description">功率</div>
             </el-col>
           </el-row>
         </el-col>
@@ -67,39 +61,39 @@
 </template>
 
 <script>
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
   name: "ToolTip",
-  components: {FontAwesomeIcon},
-  props: ['year', 'name', 'status', 'capacity'],
+  components: { FontAwesomeIcon },
+  props: ["year", "name", "status", "capacity"],
   methods: {
-    displayYear (val) {
+    displayYear(val) {
       if (!val) {
-        return '暂无信息';
+        return "暂无信息";
       }
       return val;
     },
-    displayName (val) {
+    displayName(val) {
       if (!val) {
-        return '暂无信息';
+        return "暂无信息";
       }
       return val;
     },
-    displayStatus (val) {
+    displayStatus(val) {
       if (!val) {
-        return '暂无信息';
+        return "暂无信息";
       }
       return val;
     },
-    displayCapacity (val) {
+    displayCapacity(val) {
       if (!val) {
-        return '暂无信息';
+        return "暂无信息";
       }
       return val;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -119,5 +113,7 @@ export default {
 
 .name {
   text-align: center;
+  white-space: normal;
+  word-break: break-all;
 }
 </style>
