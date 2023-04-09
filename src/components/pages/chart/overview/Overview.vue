@@ -188,6 +188,19 @@ export default {
   color: #a3a4de !important;
 }
 
+.el-button {
+  --el-button-hover-text-color: #a3a4de;
+  --el-button-hover-bg-color: var(--el-color-primary-light-9);
+  --el-button-hover-border-color: #a3a4de;
+  --el-button-active-text-color: #a3a4de;
+  --el-button-active-border-color: #a3a4de;
+  --el-button-active-bg-color: var(--el-button-hover-bg-color);
+}
+
+.el-select .el-input__wrapper.is-focus {
+  box-shadow: 0 0 0 1px #a3a4de inset !important;
+}
+
 .el-select .el-input.is-focus .el-input__wrapper {
   box-shadow: 0 0 0 1px #a3a4de inset !important;
 }
