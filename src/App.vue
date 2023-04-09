@@ -15,11 +15,10 @@ export default {
 }
 
 html {
-  font-family: sans-serif, "Sarasa Gothic";
-  /*background-color: #d2ecad;*/
-  /*background-color: #d9dedf;*/
+  /*font-family: sans-serif, "Sarasa Gothic";*/
   background-color: #eeedea;
-  /*background-color: #19485b;*/
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 
 html,
@@ -40,5 +39,6 @@ body {
 }
 .el-message-box {
   background-color: rgba(255, 255, 255, 0.8) !important;
+  width: 800px;
 }
 </style>

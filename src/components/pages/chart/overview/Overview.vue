@@ -177,14 +177,27 @@ export default {
 /*  color: #fff;*/
 /*}*/
 .el-select-dropdown__item.selected {
-  color: red !important;
+  color: #4748ab !important;
   font-weight: 800;
 }
 .el-select-dropdown__item {
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.4) !important;
 }
 .el-select-dropdown__item.hover,
 .el-select-dropdown__item:hover {
-  color: #ff4090 !important;
+  color: #a3a4de !important;
+}
+
+.el-select .el-input.is-focus .el-input__wrapper {
+  box-shadow: 0 0 0 1px #a3a4de inset !important;
+}
+.el-select-dropdown {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+.el-select__popper {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+.el-input__inner {
+  color: #6e6e6e !important;
 }
 </style>
