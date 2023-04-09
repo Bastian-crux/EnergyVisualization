@@ -131,7 +131,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .margin {
   margin: 15px auto;
 }
@@ -158,15 +158,22 @@ export default {
   /*background-color: #efefef;*/
   box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.5);
 }
+</style>
+
+<style>
 /*:deep(.el-select-dropdown__item) {*/
 /*  background-color: transparent;*/
 /*  color: #fff;*/
 /*}*/
-:deep(.el-select-dropdown__item.selected) {
-  color: red;
+.el-select-dropdown__item.selected {
+  color: red !important;
   font-weight: 800;
 }
-:deep(.el-select-dropdown__item) {
+.el-select-dropdown__item {
   background-color: transparent;
+}
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
+  color: #ff4090 !important;
 }
 </style>
