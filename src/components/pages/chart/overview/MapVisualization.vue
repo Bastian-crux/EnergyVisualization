@@ -185,7 +185,7 @@ export default {
             type: "map",
             map: "myMapName",
             zlevel: 5,
-            roam: this.currentYear === 2022 ? "move" : false, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
+            roam: false, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
             center: [105, 35],
             emphasis: {
               //设置鼠标滑动高亮样式
@@ -236,14 +236,6 @@ export default {
           {
             name: `全国${this.energyChinese}发电项目`,
             type: "map",
-
-            // roam: 'move', // true/scale/move
-            // map: 'myMapName',
-            // emphasis: {
-            //   label: {
-            //     show: true
-            //   }
-            // },
             geoIndex: 0,
             data: [
               { name: "北京市", value: this.getNumberByProvince("Beijing") },
@@ -323,15 +315,16 @@ export default {
         ],
       };
       this.myChart.on("click", (params) => {
-        this.nowSelectedProvince = params.name;
-        if (this.nowSelectedProvince !== "mapData")
-          if (!this.areaDic[this.nowSelectedProvince]) {
-            this.nowSelectedProvince = "mapData";
-          } else {
-            // 此时点的是省份，调用加载区域地图的方法
-            if (this.currentYear === 2022)
+        if (this.currentYear === 2022) {
+          this.nowSelectedProvince = params.name;
+          if (this.nowSelectedProvince !== "mapData")
+            if (!this.areaDic[this.nowSelectedProvince]) {
+              this.nowSelectedProvince = "mapData";
+            } else {
+              // 此时点的是省份，调用加载区域地图的方法
               this.loadRegionMap(this.nowSelectedProvince);
-          }
+            }
+        }
       });
       this.myChart.setOption(option);
       // option && myChart.setOption(option);
@@ -348,10 +341,6 @@ export default {
       this.myChart.hideLoading();
       echarts.registerMap("myMapName", this.areaDicData[mapName], {});
       option = {
-        title: {
-          text: `${params}${this.energyChinese}发电项目`,
-          left: "middle",
-        },
         geo: {
           type: "map",
           map: "myMapName",
@@ -568,18 +557,12 @@ export default {
         option.series[1].data = this.formMajorScatterData();
         this.myChart.setOption(option);
       }
-      if (val === 2022) {
-        let option = this.myChart.getOption();
-        option.geo[0].roam = true;
-        this.myChart.setOption(option);
-      }
     },
     back() {
       this.returnMain();
     },
     reload() {
       let option = this.myChart.getOption();
-      option.geo[0].roam = false;
       option.series[1].data = this.formMajorScatterData();
       this.myChart.setOption(option);
     },

@@ -31,12 +31,7 @@
   </div>
   <div id="blocker">
     <div id="instructions">
-      <p style="font-size: 36px">Click to play</p>
-      <p>
-        Move: WASD<br />
-        Jump: SPACE<br />
-        Look: MOUSE
-      </p>
+      <SurfTutorial style="width: 50%" />
     </div>
   </div>
   <div id="index">
@@ -146,6 +141,7 @@
 </template>
 
 <script setup>
+import SurfTutorial from "@/components/pages/surf/SurfTutorial.vue";
 import * as THREE from "three";
 import { MathUtils, Object3D, Vector3 } from "three";
 import { ref, computed, watch, onMounted, onUnmounted } from "vue";

@@ -32,7 +32,10 @@ import {
   faChartColumn,
   faChartLine,
   faRotateLeft,
+  faArrowUp,
   faArrowLeft,
+  faPersonWalking,
+  faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -105,7 +108,10 @@ library.add(
   faChartColumn,
   faChartLine,
   faRotateLeft,
-  faArrowLeft
+  faArrowUp,
+  faArrowLeft,
+  faPersonWalking,
+  faCamera
 );
 
 app.component("font-awesome-icon", FontAwesomeIcon);
