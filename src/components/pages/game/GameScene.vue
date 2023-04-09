@@ -484,7 +484,7 @@ let obj = {
 function initScene() {
   // 创建场景
   scene = new THREE.Scene();
-  scene.background = new THREE.Color("#AAAAAA");
+  scene.background = new THREE.Color("#eeedea");
   // scene.fog = new THREE.Fog(0xa0a0a0, 10, 500);
 
   element = document.getElementById("index");

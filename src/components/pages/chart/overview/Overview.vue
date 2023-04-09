@@ -1,19 +1,22 @@
 <template>
-  <div class="margin">
-    <el-progress
-      :text-inside="true"
-      :stroke-width="26"
-      :percentage="percentage"
-    >
-      <span>{{ currentYear + "年" }}</span>
-    </el-progress>
-  </div>
-  <div class="margin">
+  <div
+    class="margin"
+    style="
+      font-size: 18px;
+      font-weight: bolder;
+      text-align: center;
+      color: #6e6e6e;
+    "
+  >
     <el-row :gutter="5">
       <el-col :span="8">
         <div class="select-box">
-          <div class="label">能源类型:</div>
-          <el-select v-model="energyTypeSelector" style="width: 50%">
+          <div class="label">能源类型</div>
+          <el-select
+            :popper-append-to-body="false"
+            v-model="energyTypeSelector"
+            style="width: 50%"
+          >
             <el-option key="solar" label="太阳能" value="solar" />
             <el-option key="wind" label="风能" value="wind" />
             <el-option key="nuclear" label="核能" value="nuclear" />
@@ -23,7 +26,7 @@
       </el-col>
       <el-col :span="10">
         <div class="select-box">
-          <div class="label">可视化依据:</div>
+          <div class="label">可视化依据</div>
           <el-select v-model="visualizationType" style="width: 50%">
             <el-option key="quantity" label="发电站数" value="quantity" />
             <el-option key="power" label="功率数" value="power" />
@@ -31,12 +34,30 @@
         </div>
       </el-col>
       <el-col :span="6">
-        <el-button-group>
-          <el-button :icon="Back" @click="backEvent" :disabled="backEnabled" />
-          <el-button :icon="RefreshRight" @click="reloadEvent" />
-        </el-button-group>
+        <el-button
+          class="top-button"
+          circle
+          @click="backEvent"
+          :disabled="backEnabled"
+        >
+          <font-awesome-icon size="lg" :icon="['fas', 'arrow-left']" />
+        </el-button>
+        <el-button class="top-button" circle @click="reloadEvent">
+          <font-awesome-icon size="lg" :icon="['fa', 'rotate-left']" />
+        </el-button>
       </el-col>
     </el-row>
+  </div>
+  <div class="margin">
+    <el-progress
+      :text-inside="true"
+      :stroke-width="20"
+      :percentage="percentage"
+      color="#7f7fd5"
+      class="shadow"
+    >
+      <span>{{ currentYear + "年" }}</span>
+    </el-progress>
   </div>
   <map-visualization
     :energy-type="energyType"
@@ -51,6 +72,7 @@
 
 <script setup>
 import { Back, RefreshRight } from "@element-plus/icons-vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 </script>
 
 <script>
@@ -111,7 +133,7 @@ export default {
 
 <style scoped>
 .margin {
-  margin-top: 20px;
+  margin: 15px auto;
 }
 .select-box {
   display: flex;
@@ -121,5 +143,30 @@ export default {
 .label {
   margin-right: 12px;
   font-weight: bold;
+}
+.shadow {
+  /*background-color: #eeedea;*/
+  backdrop-filter: blur(2px);
+  box-shadow: 2px 2px 4px rgba(51, 51, 51, 0.5);
+  border-radius: 10px;
+  padding: 0 0;
+}
+:deep(.el-progress-bar__outer) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.top-button {
+  /*background-color: #efefef;*/
+  box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.5);
+}
+/*:deep(.el-select-dropdown__item) {*/
+/*  background-color: transparent;*/
+/*  color: #fff;*/
+/*}*/
+:deep(.el-select-dropdown__item.selected) {
+  color: red;
+  font-weight: 800;
+}
+:deep(.el-select-dropdown__item) {
+  background-color: transparent;
 }
 </style>

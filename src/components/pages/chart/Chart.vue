@@ -6,14 +6,14 @@
     class="container"
     style="justify-content: center; align-content: center; margin: 5px auto"
   >
-    <div style="border: 1px solid">
+    <div class="glass">
       <carbon-emission />
       <capacity-heatmap class="margin" />
     </div>
-    <div style="border: 1px solid">
+    <div class="glass">
       <overview />
     </div>
-    <div style="border: 1px solid">
+    <div class="glass">
       <power-sum></power-sum>
     </div>
   </div>
@@ -45,5 +45,12 @@ const activeName = ref("timeline");
   grid-template-columns: 24% 50% 24%;
   row-gap: 5px;
   column-gap: 5px;
+}
+.glass {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 10px rgba(51, 51, 51, 0.5);
+  border-radius: 8px;
+  padding: 10px 10px;
 }
 </style>

@@ -179,18 +179,34 @@ export default {
         //   subtext: `按照${this.modeChinese}进行可视化`,
         //   left: "middle",
         // },
-        geo: {
-          type: "map",
-          map: "myMapName",
-          roam: this.currentYear === 2022, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
-          emphasis: {
-            //设置鼠标滑动高亮样式
-            label: {
-              show: true,
+        backgroundColor: "rgba(211,211,211,0.2)", //画布背景颜色
+        geo: [
+          {
+            type: "map",
+            map: "myMapName",
+            zlevel: 5,
+            roam: this.currentYear === 2022 ? "move" : false, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
+            center: [105, 35],
+            emphasis: {
+              //设置鼠标滑动高亮样式
+              label: {
+                show: true,
+              },
             },
+            itemStyle: {
+              normal: {
+                borderColor: "rgba(255,255,255,0.5)",
+                borderWidth: 2,
+                shadowColor: "rgba(0,0,0,0.2)",
+                shadowOffsetX: 1,
+                shadowOffsetY: 1,
+                shadowBlur: 2,
+                // opacity: 0.8,
+              },
+            },
+            zoom: 1.5,
           },
-          zoom: 1.5,
-        },
+        ],
         tooltip: {
           show: true,
           alwaysShowContent: false,
@@ -220,6 +236,7 @@ export default {
           {
             name: `全国${this.energyChinese}发电项目`,
             type: "map",
+
             // roam: 'move', // true/scale/move
             // map: 'myMapName',
             // emphasis: {
@@ -288,13 +305,15 @@ export default {
             type: "scatter",
             data: this.formMajorScatterData(),
             coordinateSystem: "geo",
+            zlevel: 10,
             itemStyle: {
               normal: {
-                color: "#274fc9",
+                color: "rgba(103,174,255,0.6)",
+                borderColor: "rgb(102,133,255)",
               },
             },
             symbolSize: function (data) {
-              return Math.log(data[3]) * 1.5;
+              return Math.pow(data[3], 1 / 3) * 2;
             },
           },
         ],
@@ -352,7 +371,7 @@ export default {
           enterable: true,
           transitionDuration: 0.2,
           textStyle: {
-            color: "rgb(137,20,20)",
+            color: "rgb(91,91,91)",
             fontsize: "14",
             width: 10,
             height: 10,
@@ -520,56 +539,7 @@ export default {
       }
     },
     colorScheme() {
-      switch (this.energyType) {
-        case "solar":
-          return [
-            "#FFC771",
-            "#FFAB57",
-            "#F6903D",
-            "#D77622",
-            "#B85C00",
-            "#9B4300",
-            "#7D2A00",
-            "#601000",
-            "#450000",
-          ];
-        case "wind":
-          return [
-            "#B8E1FF",
-            "#9AC5FF",
-            "#7DAAFF",
-            "#5B8FF9",
-            "#3D76DD",
-            "#085EC0",
-            "#0047A5",
-            "#00318A",
-            "#001D70",
-          ];
-        case "nuclear":
-          return [
-            "#9DF5CA",
-            "#61DDAA",
-            "#42C090",
-            "#19A576",
-            "#008A5D",
-            "#006F45",
-            "#00562F",
-            "#003E19",
-            "#002800",
-          ];
-        case "bio":
-          return [
-            "#FFCCFF",
-            "#EBB0FF",
-            "#CE95F5",
-            "#B27AD8",
-            "#9661BC",
-            "#7B48A1",
-            "#613086",
-            "#48186C",
-            "#2E0054",
-          ];
-      }
+      return ["#e8e8ef", "#c7c8e3", "#a3a4de", "#7f7fd5", "#6464ca", "#4748ab"];
     },
   },
   watch: {

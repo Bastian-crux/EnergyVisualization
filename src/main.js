@@ -31,6 +31,8 @@ import {
   faNoteSticky,
   faChartColumn,
   faChartLine,
+  faRotateLeft,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -101,7 +103,9 @@ library.add(
   faNoteSticky,
   faDroplet,
   faChartColumn,
-  faChartLine
+  faChartLine,
+  faRotateLeft,
+  faArrowLeft
 );
 
 app.component("font-awesome-icon", FontAwesomeIcon);

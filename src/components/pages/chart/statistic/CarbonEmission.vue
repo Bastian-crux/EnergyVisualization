@@ -51,16 +51,16 @@ export default {
       emissionIncrement: null,
       powerSumIncrement: null,
       colorList: [
-        // "#ffffff",
-        // "#b4e0f3",
-        // "#70b4eb",
-        // "#1482e5",
-        // "#1c3fbf",
-        // "#070093",
         "#e8e8e8",
         "#99d8ff",
         "#75b5ff",
         "#4a94f5",
+
+        // "#bed2e5",
+        // "#99c1da",
+        // "#68a6cf",
+        // "#307eb8",
+        // "#0b5198",
       ],
     };
   },
