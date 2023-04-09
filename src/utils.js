@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import ToolTip from "@/components/pages/chart/overview/ToolTip.vue";
 import PowerstationToolTip from "@/components/pages/game/PowerstationToolTip.vue";
+import GameTutorial from "@/components/pages/game/GameTutorial.vue";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 
@@ -63,6 +64,14 @@ export const powerStationTooltip = (
     price: price,
     money: money,
   });
+  MyComponent.use(ElementPlus);
+  const instance = MyComponent.mount(dom);
+  return instance.$el.innerHTML;
+};
+
+export const gameTutorial = () => {
+  const dom = document.createElement("div");
+  const MyComponent = createApp(GameTutorial, {});
   MyComponent.use(ElementPlus);
   const instance = MyComponent.mount(dom);
   return instance.$el.innerHTML;

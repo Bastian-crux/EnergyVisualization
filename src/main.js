@@ -26,6 +26,9 @@ import {
   faSun,
   faWind,
   faDroplet,
+  faInfoCircle,
+  faBullseye,
+  faNoteSticky,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -90,7 +93,10 @@ library.add(
   faRadiation,
   faSun,
   faWind,
-  faDroplet
+  faDroplet,
+  faInfoCircle,
+  faBullseye,
+  faNoteSticky
 );
 
 app.component("font-awesome-icon", FontAwesomeIcon);

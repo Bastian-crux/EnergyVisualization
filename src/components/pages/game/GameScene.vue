@@ -65,7 +65,13 @@
     "
   >
     <h1 style="font-size: 20px; text-align: center">
-      游戏信息<el-icon size="12" @click="gamePrompt"><InfoFilled /></el-icon>
+      游戏信息
+      <font-awesome-icon
+        class="infoButton"
+        :icon="['fas', 'circle-info']"
+        size="xs"
+        @click="gamePrompt"
+      />
     </h1>
     <el-row :gutter="5" class="game-panel" justify="center">
       <el-col :span="4">
@@ -225,7 +231,7 @@ import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShade
 import { ElMessage, ElMessageBox } from "element-plus";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-import { powerStationTooltip } from "@/utils";
+import { powerStationTooltip, gameTutorial } from "@/utils";
 
 import { InfoFilled } from "@element-plus/icons-vue";
 
@@ -902,16 +908,10 @@ const updateGame = (item) => {
 };
 
 const gamePrompt = () => {
-  ElMessageBox.alert(
-    '<p style="text-indent:2em;">游戏开始时，你会有₡80000用于购买发电站，发电站可以放在地图上指定的区域。建设火力发电站会产生对应的污染；当污染指数超过了游戏的限额的时候，无法新建新的火力发电站。每一个关卡，你都有7天的时间在地图上放置不同的发电站，你需要在时间截止之前达到当前关卡要求的功率目标。产生的发电功率越大，获得的收入也会越多。</p>' +
-      '<hr class="solid">' +
-      '<p style="text-indent:2em;">不同类型的发电站有着不同的价格、发电量和污染指数。风力发电站、太阳能发电站的实际发电功率会受到放置位置的条件的影响；火力发电站放在靠近城市的位置，也会产生对应的惩罚费用。因此，谨慎的选择在何处放置何种类型的发电站，可以更容易的通关游戏。</p>',
-    "游戏说明",
-    {
-      confirmButtonText: "关闭",
-      dangerouslyUseHTMLString: true,
-    }
-  );
+  ElMessageBox.alert(gameTutorial(), "游戏说明", {
+    confirmButtonText: "关闭",
+    dangerouslyUseHTMLString: true,
+  });
 };
 
 watch(timePassed, () => {
@@ -1120,5 +1120,9 @@ onUnmounted(() => {
 
 .red {
   color: var(--el-color-error);
+}
+
+.infoButton {
+  cursor: pointer;
 }
 </style>
