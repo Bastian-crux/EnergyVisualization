@@ -39,12 +39,20 @@ export default {
         legend: {
           data: ["火力", "水力", "风能", "", "核能", "太阳能"],
           icon: "pin",
+          itemWidth: 25,
+          // left: "left",
+          // padding: 10,
+          // align: "left",
+          // height: 10,
+          itemGap: 5,
+          // right: "5",
         },
         color: ["#bbfaab", "#6bbd5c", "#6bbd5c", "#4e9655", "#33704b"],
         grid: {
           left: "3%",
           right: "3%",
-          bottom: "8%",
+          bottom: "12%",
+          // top: "10%",
           containLabel: true,
         },
         xAxis: [
@@ -56,8 +64,9 @@ export default {
         ],
         yAxis: [
           {
+            scale: true,
             type: "value",
-            min: 1000,
+            // min: 1000,
           },
         ],
         series: [
@@ -139,6 +148,7 @@ export default {
           {
             name: "太阳能",
             type: "line",
+            smooth: 0.2,
             stack: "Total",
             symbolSize: 0,
             // symbol: 'circle',
@@ -166,6 +176,7 @@ export default {
           {
             fillerColor: "rgba(0,111,69,0.5)", // 选中部分背景填充颜色
             backgroundColor: "rgba(72,222,133,0.2)", // slider背景填充颜色
+
             dataBackground: {
               // 缩略图
               lineStyle: {
@@ -181,6 +192,8 @@ export default {
             handleStyle: {
               color: "rgba(171,213,146,0)",
               borderColor: "rgba(171,213,146,0)",
+              borderWidth: 1,
+              borderRadius: 10,
             },
             handleIcon: "M0,0 v9.7h3 v-9.7h-3 Z",
             minSpan: 2,
@@ -190,7 +203,11 @@ export default {
             type: "slider",
             xAxisIndex: [0],
             filterMode: "filter",
-            startValue: "2020年1月",
+            startValue: "2021/6",
+            endValue: "2022/12",
+            top: "220px",
+            height: "20",
+            borderRadius: 5,
           },
           // {
           //   id: 'dataZoomY',
@@ -218,6 +235,9 @@ export default {
 <style scoped>
 .chart {
   width: 100%;
-  height: 300px;
+  height: 250px;
+}
+.echarts-slider-handle {
+  border-radius: 5px;
 }
 </style>

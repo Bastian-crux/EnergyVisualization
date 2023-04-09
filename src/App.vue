@@ -32,4 +32,10 @@ body,
 body {
   margin: 0;
 }
+.eltooltip-background {
+  max-width: 40%;
+  color: #000 !important;
+  border: 1px solid #dfe6ec !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
 </style>

@@ -29,6 +29,8 @@ import {
   faInfoCircle,
   faBullseye,
   faNoteSticky,
+  faChartColumn,
+  faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -96,7 +98,10 @@ library.add(
   faDroplet,
   faInfoCircle,
   faBullseye,
-  faNoteSticky
+  faNoteSticky,
+  faDroplet,
+  faChartColumn,
+  faChartLine
 );
 
 app.component("font-awesome-icon", FontAwesomeIcon);

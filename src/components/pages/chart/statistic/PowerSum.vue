@@ -101,7 +101,7 @@
             <font-awesome-icon
               :icon="iconList[2]"
               size="xl"
-              style="color: #bdbdbd"
+              style="color: #a2a2a2"
             />
           </div>
           <div class="icon-pos">
@@ -180,7 +180,7 @@ export default {
       yearTotal: null,
       increment: null,
       left: null,
-      colorList: ["#ff7171", "#4ea4fd", "#bdbdbd", "#ff9b1b", "#22c749"],
+      colorList: ["#ff7171", "#4ea4fd", "#a2a2a2", "#ff9b1b", "#22c749"],
       iconList: [
         ["fass", "wind"],
         ["fas", "sun"],
@@ -238,6 +238,10 @@ export default {
               color: function (params) {
                 return tempColorList[params.dataIndex];
               },
+              shadowColor: "rgba(0, 0, 0, 0.8)",
+              shadowOffsetX: 1,
+              shadowOffsetY: 2,
+              shadowBlur: 3,
             },
             barWidth: 15,
           },
@@ -305,11 +309,15 @@ export default {
 
             avoidLabelOverlap: false, // 启用防止标签重叠策略
             hoverAnimation: true,
-            color: [this.selectedColor, "rgba(10,10,10,0.1)"],
+            color: [this.selectedColor, "rgba(10,10,10,0.2)"],
             itemStyle: {
               borderRadius: 1,
               borderColor: "rgba(0, 0, 0, 0)",
               borderWidth: 2,
+              shadowColor: "rgba(0, 0, 0, 0.6)",
+              shadowOffsetX: 2,
+              shadowOffsetY: 2,
+              shadowBlur: 2,
             },
             emphasis: {
               scaleSize: 3,

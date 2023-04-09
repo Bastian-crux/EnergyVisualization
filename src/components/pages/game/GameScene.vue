@@ -33,6 +33,7 @@
       placement="left"
       effect="light"
       raw-content
+      popper-class="eltooltip-background"
     >
       <div>
         <button
@@ -1124,5 +1125,11 @@ onUnmounted(() => {
 
 .infoButton {
   cursor: pointer;
+}
+.el-tooltip__popper[x-placement^="top"] .popper__arrow {
+  border-top-color: #1ab394;
+}
+.el-tooltip__popper[x-placement^="top"] .popper__arrow:after {
+  border-top-color: #1ab394;
 }
 </style>

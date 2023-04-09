@@ -7,7 +7,7 @@
     style="justify-content: center; align-content: center; margin: 5px auto"
   >
     <div style="border: 1px solid">
-      <monthly-chart />
+      <carbon-emission />
       <capacity-heatmap class="margin" />
     </div>
     <div style="border: 1px solid">
@@ -27,6 +27,7 @@ import MonthlyChart from "@/components/pages/chart/statistic/MonthlyChart.vue";
 import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
 import CapacityHeatmap from "@/components/pages/chart/heatmap/CapacityHeatmap.vue";
 import PowerSum from "@/components/pages/chart/statistic/PowerSum.vue";
+import CarbonEmission from "@/components/pages/chart/statistic/CarbonEmission.vue";
 
 const activeName = ref("timeline");
 </script>
