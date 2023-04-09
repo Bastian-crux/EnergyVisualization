@@ -48,7 +48,6 @@ const activeName = ref("timeline");
 }
 .glass {
   background-color: rgba(255, 255, 255, 0.2);
-  /*backdrop-filter: blur(15px);*/
   box-shadow: 0 0 10px rgba(51, 51, 51, 0.5);
   border-radius: 8px;
   padding: 10px 10px;

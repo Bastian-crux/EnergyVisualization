@@ -40,10 +40,18 @@
           @click="backEvent"
           :disabled="backEnabled"
         >
-          <font-awesome-icon size="lg" :icon="['fas', 'arrow-left']" />
+          <font-awesome-icon
+            class="top-icon"
+            size="lg"
+            :icon="['fas', 'arrow-left']"
+          />
         </el-button>
         <el-button class="top-button" circle @click="reloadEvent">
-          <font-awesome-icon size="lg" :icon="['fa', 'rotate-left']" />
+          <font-awesome-icon
+            class="top-icon"
+            size="lg"
+            :icon="['fa', 'rotate-left']"
+          />
         </el-button>
       </el-col>
     </el-row>
@@ -156,11 +164,14 @@ export default {
 }
 .top-button {
   /*background-color: #efefef;*/
+  height: 32px;
+  width: 32px;
   box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.5);
 }
-</style>
-
-<style>
+.top-icon {
+  position: relative;
+  left: 5%;
+}
 /*:deep(.el-select-dropdown__item) {*/
 /*  background-color: transparent;*/
 /*  color: #fff;*/

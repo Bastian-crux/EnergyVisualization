@@ -179,7 +179,7 @@ export default {
         //   subtext: `按照${this.modeChinese}进行可视化`,
         //   left: "middle",
         // },
-        backgroundColor: "rgba(211,211,211,0.2)", //画布背景颜色
+        backgroundColor: "", //画布背景颜色
         geo: [
           {
             type: "map",
@@ -210,7 +210,7 @@ export default {
         tooltip: {
           show: true,
           alwaysShowContent: false,
-          backgroundColor: "rgba(255, 255, 255, 1)",
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
           borderColor: "rgba(0, 0, 0, 0)",
           showDelay: 0,
           hideDelay: 100,
@@ -312,8 +312,12 @@ export default {
                 borderColor: "rgb(102,133,255)",
               },
             },
-            symbolSize: function (data) {
-              return Math.pow(data[3], 1 / 3) * 2;
+            symbolSize: (data) => {
+              if (this.energyType === "nuclear") {
+                return Math.log(data[3]) * 2;
+              } else {
+                return Math.pow(data[3], 1 / 3) * 2;
+              }
             },
           },
         ],
@@ -362,7 +366,7 @@ export default {
         tooltip: {
           show: true,
           alwaysShowContent: false,
-          backgroundColor: "rgba(255, 255, 255, 1)",
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
           borderColor: "rgba(0, 0, 0, 0)",
           showDelay: 0,
           hideDelay: 100,
@@ -554,9 +558,9 @@ export default {
       this.loadMap("mapData");
     },
     energyType() {
-      let option = this.myChart.getOption();
-      option.series[1].data = this.formMajorScatterData();
-      this.myChart.setOption(option);
+      echarts.dispose(this.myChart);
+      this.nowSelectedProvince = "mapData";
+      this.loadMap("mapData");
     },
     currentYear(val) {
       if (this.nowSelectedProvince === "mapData") {
