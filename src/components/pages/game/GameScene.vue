@@ -910,7 +910,9 @@ const updateGame = (item) => {
 
 const gamePrompt = () => {
   ElMessageBox.alert(gameTutorial(), "游戏说明", {
-    confirmButtonText: "关闭",
+    showConfirmButton: false,
+    showCancelButton: true,
+    cancelButtonText: "关闭",
     dangerouslyUseHTMLString: true,
   });
 };
