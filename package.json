@@ -16,10 +16,12 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "echarts": "^5.4.1",
     "element-plus": "^2.2.29",
+    "sass": "^1.61.0",
     "three": "^0.148.0",
     "troisjs": "^0.3.3",
     "troisjs-draco": "^0.0.3",
     "tweakpane": "^3.1.7",
+    "unplugin-element-plus": "^0.7.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
