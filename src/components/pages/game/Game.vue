@@ -5,6 +5,9 @@
     class="iframe"
     style="display: unset"
     scrolling="no"
+    frameBorder="0"
+    marginHeight="0"
+    marginWidth="0"
   />
 </template>
 

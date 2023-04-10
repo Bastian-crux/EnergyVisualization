@@ -7,6 +7,8 @@
       :router="true"
       :ellipsis="false"
       background-color="#198e6b"
+      text-color="rgba(255, 255, 255, 0.8)"
+      active-text-color="rgba(255, 255, 255, 0.8)"
     >
       <el-menu-item index="">能源可视化</el-menu-item>
       <div class="flex-grow" />
