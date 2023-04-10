@@ -169,7 +169,7 @@ let renderer, scene, camera;
 // wander
 let controls;
 
-const objects = [];
+let objects = [];
 
 let raycaster;
 
@@ -180,6 +180,8 @@ let moveRight = false;
 let canJump = false;
 
 let prevTime = performance.now();
+const jumpHeight = 200;
+const eyeHeight = 10;
 const velocity = new THREE.Vector3();
 const direction = new THREE.Vector3();
 const vertex = new THREE.Vector3();
@@ -227,7 +229,7 @@ const onKeyDown = function (event) {
       break;
 
     case "Space":
-      if (canJump === true) velocity.y += 350;
+      if (canJump === true) velocity.y += jumpHeight;
       canJump = false;
       break;
   }
@@ -298,6 +300,32 @@ const checkLabelVisible = function () {
       point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
     }
   }
+};
+
+const collideCheck = (angle) => {
+  let rotationMatrix = new THREE.Matrix4();
+  rotationMatrix.makeRotationY((angle * Math.PI) / 180);
+  const cameraDirection = controls
+    .getDirection(new THREE.Vector3(0, 0, 0))
+    .clone();
+  cameraDirection.applyMatrix4(rotationMatrix);
+  const raycaster = new THREE.Raycaster(
+    controls.getObject().position.clone(),
+    cameraDirection,
+    0,
+    5
+  ); //射线长度为5 一条较短的射线
+  raycaster.ray.origin.y -= eyeHeight;
+  console.log(objects);
+  const intersections = raycaster.intersectObjects(objects, false);
+  return intersections.length;
+};
+
+const getMesh = (parent) => {
+  parent.forEach((item) => {
+    if (item.type === "Mesh") objects.push(item);
+    else if (item.type === "Group") getMesh(item.children);
+  });
 };
 
 onMounted(() => {
@@ -394,6 +422,9 @@ onMounted(() => {
   renderer.onBeforeRender(() => {
     const time = performance.now();
 
+    objects = [];
+    getMesh(scene.children);
+
     if (controls.isLocked === true) {
       raycaster.ray.origin.copy(controls.getObject().position);
       raycaster.ray.origin.y -= 10;
@@ -403,6 +434,18 @@ onMounted(() => {
       const onObject = intersections.length > 0;
 
       const delta = (time - prevTime) / 1000;
+
+      // 四个方位是否产生碰撞
+      let leftCollide = false;
+      let rightCollide = false;
+      let forwardCollide = false;
+      let backCollide = false;
+
+      // 碰撞检测 collide check
+      if (moveForward) forwardCollide = collideCheck(0);
+      if (moveBackward) backCollide = collideCheck(180);
+      if (moveLeft) leftCollide = collideCheck(90);
+      if (moveRight) rightCollide = collideCheck(270);
 
       velocity.x -= velocity.x * 10.0 * delta;
       velocity.z -= velocity.z * 10.0 * delta;
@@ -422,8 +465,24 @@ onMounted(() => {
         canJump = true;
       }
 
-      controls.moveRight(-velocity.x * delta);
-      controls.moveForward(-velocity.z * delta);
+      // 计算移动距离
+      let rightDistance = -velocity.x * delta;
+      let forwardDistance = -velocity.z * delta;
+
+      // 右侧有障碍物时向右移动 置零
+      if ((moveRight && rightCollide) || (moveLeft && leftCollide)) {
+        rightDistance = 0;
+      }
+
+      // 前方有障碍物时向前移动 置零
+      if ((moveForward && forwardCollide) || (moveBackward && backCollide)) {
+        forwardDistance = 0;
+      }
+
+      // 设置最终移动值
+      if (moveLeft || moveRight) controls.moveRight(rightDistance);
+
+      if (moveForward || moveBackward) controls.moveForward(forwardDistance);
 
       controls.getObject().position.y += velocity.y * delta; // new behavior
 

@@ -375,7 +375,7 @@
           src="/static/mainscenetest2_scale.glb"
           dracoPath="/draco/"
           :scale="{ x: 15, y: 15, z: 15 }"
-          :position="{ x: -73.61, y: 0, z: -32.61 }"
+          :position="{ x: sceneX, y: sceneY, z: sceneZ }"
           :rotation="{ y: -0.96 }"
         />
 
@@ -449,6 +449,7 @@ import Loader from "./Loader.vue";
 import IconGroup from "./IconGroup.vue";
 import TextScroll from "./TextScroll.vue";
 import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
+import { Pane } from "tweakpane";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 
@@ -473,7 +474,8 @@ export default {
     };
 
     //verticle control
-    const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
+    // const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
+    const [rainTime, nightTime, dawnTime, dayTime] = [0, 0, 0, 100000000]; // 持续时间
 
     const vPosition = ref(0);
     const dummy = ref(0); // 记录当前的位置
@@ -680,64 +682,9 @@ export default {
     }
 
     // pane
-    const solarBuildingX = ref(56.52);
-    const solarBuildingY = ref(2.17);
-    const solarBuildingZ = ref(-43.48);
-    const solarBoardX = ref(32.61);
-    const solarBoardY = ref(2.17);
-    const solarBoardZ = ref(-60.87);
-    const boardRotate = ref(2.93);
-    const solarBoardX2 = ref(65.22);
-    const solarBoardY2 = ref(2.17);
-    const solarBoardZ2 = ref(-26.09);
-    const boardRotate2 = ref(1.2);
-    const solarBoardX3 = ref(71.74);
-    const solarBoardY3 = ref(2.17);
-    const solarBoardZ3 = ref(-17.39);
-    const boardRotate3 = ref(1.2);
-    const solarBoardX4 = ref(73.91);
-    const solarBoardY4 = ref(2.6);
-    const solarBoardZ4 = ref(-6.52);
-    const boardRotate4 = ref(1.15);
-    const mountainX = ref(-73.61);
-    const mountainY = ref(-28.91);
-    const mountainZ = ref(-32.61);
-    const planeX = ref(-32.61);
-    const planeY = ref(-13.35);
-    const planeZ = ref(8.7);
-
-    const nuclearBuilding1X = ref(8.04);
-    const nuclearBuilding1Y = ref(2.35);
-    const nuclearBuilding1Z = ref(-70.57);
-
-    const nuclearBuilding1X_a = ref(28.39);
-    const nuclearBuilding1Y_a = ref(3.35);
-    const nuclearBuilding1Z_a = ref(-60.0);
-
-    const nuclearBuilding2X = ref(-33.74);
-    const nuclearBuilding2Y = ref(1.65);
-    const nuclearBuilding2Z = ref(-54.52);
-
-    const nuclearBuilding3X = ref(-22);
-    const nuclearBuilding3Y = ref(-2);
-    const nuclearBuilding3Z = ref(-50);
-
-    const forsetX = ref(13.48);
-    const forsetY = ref(-1.74);
-    const forsetZ = ref(-11.2);
-
-    const forest_rotateX = ref(0.13);
-    const forest_rotateY = ref(0.0);
-    const forest_rotateZ = ref(0.13);
-
-    const buildingX = ref(8.7);
-    const buildingY = ref(-6.52);
-    const buildingZ = ref(50.0);
-    const generatorX = ref(-36.96);
-    const generatorY = ref(-8.7);
-    const generatorZ = ref(54.35);
-
-    const generator_rotateY = ref(-0.96);
+    const sceneX = ref(-73.61);
+    const sceneY = ref(0);
+    const sceneZ = ref(-32.61);
 
     return {
       //imesh
@@ -778,9 +725,17 @@ export default {
       //texture
       imageArray,
       rainCount: 3000,
+      sceneX,
+      sceneY,
+      sceneZ,
     };
   },
   mounted() {
+    this.pane = new Pane();
+    // Solar
+    this.pane.addInput(this, "sceneX", { min: -100, max: -70 });
+    this.pane.addInput(this, "sceneY", { min: -20, max: 20 });
+    this.pane.addInput(this, "sceneZ", { min: -50, max: 0 });
     //scene core
     this.renderer = this.$refs.renderer;
     this.scene = this.$refs.scene.scene;
