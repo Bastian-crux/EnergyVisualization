@@ -9,7 +9,6 @@ export default {
 </script>
 
 <style>
-@import "../assets/fonts/font.css";
 * {
   box-sizing: border-box;
 }
