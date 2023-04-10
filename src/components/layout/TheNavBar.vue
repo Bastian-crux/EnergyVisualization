@@ -36,3 +36,10 @@ export default {
   flex-grow: 1;
 }
 </style>
+<style>
+.el-menu--horizontal > .el-menu-item.is-active {
+  outline: 0;
+  color: var(--el-menu-hover-text-color);
+  background-color: #08593f;
+}
+</style>
