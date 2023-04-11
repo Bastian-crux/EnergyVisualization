@@ -39,8 +39,14 @@
         <button
           class="buildingList"
           style="width: 95%; margin: 3px auto"
-          :class="grab || !gameInProgress ? 'grab' : ''"
-          :disabled="grab || !gameInProgress"
+          :class="
+            grab || !gameInProgress || constructionCost[item.name] >= money
+              ? 'grab'
+              : ''
+          "
+          :disabled="
+            grab || !gameInProgress || constructionCost[item.name] >= money
+          "
           @click="addBuilding(item)"
         >
           <div class="choose" style="display: flex; justify-content: center">
@@ -853,6 +859,9 @@ const initGameParameters = () => {
 };
 
 const newGame = () => {
+  grab.value = false;
+  selectedModel = null;
+  unshowIcon();
   gameInProgress = true;
   if (timer != null) {
     clearInterval(timer);
@@ -870,7 +879,7 @@ const newGame = () => {
   });
   timer = setInterval(() => {
     if (timePassed.value < timeTarget.value * 24) timePassed.value += 2;
-  }, 300);
+  }, 500);
 };
 
 const nextLevel = () => {
@@ -941,6 +950,9 @@ watch(timePassed, () => {
         newGame();
       });
     }
+    grab.value = false;
+    selectedModel = null;
+    unshowIcon();
   }
 });
 
