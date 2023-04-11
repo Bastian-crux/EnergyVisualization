@@ -246,16 +246,6 @@
         </InstancedMesh>
       </Scene>
     </Renderer>
-
-    <audio ref="rainSound" loop>
-      <source src="/assets/sounds/rain.wav" type="audio/wav" />
-    </audio>
-    <audio ref="chimes" loop>
-      <source src="/assets/sounds/chimes.wav" type="audio/wav" />
-    </audio>
-    <audio ref="desertSound" loop>
-      <source src="/assets/sounds/desert.wav" type="audio/wav" />
-    </audio>
   </div>
 </template>
 
@@ -441,46 +431,11 @@ export default {
       mouseY.value = -(ev.pageY / window.innerHeight - 0.5) * 5;
     };
 
-    //sound
-    const rainSound = ref(null);
-    const desertSound = ref(null);
-    const chimes = ref(null);
     const loaded = ref(true);
+
     const initPage = () => {
       loaded.value = false;
-      rainSound.value.play();
-      desertSound.value.play();
-      chimes.value.play();
-      rainSound.value.volume = 1;
-      desertSound.value.volume = 0;
-      chimes.value.volume = 0;
     };
-
-    const rainVolume = computed(() =>
-      Math.max(1 - vPosition.value / rainTime, 0)
-    );
-    watch(rainVolume, (val, prev) => {
-      rainSound.value.volume = val;
-    });
-
-    const desertVolume = computed(() =>
-      Math.min(
-        Math.max((vPosition.value - rainTime - nightTime) / dawnTime, 0),
-        1
-      )
-    );
-    watch(desertVolume, (val, prev) => {
-      desertSound.value.volume = val;
-    });
-
-    const toggleSound = () => {
-      soundMuted.value = soundMuted.value ? false : true;
-      rainSound.value.muted = soundMuted.value;
-      desertSound.value.muted = soundMuted.value;
-      chimes.value.muted = soundMuted.value;
-    };
-
-    const soundMuted = ref(false);
 
     //textures
     const imageArray = Array(6).fill("/assets/skybox/sky.png");
@@ -533,14 +488,6 @@ export default {
       //mouse
       onMove,
       mouseY,
-      //sound ctrl
-      toggleSound,
-      rainSound,
-      chimes,
-      desertSound,
-      rainVolume,
-      desertVolume,
-      soundMuted,
       //texture
       imageArray,
       rainCount: 3000,
