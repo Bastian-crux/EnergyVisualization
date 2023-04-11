@@ -92,10 +92,10 @@
 
         <GltfModel
           ref="mainscene"
-          src="/static/mainscenetest2_scale.glb"
+          src="/static/surfScene.glb"
           dracoPath="/draco/"
           :scale="{ x: 35, y: 35, z: 35 }"
-          :position="{ x: -73.61, y: 0, z: -32.61 }"
+          :position="{ x: -73.61, y: -100, z: -32.61 }"
           :rotation="{ y: -0.96 }"
         />
         <!-- cloud -->
