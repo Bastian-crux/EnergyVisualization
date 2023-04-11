@@ -94,7 +94,7 @@
           ref="mainscene"
           src="/static/mainscenetest2_scale.glb"
           dracoPath="/draco/"
-          :scale="{ x: 25, y: 25, z: 25 }"
+          :scale="{ x: 35, y: 35, z: 35 }"
           :position="{ x: -73.61, y: 0, z: -32.61 }"
           :rotation="{ y: -0.96 }"
         />
@@ -190,6 +190,7 @@ const color = new THREE.Color();
 const myRenderer = ref(null);
 const myScene = ref(null);
 const myCamera = ref(null);
+const mainscene = ref(null);
 
 let points;
 
@@ -360,8 +361,12 @@ onMounted(() => {
   //scene core
   renderer = myRenderer.value;
   scene = myScene.value.scene;
-  // console.log(scene);
   camera = myCamera.value.camera;
+  console.log(scene);
+  console.log(mainscene.value);
+  console.log(mainscene.value.scene);
+  console.log(scene === mainscene.value.scene);
+  // console.log(mainscene.value.userData);
   // scene.fog = new THREE.Fog(this.skycolor, 1, 800);
 
   // Set window size

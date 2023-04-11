@@ -412,7 +412,7 @@ const points = ref([
   },
   {
     name: "point-6",
-    position: new THREE.Vector3(8, 3, -8),
+    position: new THREE.Vector3(7.5, 1.5, -7.5),
     element: null,
     placed: false,
     energyProfile: {
@@ -443,28 +443,28 @@ const points = ref([
 const buildings = ref([
   {
     name: "nuclear",
-    file: "/images/icon2.webp",
-    modelPath: "/static/nuclear_game1.glb",
+    file: "/images/icons/nuclear.webp",
+    modelPath: "/static/game/nuclear.glb",
   },
   {
     name: "wind",
-    file: "/images/icon3.webp",
-    modelPath: "/static/nuclear_game1.glb",
+    file: "/images/icons/wind.webp",
+    modelPath: "/static/game/wind.glb",
   },
   {
     name: "solar",
-    file: "/images/icon1.webp",
-    modelPath: "/static/nuclear_game1.glb",
+    file: "/images/icons/solar.webp",
+    modelPath: "/static/game/solar.glb",
   },
   {
     name: "smallFossil",
-    file: "/images/icon1.webp",
-    modelPath: "/static/nuclear_game1.glb",
+    file: "/images/icons/thermal_grande.webp",
+    modelPath: "/static/game/thermal_grande.glb",
   },
   {
     name: "largeFossil",
-    file: "/images/icon1.webp",
-    modelPath: "/static/nuclear_game1.glb",
+    file: "/images/icons/thermal_venti.webp",
+    modelPath: "/static/game/thermal_venti.glb",
   },
 ]);
 
@@ -560,6 +560,8 @@ function initScene() {
     //   child.castShadow = true;
     // })
     const temp = gltf.scene;
+    // console.log(gltf);
+    // console.log(temp);
     temp.name = "mainScene";
     temp.castShadow = true;
     temp.rotation.y = 0.2;
@@ -586,7 +588,7 @@ function initBuildingModel(item) {
     // temp.name = "mainScene";
     temp.castShadow = true;
     temp.scale.set(0.8, 0.8, 0.8);
-    temp.rotation.y = 0.4;
+    temp.rotation.y = 0.8;
     models.push({ name: item.name, mesh: temp });
     modelInstances.push(temp);
     // temp.position.copy(item.position);
@@ -868,7 +870,7 @@ const newGame = () => {
   });
   timer = setInterval(() => {
     if (timePassed.value < timeTarget.value * 24) timePassed.value += 2;
-  }, 1000);
+  }, 300);
 };
 
 const nextLevel = () => {
@@ -880,7 +882,7 @@ const nextLevel = () => {
   });
   timer = setInterval(() => {
     if (timePassed.value < timeTarget.value * 24) timePassed.value += 2;
-  }, 1000);
+  }, 300);
   // TODO: 更新游戏的目标
   updateGameGoal();
   level.value++;
