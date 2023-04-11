@@ -50,8 +50,8 @@
       <Scene ref="myScene">
         <HemisphereLight
           ref="light"
-          color="rgb(1, 10, 26)"
-          groundColor="rgb(7, 16, 33)"
+          color="rgb(150, 197, 217)"
+          groundColor="rgb(250, 250, 250)"
           :intensity="1.78"
         />
         <DirectionalLight
@@ -92,10 +92,10 @@
 
         <GltfModel
           ref="mainscene"
-          src="/static/surfScene.glb"
+          src="/static/surfScene2.glb"
           dracoPath="/draco/"
           :scale="{ x: 35, y: 35, z: 35 }"
-          :position="{ x: -73.61, y: -100, z: -32.61 }"
+          :position="{ x: 0, y: 0, z: 0 }"
           :rotation="{ y: -0.96 }"
         />
         <!-- cloud -->

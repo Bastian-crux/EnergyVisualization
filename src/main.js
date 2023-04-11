@@ -40,12 +40,14 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import Index from "@/components/pages/index/Index.vue";
-import Scene from "@/components/pages/index/Scene.vue";
+import Scene from "@/components/pages/index/deprecated/Scene.vue";
 import Surf from "@/components/pages/surf/Surf.vue";
 import SurfScene from "@/components/pages/surf/SurfScene.vue";
 import Game from "@/components/pages/game/Game.vue";
 import GameScene from "@/components/pages/game/GameScene.vue";
 import Chart from "@/components/pages/chart/Chart.vue";
+
+import IndexModelTest from "@/components/pages/index/IndexModelTest.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -56,7 +58,7 @@ const router = createRouter({
     },
     {
       path: "/scene",
-      component: Scene,
+      component: IndexModelTest,
     },
     {
       path: "/surf",

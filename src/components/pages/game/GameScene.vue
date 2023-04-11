@@ -241,12 +241,14 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { powerStationTooltip, gameTutorial } from "@/utils";
 
 import { InfoFilled } from "@element-plus/icons-vue";
+import { Sky } from "three/addons/objects/Sky";
 
 const props = defineProps(["itemIdx"]);
 let camera, scene, renderer;
 let models = [];
 let modelInstances = [];
 let composer, outlinePass, renderPass;
+let viewControls2;
 let element;
 
 let selectedModel;
@@ -512,6 +514,8 @@ function initScene() {
   // 灯光的位置
   hemiLight.position.set(0, 100, 0);
   scene.add(hemiLight);
+  const hemiHelper = new THREE.HemisphereLightHelper(hemiLight, 50, "#ff0000");
+  scene.add(hemiHelper);
 
   // 平行光
   const dirLight = new THREE.DirectionalLight(0xffffff);
@@ -527,6 +531,8 @@ function initScene() {
   dirLight.shadow.camera.far = 200;
   dirLight.shadow.mapSize.set(1024, 1024);
   scene.add(dirLight);
+  const dirHelper = new THREE.DirectionalLightHelper(dirLight, 50, "#ff0000");
+  scene.add(dirHelper);
 
   // 渲染器
   renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -541,19 +547,19 @@ function initScene() {
   canvasFrame.appendChild(renderer.domElement);
 
   // // 添加鼠标控制
-  // viewControls2 = new OrbitControls(camera, renderer.domElement);
-  // // 开启阻尼
-  // viewControls2.enableDamping = true;
-  // // 阻尼系数
-  // viewControls2.dampingFactor = 0.25;
-  // // 开启缩放
-  // viewControls2.enableZoom = true;
-  // // 自动旋转
-  // viewControls2.autoRotate = true;
-  // // 开启鼠标右键拖拽
-  // viewControls2.enablePan = true;
-  // // 相机离原点的最远距离
-  // viewControls2.maxDistance = 1000;
+  viewControls2 = new OrbitControls(camera, renderer.domElement);
+  // 开启阻尼
+  viewControls2.enableDamping = true;
+  // 阻尼系数
+  viewControls2.dampingFactor = 0.25;
+  // 开启缩放
+  viewControls2.enableZoom = true;
+  // 自动旋转
+  viewControls2.autoRotate = true;
+  // 开启鼠标右键拖拽
+  viewControls2.enablePan = true;
+  // 相机离原点的最远距离
+  viewControls2.maxDistance = 1000;
 
   const loader = new GLTFLoader();
   const dLoader = new DRACOLoader();

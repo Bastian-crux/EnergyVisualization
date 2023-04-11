@@ -157,35 +157,40 @@
       antialias
       resize="window"
     >
-      <Camera ref="camera" :lookAt="{ x: 0, y: 0, z: 0 }" :far="5000" />
+      <Camera
+        ref="camera"
+        :position="{ x: 85, y: 5, z: -50 }"
+        :lookAt="{ x: 0, y: 0, z: 0 }"
+        :far="5000"
+      />
       <Scene ref="scene">
         <HemisphereLight
           ref="light"
           color="rgb(1, 10, 26)"
           groundColor="rgb(7, 16, 33)"
-          :intensity="0.68"
+          :intensity="0.2"
         />
         <HemisphereLight
           ref="hemi"
-          color="0xffffff"
-          groundColor="0x444444"
-          :position="{ x: 0, y: 100, x: 0 }"
+          :color="hemiSkyColor"
+          :groundColor="hemiGroundColor"
+          :position="{ x: 0, y: hemiY, z: 0 }"
           :intensity="0.8"
         />
 
         <PointLight
           ref="sun"
           color="rgb(7, 16, 33)"
-          :intensity="0"
+          :intensity="0.13"
           :position="{ x: 120, y: 20 }"
-          :decay="0.13"
+          :decay="0"
           cast-shadow
         />
         <DirectionalLight
           ref="dir"
           color="rgb(100, 100, 100)"
           :position="{ x: dirX, y: dirY, z: dirZ }"
-          :intensity="1"
+          :intensity="1.5"
           cast-shadow
         >
         </DirectionalLight>
@@ -261,15 +266,27 @@
 
 <script>
 import * as THREE from "three";
-import { MathUtils, Object3D, Vector3 } from "three";
+import {
+  MathUtils,
+  Object3D,
+  Vector3,
+  AxesHelper,
+  DirectionalLightHelper,
+} from "three";
 import { ref, computed, watch } from "vue";
 import { NButton, NProgress } from "naive-ui";
 import { Water } from "three/examples/jsm/objects/Water.js";
-import Loader from "./Loader.vue";
-import IconGroup from "./IconGroup.vue";
-import TextScroll from "./TextScroll.vue";
+import { Sky } from "three/examples/jsm/objects/Sky";
+import Loader from "../Loader.vue";
+import IconGroup from "../IconGroup.vue";
+import TextScroll from "../TextScroll.vue";
 import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
 import { Pane } from "tweakpane";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass";
+import { FXAAShader } from "three/addons/shaders/FXAAShader";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer";
+import { RenderPass } from "three/addons/postprocessing/RenderPass";
+import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 
@@ -417,22 +434,18 @@ export default {
         Math.max((vPosition.value - rainTime - nightTime) / dawnTime, 0),
         1
       );
-      return `rgb(${blend(14, 188, colorFactor)}, ${blend(
-        29,
-        188,
-        colorFactor
-      )}, ${blend(56, 188, colorFactor)})`;
+      return `rgb(${blend(14, 150, colorFactor)},
+                  ${blend(29, 190, colorFactor)},
+                  ${blend(56, 217, colorFactor)})`;
     });
     const groundcolor = computed(() => {
       const colorFactor = Math.min(
         Math.max((vPosition.value - rainTime - nightTime) / dawnTime, 0),
         1
       );
-      return `rgb(${blend(7, 200, colorFactor)}, ${blend(
-        16,
-        200,
-        colorFactor
-      )}, ${blend(33, 200, colorFactor)})`;
+      return `rgb(${blend(7, 30, colorFactor)},
+                  ${blend(16, 81, colorFactor)},
+                  ${blend(33, 148, colorFactor)})`;
     });
 
     //mouse
@@ -483,7 +496,7 @@ export default {
     const soundMuted = ref(false);
 
     //textures
-    const imageArray = Array(6).fill("/assets/skybox/sky.png");
+    const imageArray = Array(6).fill("/assets/skybox/sky1.png");
 
     const NUM_INSTANCES = 800;
     const instances = [];
@@ -504,7 +517,9 @@ export default {
     const dirX = ref(20);
     const dirY = ref(20);
     const dirZ = ref(20);
-
+    const hemiY = ref(50);
+    const hemiSkyColor = ref("#ffffff");
+    const hemiGroundColor = ref("#444444");
     return {
       //imesh
       NUM_INSTANCES,
@@ -547,6 +562,9 @@ export default {
       dirX,
       dirY,
       dirZ,
+      hemiY,
+      hemiSkyColor,
+      hemiGroundColor,
     };
   },
   mounted() {
@@ -555,29 +573,56 @@ export default {
     this.pane.addInput(this, "dirX", { min: -200, max: 200 });
     this.pane.addInput(this, "dirY", { min: -200, max: 200 });
     this.pane.addInput(this, "dirZ", { min: -200, max: 200 });
+    this.pane.addInput(this, "hemiY", { min: -200, max: 200 });
+    this.pane.addInput(this, "hemiGroundColor");
+    this.pane.addInput(this, "hemiSkyColor");
     //scene core
     this.renderer = this.$refs.renderer;
     this.scene = this.$refs.scene.scene;
     this.camera = this.$refs.camera.camera;
     // this.scene.background = new THREE.Color("#eeedea");
 
-    this.scene.fog = new THREE.Fog(this.skycolor, 1, 800);
-    this.dir = this.$refs.dir;
-    console.log(this.dir);
+    this.scene.fog = new THREE.Fog(this.skycolor, 1, 2000);
+    this.dir = this.$refs.dir.light;
+    const dirHelper = new THREE.DirectionalLightHelper(this.dir, 50, "#ff0000");
+    this.scene.add(dirHelper);
+
+    // this.hemi = this.$refs.hemi.light;
+    // const hemiHelper = new THREE.HemisphereLightHelper(
+    //   this.hemi,
+    //   50,
+    //   "#ff0000"
+    // );
+    // this.scene.add(hemiHelper);
+    const dirLight = new THREE.DirectionalLight(0xffffff);
+    // 平行光的位置
+    dirLight.position.set(-0, 40, 50);
+    // 是否显示阴影;
+    dirLight.castShadow = true;
+    dirLight.shadow.camera.top = 50;
+    dirLight.shadow.camera.bottom = -25;
+    dirLight.shadow.camera.left = -25;
+    dirLight.shadow.camera.right = 25;
+    dirLight.shadow.camera.near = 0.1;
+    dirLight.shadow.camera.far = 200;
+    dirLight.shadow.mapSize.set(1024, 1024);
+    this.scene.add(dirLight);
 
     // Set window size
     let element = document.getElementById("index");
     this.renderer.three.setSize(element.clientWidth, element.clientHeight);
-    //skybox
+    // skybox
     let texture = [];
     let material = [];
     this.imageArray.forEach((el) =>
       texture.push(new THREE.TextureLoader().load(el))
     );
+    console.log(this.imageArray);
     texture.forEach((el) =>
-      material.push(new THREE.MeshStandardMaterial({ map: el }))
+      material.push(
+        new THREE.MeshBasicMaterial({ map: el, side: THREE.BackSide })
+      )
     );
-    for (let i = 0; i < 6; i++) material[i].side = THREE.BackSide;
     let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
     let skybox = new THREE.Mesh(skyboxGeo, material);
     this.scene.add(skybox);
@@ -632,15 +677,33 @@ export default {
       ),
       waterColor: this.groundcolor,
       sunColor: this.skycolor,
-      distortionScale: 4.8,
+      distortionScale: 5,
       fog: this.scene.fog !== undefined,
     });
     this.water = water;
     water.rotation.x = -Math.PI / 2;
     this.scene.add(water);
-    let mesh;
 
-    // console.log(this.scene);
+    //将坐标轴添加进场景
+    this.scene.add(new THREE.AxesHelper(500));
+
+    // gamma
+    this.composer = new EffectComposer(this.renderer.renderer);
+    this.composer.renderTarget1.texture.encoding = THREE.sRGBEncoding;
+    this.composer.renderTarget2.texture.encoding = THREE.sRGBEncoding;
+    // 新建一个场景通道  为了覆盖到原理来的场景上
+    this.renderPass = new RenderPass(this.scene, this.camera);
+    this.composer.addPass(this.renderPass);
+    let effectFXAA = new ShaderPass(FXAAShader);
+    effectFXAA.uniforms.resolution.value.set(
+      1 / element.clientWidth,
+      1 / element.clientHeight
+    );
+    effectFXAA.renderToScreen = true;
+    this.composer.addPass(effectFXAA);
+    // 修正颜色
+    const gammaCorrectionPass = new ShaderPass(GammaCorrectionShader);
+    this.composer.addPass(gammaCorrectionPass);
 
     //ANIMATION LOOP
     this.renderer.onBeforeRender(() => {
@@ -715,6 +778,7 @@ export default {
       }
       this.rain.geometry.attributes.position.needsUpdate = true;
     });
+    this.composer.render();
   },
   unmounted() {
     this.disposeScene();
