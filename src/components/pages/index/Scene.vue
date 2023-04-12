@@ -202,13 +202,6 @@
           :position="{ x: 0, y: 0, z: 0 }"
           :rotation="{ y: 2.2 }"
         />
-        <InstancedMesh ref="imesh" :count="NUM_INSTANCES">
-          <SphereGeometry :radius="0.3" />
-          <BasicMaterial
-            color="#ffffff"
-            :props="{ opacity: 0, transparent: true }"
-          />
-        </InstancedMesh>
       </Scene>
     </Renderer>
   </div>
@@ -313,30 +306,6 @@ export default {
     const iconColor = computed(() =>
       vPosition.value > 15000 ? "#4d290b" : "white"
     );
-
-    const opacity = computed(() => {
-      if (
-        vPosition.value > rainTime + nightTime / 4 &&
-        vPosition.value < rainTime + nightTime / 2
-      ) {
-        return (vPosition.value - rainTime - nightTime / 4) / (nightTime / 4);
-      } else if (
-        vPosition.value >= rainTime + nightTime / 4 &&
-        vPosition.value <= rainTime + (3 * nightTime) / 4
-      ) {
-        return 1;
-      } else if (
-        vPosition.value > rainTime + (3 * nightTime) / 4 &&
-        vPosition.value < rainTime + nightTime
-      ) {
-        return (
-          1 -
-          (vPosition.value - rainTime - (3 * nightTime) / 4) / (nightTime / 4)
-        );
-      } else {
-        return 0;
-      }
-    });
 
     const rainUnder = computed(() =>
       Math.min(Math.floor((3000 * vPosition.value) / rainTime), 3000)
@@ -455,7 +424,6 @@ export default {
       skycolor,
       groundcolor,
       rainUnder,
-      opacity,
       //page load
       initPage,
       loaded,
@@ -558,19 +526,6 @@ export default {
     this.scene.add(this.rain);
     const positions = this.rain.geometry.attributes.position.array;
 
-    //particles
-    this.pointerV3 = new THREE.Vector3();
-    this.imesh = this.$refs.imesh.mesh;
-    this.imesh.visible = false;
-    for (let i = 0; i < this.NUM_INSTANCES; i++) {
-      const { position, scale } = this.instances[i];
-      this.dummyO.position.copy(position);
-      this.dummyO.scale.set(scale, scale, scale);
-      this.dummyO.updateMatrix();
-      this.imesh.setMatrixAt(i, this.dummyO.matrix);
-    }
-    this.imesh.instanceMatrix.needsUpdate = true;
-
     //water
     const waterGeometry = new THREE.CircleGeometry(500, 100);
     const water = new Water(waterGeometry, {
@@ -645,9 +600,6 @@ export default {
       }
 
       this.vPosition = this.lerp(this.vPosition, this.dummy, 0.1); // ?
-      if (this.opacity > 0) {
-        this.animateMesh();
-      }
       if (!this.loaded) {
         // 缓慢推进
         // TODO: Debug Only
@@ -692,7 +644,6 @@ export default {
       const fog = this.$refs.scene.scene.fog;
       fog.color.set(this.skycolor);
       this.water.material.uniforms["sunColor"].value = new THREE.Color(val);
-      console.log(111);
     },
     groundcolor(val, old) {
       this.$refs.light.light.groundColor.set(val);
@@ -705,46 +656,13 @@ export default {
     fogDistance(val, old) {
       this.$refs.scene.scene.fog.far = val;
     },
-    opacity(val, old) {
-      const imesh = this.$refs.imesh;
-      // this.$refs.mouse.light.intensity = val * 0.1
-      imesh.material.opacity = val;
-      this.$refs.chimes.volume = val;
-      if (val === 0) {
-        imesh.mesh.visible = false;
-      } else if (old === 0 && val > 0) {
-        imesh.mesh.visible = true;
-      }
-    },
   },
 
   methods: {
     lerp(start, end, amt) {
       return (1 - amt) * start + amt * end;
     },
-    animateMesh() {
-      const { pointer } = this.$refs.renderer.three;
-      this.target.copy(pointer.positionV3);
-      for (let i = 0; i < this.NUM_INSTANCES; i++) {
-        const { position, scale, velocity, attraction, vlimit } =
-          this.instances[i];
-        this.dummyV
-          .copy(this.target)
-          .sub(position)
-          .normalize()
-          .multiplyScalar(attraction);
-        velocity.add(this.dummyV).clampScalar(-vlimit, vlimit);
-        position.add(velocity);
-        this.dummyO.position.copy(position);
-        this.dummyO.scale.set(scale, scale, scale);
-        this.dummyO.lookAt(this.dummyV.copy(position).add(velocity));
-        this.dummyO.updateMatrix();
-        this.imesh.setMatrixAt(i, this.dummyO.matrix);
-      }
-      this.imesh.instanceMatrix.needsUpdate = true;
-    },
     disposeScene() {
-      console.log(this.scene);
       this.removeModel(null, this.scene);
 
       // scene.background.dispose();
@@ -780,7 +698,6 @@ export default {
       // animateId = null;
     },
     removeModel(parent, child) {
-      // console.log(child);
       if (child.children.length) {
         let arr = child.children.filter((x) => x);
         arr.forEach((a) => {

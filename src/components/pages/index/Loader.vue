@@ -4,7 +4,7 @@
       <div class="spinner">
         <looping-rhombuses-spinner
           :animation-duration="2500"
-          :rhombus-size="15"
+          :rhombus-size="25"
           color="#9ca6b8"
         />
       </div>
@@ -86,7 +86,7 @@ const emit = defineEmits(["initPage"]);
   text-align: center;
   margin-left: -43px;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 40px;
   font-size: 15px;
   color: #9ca6b8;
   width: 200px;
