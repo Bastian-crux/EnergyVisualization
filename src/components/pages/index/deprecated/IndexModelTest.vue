@@ -104,9 +104,7 @@
         style="color: white; width: 600px; left: 300px; top: 8%"
         v-if="vPosition > 18000 && vPosition < 20000"
         @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <data-list-main></data-list-main>
-      </div>
+      ></div>
     </transition>
 
     <!--  5-->
@@ -181,12 +179,13 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader";
 import { MathUtils, Object3D, Vector3 } from "three";
 import { ref, computed, watch } from "vue";
 import { NButton, NProgress } from "naive-ui";
-import Loader from "./Loader.vue";
-import IconGroup from "./IconGroup.vue";
-import TextScroll from "./TextScroll.vue";
+import Loader from "../Loader.vue";
+import IconGroup from "../IconGroup.vue";
+import TextScroll from "../TextScroll.vue";
 import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
 import DataListMain from "@/components/pages/chart/statistic/deprecated/DataListMain.vue";
 import { Pane } from "tweakpane";
+import { Sky } from "three/examples/jsm/objects/Sky";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 
@@ -230,11 +229,6 @@ let renderEnabled;
 let timeOut = null;
 
 let nowMouseOn = null;
-
-//fps
-let clock;
-let renderT = 1 / 30;
-let times = 0;
 
 // value from scene.vue
 let water;
@@ -365,11 +359,9 @@ const skycolor = computed(() => {
     Math.max((vPosition.value - rainTime - nightTime) / dawnTime, 0),
     1
   );
-  return `rgb(${blend(14, 255, colorFactor)}, ${blend(
-    29,
-    237,
-    colorFactor
-  )}, ${blend(56, 206, colorFactor)})`;
+  return `rgb(${blend(14, 150, colorFactor)},
+                  ${blend(29, 190, colorFactor)},
+                  ${blend(56, 217, colorFactor)})`;
 });
 const groundcolor = computed(() => {
   const colorFactor = Math.min(
@@ -464,9 +456,11 @@ watch(skycolor, (val, old) => {
   // this.$refs.light.light.color.set(val);
   scene.fog.color.set(skycolor);
   water.material.uniforms["sunColor"].value = new THREE.Color(val);
+  console.log(111);
 });
 watch(groundcolor, (val, old) => {
   hemiLight.groundColor.set(val);
+  console.log(hemiLight.groundColor);
   pointLight1.color.set(val);
   water.material.uniforms["waterColor"].value = new THREE.Color(val);
 });
@@ -514,16 +508,13 @@ const lerp = (start, end, amt) => {
 // };
 
 function initScene() {
-  // 设置fps
-  clock = new THREE.Clock();
-
   // 创建场景
   element = document.getElementById("index");
   scene = new THREE.Scene();
-  // scene.background = new THREE.Color("#000000");
-  scene.fog = new THREE.Fog(skycolor, 1, 1000);
+  scene.background = new THREE.Color("#000000");
+  scene.fog = new THREE.Fog(skycolor, 1, 2000);
   camera = new THREE.PerspectiveCamera(
-    50,
+    45,
     element.clientWidth / element.clientHeight,
     1,
     5000
@@ -536,9 +527,9 @@ function initScene() {
   hemiLight = new THREE.HemisphereLight(
     "rgb(1, 10, 26)",
     "rgb(7, 16, 33)",
-    0.78
+    0.2
   );
-  hemiLight.position.set(0, 100, 0);
+  // hemiLight.position.set(0, 100, 0);
   scene.add(hemiLight);
 
   // pointLight
@@ -547,11 +538,20 @@ function initScene() {
   pointLight1.position.set(120, 20, 0);
   scene.add(pointLight1);
 
-  // spotLight
-  spotLight1 = new THREE.SpotLight("#555555", 5, 500, Math.PI / 2, 0, 0.5);
-  spotLight1.position.y = 250;
-  spotLight1.target.y = 500;
-  scene.add(spotLight1);
+  // const sky = new Sky();
+  // sky.scale.setScalar(10000);
+  // scene.add(sky);
+  // const skyUniforms = sky.material.uniforms;
+  // skyUniforms["turbidity"].value = 20;
+  // skyUniforms["rayleigh"].value = 2;
+  // skyUniforms["mieCoefficient"].value = 0.005;
+  // skyUniforms["mieDirectionalG"].value = 0.8;
+
+  // // spotLight
+  // spotLight1 = new THREE.SpotLight("#555555", 5, 500, Math.PI / 2, 0, 0.5);
+  // spotLight1.position.y = 250;
+  // spotLight1.target.y = 500;
+  // scene.add(spotLight1);
 
   // let ambientLight = new THREE.AmbientLight(0xffffff); //设置环境光
   // scene.add(ambientLight); //将环境光添加到场景中
@@ -641,22 +641,22 @@ function initScene() {
   loader2.setDRACOLoader(dLoader2);
   loader2.load("/static/surfScene2.glb", function (gltf) {
     const temp = gltf.scene;
-    temp.name = "能源月报";
-    // temp.position.set(32, 2, -43);
     temp.scale.set(15, 15, 15);
+    temp.rotation.y = 2.2;
     temp.castShadow = true;
     scene.add(temp);
     model.push(temp);
   });
 
-  //skybox ---Scene.vue
+  // skybox ---Scene.vue
   let texture = [];
   let material = [];
   imageArray.forEach((el) => texture.push(new THREE.TextureLoader().load(el)));
   texture.forEach((el) =>
-    material.push(new THREE.MeshStandardMaterial({ map: el }))
+    material.push(
+      new THREE.MeshBasicMaterial({ map: el, side: THREE.BackSide })
+    )
   );
-  for (let i = 0; i < 6; i++) material[i].side = THREE.BackSide;
   let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
   let skybox = new THREE.Mesh(skyboxGeo, material);
   scene.add(skybox);
@@ -842,10 +842,6 @@ function mouseMoveEvent(event) {
   }
 }
 
-function clickEvent(event) {
-  enterPage(nowMouseOn);
-}
-
 //高亮显示模型（呼吸灯）
 function outlineObj(selectedObjects) {
   // 创建一个EffectComposer（效果组合器）对象，然后在该对象上添加后期处理通道。
@@ -899,28 +895,6 @@ function transPosition(position) {
     y: Math.round(-vector.y * halfHeight + halfHeight),
   };
 }
-
-function enterPage(name) {
-  if (name === "能源概览") {
-    router.push("/overview");
-  } else if (name === "热力图") {
-    router.push("/heatmap");
-  } else if (name === "能源月报") {
-    router.push("/statistic");
-  }
-}
-
-// function timeRender() {
-//   //设置为可渲染状态
-//   renderEnabled = true;
-//   //清除上次的延迟器
-//   if (timeOut) {
-//     clearTimeout(timeOut);
-//   }
-//   timeOut = setTimeout(function () {
-//     renderEnabled = false;
-//   }, 3000);
-// }
 
 function disposeScene() {
   removeModel(null, scene);
@@ -993,7 +967,7 @@ onMounted(() => {
   });
 });
 onUnmounted(() => {
-  disposeScene();
+  // disposeScene();
 });
 </script>
 
@@ -1002,16 +976,6 @@ onUnmounted(() => {
   height: 100%;
   margin: 0 auto;
 }
-
-/* 文字提示框样式 */
-/*.text {*/
-/*  display: none;*/
-/*  box-shadow: 0 0 5px rgb(138, 138, 138);*/
-/*  padding: 10px;*/
-/*  position: relative;*/
-/*  !*font-weight: bold;*!*/
-/*  background: rgba(255, 255, 255, 0.747);*/
-/*}*/
 .switch-enter-active,
 .switch-leave-active {
   --transition-time: 1s;

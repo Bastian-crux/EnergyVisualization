@@ -170,13 +170,13 @@
           groundColor="rgb(7, 16, 33)"
           :intensity="0.2"
         />
-        <HemisphereLight
-          ref="hemi"
-          :color="hemiSkyColor"
-          :groundColor="hemiGroundColor"
-          :position="{ x: 0, y: hemiY, z: 0 }"
-          :intensity="0.8"
-        />
+        <!--        <HemisphereLight-->
+        <!--          ref="hemi"-->
+        <!--          :color="hemiSkyColor"-->
+        <!--          :groundColor="hemiGroundColor"-->
+        <!--          :position="{ x: 0, y: hemiY, z: 0 }"-->
+        <!--          :intensity="0.8"-->
+        <!--        />-->
 
         <PointLight
           ref="sun"
@@ -192,8 +192,7 @@
           :position="{ x: dirX, y: dirY, z: dirZ }"
           :intensity="1.5"
           cast-shadow
-        >
-        </DirectionalLight>
+        />
 
         <GltfModel
           ref="generator3"
@@ -203,45 +202,6 @@
           :position="{ x: 0, y: 0, z: 0 }"
           :rotation="{ y: 2.2 }"
         />
-
-        <!-- cloud -->
-        <!--        <Plane-->
-        <!--          v-for="i in 15"-->
-        <!--          :ref="`mesh${i}`"-->
-        <!--          :width="500"-->
-        <!--          :height="500"-->
-        <!--          :position="{-->
-        <!--            x: Math.random() * 800 - 400,-->
-        <!--            y: 400,-->
-        <!--            z: Math.random() * 800 - 400,-->
-        <!--          }"-->
-        <!--          :rotation="{ x: Math.PI / 2, y: 0, z: Math.random() * 360 }"-->
-        <!--        >-->
-        <!--          <StandardMaterial-->
-        <!--            :props="{ transparent: true, opacity: 0.6, depthWrite: false }"-->
-        <!--          >-->
-        <!--            <Texture src="/assets/textures/smoke.png" />-->
-        <!--          </StandardMaterial>-->
-        <!--        </Plane>-->
-
-        <!--        <Plane-->
-        <!--          :rotation="{ x: -Math.PI / 2 }"-->
-        <!--          :width="800"-->
-        <!--          :height="800"-->
-        <!--          :widthSegments="64"-->
-        <!--          :heightSegments="64"-->
-        <!--          :position="{ x: -32.61, y: -13.35, z: 8.7 }"-->
-        <!--          receive-shadow-->
-        <!--        >-->
-        <!--          <StandardMaterial :props="{ displacementScale: 20 }">-->
-        <!--            <Texture src="/assets/textures/green3c5942.png" />-->
-        <!--            <Texture-->
-        <!--              src="/assets/textures/background.png"-->
-        <!--              name="displacementMap"-->
-        <!--            />-->
-        <!--          </StandardMaterial>-->
-        <!--        </Plane>-->
-
         <InstancedMesh ref="imesh" :count="NUM_INSTANCES">
           <SphereGeometry :radius="0.3" />
           <BasicMaterial
@@ -277,9 +237,9 @@ import { ref, computed, watch } from "vue";
 import { NButton, NProgress } from "naive-ui";
 import { Water } from "three/examples/jsm/objects/Water.js";
 import { Sky } from "three/examples/jsm/objects/Sky";
-import Loader from "../Loader.vue";
-import IconGroup from "../IconGroup.vue";
-import TextScroll from "../TextScroll.vue";
+import Loader from "./Loader.vue";
+import IconGroup from "./IconGroup.vue";
+import TextScroll from "./TextScroll.vue";
 import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
 import { Pane } from "tweakpane";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass";
@@ -687,24 +647,6 @@ export default {
     //将坐标轴添加进场景
     this.scene.add(new THREE.AxesHelper(500));
 
-    // gamma
-    this.composer = new EffectComposer(this.renderer.renderer);
-    this.composer.renderTarget1.texture.encoding = THREE.sRGBEncoding;
-    this.composer.renderTarget2.texture.encoding = THREE.sRGBEncoding;
-    // 新建一个场景通道  为了覆盖到原理来的场景上
-    this.renderPass = new RenderPass(this.scene, this.camera);
-    this.composer.addPass(this.renderPass);
-    let effectFXAA = new ShaderPass(FXAAShader);
-    effectFXAA.uniforms.resolution.value.set(
-      1 / element.clientWidth,
-      1 / element.clientHeight
-    );
-    effectFXAA.renderToScreen = true;
-    this.composer.addPass(effectFXAA);
-    // 修正颜色
-    const gammaCorrectionPass = new ShaderPass(GammaCorrectionShader);
-    this.composer.addPass(gammaCorrectionPass);
-
     //ANIMATION LOOP
     this.renderer.onBeforeRender(() => {
       water.material.uniforms["time"].value += 0.7 / 60.0;
@@ -778,10 +720,9 @@ export default {
       }
       this.rain.geometry.attributes.position.needsUpdate = true;
     });
-    this.composer.render();
   },
   unmounted() {
-    this.disposeScene();
+    // this.disposeScene();
   },
   watch: {
     rainUnder(val, old) {
@@ -804,6 +745,7 @@ export default {
       const fog = this.$refs.scene.scene.fog;
       fog.color.set(this.skycolor);
       this.water.material.uniforms["sunColor"].value = new THREE.Color(val);
+      console.log(111);
     },
     groundcolor(val, old) {
       this.$refs.light.light.groundColor.set(val);
