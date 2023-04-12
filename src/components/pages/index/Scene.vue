@@ -157,38 +157,42 @@
       antialias
       resize="window"
     >
-      <Camera ref="camera" :lookAt="{ x: 0, y: 0, z: 0 }" :far="5000" />
+      <Camera
+        ref="camera"
+        :position="{ x: 85, y: 5, z: -50 }"
+        :lookAt="{ x: 0, y: 0, z: 0 }"
+        :far="5000"
+      />
       <Scene ref="scene">
         <HemisphereLight
           ref="light"
           color="rgb(1, 10, 26)"
           groundColor="rgb(7, 16, 33)"
-          :intensity="0.68"
+          :intensity="0.2"
         />
-        <HemisphereLight
-          ref="hemi"
-          color="0xffffff"
-          groundColor="0x444444"
-          :position="{ x: 0, y: 100, x: 0 }"
-          :intensity="0.8"
-        />
+        <!--        <HemisphereLight-->
+        <!--          ref="hemi"-->
+        <!--          :color="hemiSkyColor"-->
+        <!--          :groundColor="hemiGroundColor"-->
+        <!--          :position="{ x: 0, y: hemiY, z: 0 }"-->
+        <!--          :intensity="0.8"-->
+        <!--        />-->
 
         <PointLight
           ref="sun"
           color="rgb(7, 16, 33)"
-          :intensity="0"
+          :intensity="0.13"
           :position="{ x: 120, y: 20 }"
-          :decay="0.13"
+          :decay="0"
           cast-shadow
         />
         <DirectionalLight
           ref="dir"
           color="rgb(100, 100, 100)"
           :position="{ x: dirX, y: dirY, z: dirZ }"
-          :intensity="1"
+          :intensity="1.5"
           cast-shadow
-        >
-        </DirectionalLight>
+        />
 
         <GltfModel
           ref="generator3"
@@ -198,45 +202,6 @@
           :position="{ x: 0, y: 0, z: 0 }"
           :rotation="{ y: 2.2 }"
         />
-
-        <!-- cloud -->
-        <!--        <Plane-->
-        <!--          v-for="i in 15"-->
-        <!--          :ref="`mesh${i}`"-->
-        <!--          :width="500"-->
-        <!--          :height="500"-->
-        <!--          :position="{-->
-        <!--            x: Math.random() * 800 - 400,-->
-        <!--            y: 400,-->
-        <!--            z: Math.random() * 800 - 400,-->
-        <!--          }"-->
-        <!--          :rotation="{ x: Math.PI / 2, y: 0, z: Math.random() * 360 }"-->
-        <!--        >-->
-        <!--          <StandardMaterial-->
-        <!--            :props="{ transparent: true, opacity: 0.6, depthWrite: false }"-->
-        <!--          >-->
-        <!--            <Texture src="/assets/textures/smoke.png" />-->
-        <!--          </StandardMaterial>-->
-        <!--        </Plane>-->
-
-        <!--        <Plane-->
-        <!--          :rotation="{ x: -Math.PI / 2 }"-->
-        <!--          :width="800"-->
-        <!--          :height="800"-->
-        <!--          :widthSegments="64"-->
-        <!--          :heightSegments="64"-->
-        <!--          :position="{ x: -32.61, y: -13.35, z: 8.7 }"-->
-        <!--          receive-shadow-->
-        <!--        >-->
-        <!--          <StandardMaterial :props="{ displacementScale: 20 }">-->
-        <!--            <Texture src="/assets/textures/green3c5942.png" />-->
-        <!--            <Texture-->
-        <!--              src="/assets/textures/background.png"-->
-        <!--              name="displacementMap"-->
-        <!--            />-->
-        <!--          </StandardMaterial>-->
-        <!--        </Plane>-->
-
         <InstancedMesh ref="imesh" :count="NUM_INSTANCES">
           <SphereGeometry :radius="0.3" />
           <BasicMaterial
@@ -251,15 +216,27 @@
 
 <script>
 import * as THREE from "three";
-import { MathUtils, Object3D, Vector3 } from "three";
+import {
+  MathUtils,
+  Object3D,
+  Vector3,
+  AxesHelper,
+  DirectionalLightHelper,
+} from "three";
 import { ref, computed, watch } from "vue";
 import { NButton, NProgress } from "naive-ui";
 import { Water } from "three/examples/jsm/objects/Water.js";
+import { Sky } from "three/examples/jsm/objects/Sky";
 import Loader from "./Loader.vue";
 import IconGroup from "./IconGroup.vue";
 import TextScroll from "./TextScroll.vue";
 import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
 import { Pane } from "tweakpane";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass";
+import { FXAAShader } from "three/addons/shaders/FXAAShader";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer";
+import { RenderPass } from "three/addons/postprocessing/RenderPass";
+import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 
@@ -407,22 +384,18 @@ export default {
         Math.max((vPosition.value - rainTime - nightTime) / dawnTime, 0),
         1
       );
-      return `rgb(${blend(14, 188, colorFactor)}, ${blend(
-        29,
-        188,
-        colorFactor
-      )}, ${blend(56, 188, colorFactor)})`;
+      return `rgb(${blend(14, 150, colorFactor)},
+                  ${blend(29, 190, colorFactor)},
+                  ${blend(56, 217, colorFactor)})`;
     });
     const groundcolor = computed(() => {
       const colorFactor = Math.min(
         Math.max((vPosition.value - rainTime - nightTime) / dawnTime, 0),
         1
       );
-      return `rgb(${blend(7, 200, colorFactor)}, ${blend(
-        16,
-        200,
-        colorFactor
-      )}, ${blend(33, 200, colorFactor)})`;
+      return `rgb(${blend(7, 30, colorFactor)},
+                  ${blend(16, 81, colorFactor)},
+                  ${blend(33, 148, colorFactor)})`;
     });
 
     //mouse
@@ -438,7 +411,7 @@ export default {
     };
 
     //textures
-    const imageArray = Array(6).fill("/assets/skybox/sky.png");
+    const imageArray = Array(6).fill("/assets/skybox/sky1.png");
 
     const NUM_INSTANCES = 800;
     const instances = [];
@@ -459,7 +432,9 @@ export default {
     const dirX = ref(20);
     const dirY = ref(20);
     const dirZ = ref(20);
-
+    const hemiY = ref(50);
+    const hemiSkyColor = ref("#ffffff");
+    const hemiGroundColor = ref("#444444");
     return {
       //imesh
       NUM_INSTANCES,
@@ -494,6 +469,9 @@ export default {
       dirX,
       dirY,
       dirZ,
+      hemiY,
+      hemiSkyColor,
+      hemiGroundColor,
     };
   },
   mounted() {
@@ -502,29 +480,56 @@ export default {
     this.pane.addInput(this, "dirX", { min: -200, max: 200 });
     this.pane.addInput(this, "dirY", { min: -200, max: 200 });
     this.pane.addInput(this, "dirZ", { min: -200, max: 200 });
+    this.pane.addInput(this, "hemiY", { min: -200, max: 200 });
+    this.pane.addInput(this, "hemiGroundColor");
+    this.pane.addInput(this, "hemiSkyColor");
     //scene core
     this.renderer = this.$refs.renderer;
     this.scene = this.$refs.scene.scene;
     this.camera = this.$refs.camera.camera;
     // this.scene.background = new THREE.Color("#eeedea");
 
-    this.scene.fog = new THREE.Fog(this.skycolor, 1, 800);
-    this.dir = this.$refs.dir;
-    console.log(this.dir);
+    this.scene.fog = new THREE.Fog(this.skycolor, 1, 2000);
+    this.dir = this.$refs.dir.light;
+    const dirHelper = new THREE.DirectionalLightHelper(this.dir, 50, "#ff0000");
+    this.scene.add(dirHelper);
+
+    // this.hemi = this.$refs.hemi.light;
+    // const hemiHelper = new THREE.HemisphereLightHelper(
+    //   this.hemi,
+    //   50,
+    //   "#ff0000"
+    // );
+    // this.scene.add(hemiHelper);
+    const dirLight = new THREE.DirectionalLight(0xffffff);
+    // 平行光的位置
+    dirLight.position.set(-0, 40, 50);
+    // 是否显示阴影;
+    dirLight.castShadow = true;
+    dirLight.shadow.camera.top = 50;
+    dirLight.shadow.camera.bottom = -25;
+    dirLight.shadow.camera.left = -25;
+    dirLight.shadow.camera.right = 25;
+    dirLight.shadow.camera.near = 0.1;
+    dirLight.shadow.camera.far = 200;
+    dirLight.shadow.mapSize.set(1024, 1024);
+    this.scene.add(dirLight);
 
     // Set window size
     let element = document.getElementById("index");
     this.renderer.three.setSize(element.clientWidth, element.clientHeight);
-    //skybox
+    // skybox
     let texture = [];
     let material = [];
     this.imageArray.forEach((el) =>
       texture.push(new THREE.TextureLoader().load(el))
     );
+    console.log(this.imageArray);
     texture.forEach((el) =>
-      material.push(new THREE.MeshStandardMaterial({ map: el }))
+      material.push(
+        new THREE.MeshBasicMaterial({ map: el, side: THREE.BackSide })
+      )
     );
-    for (let i = 0; i < 6; i++) material[i].side = THREE.BackSide;
     let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
     let skybox = new THREE.Mesh(skyboxGeo, material);
     this.scene.add(skybox);
@@ -579,15 +584,15 @@ export default {
       ),
       waterColor: this.groundcolor,
       sunColor: this.skycolor,
-      distortionScale: 4.8,
+      distortionScale: 5,
       fog: this.scene.fog !== undefined,
     });
     this.water = water;
     water.rotation.x = -Math.PI / 2;
     this.scene.add(water);
-    let mesh;
 
-    // console.log(this.scene);
+    //将坐标轴添加进场景
+    this.scene.add(new THREE.AxesHelper(500));
 
     //ANIMATION LOOP
     this.renderer.onBeforeRender(() => {
@@ -664,7 +669,7 @@ export default {
     });
   },
   unmounted() {
-    this.disposeScene();
+    // this.disposeScene();
   },
   watch: {
     rainUnder(val, old) {
@@ -687,6 +692,7 @@ export default {
       const fog = this.$refs.scene.scene.fog;
       fog.color.set(this.skycolor);
       this.water.material.uniforms["sunColor"].value = new THREE.Color(val);
+      console.log(111);
     },
     groundcolor(val, old) {
       this.$refs.light.light.groundColor.set(val);
