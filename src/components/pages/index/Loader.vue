@@ -2,9 +2,14 @@
   <section id="loading-screen">
     <div class="preloader" style="opacity: 1">
       <div class="spinner">
-        <looping-rhombuses-spinner
-          :animation-duration="2500"
-          :rhombus-size="25"
+        <!--        <looping-rhombuses-spinner-->
+        <!--          :animation-duration="2500"-->
+        <!--          :rhombus-size="25"-->
+        <!--          color="#9ca6b8"-->
+        <!--        />-->
+        <self-building-square-spinner
+          :animation-duration="4000"
+          :size="40"
           color="#9ca6b8"
         />
       </div>
@@ -45,7 +50,10 @@
 
 <script setup>
 import { NProgress, NButton } from "naive-ui";
-import { LoopingRhombusesSpinner } from "epic-spinners";
+import {
+  LoopingRhombusesSpinner,
+  SelfBuildingSquareSpinner,
+} from "epic-spinners";
 const props = defineProps({ progress: Number });
 const emit = defineEmits(["initPage"]);
 </script>

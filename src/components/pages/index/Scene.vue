@@ -255,7 +255,7 @@
         v-if="vPosition > 24000 && vPosition < 31000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
-        <h1 style="font-size: 48px">阶段四</h1>
+        <h1 style="font-size: 48px">能源快速扩张</h1>
       </div>
     </transition>
     <!--  4-introduction-->
@@ -263,7 +263,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; right: 10%; top: 30%"
-        v-if="vPosition > 24000 && vPosition < 26000"
+        v-if="vPosition > 24000 && vPosition < 25500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <p style="color: rgb(218, 218, 218)">
@@ -276,10 +276,491 @@
       <div
         class="absolute"
         style="color: white; width: 400px; right: 10%; top: 30%"
-        v-if="vPosition > 26000 && vPosition < 31000"
+        v-if="vPosition > 25500 && vPosition < 30000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
-        <p style="color: rgb(218, 218, 218)">icon</p>
+        <el-row>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              <p>煤炭</p>
+              <font-awesome-icon
+                :icon="['fas', 'fire']"
+                size="3x"
+                style="margin-top: 10px"
+              />
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              <p>电力</p>
+              <font-awesome-icon
+                :icon="['fas', 'bolt']"
+                size="3x"
+                style="margin-top: 10px"
+              />
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              <p>油气</p>
+              <font-awesome-icon
+                :icon="['fas', 'oil-well']"
+                size="3x"
+                style="margin-top: 10px"
+              />
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
+    <!--  4-1-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 10%; top: 45%"
+        v-if="vPosition > 25500 && vPosition < 26250"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <el-row>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1992
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              彻底实现市场化
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1993
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              撤销能源部成立电力工业部
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1998
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              石油天然气和石化总公司重组
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
+    <!--  4-2-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 10%; top: 45%"
+        v-if="vPosition > 26250 && vPosition < 27000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <el-row>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1992
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              彻底实现市场化
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1997
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              国家电力公司成立
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1998
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              石油天然气和石化总公司重组
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
+    <!--  4-3-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 10%; top: 45%"
+        v-if="vPosition > 27000 && vPosition < 27750"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <el-row>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1992
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              彻底实现市场化
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              2002
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              国家电力公司重新分组
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1998
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              石油天然气和石化总公司重组
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
+    <!--  4-4-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 10%; top: 45%"
+        v-if="vPosition > 27750 && vPosition < 28500"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <el-row>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1998
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              多数煤炭公司转变为地方国有
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              2004
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              出台标杆上网电价政策
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1999
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              中国石油、中国石化、中国海油开展企业内部重租
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
+    <!--  4-5-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 10%; top: 45%"
+        v-if="vPosition > 28500 && vPosition < 29250"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <el-row>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1998
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              多数煤炭公司转变为地方国有
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              2005-2006
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              实行两次煤电行动
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1999
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              中国石油、中国石化、中国海油开展企业内部重租
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
+    <!--  4-6-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 10%; top: 45%"
+        v-if="vPosition > 29250 && vPosition < 30000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <el-row>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1998
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              多数煤炭公司转变为地方国有
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              2009
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              千伏晋东南——南阳——荆门特高压交流工程投运
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 10px;
+              "
+            >
+              1999
+            </div>
+            <div
+              style="
+                text-align: center;
+                color: rgb(218, 218, 218);
+                font-size: 15px;
+              "
+            >
+              中国石油、中国石化、中国海油开展企业内部重租
+            </div>
+          </el-col>
+        </el-row>
       </div>
     </transition>
 
@@ -404,11 +885,13 @@ import { FXAAShader } from "three/addons/shaders/FXAAShader";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer";
 import { RenderPass } from "three/addons/postprocessing/RenderPass";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 
 export default {
   components: {
+    FontAwesomeIcon,
     DataList,
     Loader,
     NButton,
