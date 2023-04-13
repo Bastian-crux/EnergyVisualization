@@ -199,7 +199,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; right: 0px; top: 15%"
-        v-if="vPosition > 9000 && vPosition < 12000"
+        v-if="vPosition > 9000 && vPosition < 15000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">阶段二</h1>
@@ -228,7 +228,7 @@
       <div
         class="absolute"
         style="color: white; width: 450px; left: 100px; top: 20%"
-        v-if="vPosition > 14000 && vPosition < 16000"
+        v-if="vPosition > 16000 && vPosition < 23000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">阶段三</h1>
@@ -242,15 +242,28 @@
     </transition>
 
     <!--  4-->
+    <!--  title-->
     <transition name="switch">
       <div
         class="absolute"
         style="color: white; width: 450px; left: 100px; top: 20%"
-        v-if="vPosition > 18000 && vPosition < 20000"
+        v-if="vPosition > 24000 && vPosition < 31000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">阶段四</h1>
-        <!--      <p style=" width: 300px">Want to see more 3D websites? Visit <a href="https://threejs.org/"><u>Three.js</u></a> and <a href="https://www.awwwards.com/websites/3d/"><u>Awwwards</u></a>.</p>-->
+      </div>
+    </transition>
+    <!--  4-introduction-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 10%; top: 27%"
+        v-if="vPosition > 2200 && vPosition < 4000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <p style="color: rgb(164, 164, 164)">
+          党成立初期，以安源路矿大罢工为代表的能源产业工人在党的领导下，团结发动工人，为实现民族独立、人民解放，进行了艰苦卓绝的斗争，在中国工人运动史和革命史上写下了重要篇章。革命战争时期，能源产业工人积极开展油田、水电等能源项目建设，有力支持了党的根据地建设；同时积极自力更生，建成沕沕水水电站等发电设施，积累能源生产的经验和技术以及领导工业建设的经验。
+        </p>
       </div>
     </transition>
 
@@ -270,7 +283,7 @@
       <div
         class="absolute"
         style="color: white; width: 450px; left: 100px; top: 20%"
-        v-if="vPosition > 22000 && vPosition < 30000"
+        v-if="vPosition > 32000 && vPosition < 39000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">阶段五</h1>
@@ -297,7 +310,7 @@
           :height="6"
           :color="iconColor"
           :rail-color="skycolor"
-          :percentage="vPosition / 260"
+          :percentage="vPosition / 400"
           :show-indicator="false"
           style="width: 500px; bottom: 30px"
           class="absolute center"
@@ -410,7 +423,9 @@ export default {
     };
 
     //verticle control
-    const [rainTime, nightTime, dawnTime, dayTime] = [8000, 8000, 4000, 6000]; // 持续时间
+    const [rainTime, nightTime, dawnTime, dayTime] = [
+      10000, 10000, 10000, 10000,
+    ]; // 持续时间
 
     const vPosition = ref(0);
     const dummy = ref(0); // 记录当前的位置
@@ -460,7 +475,7 @@ export default {
     };
 
     const iconColor = computed(() =>
-      vPosition.value > 15000 ? "#4d290b" : "white"
+      vPosition.value > 20000 ? "#4d290b" : "white"
     );
 
     const rainUnder = computed(() =>
@@ -783,7 +798,7 @@ export default {
       if (!this.loaded) {
         // 缓慢推进
         // TODO: Debug Only
-        this.dummy += 1;
+        // this.dummy += 1;
       }
 
       //mouse
