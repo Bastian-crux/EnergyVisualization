@@ -28,13 +28,13 @@
       <div
         class="absolute"
         style="color: white; width: 400px; right: 10%; top: 10%"
-        v-if="vPosition > 2200 && vPosition < 6000"
+        v-if="vPosition > 2200 && vPosition < 8000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">探索能源发展阶段</h1>
       </div>
     </transition>
-    <!--      introduction-->
+    <!--      timeline introduction-->
     <transition name="switch">
       <div
         class="absolute"
@@ -130,6 +130,72 @@
             <div>沕沕水发电站</div>
           </v-timeline-item>
         </v-timeline>
+      </div>
+    </transition>
+    <!--      timeline1-3-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 11%; top: 22%"
+        v-if="vPosition > 6100 && vPosition < 8000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <v-row>
+          <v-col class="d-flex child-flex" cols="4">
+            <v-img
+              src="images/index/water_generator.webp"
+              aspect-ratio="1"
+              cover
+              class="bg-grey-lighten-2"
+              style="opacity: 0.8"
+            >
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                  <v-progress-circular
+                    indeterminate
+                    color="grey-lighten-5"
+                  ></v-progress-circular>
+                </v-row>
+              </template>
+            </v-img>
+          </v-col>
+          <v-col class="d-flex child-flex" cols="4">
+            <v-img
+              src="images/index/water_generator.webp"
+              aspect-ratio="1"
+              cover
+              class="bg-grey-lighten-2"
+              style="opacity: 0.8"
+            >
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                  <v-progress-circular
+                    indeterminate
+                    color="grey-lighten-5"
+                  ></v-progress-circular>
+                </v-row>
+              </template>
+            </v-img>
+          </v-col>
+          <v-col class="d-flex child-flex" cols="4">
+            <v-img
+              src="images/index/water_generator.webp"
+              aspect-ratio="1"
+              cover
+              class="bg-grey-lighten-2"
+              style="opacity: 0.8"
+            >
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                  <v-progress-circular
+                    indeterminate
+                    color="grey-lighten-5"
+                  ></v-progress-circular>
+                </v-row>
+              </template>
+            </v-img>
+          </v-col>
+        </v-row>
       </div>
     </transition>
 
@@ -236,7 +302,7 @@
           :height="6"
           :color="iconColor"
           :rail-color="skycolor"
-          :percentage="vPosition / 240"
+          :percentage="vPosition / 260"
           :show-indicator="false"
           style="width: 500px; bottom: 30px"
           class="absolute center"
@@ -349,7 +415,7 @@ export default {
     };
 
     //verticle control
-    const [rainTime, nightTime, dawnTime, dayTime] = [6000, 8000, 4000, 6000]; // 持续时间
+    const [rainTime, nightTime, dawnTime, dayTime] = [8000, 8000, 4000, 6000]; // 持续时间
 
     const vPosition = ref(0);
     const dummy = ref(0); // 记录当前的位置
