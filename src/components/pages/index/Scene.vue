@@ -12,8 +12,8 @@
         style="top: 20%; color: white; width: 100%; text-align: center"
         @wheel="(e) => !loaded && onScroll(e)"
       >
-        <h1 style="font-size: 48px">EXPLORE THE OASIS</h1>
-        <p>A TroisJS Experiment</p>
+        <h1 style="font-size: 48px">能源轨迹</h1>
+        <p>中国能源发展历史</p>
       </div>
     </transition>
 
