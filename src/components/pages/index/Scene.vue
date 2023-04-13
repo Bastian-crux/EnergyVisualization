@@ -21,7 +21,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; right: 0px; top: 25%"
+        style="color: white; width: 400px; right: 10%; top: 15%"
         v-if="vPosition > 2200 && vPosition < 6000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -205,7 +205,7 @@
           ref="dir"
           color="rgb(100, 100, 100)"
           :position="{ x: dirX, y: dirY, z: dirZ }"
-          :intensity="1.5"
+          :intensity="0"
           cast-shadow
         />
 
@@ -380,6 +380,16 @@ export default {
         200
       )
     );
+    const dirIntensity = computed(() => {
+      let temp = Math.min(
+        Math.max(
+          (1.5 * (vPosition.value - rainTime - nightTime)) / dawnTime,
+          0
+        ),
+        1.5
+      );
+      return temp;
+    });
     const blend = function (a, b, u) {
       return Math.floor((1 - u) * a + u * b);
     };
@@ -440,7 +450,6 @@ export default {
     const hemiSkyColor = ref("#ffffff");
     const hemiGroundColor = ref("#444444");
     return {
-      //imesh
       NUM_INSTANCES,
       instances,
       target,
@@ -459,6 +468,7 @@ export default {
       skycolor,
       groundcolor,
       rainUnder,
+      dirIntensity,
       //page load
       initPage,
       loaded,
@@ -688,9 +698,14 @@ export default {
     },
     sunHeight(val, old) {
       this.$refs.sun.light.position.y = val;
+      // console.log(this.$refs.sun.light.position.y);
     },
     fogDistance(val, old) {
       this.$refs.scene.scene.fog.far = val;
+    },
+    dirIntensity(val) {
+      this.$refs.dir.light.intensity = val;
+      console.log(this.$refs.dir.light.intensity);
     },
   },
 

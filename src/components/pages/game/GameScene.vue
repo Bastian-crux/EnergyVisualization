@@ -240,8 +240,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import { powerStationTooltip, gameTutorial } from "@/utils";
 
-import { InfoFilled } from "@element-plus/icons-vue";
-import { Sky } from "three/addons/objects/Sky";
+import { Sky } from "three/examples/jsm/objects/Sky.js";
+import { BoxBufferGeometry } from "three";
 
 const props = defineProps(["itemIdx"]);
 let camera, scene, renderer;
@@ -502,7 +502,7 @@ function initScene() {
     20,
     element.clientWidth / element.clientHeight,
     1,
-    500
+    2000
   );
   camera.position.set(65, 35, 10); // 相机的位置
   camera.lookAt(0, 6, -2);
@@ -546,7 +546,7 @@ function initScene() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   canvasFrame.appendChild(renderer.domElement);
 
-  // // 添加鼠标控制
+  // 添加鼠标控制
   viewControls2 = new OrbitControls(camera, renderer.domElement);
   // 开启阻尼
   viewControls2.enableDamping = true;
@@ -583,6 +583,7 @@ function initScene() {
   buildings.value.forEach((item) => {
     initBuildingModel(item);
   });
+
   animate();
 }
 function initBuildingModel(item) {

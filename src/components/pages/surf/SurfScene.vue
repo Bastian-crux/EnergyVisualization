@@ -36,23 +36,18 @@
   </div>
   <div id="index">
     <Renderer ref="myRenderer" shadow antialias resize="window">
-      <!--      :orbit-ctrl="{-->
-      <!--      autoRotate: false,-->
-      <!--      enableDamping: true,-->
-      <!--      dampingFactor: 0.05,-->
-      <!--      }"-->
       <Camera
         ref="myCamera"
         :position="{ x: 85, y: 5, z: -50 }"
         :lookAt="{ x: 0, y: 75, z: 0 }"
-        :far="5000"
+        :far="200000"
       />
       <Scene ref="myScene">
         <HemisphereLight
           ref="light"
           color="rgb(150, 197, 217)"
           groundColor="rgb(250, 250, 250)"
-          :intensity="1.78"
+          :intensity="0.78"
         />
         <DirectionalLight
           ref="dir"
@@ -62,8 +57,6 @@
           cast-shadow
         >
         </DirectionalLight>
-
-        <!--      intensity 0.13-->
         <PointLight
           ref="sun"
           color="rgb(7, 16, 33)"
@@ -94,47 +87,47 @@
           ref="mainscene"
           src="/static/surfScene2.glb"
           dracoPath="/draco/"
-          :scale="{ x: 35, y: 35, z: 35 }"
+          :scale="{ x: 100, y: 100, z: 100 }"
           :position="{ x: 0, y: 0, z: 0 }"
           :rotation="{ y: -0.96 }"
         />
         <!-- cloud -->
-        <Plane
-          v-for="i in 15"
-          :ref="`mesh${i}`"
-          :width="500"
-          :height="500"
-          :position="{
-            x: Math.random() * 800 - 400,
-            y: 400,
-            z: Math.random() * 800 - 400,
-          }"
-          :rotation="{ x: Math.PI / 2, y: 0, z: Math.random() * 360 }"
-        >
-          <StandardMaterial
-            :props="{ transparent: true, opacity: 0.6, depthWrite: false }"
-          >
-            <Texture src="/assets/textures/smoke.png" />
-          </StandardMaterial>
-        </Plane>
+        <!--        <Plane-->
+        <!--          v-for="i in 15"-->
+        <!--          :ref="`mesh${i}`"-->
+        <!--          :width="500"-->
+        <!--          :height="500"-->
+        <!--          :position="{-->
+        <!--            x: Math.random() * 800 - 400,-->
+        <!--            y: 400,-->
+        <!--            z: Math.random() * 800 - 400,-->
+        <!--          }"-->
+        <!--          :rotation="{ x: Math.PI / 2, y: 0, z: Math.random() * 360 }"-->
+        <!--        >-->
+        <!--          <StandardMaterial-->
+        <!--            :props="{ transparent: true, opacity: 0.6, depthWrite: false }"-->
+        <!--          >-->
+        <!--            <Texture src="/assets/textures/smoke.png" />-->
+        <!--          </StandardMaterial>-->
+        <!--        </Plane>-->
 
-        <Plane
-          :rotation="{ x: -Math.PI / 2 }"
-          :width="800"
-          :height="800"
-          :widthSegments="64"
-          :heightSegments="64"
-          :position="{ x: -32.61, y: -13.35, z: 8.7 }"
-          receive-shadow
-        >
-          <StandardMaterial :props="{ displacementScale: 20 }">
-            <Texture src="/assets/textures/green3c5942.png" />
-            <Texture
-              src="/assets/textures/background.png"
-              name="displacementMap"
-            />
-          </StandardMaterial>
-        </Plane>
+        <!--        <Plane-->
+        <!--          :rotation="{ x: -Math.PI / 2 }"-->
+        <!--          :width="800"-->
+        <!--          :height="800"-->
+        <!--          :widthSegments="64"-->
+        <!--          :heightSegments="64"-->
+        <!--          :position="{ x: -32.61, y: -13.35, z: 8.7 }"-->
+        <!--          receive-shadow-->
+        <!--        >-->
+        <!--          <StandardMaterial :props="{ displacementScale: 20 }">-->
+        <!--            <Texture src="/assets/textures/green3c5942.png" />-->
+        <!--            <Texture-->
+        <!--              src="/assets/textures/background.png"-->
+        <!--              name="displacementMap"-->
+        <!--            />-->
+        <!--          </StandardMaterial>-->
+        <!--        </Plane>-->
       </Scene>
     </Renderer>
   </div>
@@ -146,10 +139,14 @@ import * as THREE from "three";
 import { MathUtils, Object3D, Vector3 } from "three";
 import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 import { NButton, NProgress } from "naive-ui";
+import { Water } from "three/examples/jsm/objects/Water.js";
+
+import { Sky } from "three/examples/jsm/objects/Sky";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 import { PointerLockControls } from "three/addons/controls/PointerLockControls";
 import { OrbitControls } from "three/addons/controls/OrbitControls";
+import { GUI } from "three/addons/libs/lil-gui.module.min";
 
 //Loading Manager
 const percent = ref(0);
@@ -191,6 +188,8 @@ const myRenderer = ref(null);
 const myScene = ref(null);
 const myCamera = ref(null);
 const mainscene = ref(null);
+
+let water;
 
 let points;
 
@@ -362,11 +361,6 @@ onMounted(() => {
   renderer = myRenderer.value;
   scene = myScene.value.scene;
   camera = myCamera.value.camera;
-  console.log(scene);
-  console.log(mainscene.value);
-  console.log(mainscene.value.scene);
-  console.log(scene === mainscene.value.scene);
-  // console.log(mainscene.value.userData);
   // scene.fog = new THREE.Fog(this.skycolor, 1, 800);
 
   // Set window size
@@ -380,7 +374,7 @@ onMounted(() => {
 
   // wander
   controls = new PointerLockControls(camera, document.body);
-  controls.getObject().position.set(1000, 0, 0);
+  controls.getObject().position.set(0, 5000, 0);
 
   const blocker = document.getElementById("blocker");
   const instructions = document.getElementById("instructions");
@@ -424,9 +418,80 @@ onMounted(() => {
   let skybox = new THREE.Mesh(skyboxGeo, material);
   scene.add(skybox);
 
+  // Add Sky
+  const sky = new Sky();
+  sky.scale.setScalar(450000);
+  scene.add(sky);
+
+  const sun = new THREE.Vector3();
+
+  /// GUI
+
+  var effectController = {
+    turbidity: 10,
+    rayleigh: 3,
+    mieCoefficient: 0.005,
+    mieDirectionalG: 0.7,
+    inclination: 0.49, // elevation / inclination
+    azimuth: 0.25, // Facing front,
+    exposure: renderer.toneMappingExposure,
+  };
+
+  function guiChanged() {
+    var uniforms = sky.material.uniforms;
+    uniforms["turbidity"].value = effectController.turbidity;
+    uniforms["rayleigh"].value = effectController.rayleigh;
+    uniforms["mieCoefficient"].value = effectController.mieCoefficient;
+    uniforms["mieDirectionalG"].value = effectController.mieDirectionalG;
+    var theta = Math.PI * (effectController.inclination - 0.5);
+    var phi = 2 * Math.PI * (effectController.azimuth - 0.5);
+    sun.x = Math.cos(phi);
+    sun.y = Math.sin(phi) * Math.sin(theta);
+    sun.z = Math.sin(phi) * Math.cos(theta);
+
+    uniforms["sunPosition"].value.copy(sun);
+    renderer.toneMappingExposure = effectController.exposure;
+    // renderer.render(scene, camera);
+  }
+  var gui = new GUI();
+
+  // gui.add(effectController, "turbidity", 0.0, 20.0, 0.1).onChange(guiChanged);
+  // gui.add(effectController, "rayleigh", 0.0, 4, 0.001).onChange(guiChanged);
+  // gui
+  //   .add(effectController, "mieCoefficient", 0.0, 0.1, 0.001)
+  //   .onChange(guiChanged);
+  // gui
+  //   .add(effectController, "mieDirectionalG", 0.0, 1, 0.001)
+  //   .onChange(guiChanged);
+  // gui.add(effectController, "inclination", 0, 1, 0.0001).onChange(guiChanged);
+  // gui.add(effectController, "azimuth", 0, 1, 0.0001).onChange(guiChanged);
+  // gui.add(effectController, "exposure", 0, 1, 0.0001).onChange(guiChanged);
+  guiChanged();
+  //water
+
+  const waterGeometry = new THREE.CircleGeometry(500, 100);
+  water = new Water(waterGeometry, {
+    textureWidth: 1000,
+    textureHeight: 1000,
+    waterNormals: new THREE.TextureLoader().load(
+      "/assets/textures/water.jpg",
+      function (texture) {
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      }
+    ),
+    waterColor: "rgb(150, 197, 217)",
+    sunColor: "rgb(250, 250, 250)",
+    distortionScale: 5,
+    fog: scene.fog !== undefined,
+  });
+  water = water;
+  water.rotation.x = -Math.PI / 2;
+  scene.add(water);
+
   //ANIMATION LOOP
   renderer.onBeforeRender(() => {
     const time = performance.now();
+    water.material.uniforms["time"].value += 0.7 / 60.0;
 
     objects = [];
     getMesh(scene.children);
@@ -508,33 +573,8 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  // console.log(this.scene);
   // disposeScene();
 });
-
-// export default {
-// components: {
-//   NButton,
-//   NProgress,
-// },
-
-// setup() {
-
-// return {
-//   percent,
-//   imageArray,
-// };
-// },
-// mounted() {
-//
-// },
-
-// unmounted() {
-//
-// },
-// watch: {},
-// methods: {},
-// };
 </script>
 
 <style scoped>
