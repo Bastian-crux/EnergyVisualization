@@ -39,6 +39,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
+
 import Index from "@/components/pages/index/Index.vue";
 import Scene from "@/components/pages/index/Scene.vue";
 import Surf from "@/components/pages/surf/Surf.vue";
@@ -116,6 +121,11 @@ library.add(
   faCamera
 );
 
+const vuetify = createVuetify({
+  components,
+  directives,
+});
+
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.use(router);
@@ -124,4 +134,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
 app.use(TroisJSVuePlugin);
+app.use(vuetify);
 app.mount("#app");
