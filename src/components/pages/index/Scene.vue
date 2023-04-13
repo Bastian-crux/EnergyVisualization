@@ -26,28 +26,34 @@
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">阶段一</h1>
-        <v-timeline align="start">
-          <v-timeline-item
-            v-for="(item, i) in items"
-            :key="i"
-            :dot-color="item.color"
-            :icon="item.icon"
-            fill-dot
-          >
-            <v-card>
-              <v-card-title :class="['text-h6', `bg-${item.color}`]">
-                Lorem Ipsum Dolor
-              </v-card-title>
-              <v-card-text class="bg-white text--primary">
-                <p>
-                  Lorem ipsum dolor sit amet, no nam oblique veritus. Commune
-                  scaevola imperdiet nec ut, sed euismod convenire principes at.
-                  Est et nobis iisque percipit, an vim zril disputando
-                  voluptatibus, vix an salutandi sententiae.
-                </p>
-                <v-btn :color="item.color" variant="outlined"> Button </v-btn>
-              </v-card-text>
-            </v-card>
+        <v-timeline align="start" theme="dark">
+          <v-timeline-item size="15">
+            <template v-slot:opposite>1922.9</template>
+            <div>
+              <div class="text-h6">安源路矿</div>
+            </div>
+          </v-timeline-item>
+
+          <v-timeline-item size="25">
+            <template v-slot:opposite>1922.10</template>
+            <div>
+              <div class="text-h6">开滦五矿</div>
+            </div>
+          </v-timeline-item>
+
+          <v-timeline-item size="15">
+            <template v-slot:opposite>1925</template>
+            <div>
+              <div class="text-h6">焦作煤矿</div>
+            </div>
+          </v-timeline-item>
+
+          <v-timeline-item size="25">
+            <template v-slot:opposite>1927</template>
+            <div>
+              <div class="text-h6">枣庄矿区</div>
+              <p>1927</p>
+            </div>
           </v-timeline-item>
         </v-timeline>
       </div>
@@ -258,26 +264,6 @@ export default {
     TextScroll,
   },
   setup() {
-    // Stage 1 timeline
-    const items = [
-      {
-        color: "red-lighten-2",
-        icon: "mdi-star",
-      },
-      {
-        color: "purple-lighten-2",
-        icon: "mdi-book-variant",
-      },
-      {
-        color: "green-lighten-1",
-        icon: "mdi-airballoon",
-      },
-      {
-        color: "indigo-lighten-2",
-        icon: "mdi-buffer",
-      },
-    ];
-
     //Loading Manager
     const percent = ref(0);
     THREE.DefaultLoadingManager.onProgress = function (
@@ -485,7 +471,6 @@ export default {
       hemiY,
       hemiSkyColor,
       hemiGroundColor,
-      items,
     };
   },
   mounted() {
