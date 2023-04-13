@@ -251,7 +251,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 450px; left: 100px; top: 20%"
+        style="color: white; width: 400px; right: 10%; top: 15%"
         v-if="vPosition > 24000 && vPosition < 31000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -262,24 +262,24 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; right: 10%; top: 27%"
-        v-if="vPosition > 2200 && vPosition < 4000"
+        style="color: white; width: 400px; right: 10%; top: 30%"
+        v-if="vPosition > 24000 && vPosition < 26000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
-        <p style="color: rgb(164, 164, 164)">
+        <p style="color: rgb(218, 218, 218)">
           党成立初期，以安源路矿大罢工为代表的能源产业工人在党的领导下，团结发动工人，为实现民族独立、人民解放，进行了艰苦卓绝的斗争，在中国工人运动史和革命史上写下了重要篇章。革命战争时期，能源产业工人积极开展油田、水电等能源项目建设，有力支持了党的根据地建设；同时积极自力更生，建成沕沕水水电站等发电设施，积累能源生产的经验和技术以及领导工业建设的经验。
         </p>
       </div>
     </transition>
-
+    <!--  4-icon-->
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 600px; left: 300px; top: 8%"
-        v-if="vPosition > 18000 && vPosition < 20000"
+        style="color: white; width: 400px; right: 10%; top: 30%"
+        v-if="vPosition > 26000 && vPosition < 31000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
-        <data-list-main></data-list-main>
+        <p style="color: rgb(218, 218, 218)">icon</p>
       </div>
     </transition>
 
