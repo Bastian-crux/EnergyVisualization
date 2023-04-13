@@ -25,34 +25,38 @@
         v-if="vPosition > 2200 && vPosition < 6000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
-        <h1 style="font-size: 48px">阶段一</h1>
-        <v-timeline align="start" theme="dark">
-          <v-timeline-item size="15">
-            <template v-slot:opposite>1922.9</template>
+        <h1 style="font-size: 48px">探索能源发展阶段</h1>
+        <v-timeline align="center" theme="dark" class="timeline">
+          <v-timeline-item size="20">
+            <template v-slot:opposite></template>
             <div>
-              <div class="text-h6">安源路矿</div>
+              <div class="text-h6">团结发动工人</div>
             </div>
           </v-timeline-item>
-
-          <v-timeline-item size="25">
-            <template v-slot:opposite>1922.10</template>
+          <v-timeline-item size="10">
+            <template v-slot:opposite>
+              <div style="font-size: 10px">安源路矿</div>
+            </template>
+            1922.9 &nbsp;
+          </v-timeline-item>
+          <v-timeline-item size="10">
+            <template v-slot:opposite>1922.10 &nbsp;</template>
             <div>
-              <div class="text-h6">开滦五矿</div>
+              <p>开滦五矿</p>
             </div>
           </v-timeline-item>
-
-          <v-timeline-item size="15">
-            <template v-slot:opposite>1925</template>
-            <div>
-              <div class="text-h6">焦作煤矿</div>
-            </div>
+          <v-timeline-item size="10">
+            <template v-slot:opposite>
+              <div>
+                <p>焦作煤矿</p>
+              </div>
+            </template>
+            1925 &nbsp;
           </v-timeline-item>
-
-          <v-timeline-item size="25">
-            <template v-slot:opposite>1927</template>
+          <v-timeline-item size="10">
+            <template v-slot:opposite> 1927 &nbsp;</template>
             <div>
-              <div class="text-h6">枣庄矿区</div>
-              <p>1927</p>
+              <p>枣庄矿区</p>
             </div>
           </v-timeline-item>
         </v-timeline>
@@ -800,5 +804,11 @@ canvas {
 
 #index {
   height: 100%;
+}
+</style>
+
+<style>
+:deep(.timeline-divider-line-horizontal) {
+  width: 20px;
 }
 </style>

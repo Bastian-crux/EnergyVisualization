@@ -374,7 +374,7 @@ onMounted(() => {
 
   // wander
   controls = new PointerLockControls(camera, document.body);
-  controls.getObject().position.set(0, 5000, 0);
+  controls.getObject().position.set(0, 500, 0);
 
   const blocker = document.getElementById("blocker");
   const instructions = document.getElementById("instructions");
@@ -406,17 +406,17 @@ onMounted(() => {
   );
 
   //skybox
-  let texture = [];
-  let material = [];
-  const imageArray = Array(6).fill("/assets/skybox/sky.png");
-  imageArray.forEach((el) => texture.push(new THREE.TextureLoader().load(el)));
-  texture.forEach((el) =>
-    material.push(new THREE.MeshStandardMaterial({ map: el }))
-  );
-  for (let i = 0; i < 6; i++) material[i].side = THREE.BackSide;
-  let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
-  let skybox = new THREE.Mesh(skyboxGeo, material);
-  scene.add(skybox);
+  // let texture = [];
+  // let material = [];
+  // const imageArray = Array(6).fill("/assets/skybox/sky.png");
+  // imageArray.forEach((el) => texture.push(new THREE.TextureLoader().load(el)));
+  // texture.forEach((el) =>
+  //   material.push(new THREE.MeshStandardMaterial({ map: el }))
+  // );
+  // for (let i = 0; i < 6; i++) material[i].side = THREE.BackSide;
+  // let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
+  // let skybox = new THREE.Mesh(skyboxGeo, material);
+  // scene.add(skybox);
 
   // Add Sky
   const sky = new Sky();
@@ -469,7 +469,7 @@ onMounted(() => {
   guiChanged();
   //water
 
-  const waterGeometry = new THREE.CircleGeometry(500, 100);
+  const waterGeometry = new THREE.CircleGeometry(5000, 100);
   water = new Water(waterGeometry, {
     textureWidth: 1000,
     textureHeight: 1000,
