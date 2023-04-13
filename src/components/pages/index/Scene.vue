@@ -12,8 +12,13 @@
         style="top: 20%; color: white; width: 100%; text-align: center"
         @wheel="(e) => !loaded && onScroll(e)"
       >
-        <h1 style="font-size: 48px">能源轨迹</h1>
-        <p>中国能源发展历史</p>
+        <h1 style="font-size: 48px">
+          能 &nbsp;&nbsp; 源 &nbsp;&nbsp; 轨 &nbsp;&nbsp; 迹
+        </h1>
+        <div>
+          中 &nbsp&nbsp 国 &nbsp&nbsp 能 &nbsp&nbsp 源 &nbsp&nbsp 发 &nbsp&nbsp
+          展 &nbsp&nbsp 历 &nbsp&nbsp 史
+        </div>
       </div>
     </transition>
 
@@ -46,7 +51,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; right: 18%; top: 22%"
+        style="color: white; width: 400px; right: 20%; top: 22%"
         v-if="vPosition > 4500 && vPosition < 6000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -90,7 +95,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; right: 4%; bottom: 12%"
+        style="color: white; width: 400px; right: 2%; bottom: 12%"
         v-if="vPosition > 5100 && vPosition < 6000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -964,11 +969,5 @@ canvas {
 
 #index {
   height: 100%;
-}
-</style>
-
-<style>
-:deep(.timeline-divider-line-horizontal) {
-  width: 20px;
 }
 </style>
