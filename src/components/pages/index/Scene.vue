@@ -17,15 +17,39 @@
       </div>
     </transition>
 
-    <!--  1-->
+    <!--  stage1-->
+    <!--  subtitle-->
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; right: 10%; top: 15%"
+        style="color: white; width: 400px; right: 10%; top: 10%"
         v-if="vPosition > 2200 && vPosition < 6000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">探索能源发展阶段</h1>
+      </div>
+    </transition>
+    <!--      introduction-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 10%; top: 27%"
+        v-if="vPosition > 2200 && vPosition < 4000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <p style="color: rgb(164, 164, 164)">
+          党成立初期，以安源路矿大罢工为代表的能源产业工人在党的领导下，团结发动工人，为实现民族独立、人民解放，进行了艰苦卓绝的斗争，在中国工人运动史和革命史上写下了重要篇章。革命战争时期，能源产业工人积极开展油田、水电等能源项目建设，有力支持了党的根据地建设；同时积极自力更生，建成沕沕水水电站等发电设施，积累能源生产的经验和技术以及领导工业建设的经验。
+        </p>
+      </div>
+    </transition>
+    <!--    timeline1-1-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 18%; top: 22%"
+        v-if="vPosition > 4500 && vPosition < 6000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
         <v-timeline align="center" theme="dark" class="timeline">
           <v-timeline-item size="20">
             <template v-slot:opposite></template>
@@ -33,31 +57,72 @@
               <div class="text-h6">团结发动工人</div>
             </div>
           </v-timeline-item>
-          <v-timeline-item size="10">
+          <v-timeline-item size="10" dot-color="rgba(255, 255, 255, 0.8)">
             <template v-slot:opposite>
-              <div style="font-size: 10px">安源路矿</div>
+              <div>安源路矿</div>
             </template>
-            1922.9 &nbsp;
+            1922.9
           </v-timeline-item>
-          <v-timeline-item size="10">
-            <template v-slot:opposite>1922.10 &nbsp;</template>
+          <v-timeline-item size="10" dot-color="rgba(255, 255, 255, 0.6)">
+            <template v-slot:opposite>1922.10</template>
             <div>
               <p>开滦五矿</p>
             </div>
           </v-timeline-item>
-          <v-timeline-item size="10">
+          <v-timeline-item size="10" dot-color="rgba(255, 255, 255, 0.4)">
             <template v-slot:opposite>
               <div>
                 <p>焦作煤矿</p>
               </div>
             </template>
-            1925 &nbsp;
+            1925
           </v-timeline-item>
-          <v-timeline-item size="10">
-            <template v-slot:opposite> 1927 &nbsp;</template>
+          <v-timeline-item size="10" dot-color="rgba(255, 255, 255, 0.2)">
+            <template v-slot:opposite> 1927</template>
             <div>
               <p>枣庄矿区</p>
             </div>
+          </v-timeline-item>
+        </v-timeline>
+      </div>
+    </transition>
+    <!--      timeline1-2-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 4%; bottom: 12%"
+        v-if="vPosition > 5100 && vPosition < 6000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <v-timeline align="center" theme="dark" class="timeline">
+          <v-timeline-item size="20">
+            <template v-slot:opposite></template>
+            <div>
+              <div class="text-h6">积极自力更生</div>
+            </div>
+          </v-timeline-item>
+          <v-timeline-item size="10" dot-color="rgba(255, 255, 255, 0.8)">
+            <template v-slot:opposite> 1942 </template>
+            <div style="font-size: 10px; color: rgba(255, 255, 255, 0.8)">
+              延安机关单位
+            </div>
+            <div>建立煤矿保证煤炭供应</div>
+          </v-timeline-item>
+          <v-timeline-item size="10" dot-color="rgba(255, 255, 255, 0.6)">
+            <template v-slot:opposite>
+              <div style="font-size: 10px; color: rgba(255, 255, 255, 0.8)">
+                刘伯承电厂挂牌
+              </div>
+              <div>解放区第一座发电厂 &nbsp;&nbsp;</div>
+            </template>
+            <div>1946</div>
+          </v-timeline-item>
+          <v-timeline-item size="10" dot-color="rgba(255, 255, 255, 0.4)">
+            <template v-slot:opposite> 1948 </template>
+            <div style="font-size: 10px; color: rgba(255, 255, 255, 0.8)">
+              利用西柏坡丰沛水利资源&nbsp;&nbsp;
+            </div>
+            <div>沕沕水发电站</div>
           </v-timeline-item>
         </v-timeline>
       </div>
@@ -184,8 +249,8 @@
     >
       <Camera
         ref="camera"
-        :position="{ x: 85, y: 5, z: -50 }"
-        :lookAt="{ x: 0, y: 0, z: 0 }"
+        :position="{ x: 85 + 50, y: 5, z: -50 }"
+        :lookAt="{ x: 0 + 50, y: 0, z: 0 }"
         :far="5000"
       />
       <Scene ref="scene">
@@ -478,14 +543,14 @@ export default {
     };
   },
   mounted() {
-    this.pane = new Pane();
-    // Solar
-    this.pane.addInput(this, "dirX", { min: -200, max: 200 });
-    this.pane.addInput(this, "dirY", { min: -200, max: 200 });
-    this.pane.addInput(this, "dirZ", { min: -200, max: 200 });
-    this.pane.addInput(this, "hemiY", { min: -200, max: 200 });
-    this.pane.addInput(this, "hemiGroundColor");
-    this.pane.addInput(this, "hemiSkyColor");
+    // this.pane = new Pane();
+    // // Solar
+    // this.pane.addInput(this, "dirX", { min: -200, max: 200 });
+    // this.pane.addInput(this, "dirY", { min: -200, max: 200 });
+    // this.pane.addInput(this, "dirZ", { min: -200, max: 200 });
+    // this.pane.addInput(this, "hemiY", { min: -200, max: 200 });
+    // this.pane.addInput(this, "hemiGroundColor");
+    // this.pane.addInput(this, "hemiSkyColor");
     //scene core
     this.renderer = this.$refs.renderer;
     this.scene = this.$refs.scene.scene;
@@ -584,53 +649,67 @@ export default {
     //将坐标轴添加进场景
     this.scene.add(new THREE.AxesHelper(500));
 
+    const cameraOffsetX = 50;
     //ANIMATION LOOP
     this.renderer.onBeforeRender(() => {
       water.material.uniforms["time"].value += 0.7 / 60.0;
       if (this.vPosition > 2400) {
-        this.camera.position.x = Math.cos((this.vPosition - 2400) / 3000) * 150;
+        this.camera.position.x =
+          Math.cos((this.vPosition - 2400) / 3000) * 150 + cameraOffsetX;
         this.camera.position.z = Math.sin((this.vPosition - 2400) / 3000) * 200;
       }
 
       if (this.vPosition < 2000) {
         this.camera.position.set(
-          (-150 * this.vPosition) / 2000 + 300,
+          (-150 * this.vPosition) / 2000 + 300 + cameraOffsetX,
           (-40 * this.vPosition) / 2000 + 100 + this.mouseY,
           (-100 * this.vPosition) / 2000 + 100
         );
         this.camera.lookAt(
-          0,
+          0 + cameraOffsetX,
           35 - (15 * this.vPosition) / 2000,
           (-30 * this.vPosition) / 2000
         );
       } else if (this.vPosition < 2400) {
         this.camera.position.y = 60 + this.mouseY;
-        this.camera.lookAt(0, 20, -30 - (20 * (this.vPosition - 2000)) / 400);
+        this.camera.lookAt(
+          0 + cameraOffsetX,
+          20,
+          -30 - (20 * (this.vPosition - 2000)) / 400
+        );
       } else if (this.vPosition < 9000) {
         this.camera.position.y =
           60 + 40 * ((this.vPosition - 2400) / 6600) + this.mouseY;
         this.camera.lookAt(
-          (30 * (this.vPosition - 2400)) / 6600,
+          (30 * (this.vPosition - 2400)) / 6600 + cameraOffsetX,
           20,
           -50 + (80 * (this.vPosition - 2400)) / 6600
         );
       } else if (this.vPosition < 12000) {
         this.camera.position.y =
           100 - (50 * (this.vPosition - 9000)) / 3000 + this.mouseY;
-        this.camera.lookAt(30, 20 - (20 * (this.vPosition - 9000)) / 3000, 30);
+        this.camera.lookAt(
+          30 + cameraOffsetX,
+          20 - (20 * (this.vPosition - 9000)) / 3000,
+          30
+        );
       } else if (this.vPosition < 14000) {
         this.camera.lookAt(
-          30 - (30 * (this.vPosition - 12000)) / 2000,
+          30 - (30 * (this.vPosition - 12000)) / 2000 + cameraOffsetX,
           0,
           30 - (30 * (this.vPosition - 12000)) / 2000
         );
         this.camera.position.y =
           50 + (20 * (this.vPosition - 12009)) / 2000 + this.mouseY;
       } else if (this.vPosition < 18000) {
-        this.camera.lookAt(0, (20 * (this.vPosition - 14000)) / 4000, 0);
+        this.camera.lookAt(
+          0 + cameraOffsetX,
+          (20 * (this.vPosition - 14000)) / 4000,
+          0
+        );
         this.camera.position.y = 70 + this.mouseY;
       } else {
-        this.camera.lookAt(0, 20, 0);
+        this.camera.lookAt(0 + cameraOffsetX, 20, 0);
         this.camera.position.y = 70 + this.mouseY;
       }
 
@@ -638,7 +717,7 @@ export default {
       if (!this.loaded) {
         // 缓慢推进
         // TODO: Debug Only
-        // this.dummy += 1;
+        this.dummy += 1;
       }
 
       //mouse
