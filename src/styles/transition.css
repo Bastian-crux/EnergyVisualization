@@ -20,19 +20,20 @@
 
 .text-enter-from,
 .text-leave-to{
+  letter-spacing: 5px;
   opacity:0; 
 }
 .text-enter-to,
 .text-leave-from{
   opacity:1;
+  letter-spacing: normal;
 }
 .text-enter-to{
   letter-spacing: normal;
 }
 .text-enter-from{
-  letter-spacing: 25px;
+  letter-spacing: 15px;
 }
-
 .text-enter-active,
 .text-leave-active{
   transition: all 2s ease;
