@@ -226,8 +226,8 @@
         </p>
       </div>
     </transition>
-    <!--  2-title-1-->
-    <transition name="switch">
+    <!--  2-title-->
+    <transition name="slide-up" mode="out-in">
       <div
         class="absolute"
         style="color: white; width: 500px; right: 10%; top: 27%"
@@ -238,34 +238,29 @@
           <h3>1949-1958 全面恢复时期</h3>
         </div>
       </div>
-    </transition>
-    <!--  2-title-2-->
-    <transition name="switch">
+
       <div
         class="absolute"
         style="color: white; width: 500px; right: 10%; top: 27%"
-        v-if="vPosition > 11500 && vPosition < 12000"
+        v-else-if="vPosition > 11500 && vPosition < 12000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div style="text-align: center; color: rgb(164, 164, 164)">
           <h3>1958-1966 快速发展时期</h3>
         </div>
       </div>
-    </transition>
-    <!--  2-title-3-->
-    <transition name="switch">
+
       <div
         class="absolute"
         style="color: white; width: 500px; right: 10%; top: 27%"
-        v-if="vPosition > 12000 && vPosition < 12500"
+        v-else-if="vPosition > 12000 && vPosition < 12500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div style="text-align: center; color: rgb(164, 164, 164)">
           <h3>1966-1978 曲折前进时期</h3>
         </div>
-      </div>
-    </transition>
-    <!--  2-icon-->
+      </div> </transition
+    ><!--  2-icon-->
     <transition name="switch">
       <div
         class="absolute"
@@ -342,7 +337,7 @@
       </div>
     </transition>
     <!--  2-1-->
-    <transition name="switch">
+    <transition name="slide-up" mode="out-in">
       <div
         class="absolute"
         style="color: white; width: 500px; right: 10%; top: 47%"
@@ -396,13 +391,10 @@
           </el-col>
         </el-row>
       </div>
-    </transition>
-    <!--  2-2-->
-    <transition name="switch">
       <div
         class="absolute"
         style="color: white; width: 500px; right: 10%; top: 47%"
-        v-if="vPosition > 11500 && vPosition < 12000"
+        v-else-if="vPosition > 11500 && vPosition < 12000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <el-row>
@@ -452,13 +444,10 @@
           </el-col>
         </el-row>
       </div>
-    </transition>
-    <!--  2-3-->
-    <transition name="switch">
       <div
         class="absolute"
         style="color: white; width: 500px; right: 10%; top: 47%"
-        v-if="vPosition > 12000 && vPosition < 12500"
+        v-else-if="vPosition > 12000 && vPosition < 12500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <el-row>
@@ -1578,7 +1567,7 @@ export default {
       if (!this.loaded) {
         // 缓慢推进
         // TODO: Debug Only
-        // this.dummy += 1;
+        this.dummy += 1;
       }
 
       //mouse
@@ -1744,5 +1733,20 @@ canvas {
 
 #index {
   height: 100%;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.25s ease-out;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>

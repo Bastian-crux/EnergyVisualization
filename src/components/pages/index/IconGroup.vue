@@ -13,7 +13,7 @@
 
     <n-button
       text
-      style="margin-left: 70px"
+      style="margin-left: 60px"
       @click="$emit('relocate', 9000)"
       :disabled="processing"
     >
@@ -23,7 +23,7 @@
     </n-button>
     <n-button
       text
-      style="margin-left: 70px"
+      style="margin-left: 60px"
       @click="$emit('relocate', 17000)"
       :disabled="processing"
     >
@@ -33,7 +33,7 @@
     </n-button>
     <n-button
       text
-      style="margin-left: 70px"
+      style="margin-left: 60px"
       @click="$emit('relocate', 25000)"
       :disabled="processing"
     >
@@ -43,7 +43,7 @@
     </n-button>
     <n-button
       text
-      style="margin-left: 70px"
+      style="margin-left: 60px"
       @click="$emit('relocate', 33000)"
       :disabled="processing"
     >
