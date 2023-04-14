@@ -37,6 +37,7 @@ import {
   faPersonWalking,
   faCamera,
   faOilWell,
+  faGasPump,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -120,7 +121,8 @@ library.add(
   faArrowLeft,
   faPersonWalking,
   faCamera,
-  faOilWell
+  faOilWell,
+  faGasPump
 );
 
 const vuetify = createVuetify({

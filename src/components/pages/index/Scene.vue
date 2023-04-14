@@ -226,11 +226,295 @@
         </p>
       </div>
     </transition>
+    <!--  2-title-1-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; right: 10%; top: 27%"
+        v-if="vPosition > 11000 && vPosition < 11500"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div style="text-align: center; color: rgb(164, 164, 164)">
+          <h3>1949-1958 全面恢复时期</h3>
+        </div>
+      </div>
+    </transition>
+    <!--  2-title-2-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; right: 10%; top: 27%"
+        v-if="vPosition > 11500 && vPosition < 12000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div style="text-align: center; color: rgb(164, 164, 164)">
+          <h3>1958-1966 快速发展时期</h3>
+        </div>
+      </div>
+    </transition>
+    <!--  2-title-3-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; right: 10%; top: 27%"
+        v-if="vPosition > 12000 && vPosition < 12500"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div style="text-align: center; color: rgb(164, 164, 164)">
+          <h3>1966-1978 曲折前进时期</h3>
+        </div>
+      </div>
+    </transition>
+    <!--  2-icon-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; right: 10%; top: 32%"
+        v-if="vPosition > 11000 && vPosition < 12500"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <el-row>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              <p>煤炭</p>
+              <font-awesome-icon
+                :icon="['fas', 'fire']"
+                size="3x"
+                style="margin-top: 10px"
+              />
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              <p>石油</p>
+              <font-awesome-icon
+                :icon="['fas', 'gas-pump']"
+                size="3x"
+                style="margin-top: 10px"
+              />
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              <p>天然气</p>
+              <font-awesome-icon
+                :icon="['fas', 'oil-well']"
+                size="3x"
+                style="margin-top: 10px"
+              />
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              <p>电力</p>
+              <font-awesome-icon
+                :icon="['fas', 'bolt']"
+                size="3x"
+                style="margin-top: 10px"
+              />
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
+    <!--  2-1-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; right: 10%; top: 47%"
+        v-if="vPosition > 11000 && vPosition < 11500"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <el-row>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              经历3年恢复期
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              形成玉门、新疆、青海、四川基地
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              大规模的勘探活动
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              电站和电网工程规划并建设
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
+    <!--  2-2-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; right: 10%; top: 47%"
+        v-if="vPosition > 11500 && vPosition < 12000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <el-row>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              保持快速发展
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              发现大庆油田
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              产量来自四川盆地
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              供应能力稳定增长
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
+    <!--  2-3-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; right: 10%; top: 47%"
+        v-if="vPosition > 12000 && vPosition < 12500"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <el-row>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              供应短缺，促使中央政府放宽政策
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              大庆油田扩建，产油量连年增高
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              产量逐步增加
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              style="
+                text-align: center;
+                color: rgb(164, 164, 164);
+                font-size: 15px;
+              "
+            >
+              中小型水电站发展迅速
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
+
     <transition name="switch">
       <div
         class="absolute"
         style="color: white; width: 500px; left: 5%; top: 20%"
-        v-if="vPosition > 12000 && vPosition < 15000"
+        v-if="vPosition > 13000 && vPosition < 15000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <PowerBar></PowerBar>
@@ -1294,7 +1578,7 @@ export default {
       if (!this.loaded) {
         // 缓慢推进
         // TODO: Debug Only
-        this.dummy += 1;
+        // this.dummy += 1;
       }
 
       //mouse
