@@ -34,7 +34,7 @@
         <h1 style="font-size: 48px">探索能源发展阶段</h1>
       </div>
     </transition>
-    <!--      timeline introduction-->
+    <!--      timeline1 introduction-->
     <transition name="switch">
       <div
         class="absolute"
@@ -43,7 +43,9 @@
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <p style="color: rgb(164, 164, 164)">
-          党成立初期，以安源路矿大罢工为代表的能源产业工人在党的领导下，团结发动工人，为实现民族独立、人民解放，进行了艰苦卓绝的斗争，在中国工人运动史和革命史上写下了重要篇章。革命战争时期，能源产业工人积极开展油田、水电等能源项目建设，有力支持了党的根据地建设；同时积极自力更生，建成沕沕水水电站等发电设施，积累能源生产的经验和技术以及领导工业建设的经验。
+          党成立初期，以安源路矿大罢工为代表的能源产业工人在党的领导下，团结发动工人，为实现民族独立、人民解放，进行了艰苦卓绝的斗争，在中国工人运动史和革命史上写下了重要篇章。
+          革命战争时期，能源产业工人积极开展油田、水电等能源项目建设，有力支持了党的根据地建设；
+          同时积极自力更生，建成沕沕水水电站等发电设施，积累能源生产的经验和技术以及领导工业建设的经验。
         </p>
       </div>
     </transition>
@@ -203,28 +205,35 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; right: 0px; top: 15%"
+        style="color: white; width: 500px; right: 10%; top: 10%"
         v-if="vPosition > 9000 && vPosition < 15000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
-        <h1 style="font-size: 48px">阶段二</h1>
-        <p style="margin-left: 30px; width: 300px">
-          Here are some ways to improve your browser's performance on 3D
-          websites. If you have a dedicated GPU, configure your browser
-          accordingly:
-          <a
-            href="https://equatorstudios.com/how-to-choose-which-gpu-chrome-uses-on-windows-10/"
-            ><u>Chrome</u></a
-          >
-          ,
-          <a
-            href="https://www.windowscentral.com/how-force-microsoft-edge-use-best-gpu-windows-10-april-2018-update"
-            ><u>Edge</u></a
-          >. If you use Chrome or Firefox,
-          <a href="https://github.com/light-tracer/issues/issues/1"
-            ><u>enable OpenGL for ANGLE</u></a
-          >.
+        <h1 style="font-size: 48px">能源恢复和初步发展</h1>
+      </div>
+    </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; right: 10%; top: 27%"
+        v-if="vPosition > 9000 && vPosition < 11000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <p style="color: rgb(164, 164, 164); text-indent: 2em">
+          新中国成立到改革开放，历经能源工业全面打基础、加快发展以及曲折前进多个时期。<br />
+          在煤炭方面，进行了大规模基础建设：煤炭开采和生产技术改造，生产环境和生产设备大大改善。到1957年新中国煤炭生产能力大幅度提高。1966年至1978年进入曲折前进时期，使我国刚刚发展起来的煤炭工业受到很大影响，煤炭生产、建设基本处于停滞状态，产量明显下降。<br />
+          与此同时，石油和天然气工业发展迅速。1953-1959年，先后开发建设了克拉玛依油田、冷湖油田和四川油气田。石油炼制工业也通过修复、原有炼油厂改造和新炼油厂建设得到初步发展，主要石油产品产量有了较大幅度提高。
         </p>
+      </div>
+    </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; left: 5%; top: 20%"
+        v-if="vPosition > 12000 && vPosition < 15000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <PowerBar></PowerBar>
       </div>
     </transition>
 
@@ -772,12 +781,9 @@
         v-if="vPosition > 32000 && vPosition < 39000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
-        <h1 style="font-size: 48px">阶段五</h1>
-        <p style="width: 300px">
-          Want to see more 3D websites? Visit
-          <a href="https://threejs.org/"><u>Three.js</u></a> and
-          <a href="https://www.awwwards.com/websites/3d/"><u>Awwwards</u></a
-          >.
+        <h1 style="font-size: 48px">绿色能源转型</h1>
+        <p style="width: 300px; text-indent: 2em">
+          在市场环境、政策环境以及国际气候环境驱动下，我国新能源产业进入高速发展阶段。逐渐形成了支持新能源快速发展的政策体系，新能源装备制造能力位居世界前列，同时关键技术取得了突破。也在产业政策作用下，逐渐解决能源体系面临重构以及电力系统不适应经济社会发展导致的的问题。
         </p>
       </div>
     </transition>
@@ -886,12 +892,14 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer";
 import { RenderPass } from "three/addons/postprocessing/RenderPass";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import PowerBar from "@/components/pages/chart/statistic/PowerBar.vue";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 
 export default {
   components: {
     FontAwesomeIcon,
+    PowerBar,
     DataList,
     Loader,
     NButton,
@@ -1286,7 +1294,7 @@ export default {
       if (!this.loaded) {
         // 缓慢推进
         // TODO: Debug Only
-        // this.dummy += 1;
+        this.dummy += 1;
       }
 
       //mouse
