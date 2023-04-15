@@ -583,7 +583,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; left: 6%; top: 10%"
+        style="color: white; width: 400px; left: 6%; top: 20%"
         v-if="vPosition > 17000 && vPosition < 18000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -647,7 +647,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; left: 35%; top: 25%"
+        style="color: white; width: 400px; left: 35%; top: 35%"
         v-if="vPosition > 17010 && vPosition < 18000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -678,7 +678,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; left: 35%; top: 37%"
+        style="color: white; width: 400px; left: 35%; top: 47%"
         v-if="vPosition > 17020 && vPosition < 18000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -709,7 +709,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; left: 35%; top: 49%"
+        style="color: white; width: 400px; left: 35%; top: 59%"
         v-if="vPosition > 17030 && vPosition < 18000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -765,14 +765,286 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 450px; left: 100px; top: 20%"
-        v-if="vPosition > 32000 && vPosition < 39000"
+        style="color: white; width: 400px; left: 8%; top: 20%"
+        v-if="vPosition > 32000 && vPosition < 33000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
-        <h1 style="font-size: 48px">绿色能源转型</h1>
-        <p style="width: 300px; text-indent: 2em">
-          在市场环境、政策环境以及国际气候环境驱动下，我国新能源产业进入高速发展阶段。逐渐形成了支持新能源快速发展的政策体系，新能源装备制造能力位居世界前列，同时关键技术取得了突破。也在产业政策作用下，逐渐解决能源体系面临重构以及电力系统不适应经济社会发展导致的的问题。
+        <h1 style="font-size: 48px">绿色能源转型阶段</h1>
+        <hr class="hr-solid" />
+      </div>
+    </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 8%; top: 37%"
+        v-if="vPosition > 32000 && vPosition < 33000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <p style="text-indent: 2em">
+          在市场环境、政策环境以及国际气候环境驱动下，我国新能源产业进入高速发展阶段。逐渐形成了支持新能源快速发展的政策体系，新能源装备制造能力位居世界前列，同时关键技术取得了突破。
+          也在产业政策作用下，逐渐解决能源体系面临重构以及电力系统不适应经济社会发展导致的的问题。
         </p>
+      </div>
+    </transition>
+    <!--    boxes 1-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; left: 10%; top: 10%"
+        v-if="vPosition > 33000 && vPosition < 34000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div
+          style="
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 22px;
+            font-weight: bolder;
+          "
+        >
+          症结——能源体系面临重构
+        </div>
+      </div>
+    </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; left: 10%; top: 10%"
+        v-if="vPosition > 34000 && vPosition < 35000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div
+          style="
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 22px;
+            font-weight: bolder;
+          "
+        >
+          对策——构建清洁、低碳、安全、高效的能源体系
+        </div>
+      </div>
+    </transition>
+
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 8%; top: 20%"
+        v-if="vPosition > 33000 && vPosition < 34000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>能源安全面临巨大挑战</div>
+        </div>
+      </div>
+    </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 8%; top: 20%"
+        v-if="vPosition > 34000 && vPosition < 35000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>控制化石能源总量</div>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 18%; top: 20%"
+        v-if="vPosition > 33000 && vPosition < 34000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>开发利用的清洁化水平低</div>
+        </div>
+      </div>
+    </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 18%; top: 20%"
+        v-if="vPosition > 34000 && vPosition < 35000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>着力提高利用能效</div>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 28%; top: 20%"
+        v-if="vPosition > 33000 && vPosition < 34000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>实施可再生能源替代行动</div>
+        </div>
+      </div>
+    </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 28%; top: 20%"
+        v-if="vPosition > 34000 && vPosition < 35000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>能源消费导致碳排放不断增长</div>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 38%; top: 20%"
+        v-if="vPosition > 33000 && vPosition < 34000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>能源利用效率总体偏低</div>
+        </div>
+      </div>
+    </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 38%; top: 20%"
+        v-if="vPosition > 34000 && vPosition < 35000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>深化电力体制改革</div>
+        </div>
+      </div>
+    </transition>
+    <!--    boxes 2-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; left: 10%; top: 40%"
+        v-if="vPosition > 35000 && vPosition < 36000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div
+          style="
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 22px;
+            font-weight: bolder;
+          "
+        >
+          症结——电力系统不适应经济社会发展
+        </div>
+      </div>
+    </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; left: 10%; top: 40%"
+        v-if="vPosition > 36000 && vPosition < 37000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div
+          style="
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 22px;
+            font-weight: bolder;
+          "
+        >
+          对策——构建以新能源为主体的新型电力系统
+        </div>
+      </div>
+    </transition>
+
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 18%; top: 50%"
+        v-if="vPosition > 35000 && vPosition < 36000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>电源电网发展不协调</div>
+        </div>
+      </div>
+    </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 18%; top: 50%"
+        v-if="vPosition > 36000 && vPosition < 37000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>新能源电力相对过剩</div>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 28%; top: 50%"
+        v-if="vPosition > 35000 && vPosition < 36000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>火电一度逆势增长</div>
+        </div>
+      </div>
+    </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 28%; top: 50%"
+        v-if="vPosition > 36000 && vPosition < 37000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>碳排放目标完成难度大</div>
+        </div>
+      </div>
+    </transition>
+    <!--    boxes 3-->
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 500px; left: 10%; top: 70%"
+        v-if="vPosition > 37000 && vPosition < 38000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div
+          style="
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 22px;
+            font-weight: bolder;
+          "
+        >
+          目标——加快绿色、低碳转型令实现能源革命
+        </div>
+      </div>
+    </transition>
+
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; left: 23%; top: 80%"
+        v-if="vPosition > 37000 && vPosition < 38000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="stage5-box">
+          <div>2030碳达峰<br />2060碳中和</div>
+        </div>
       </div>
     </transition>
 
@@ -1282,7 +1554,7 @@ export default {
       if (!this.loaded) {
         // 缓慢推进
         // TODO: Debug Only
-        this.dummy += 1;
+        this.dummy += 5;
       }
 
       //mouse
@@ -1515,5 +1787,31 @@ canvas {
   width: 100px;
   right: 8%;
   top: 47%;
+}
+.stage5-box {
+  height: 100px;
+  width: 120px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  border: 1px solid transparent;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.1);
+  padding: 10px 10px;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: bolder;
+}
+.stage5-box-solution {
+  height: 100px;
+  width: 800px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  border: 1px solid transparent;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.1);
+  padding: 10px 10px;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: bolder;
 }
 </style>
