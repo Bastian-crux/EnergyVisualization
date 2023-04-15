@@ -362,118 +362,133 @@
         </el-row>
       </div>
     </transition>
-    <!--      coal-->
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute coal-event"
-        v-if="vPosition > 11000 && vPosition < 11500"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">经历3年恢复期</div>
-      </div>
-    </transition>
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute coal-event"
-        v-if="vPosition > 11500 && vPosition < 12000"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">保持快速发展</div>
-      </div>
-    </transition>
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute coal-event"
-        v-if="vPosition > 12000 && vPosition < 12500"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">供应短缺，促使中央政府放宽政策</div>
-      </div>
-    </transition>
-    <!--      oil-->
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute oil-event"
-        v-if="vPosition > 11010 && vPosition < 11510"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">形成玉门、新疆、青海、四川基地</div>
-      </div>
-    </transition>
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute oil-event"
-        v-if="vPosition > 11510 && vPosition < 12010"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">发现大庆油田</div>
-      </div>
-    </transition>
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute oil-event"
-        v-if="vPosition > 12010 && vPosition < 12510"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">大庆油田扩建，产油量连年增高</div>
-      </div>
-    </transition>
-    <!--      power-->
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute power-event"
-        v-if="vPosition > 11020 && vPosition < 11520"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">大规模的勘探活动</div>
-      </div>
-    </transition>
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute power-event"
-        v-if="vPosition > 11520 && vPosition < 12020"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">产量来自四川盆地</div>
-      </div>
-    </transition>
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute power-event"
-        v-if="vPosition > 12020 && vPosition < 12520"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">产量逐步增加</div>
-      </div>
-    </transition>
-    <!--      gas-->
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute gas-event"
-        v-if="vPosition > 11030 && vPosition < 11530"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">电站和电网工程规划并建设</div>
-      </div>
-    </transition>
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute gas-event"
-        v-if="vPosition > 11530 && vPosition < 12030"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">供应能力稳定增长</div>
-      </div>
-    </transition>
-    <transition name="slide-up" mode="out-in">
-      <div
-        class="absolute gas-event"
-        v-if="vPosition > 12030 && vPosition < 12530"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <div class="stage2-event">中小型水电站发展迅速</div>
-      </div>
-    </transition>
+    <div
+      class="absolute"
+      style="color: white; width: 600px; right: 6.5%; top: 47%"
+    >
+      <el-row>
+        <el-col :span="6">
+          <!--      coal-->
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="coal-event"
+              v-if="vPosition > 11000 && vPosition < 11500"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">经历3年恢复期</div>
+            </div>
+          </transition>
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="coal-event"
+              v-if="vPosition > 11500 && vPosition < 12000"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">保持快速发展</div>
+            </div>
+          </transition>
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="coal-event"
+              v-if="vPosition > 12000 && vPosition < 12500"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">供应短缺，促使中央政府放宽政策</div>
+            </div>
+          </transition>
+        </el-col>
+        <el-col :span="6">
+          <!--      oil-->
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="oil-event"
+              v-if="vPosition > 11010 && vPosition < 11510"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">形成玉门、新疆、青海、四川基地</div>
+            </div>
+          </transition>
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="oil-event"
+              v-if="vPosition > 11510 && vPosition < 12010"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">发现大庆油田</div>
+            </div>
+          </transition>
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="oil-event"
+              v-if="vPosition > 12010 && vPosition < 12510"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">大庆油田扩建，产油量连年增高</div>
+            </div>
+          </transition>
+        </el-col>
+        <el-col :span="6">
+          <!--      power-->
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="power-event"
+              v-if="vPosition > 11020 && vPosition < 11520"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">大规模的勘探活动</div>
+            </div>
+          </transition>
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="power-event"
+              v-if="vPosition > 11520 && vPosition < 12020"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">产量来自四川盆地</div>
+            </div>
+          </transition>
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="power-event"
+              v-if="vPosition > 12020 && vPosition < 12520"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">产量逐步增加</div>
+            </div>
+          </transition>
+        </el-col>
+        <el-col :span="6">
+          <!--      gas-->
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="gas-event"
+              v-if="vPosition > 11030 && vPosition < 11530"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">电站和电网工程规划并建设</div>
+            </div>
+          </transition>
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="gas-event"
+              v-if="vPosition > 11530 && vPosition < 12030"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">供应能力稳定增长</div>
+            </div>
+          </transition>
+          <transition name="slide-up" mode="out-in">
+            <div
+              class="gas-event"
+              v-if="vPosition > 12030 && vPosition < 12530"
+              @wheel="(e) => !loaded && onScroll(e)"
+            >
+              <div class="stage2-event">中小型水电站发展迅速</div>
+            </div>
+          </transition>
+        </el-col>
+      </el-row>
+    </div>
     <!--    bar-->
     <transition name="switch">
       <div
@@ -497,7 +512,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 600px; left: 5%; top: 20%"
+        style="color: white; width: 50%; left: 5%; top: 20%"
         v-if="vPosition > 13000 && vPosition < 15000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -510,8 +525,9 @@
         class="absolute"
         style="
           color: white;
-          width: 500px;
-          left: 38%;
+          text-align: right;
+          width: 45%;
+          left: 5%;
           top: 20%;
           margin: 20px auto;
         "
@@ -524,24 +540,28 @@
             <span style="color: rgba(255, 255, 255, 0.6); font-size: 10px">
               倍</span
             >
+            <span class="larger-num">&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </div>
           <div style="height: 52px">
             <span class="larger-num">35</span>
             <span style="color: rgba(255, 255, 255, 0.6); font-size: 10px">
               倍</span
             >
+            <span class="larger-num">&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </div>
           <div style="height: 52px">
             <span class="larger-num">69</span>
             <span style="color: rgba(255, 255, 255, 0.6); font-size: 10px">
               倍</span
             >
+            <span class="larger-num">&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </div>
           <div style="height: 52px">
             <span class="larger-num">833</span>
             <span style="color: rgba(255, 255, 255, 0.6); font-size: 10px">
               倍</span
             >
+            <span class="larger-num">&nbsp;&nbsp;</span>
           </div>
           <div style="height: 52px">
             <span class="larger-num">1264</span>
@@ -1763,30 +1783,18 @@ canvas {
 .coal-event {
   text-align: center;
   color: white;
-  width: 100px;
-  right: 39.5%;
-  top: 47%;
 }
 .oil-event {
   text-align: center;
   color: white;
-  width: 100px;
-  right: 29%;
-  top: 47%;
 }
 .power-event {
   text-align: center;
   color: white;
-  width: 100px;
-  right: 18.5%;
-  top: 47%;
 }
 .gas-event {
   text-align: center;
   color: white;
-  width: 100px;
-  right: 8%;
-  top: 47%;
 }
 .stage5-box {
   height: 100px;
