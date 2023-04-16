@@ -1493,12 +1493,12 @@ export default {
     }
 
     const objects = [];
-    let nowSelectedImg = ref("images/index/wuyuan_1.png");
+    let nowSelectedImg = ref("images/index/wuyuan_1.webp");
     const imgs = ref([
-      "images/index/wuyuan_1.png",
-      "images/index/kailuan_2.png",
-      "images/index/power_3.png",
-      "images/index/water_4.png",
+      "images/index/wuyuan_1.webp",
+      "images/index/kailuan_2.webp",
+      "images/index/power_3.webp",
+      "images/index/water_4.webp",
     ]);
 
     // pane
