@@ -1116,7 +1116,7 @@
       </div>
     </transition>
 
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 18%; top: 50%"
@@ -1128,7 +1128,7 @@
         </div>
       </div>
     </transition>
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 18%; top: 50%"
@@ -1141,7 +1141,7 @@
       </div>
     </transition>
 
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 28%; top: 50%"
@@ -1153,7 +1153,7 @@
         </div>
       </div>
     </transition>
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 28%; top: 50%"
