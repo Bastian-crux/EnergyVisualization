@@ -3,7 +3,6 @@
     <transition name="fade">
       <Loader v-if="loaded" :progress="percent" @initPage="initPage" />
     </transition>
-
     <!--  title-->
     <transition name="text">
       <div
@@ -21,7 +20,6 @@
         </div>
       </div>
     </transition>
-
     <!--  stage1-->
     <!--  subtitle-->
     <transition name="switch">
@@ -50,7 +48,6 @@
         </p>
       </div>
     </transition>
-
     <!--    timeline1-1-->
     <transition name="switch">
       <div
@@ -202,8 +199,7 @@
         </v-row>
       </div>
     </transition>
-
-    <!--  2-->
+    <!--  stage2-->
     <!--      subtitle-->
     <transition name="switch">
       <div
@@ -572,7 +568,7 @@
         </div>
       </div>
     </transition>
-    <!--  3-->
+    <!--  stage3-->
     <!--    subtitle-->
     <transition name="switch">
       <div
@@ -753,7 +749,7 @@
         </div>
       </div>
     </transition>
-    <!--  4-->
+    <!--  stage4-->
     <!--  title-->
     <transition name="switch">
       <div
@@ -780,8 +776,174 @@
         </p>
       </div>
     </transition>
+    <!--      timeline-->
+    <transition name="slide-up-timeline" mode="out-in">
+      <div
+        class="absolute"
+        style="color: white; width: 600px; right: 5%; top: 25%"
+        v-if="vPosition > 25500 && vPosition < 26250"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <v-timeline
+          direction="horizontal"
+          style="color: white"
+          line-inset="-100"
+          line-color="rgba(255,255,255,0.8)"
+        >
+          <v-timeline-item
+            max-width="120px"
+            size="10"
+            dot-color="rgba(255, 255, 255, 1)"
+          >
+            <template v-slot:opposite>1992</template>
+            <div class="stage4-box">
+              <font-awesome-icon :icon="['fas', 'fire']" size="2xl" />
+              <span style="margin: 5px; font-weight: bolder"
+                >中央直属大煤矿，地方国有煤矿，乡镇煤矿，各占三分之一</span
+              >
+            </div>
+          </v-timeline-item>
+          <v-timeline-item
+            max-width="120px"
+            size="10"
+            dot-color="rgba(255, 255, 255, 1)"
+          >
+            <template v-slot:opposite>1993</template>
+            <div class="stage4-box">
+              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+              <span style="margin: 5px; font-weight: bolder"
+                >撤销能源部成立电力工业部</span
+              >
+            </div>
+          </v-timeline-item>
 
-    <!--  5-->
+          <v-timeline-item
+            max-width="120px"
+            size="10"
+            dot-color="rgba(255, 255, 255, 1)"
+          >
+            <template v-slot:opposite>1997</template>
+            <div class="stage4-box">
+              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+              <span style="margin: 5px; font-weight: bolder"
+                >国家电力公司成立</span
+              >
+            </div>
+          </v-timeline-item>
+          <v-timeline-item
+            max-width="120px"
+            size="10"
+            dot-color="rgba(255, 255, 255, 1)"
+          >
+            <template v-slot:opposite>1998</template>
+            <div style="display: table-cell; vertical-align: middle">
+              <el-row>
+                <el-col span="24">
+                  <div class="stage4-box-double" style="height: 70px">
+                    <font-awesome-icon :icon="['fas', 'fire']" size="2xl" />
+                    <span
+                      style="margin: 5px; font-weight: bolder; font-size: 6px"
+                      >关井压产+关闭破产的政策，使得多数煤炭公司转变为地方国有</span
+                    >
+                  </div>
+                </el-col>
+                <el-col span="24">
+                  <div class="stage4-box-double" style="height: 70px">
+                    <font-awesome-icon :icon="['fas', 'oil-well']" size="2xl" />
+                    <span
+                      style="margin: 5px; font-weight: bolder; font-size: 6px"
+                      >石油天然气和石化总公司重组为上下游产业连通的综合性企业集团公司</span
+                    >
+                  </div>
+                </el-col>
+              </el-row>
+            </div>
+          </v-timeline-item>
+          <v-timeline-item
+            max-width="120px"
+            size="10"
+            dot-color="rgba(255, 255, 255, 1)"
+          >
+            <template v-slot:opposite>1999</template>
+            <div class="stage4-box">
+              <font-awesome-icon :icon="['fas', 'oil-well']" size="2xl" />
+              <span style="margin: 5px; font-weight: bolder"
+                >中国石油、中国石化、中国海油开展企业内部重组，组建股份公司</span
+              >
+            </div>
+          </v-timeline-item>
+        </v-timeline>
+      </div>
+    </transition>
+    <transition name="slide-up-timeline" mode="out-in">
+      <div
+        class="absolute"
+        style="color: white; width: 600px; right: 5%; top: 28%"
+        v-if="vPosition > 26250 && vPosition < 27000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <v-timeline
+          direction="horizontal"
+          style="color: white"
+          line-inset="-100"
+          line-color="rgba(255,255,255,0.8)"
+        >
+          <v-timeline-item
+            max-width="120px"
+            size="10"
+            dot-color="rgba(255, 255, 255, 1)"
+          >
+            <template v-slot:opposite>2002</template>
+            <div class="stage4-box">
+              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+              <span style="margin: 5px; font-weight: bolder"
+                >放开市场准入所有制限制和部门限制；从山西运输煤炭</span
+              >
+            </div>
+          </v-timeline-item>
+          <v-timeline-item
+            max-width="120px"
+            size="10"
+            dot-color="rgba(255, 255, 255, 1)"
+          >
+            <template v-slot:opposite>2004</template>
+            <div class="stage4-box" style="height: 60px">
+              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+              <span style="margin: 5px; font-weight: bolder"
+                >出台标杆上网电价政策</span
+              >
+            </div>
+          </v-timeline-item>
+          <v-timeline-item
+            max-width="1200px"
+            size="10"
+            dot-color="rgba(255, 255, 255, 1)"
+          >
+            <template v-slot:opposite>2005-2006</template>
+            <div class="stage4-box" style="height: 60px">
+              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+              <span style="margin: 5px; font-weight: bolder"
+                >先后实行两次煤电行动</span
+              >
+            </div>
+          </v-timeline-item>
+          <v-timeline-item
+            max-width="120px"
+            size="10"
+            dot-color="rgba(255, 255, 255, 1)"
+          >
+            <template v-slot:opposite>2009</template>
+            <div class="stage4-box">
+              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+              <span style="margin: 5px; font-weight: bolder"
+                >我国自主研发、设计建设的首个特高压交流工程</span
+              >
+            </div>
+          </v-timeline-item>
+        </v-timeline>
+      </div>
+    </transition>
+    <!--  stage5-->
     <transition name="switch">
       <div
         class="absolute"
@@ -1130,8 +1292,15 @@
         <DirectionalLight
           ref="dir"
           color="rgb(100, 100, 100)"
-          :position="{ x: dirX, y: dirY, z: dirZ }"
+          :position="{ x: 20, y: 20, z: 20 }"
           :intensity="0"
+          cast-shadow
+        />
+        <DirectionalLight
+          ref="dir_board"
+          color="rgb(100, 100, 100)"
+          :position="{ x: dirX, y: dirY, z: dirZ }"
+          :intensity="1"
           cast-shadow
         />
 
@@ -1354,6 +1523,8 @@ export default {
       });
     }
 
+    const objects = [];
+
     // pane
     const dirX = ref(20);
     const dirY = ref(20);
@@ -1397,6 +1568,8 @@ export default {
       hemiY,
       hemiSkyColor,
       hemiGroundColor,
+
+      objects,
     };
   },
   mounted() {
@@ -1414,8 +1587,10 @@ export default {
     this.camera = this.$refs.camera.camera;
     // this.scene.background = new THREE.Color("#eeedea");
 
+    this.renderer.shadowMapEnabled = true;
+
     this.scene.fog = new THREE.Fog(this.skycolor, 1, 2000);
-    this.dir = this.$refs.dir.light;
+    this.dir = this.$refs.dir_board.light;
     const dirHelper = new THREE.DirectionalLightHelper(this.dir, 50, "#ff0000");
     this.scene.add(dirHelper);
 
@@ -1449,7 +1624,7 @@ export default {
     this.imageArray.forEach((el) =>
       texture.push(new THREE.TextureLoader().load(el))
     );
-    console.log(this.imageArray);
+    // console.log(this.imageArray);
     texture.forEach((el) =>
       material.push(
         new THREE.MeshBasicMaterial({ map: el, side: THREE.BackSide })
@@ -1574,9 +1749,12 @@ export default {
       if (!this.loaded) {
         // 缓慢推进
         // TODO: Debug Only
-        this.dummy += 5;
+        // this.dummy += 5;
       }
-
+      // console.log(this.scene);
+      // if (this.scene.children.length === 13 && this.objects.length === 0) {
+      //   this.getMesh(this.scene.children);
+      // }
       //mouse
       // mouse.position.copy(mouseV3);
 
@@ -1630,11 +1808,25 @@ export default {
     },
     dirIntensity(val) {
       this.$refs.dir.light.intensity = val;
-      console.log(this.$refs.dir.light.intensity);
+      // console.log(this.$refs.dir.light.intensity);
     },
   },
 
   methods: {
+    getMesh(parent) {
+      parent.forEach((item) => {
+        if (item.type === "Mesh") {
+          item.castShadow = true;
+          item.receiveShadow = true;
+
+          this.objects.push(item);
+        } else if (item.type === "Group") {
+          item.castShadow = true;
+          item.receiveShadow = true;
+          this.getMesh(item.children);
+        }
+      });
+    },
     lerp(start, end, amt) {
       return (1 - amt) * start + amt * end;
     },
@@ -1774,6 +1966,20 @@ canvas {
   opacity: 0;
   transform: translateY(-30px);
 }
+.slide-up-timeline-enter-active,
+.slide-up-timeline-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-up-timeline-enter-from {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.slide-up-timeline-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
 .stage2-event {
   text-align: center;
   color: rgba(255, 255, 255, 0.4);
@@ -1821,5 +2027,27 @@ canvas {
   display: table-cell;
   vertical-align: middle;
   font-weight: bolder;
+}
+.stage4-box {
+  height: 100px;
+  width: 100px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 10px 5px;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 8px;
+  text-align: center;
+}
+.stage4-box-double {
+  height: 50px;
+  width: 100px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 10px 5px;
+  font-size: 8px;
+  text-align: center;
 }
 </style>

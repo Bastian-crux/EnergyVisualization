@@ -495,6 +495,7 @@ onMounted(() => {
 
     objects = [];
     getMesh(scene.children);
+    console.log(objects);
 
     if (controls.isLocked === true) {
       raycaster.ray.origin.copy(controls.getObject().position);
