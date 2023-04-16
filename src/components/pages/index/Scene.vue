@@ -1008,7 +1008,7 @@
       </div>
     </transition>
 
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 8%; top: 20%"
@@ -1020,7 +1020,7 @@
         </div>
       </div>
     </transition>
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 8%; top: 20%"
@@ -1033,7 +1033,7 @@
       </div>
     </transition>
 
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 18%; top: 20%"
@@ -1045,7 +1045,7 @@
         </div>
       </div>
     </transition>
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 18%; top: 20%"
@@ -1058,7 +1058,7 @@
       </div>
     </transition>
 
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 28%; top: 20%"
@@ -1070,7 +1070,7 @@
         </div>
       </div>
     </transition>
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 28%; top: 20%"
@@ -1083,7 +1083,7 @@
       </div>
     </transition>
 
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 38%; top: 20%"
@@ -1095,7 +1095,7 @@
         </div>
       </div>
     </transition>
-    <transition name="switch">
+    <transition name="flip">
       <div
         class="absolute"
         style="color: white; width: 400px; left: 38%; top: 20%"
@@ -2027,6 +2027,20 @@ canvas {
   display: table-cell;
   vertical-align: middle;
   font-weight: bolder;
+}
+.flip-enter-active {
+  transition: all 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  transform-origin: 50% 50%;
+}
+.flip-leave-active {
+  transform-origin: 50% 50%;
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.flip-enter-from,
+.flip-leave-to {
+  transform-origin: 50% 50%;
+  transform: scaleY(0) translateZ(0);
+  opacity: 0;
 }
 .stage4-box {
   height: 100px;
