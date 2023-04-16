@@ -137,68 +137,37 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; right: 11%; top: 22%"
+        style="color: white; width: 400px; right: 12%; top: 20%"
         v-if="vPosition > 6100 && vPosition < 8000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
-        <v-row>
-          <v-col class="d-flex child-flex" cols="4">
-            <v-img
-              src="images/index/water_generator.webp"
-              aspect-ratio="1"
-              cover
-              class="bg-grey-lighten-2"
-              style="opacity: 0.8"
-            >
-              <template v-slot:placeholder>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular
-                    indeterminate
-                    color="grey-lighten-5"
-                  ></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
-          </v-col>
-          <v-col class="d-flex child-flex" cols="4">
-            <v-img
-              src="images/index/water_generator.webp"
-              aspect-ratio="1"
-              cover
-              class="bg-grey-lighten-2"
-              style="opacity: 0.8"
-            >
-              <template v-slot:placeholder>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular
-                    indeterminate
-                    color="grey-lighten-5"
-                  ></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
-          </v-col>
-          <v-col class="d-flex child-flex" cols="4">
-            <v-img
-              src="images/index/water_generator.webp"
-              aspect-ratio="1"
-              cover
-              class="bg-grey-lighten-2"
-              style="opacity: 0.8"
-            >
-              <template v-slot:placeholder>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular
-                    indeterminate
-                    color="grey-lighten-5"
-                  ></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
-          </v-col>
-        </v-row>
+        <img
+          id="myImage"
+          class="stage1-big-pic"
+          style="object-fit: fill"
+          :src="nowSelectedImg"
+        />
       </div>
     </transition>
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 10%; top: 60%"
+        v-if="vPosition > 6100 && vPosition < 8000"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <span style="width: 70px; height: 70px">
+          <el-image
+            v-for="img in imgs"
+            @mouseenter="selectImg(img)"
+            class="stage1-img"
+            :src="img"
+            fit="fill"
+          />
+        </span>
+      </div>
+    </transition>
+
     <!--  stage2-->
     <!--      subtitle-->
     <transition name="switch">
@@ -1524,6 +1493,13 @@ export default {
     }
 
     const objects = [];
+    let nowSelectedImg = ref("images/index/wuyuan_1.png");
+    const imgs = ref([
+      "images/index/wuyuan_1.png",
+      "images/index/kailuan_2.png",
+      "images/index/power_3.png",
+      "images/index/water_4.png",
+    ]);
 
     // pane
     const dirX = ref(20);
@@ -1570,6 +1546,8 @@ export default {
       hemiGroundColor,
 
       objects,
+      imgs,
+      nowSelectedImg,
     };
   },
   mounted() {
@@ -1884,6 +1862,16 @@ export default {
         parent.remove(child);
       }
     },
+    selectImg(param) {
+      this.nowSelectedImg = param;
+      let image = document.getElementById("myImage");
+      console.log(image.src);
+      image.classList.add("fade");
+      console.log(image.classList);
+      setTimeout(function () {
+        image.classList.remove("fade");
+      }, 500);
+    },
   },
 };
 </script>
@@ -2063,5 +2051,35 @@ canvas {
   padding: 10px 5px;
   font-size: 8px;
   text-align: center;
+}
+.stage1-img {
+  height: 60px;
+  width: 60px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border: 1px solid transparent;
+  box-shadow: 3px 3px 20px 20px rgba(255, 255, 255, 0.05);
+  margin: 5px 12px;
+}
+.stage1-img:hover {
+  filter: alpha(Opacity=80);
+  -moz-opacity: 0.8;
+  opacity: 0.8;
+  transform: scale(1.1);
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.stage1-big-pic {
+  height: 225px;
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border: 1px solid transparent;
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.1);
+  transition: opacity 0.5s ease-in;
+}
+
+.fade {
+  opacity: 0;
 }
 </style>
