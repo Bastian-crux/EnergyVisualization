@@ -26,7 +26,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; right: 10%; top: 20%"
-        v-if="vPosition > 2200 && vPosition < 3900"
+        v-if="vPosition > 2200 && vPosition < 4200"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">探索能源发展阶段</h1>
@@ -38,7 +38,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; right: 10%; top: 37%"
-        v-if="vPosition > 2200 && vPosition < 4000"
+        v-if="vPosition > 2200 && vPosition < 4200"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <p style="color: rgb(164, 164, 164); text-indent: 2em">
@@ -53,7 +53,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; right: 22%; top: 16%"
-        v-if="vPosition > 4100 && vPosition < 6000"
+        v-if="vPosition > 4200 && vPosition < 6200"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <v-timeline align="center" theme="dark" class="timeline">
@@ -97,7 +97,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; right: 2%; bottom: 12%"
-        v-if="vPosition > 5100 && vPosition < 6000"
+        v-if="vPosition > 5200 && vPosition < 6200"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <v-timeline align="center" theme="dark" class="timeline">
@@ -134,31 +134,33 @@
       </div>
     </transition>
     <!--      timeline1-3-->
-    <div class="img-contain" v-if="vPosition > 6100 && vPosition < 8000">
-      <div class="overlay">
-        <p class="overlay-text">{{ nowSelectedImgText }}</p>
-      </div>
-      <transition name="switch">
-        <div
-          class="absolute"
-          style="color: white; width: 400px; right: 12%; top: 20%"
-          v-if="vPosition > 6100 && vPosition < 8000"
-          @wheel="(e) => !loaded && onScroll(e)"
-        >
-          <img
-            id="myImage"
-            class="stage1-big-pic"
-            style="object-fit: fill"
-            :src="nowSelectedImg"
-          />
+    <transition name="switch">
+      <div
+        class="absolute"
+        style="color: white; width: 400px; right: 12%; top: 20%"
+        v-if="vPosition > 6200 && vPosition < 8500"
+        @wheel="(e) => !loaded && onScroll(e)"
+      >
+        <div class="img-contain">
+          <div class="overlay">
+            <p class="overlay-text">{{ nowSelectedImgText }}</p>
+          </div>
+          <div>
+            <img
+              id="myImage"
+              class="stage1-big-pic"
+              style="object-fit: fill"
+              :src="nowSelectedImg"
+            />
+          </div>
         </div>
-      </transition>
-    </div>
+      </div>
+    </transition>
     <transition name="switch">
       <div
         class="absolute"
         style="color: white; width: 400px; right: 10%; top: 60%"
-        v-if="vPosition > 6100 && vPosition < 8000"
+        v-if="vPosition > 6200 && vPosition < 8500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <span style="width: 70px; height: 70px">
@@ -179,7 +181,7 @@
       <div
         class="absolute"
         style="color: white; width: 500px; right: 10%; top: 20%"
-        v-if="vPosition > 9000 && vPosition < 10000"
+        v-if="vPosition > 9000 && vPosition < 11000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">能源恢复和初步发展</h1>
@@ -206,7 +208,7 @@
       <div
         class="absolute"
         style="color: white; width: 500px; right: 10%; top: 20%"
-        v-if="vPosition > 11000 && vPosition < 11500"
+        v-if="vPosition > 11000 && vPosition < 12000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -223,7 +225,7 @@
       <div
         class="absolute"
         style="color: white; width: 500px; right: 10%; top: 20%"
-        v-else-if="vPosition > 11500 && vPosition < 12000"
+        v-else-if="vPosition > 12000 && vPosition < 13000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -241,7 +243,7 @@
       <div
         class="absolute"
         style="color: white; width: 500px; right: 10%; top: 20%"
-        v-else-if="vPosition > 12000 && vPosition < 12500"
+        v-else-if="vPosition > 13000 && vPosition < 14000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -261,7 +263,7 @@
       <div
         class="absolute"
         style="color: white; width: 600px; right: 6.5%; top: 32%"
-        v-if="vPosition > 11000 && vPosition < 12500"
+        v-if="vPosition > 11000 && vPosition < 14000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <el-row>
@@ -342,7 +344,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="coal-event"
-              v-if="vPosition > 11000 && vPosition < 11500"
+              v-if="vPosition > 11000 && vPosition < 12000"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">经历3年恢复期</div>
@@ -351,7 +353,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="coal-event"
-              v-if="vPosition > 11500 && vPosition < 12000"
+              v-if="vPosition > 12000 && vPosition < 13000"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">保持快速发展</div>
@@ -360,7 +362,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="coal-event"
-              v-if="vPosition > 12000 && vPosition < 12500"
+              v-if="vPosition > 13000 && vPosition < 14000"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">供应短缺，促使中央政府放宽政策</div>
@@ -372,7 +374,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="oil-event"
-              v-if="vPosition > 11010 && vPosition < 11510"
+              v-if="vPosition > 11010 && vPosition < 12010"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">形成玉门、新疆、青海、四川基地</div>
@@ -381,7 +383,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="oil-event"
-              v-if="vPosition > 11510 && vPosition < 12010"
+              v-if="vPosition > 12010 && vPosition < 13010"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">发现大庆油田</div>
@@ -390,7 +392,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="oil-event"
-              v-if="vPosition > 12010 && vPosition < 12510"
+              v-if="vPosition > 13010 && vPosition < 14010"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">大庆油田扩建，产油量连年增高</div>
@@ -402,7 +404,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="power-event"
-              v-if="vPosition > 11020 && vPosition < 11520"
+              v-if="vPosition > 11020 && vPosition < 12020"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">大规模的勘探活动</div>
@@ -411,7 +413,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="power-event"
-              v-if="vPosition > 11520 && vPosition < 12020"
+              v-if="vPosition > 12020 && vPosition < 13020"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">产量来自四川盆地</div>
@@ -420,7 +422,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="power-event"
-              v-if="vPosition > 12020 && vPosition < 12520"
+              v-if="vPosition > 13020 && vPosition < 14020"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">产量逐步增加</div>
@@ -432,7 +434,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="gas-event"
-              v-if="vPosition > 11030 && vPosition < 11530"
+              v-if="vPosition > 11030 && vPosition < 12030"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">电站和电网工程规划并建设</div>
@@ -441,7 +443,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="gas-event"
-              v-if="vPosition > 11530 && vPosition < 12030"
+              v-if="vPosition > 12030 && vPosition < 13030"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">供应能力稳定增长</div>
@@ -450,7 +452,7 @@
           <transition name="slide-up" mode="out-in">
             <div
               class="gas-event"
-              v-if="vPosition > 12030 && vPosition < 12530"
+              v-if="vPosition > 13030 && vPosition < 14030"
               @wheel="(e) => !loaded && onScroll(e)"
             >
               <div class="stage2-event">中小型水电站发展迅速</div>
@@ -464,7 +466,7 @@
       <div
         class="absolute"
         style="color: white; width: 500px; left: 5%; top: 10%"
-        v-if="vPosition > 13000 && vPosition < 15000"
+        v-if="vPosition > 14500 && vPosition < 16500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -483,7 +485,7 @@
       <div
         class="absolute"
         style="color: white; width: 50%; left: 5%; top: 20%"
-        v-if="vPosition > 13000 && vPosition < 15000"
+        v-if="vPosition > 14500 && vPosition < 16500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <PowerBar></PowerBar>
@@ -501,7 +503,7 @@
           top: 20%;
           margin: 20px auto;
         "
-        v-if="vPosition > 13000 && vPosition < 15000"
+        v-if="vPosition > 14500 && vPosition < 16500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div>
@@ -548,7 +550,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 8%; top: 20%"
-        v-if="vPosition > 16000 && vPosition < 17000"
+        v-if="vPosition > 17000 && vPosition < 19000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">解决能源供应短缺</h1>
@@ -560,7 +562,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 8%; top: 37%"
-        v-if="vPosition > 16000 && vPosition < 17000"
+        v-if="vPosition > 17000 && vPosition < 19000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div style="color: rgb(164, 164, 164); text-indent: 2em">
@@ -574,7 +576,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 6%; top: 20%"
-        v-if="vPosition > 17000 && vPosition < 18000"
+        v-if="vPosition > 19000 && vPosition < 21000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -638,7 +640,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 35%; top: 35%"
-        v-if="vPosition > 17010 && vPosition < 18000"
+        v-if="vPosition > 19010 && vPosition < 21000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -669,7 +671,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 35%; top: 47%"
-        v-if="vPosition > 17020 && vPosition < 18000"
+        v-if="vPosition > 19020 && vPosition < 21000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -700,7 +702,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 35%; top: 59%"
-        v-if="vPosition > 17030 && vPosition < 18000"
+        v-if="vPosition > 19030 && vPosition < 21000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -729,7 +731,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; right: 10%; top: 20%"
-        v-if="vPosition > 24000 && vPosition < 25500"
+        v-if="vPosition > 21500 && vPosition < 23500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">能源快速扩张阶段</h1>
@@ -741,7 +743,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; right: 10%; top: 37%"
-        v-if="vPosition > 24000 && vPosition < 25500"
+        v-if="vPosition > 21500 && vPosition < 23500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <p style="color: rgb(230, 230, 230); text-indent: 2em">
@@ -755,7 +757,7 @@
       <div
         class="absolute"
         style="color: white; width: 600px; right: 5%; top: 25%"
-        v-if="vPosition > 25500 && vPosition < 26250"
+        v-if="vPosition > 23500 && vPosition < 25500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <v-timeline
@@ -853,7 +855,7 @@
       <div
         class="absolute"
         style="color: white; width: 600px; right: 5%; top: 28%"
-        v-if="vPosition > 26250 && vPosition < 27000"
+        v-if="vPosition > 25500 && vPosition < 27500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <v-timeline
@@ -922,7 +924,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 8%; top: 20%"
-        v-if="vPosition > 32000 && vPosition < 33000"
+        v-if="vPosition > 28000 && vPosition < 30000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <h1 style="font-size: 48px">绿色能源转型阶段</h1>
@@ -933,7 +935,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 8%; top: 37%"
-        v-if="vPosition > 32000 && vPosition < 33000"
+        v-if="vPosition > 28000 && vPosition < 30000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <p style="text-indent: 2em">
@@ -947,7 +949,7 @@
       <div
         class="absolute"
         style="color: white; width: 500px; left: 10%; top: 10%"
-        v-if="vPosition > 33000 && vPosition < 34000"
+        v-if="vPosition > 30000 && vPosition < 32000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -966,7 +968,7 @@
       <div
         class="absolute"
         style="color: white; width: 500px; left: 10%; top: 10%"
-        v-if="vPosition > 34000 && vPosition < 35000"
+        v-if="vPosition > 32000 && vPosition < 34000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -986,7 +988,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 8%; top: 20%"
-        v-if="vPosition > 33000 && vPosition < 34000"
+        v-if="vPosition > 30000 && vPosition < 32000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -998,7 +1000,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 8%; top: 20%"
-        v-if="vPosition > 34000 && vPosition < 35000"
+        v-if="vPosition > 32000 && vPosition < 34000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1011,7 +1013,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 18%; top: 20%"
-        v-if="vPosition > 33000 && vPosition < 34000"
+        v-if="vPosition > 30000 && vPosition < 32000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1023,7 +1025,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 18%; top: 20%"
-        v-if="vPosition > 34000 && vPosition < 35000"
+        v-if="vPosition > 32000 && vPosition < 34000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1036,7 +1038,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 28%; top: 20%"
-        v-if="vPosition > 33000 && vPosition < 34000"
+        v-if="vPosition > 30000 && vPosition < 32000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1048,7 +1050,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 28%; top: 20%"
-        v-if="vPosition > 34000 && vPosition < 35000"
+        v-if="vPosition > 32000 && vPosition < 34000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1061,7 +1063,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 38%; top: 20%"
-        v-if="vPosition > 33000 && vPosition < 34000"
+        v-if="vPosition > 30000 && vPosition < 32000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1073,7 +1075,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 38%; top: 20%"
-        v-if="vPosition > 34000 && vPosition < 35000"
+        v-if="vPosition > 32000 && vPosition < 34000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1086,7 +1088,7 @@
       <div
         class="absolute"
         style="color: white; width: 500px; left: 10%; top: 40%"
-        v-if="vPosition > 35000 && vPosition < 36000"
+        v-if="vPosition > 34000 && vPosition < 36000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -1105,7 +1107,7 @@
       <div
         class="absolute"
         style="color: white; width: 500px; left: 10%; top: 40%"
-        v-if="vPosition > 36000 && vPosition < 37000"
+        v-if="vPosition > 36000 && vPosition < 38000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -1125,7 +1127,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 18%; top: 50%"
-        v-if="vPosition > 35000 && vPosition < 36000"
+        v-if="vPosition > 34000 && vPosition < 36000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1137,7 +1139,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 18%; top: 50%"
-        v-if="vPosition > 36000 && vPosition < 37000"
+        v-if="vPosition > 36000 && vPosition < 38000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1150,7 +1152,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 28%; top: 50%"
-        v-if="vPosition > 35000 && vPosition < 36000"
+        v-if="vPosition > 34000 && vPosition < 36000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1162,7 +1164,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 28%; top: 50%"
-        v-if="vPosition > 36000 && vPosition < 37000"
+        v-if="vPosition > 36000 && vPosition < 38000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1175,7 +1177,7 @@
       <div
         class="absolute"
         style="color: white; width: 500px; left: 10%; top: 70%"
-        v-if="vPosition > 37000 && vPosition < 38000"
+        v-if="vPosition > 38000 && vPosition < 40000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div
@@ -1195,7 +1197,7 @@
       <div
         class="absolute"
         style="color: white; width: 400px; left: 23%; top: 80%"
-        v-if="vPosition > 37000 && vPosition < 38000"
+        v-if="vPosition > 38000 && vPosition < 40000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
         <div class="stage5-box">
@@ -1247,13 +1249,6 @@
           groundColor="rgb(7, 16, 33)"
           :intensity="0.2"
         />
-        <!--        <HemisphereLight-->
-        <!--          ref="hemi"-->
-        <!--          :color="hemiSkyColor"-->
-        <!--          :groundColor="hemiGroundColor"-->
-        <!--          :position="{ x: 0, y: hemiY, z: 0 }"-->
-        <!--          :intensity="0.8"-->
-        <!--        />-->
 
         <PointLight
           ref="sun"
@@ -1586,13 +1581,6 @@ export default {
     const dirHelper = new THREE.DirectionalLightHelper(this.dir, 50, "#ff0000");
     this.scene.add(dirHelper);
 
-    // this.hemi = this.$refs.hemi.light;
-    // const hemiHelper = new THREE.HemisphereLightHelper(
-    //   this.hemi,
-    //   50,
-    //   "#ff0000"
-    // );
-    // this.scene.add(hemiHelper);
     const dirLight = new THREE.DirectionalLight(0xffffff);
     // 平行光的位置
     dirLight.position.set(-0, 40, 50);
@@ -1616,7 +1604,6 @@ export default {
     this.imageArray.forEach((el) =>
       texture.push(new THREE.TextureLoader().load(el))
     );
-    // console.log(this.imageArray);
     texture.forEach((el) =>
       material.push(
         new THREE.MeshBasicMaterial({ map: el, side: THREE.BackSide })
@@ -1625,11 +1612,6 @@ export default {
     let skyboxGeo = new THREE.BoxGeometry(5000, 5000, 5000);
     let skybox = new THREE.Mesh(skyboxGeo, material);
     this.scene.add(skybox);
-
-    //mouse
-    // const mouse = this.$refs.mouse.light;
-    // this.pointer = this.renderer.three.pointer;
-    // const mouseV3 = this.pointer.positionV3;
 
     //rain
     const rainMaterial = new THREE.PointsMaterial({
@@ -1677,7 +1659,7 @@ export default {
     //ANIMATION LOOP
     this.renderer.onBeforeRender(() => {
       water.material.uniforms["time"].value += 0.7 / 60.0;
-      if (this.vPosition > 2400) {
+      if (this.vPosition > 2400 && this.vPosition <= 40000) {
         this.camera.position.x =
           Math.cos((this.vPosition - 2400) / 3000) * 150 + cameraOffsetX;
         this.camera.position.z = Math.sin((this.vPosition - 2400) / 3000) * 200;
@@ -1732,7 +1714,7 @@ export default {
           0
         );
         this.camera.position.y = 70 + this.mouseY;
-      } else {
+      } else if (this.vPosition <= 40000) {
         this.camera.lookAt(0 + cameraOffsetX, 20, 0);
         this.camera.position.y = 70 + this.mouseY;
       }
@@ -1742,12 +1724,6 @@ export default {
         // 缓慢推进
         this.dummy += 5;
       }
-      // console.log(this.scene);
-      // if (this.scene.children.length === 13 && this.objects.length === 0) {
-      //   this.getMesh(this.scene.children);
-      // }
-      //mouse
-      // mouse.position.copy(mouseV3);
 
       //rain
       for (let i = 0; i < this.rainCount; i++) {
@@ -1880,9 +1856,9 @@ export default {
       let image = document.getElementById("myImage");
       image.classList.add("fade");
       setTimeout(function () {
-        image.classList.remove("fade");
         that.nowSelectedImg = param;
         that.nowSelectedImgText = that.texts[param];
+        image.classList.remove("fade");
       }, 500);
     },
   },
@@ -2101,8 +2077,6 @@ canvas {
 }
 .img-contain .overlay {
   position: absolute;
-  right: 12%;
-  top: 20%;
   height: 225px;
   width: 400px;
   border-radius: 10px;
