@@ -134,21 +134,26 @@
       </div>
     </transition>
     <!--      timeline1-3-->
-    <transition name="switch">
-      <div
-        class="absolute"
-        style="color: white; width: 400px; right: 12%; top: 20%"
-        v-if="vPosition > 6100 && vPosition < 8000"
-        @wheel="(e) => !loaded && onScroll(e)"
-      >
-        <img
-          id="myImage"
-          class="stage1-big-pic"
-          style="object-fit: fill"
-          :src="nowSelectedImg"
-        />
+    <div class="img-contain" v-if="vPosition > 6100 && vPosition < 8000">
+      <div class="overlay">
+        <p class="overlay-text">{{ nowSelectedImgText }}</p>
       </div>
-    </transition>
+      <transition name="switch">
+        <div
+          class="absolute"
+          style="color: white; width: 400px; right: 12%; top: 20%"
+          v-if="vPosition > 6100 && vPosition < 8000"
+          @wheel="(e) => !loaded && onScroll(e)"
+        >
+          <img
+            id="myImage"
+            class="stage1-big-pic"
+            style="object-fit: fill"
+            :src="nowSelectedImg"
+          />
+        </div>
+      </transition>
+    </div>
     <transition name="switch">
       <div
         class="absolute"
@@ -1493,13 +1498,20 @@ export default {
     }
 
     const objects = [];
-    let nowSelectedImg = ref("images/index/wuyuan_1.webp");
+    const nowSelectedImg = ref("images/index/wuyuan_1.webp");
+    const nowSelectedImgText = ref("安源路矿");
     const imgs = ref([
       "images/index/wuyuan_1.webp",
       "images/index/kailuan_2.webp",
       "images/index/power_3.webp",
       "images/index/water_4.webp",
     ]);
+    const texts = ref({
+      "images/index/wuyuan_1.webp": "安源路矿",
+      "images/index/kailuan_2.webp": "开滦五矿",
+      "images/index/power_3.webp": "刘伯承电厂",
+      "images/index/water_4.webp": "沕沕水发电站",
+    });
 
     // pane
     const dirX = ref(20);
@@ -1547,7 +1559,9 @@ export default {
 
       objects,
       imgs,
+      texts,
       nowSelectedImg,
+      nowSelectedImgText,
     };
   },
   mounted() {
@@ -1863,13 +1877,13 @@ export default {
       }
     },
     selectImg(param) {
-      this.nowSelectedImg = param;
+      const that = this;
       let image = document.getElementById("myImage");
-      console.log(image.src);
       image.classList.add("fade");
-      console.log(image.classList);
       setTimeout(function () {
         image.classList.remove("fade");
+        that.nowSelectedImg = param;
+        that.nowSelectedImgText = that.texts[param];
       }, 500);
     },
   },
@@ -1944,12 +1958,10 @@ canvas {
 .slide-up-leave-active {
   transition: all 0.25s ease-out;
 }
-
 .slide-up-enter-from {
   opacity: 0;
   transform: translateY(30px);
 }
-
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(-30px);
@@ -1958,12 +1970,10 @@ canvas {
 .slide-up-timeline-leave-active {
   transition: all 0.3s ease-out;
 }
-
 .slide-up-timeline-enter-from {
   opacity: 0;
   transform: translateX(30px);
 }
-
 .slide-up-timeline-leave-to {
   opacity: 0;
   transform: translateX(-30px);
@@ -2078,8 +2088,33 @@ canvas {
   box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.1);
   transition: opacity 0.5s ease-in;
 }
-
 .fade {
   opacity: 0;
+}
+.img-contain:hover .overlay {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: 0.5s all ease-out;
+}
+.img-contain .overlay {
+  position: absolute;
+  right: 12%;
+  top: 20%;
+  height: 225px;
+  width: 400px;
+  border-radius: 10px;
+  z-index: 1000;
+  display: block;
+  opacity: 0;
+  overflow: hidden;
+  transition: 0.3s all ease-in;
+}
+.overlay-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.7);
+  line-height: 225px;
+  letter-spacing: 5px;
+  text-align: center;
 }
 </style>

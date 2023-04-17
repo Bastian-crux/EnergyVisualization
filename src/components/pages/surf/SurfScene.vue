@@ -316,7 +316,6 @@ const collideCheck = (angle) => {
     5
   ); //射线长度为5 一条较短的射线
   raycaster.ray.origin.y -= eyeHeight;
-  console.log(objects);
   const intersections = raycaster.intersectObjects(objects, false);
   return intersections.length;
 };
@@ -492,10 +491,6 @@ onMounted(() => {
   renderer.onBeforeRender(() => {
     const time = performance.now();
     water.material.uniforms["time"].value += 0.7 / 60.0;
-
-    objects = [];
-    getMesh(scene.children);
-    console.log(objects);
 
     if (controls.isLocked === true) {
       raycaster.ray.origin.copy(controls.getObject().position);
