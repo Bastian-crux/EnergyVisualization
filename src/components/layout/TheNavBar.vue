@@ -10,7 +10,7 @@
       text-color="rgba(255, 255, 255, 0.8)"
       active-text-color="rgba(255, 255, 255, 0.8)"
     >
-      <el-menu-item index="">能源可视化</el-menu-item>
+      <el-menu-item index="">能源轨迹</el-menu-item>
       <div class="flex-grow" />
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/surf">漫游</el-menu-item>
