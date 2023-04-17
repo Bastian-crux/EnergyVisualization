@@ -1740,8 +1740,7 @@ export default {
       this.vPosition = this.lerp(this.vPosition, this.dummy, 0.1); // ?
       if (!this.loaded) {
         // 缓慢推进
-        // TODO: Debug Only
-        // this.dummy += 5;
+        this.dummy += 5;
       }
       // console.log(this.scene);
       // if (this.scene.children.length === 13 && this.objects.length === 0) {

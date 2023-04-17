@@ -514,8 +514,6 @@ function initScene() {
   // 灯光的位置
   hemiLight.position.set(0, 100, 0);
   scene.add(hemiLight);
-  const hemiHelper = new THREE.HemisphereLightHelper(hemiLight, 50, "#ff0000");
-  scene.add(hemiHelper);
 
   // 平行光
   const dirLight = new THREE.DirectionalLight(0xffffff);
@@ -531,8 +529,6 @@ function initScene() {
   dirLight.shadow.camera.far = 200;
   dirLight.shadow.mapSize.set(1024, 1024);
   scene.add(dirLight);
-  const dirHelper = new THREE.DirectionalLightHelper(dirLight, 50, "#ff0000");
-  scene.add(dirHelper);
 
   // 渲染器
   renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -546,21 +542,6 @@ function initScene() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   canvasFrame.appendChild(renderer.domElement);
 
-  // 添加鼠标控制
-  viewControls2 = new OrbitControls(camera, renderer.domElement);
-  // 开启阻尼
-  viewControls2.enableDamping = true;
-  // 阻尼系数
-  viewControls2.dampingFactor = 0.25;
-  // 开启缩放
-  viewControls2.enableZoom = true;
-  // 自动旋转
-  viewControls2.autoRotate = true;
-  // 开启鼠标右键拖拽
-  viewControls2.enablePan = true;
-  // 相机离原点的最远距离
-  viewControls2.maxDistance = 1000;
-
   const loader = new GLTFLoader();
   const dLoader = new DRACOLoader();
   dLoader.setDecoderPath("/draco/");
@@ -568,12 +549,7 @@ function initScene() {
   dLoader.preload(); //初始化_initDecoder 解码器
   loader.setDRACOLoader(dLoader);
   loader.load("/static/islandtest_compress.glb", function (gltf) {
-    // gltf.scene.traverse(function (child){
-    //   child.castShadow = true;
-    // })
     const temp = gltf.scene;
-    // console.log(gltf);
-    // console.log(temp);
     temp.name = "mainScene";
     temp.castShadow = true;
     temp.rotation.y = 0.2;
@@ -594,23 +570,12 @@ function initBuildingModel(item) {
   dLoader.preload(); //初始化_initDecoder 解码器
   loader.setDRACOLoader(dLoader);
   loader.load(item.modelPath, function (gltf) {
-    // gltf.scene.traverse(function (child){
-    //   child.castShadow = true;
-    // })
     const temp = gltf.scene;
-    // temp.name = "mainScene";
     temp.castShadow = true;
     temp.scale.set(0.8, 0.8, 0.8);
     temp.rotation.y = 0.8;
     models.push({ name: item.name, mesh: temp });
     modelInstances.push(temp);
-    // temp.position.copy(item.position);
-    // temp.position.set(item.position.x, item.position.y + 1, item.position.z);
-    // const temp2 = temp.clone();
-    // temp2.position.set(item.position.x, item.position.y + 3, item.position.z);
-
-    // scene.add(temp);
-    // scene.add(temp2);
     modelInstances.push(temp);
   });
 }
@@ -782,30 +747,6 @@ function clickPoint(item) {
 
 function placeNew(item) {
   updateGame(item);
-  // const loader = new GLTFLoader();
-  // const dLoader = new DRACOLoader();
-  // dLoader.setDecoderPath("/draco/");
-  // dLoader.setDecoderConfig({ type: "js" }); //使用js方式解压
-  // dLoader.preload(); //初始化_initDecoder 解码器
-  // loader.setDRACOLoader(dLoader);
-  // loader.load(selectedModel.modelPath, function (gltf) {
-  //   // gltf.scene.traverse(function (child){
-  //   //   child.castShadow = true;
-  //   // })
-  //   const temp = gltf.scene;
-  //   // temp.name = "mainScene";
-  //   temp.castShadow = true;
-  //   temp.scale.set(0.8, 0.8, 0.8);
-  //   temp.rotation.y = 0.4;
-  //   // temp.position.copy(item.position);
-  //   temp.position.set(item.position.x, item.position.y + 1, item.position.z);
-  //   const temp2 = temp.clone();
-  //   temp2.position.set(item.position.x, item.position.y + 3, item.position.z);
-  //
-  //   scene.add(temp);
-  //   scene.add(temp2);
-  //   models.push(temp);
-  // });
   const tempModel = models.find((target) => target.name === selectedModel.name);
   const tempMesh = tempModel.mesh.clone();
   tempMesh.position.set(item.position.x, item.position.y + 1, item.position.z);
