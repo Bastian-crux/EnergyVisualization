@@ -151,6 +151,47 @@
       </el-col>
     </el-row>
     <hr class="hr-solid" />
+    <div class="grey-content">数据来源</div>
+    <div>
+      <el-row>
+        <el-col :span="12">
+          <el-link
+            href="https://carbonmonitor.org.cn"
+            :underline="false"
+            style="font-size: 12px"
+            >全球实时碳数据</el-link
+          >
+        </el-col>
+        <el-col :span="12">
+          <el-link
+            href="https://data.stats.gov.cn/index.htm"
+            :underline="false"
+            style="font-size: 12px"
+            >国家统计局</el-link
+          >
+        </el-col>
+      </el-row>
+    </div>
+    <div>
+      <el-row>
+        <el-col :span="12">
+          <el-link
+            href="http://de.escn.com.cn/news/show-1542571.html"
+            :underline="false"
+            style="font-size: 12px"
+            >数字能源网</el-link
+          >
+        </el-col>
+        <el-col :span="12">
+          <el-link
+            href="https://globalenergymonitor.org"
+            :underline="false"
+            style="font-size: 12px"
+            >Global Energy Monitor</el-link
+          >
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 

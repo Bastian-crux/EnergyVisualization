@@ -228,7 +228,6 @@ export default {
           inRange: {
             color: this.colorScheme,
           },
-          text: ["High", "Low"],
           calculable: true,
           seriesIndex: 0,
         },
