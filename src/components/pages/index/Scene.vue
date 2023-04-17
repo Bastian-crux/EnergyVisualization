@@ -592,7 +592,7 @@
           <div
             style="
               text-indent: 2em;
-              font-size: 10px;
+              font-size: 12px;
               color: rgba(255, 255, 255, 0.8);
               padding: 5px 0;
             "
@@ -605,7 +605,7 @@
           <div
             style="
               text-indent: 2em;
-              font-size: 10px;
+              font-size: 12px;
               color: rgba(255, 255, 255, 0.8);
               padding: 5px 0;
             "
@@ -618,7 +618,7 @@
           <div
             style="
               text-indent: 2em;
-              font-size: 10px;
+              font-size: 12px;
               color: rgba(255, 255, 255, 0.8);
               padding: 5px 0;
             "
@@ -648,7 +648,7 @@
             text-align: center;
           "
         >
-          <div style="font-size: 10px; color: rgba(255, 255, 255, 0.8)">
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.8)">
             <span>以煤定产</span>
             <font-awesome-icon
               :icon="['fass', 'arrow-right']"
@@ -679,7 +679,7 @@
             text-align: center;
           "
         >
-          <div style="font-size: 10px; color: rgba(255, 255, 255, 0.8)">
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.8)">
             <span>独家办电</span>
             <font-awesome-icon
               :icon="['fass', 'arrow-right']"
@@ -711,7 +711,7 @@
           "
         >
           <div>
-            <span style="font-size: 10px; color: rgba(255, 255, 255, 0.8)"
+            <span style="font-size: 12px; color: rgba(255, 255, 255, 0.8)"
               >超产石油创造外汇，为国内石油工业勘探开发，提供资金支持</span
             >
           </div>
@@ -766,7 +766,7 @@
           >
             <template v-slot:opposite>1992</template>
             <div class="stage4-box">
-              <font-awesome-icon :icon="['fas', 'fire']" size="2xl" />
+              <font-awesome-icon :icon="['fas', 'fire']" size="xl" />
               <span style="margin: 5px; font-weight: bolder"
                 >中央直属大煤矿，地方国有煤矿，乡镇煤矿，各占三分之一</span
               >
@@ -778,8 +778,8 @@
             dot-color="rgba(255, 255, 255, 1)"
           >
             <template v-slot:opposite>1993</template>
-            <div class="stage4-box">
-              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+            <div class="stage4-box" style="height: 80px">
+              <font-awesome-icon :icon="['fas', 'bolt']" size="xl" />
               <span style="margin: 5px; font-weight: bolder"
                 >撤销能源部成立电力工业部</span
               >
@@ -792,8 +792,8 @@
             dot-color="rgba(255, 255, 255, 1)"
           >
             <template v-slot:opposite>1997</template>
-            <div class="stage4-box">
-              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+            <div class="stage4-box" style="height: 60px">
+              <font-awesome-icon :icon="['fas', 'bolt']" size="xl" />
               <span style="margin: 5px; font-weight: bolder"
                 >国家电力公司成立</span
               >
@@ -808,20 +808,20 @@
             <div style="display: table-cell; vertical-align: middle">
               <el-row>
                 <el-col span="24">
-                  <div class="stage4-box-double" style="height: 70px">
-                    <font-awesome-icon :icon="['fas', 'fire']" size="2xl" />
+                  <div class="stage4-box-double" style="height: 80px">
+                    <font-awesome-icon :icon="['fas', 'fire']" size="xl" />
                     <span
-                      style="margin: 5px; font-weight: bolder; font-size: 6px"
+                      style="margin: 5px; font-weight: bolder; font-size: 10px"
                       >关井压产+关闭破产的政策，使得多数煤炭公司转变为地方国有</span
                     >
                   </div>
                 </el-col>
                 <el-col span="24">
-                  <div class="stage4-box-double" style="height: 70px">
-                    <font-awesome-icon :icon="['fas', 'oil-well']" size="2xl" />
+                  <div class="stage4-box-double">
+                    <font-awesome-icon :icon="['fas', 'oil-well']" size="xl" />
                     <span
-                      style="margin: 5px; font-weight: bolder; font-size: 6px"
-                      >石油天然气和石化总公司重组为上下游产业连通的综合性企业集团公司</span
+                      style="margin: 5px; font-weight: bolder; font-size: 10px"
+                      >石油天然气和石化总公司重组，成为上下游产业连通的综合性企业集团公司</span
                     >
                   </div>
                 </el-col>
@@ -835,7 +835,7 @@
           >
             <template v-slot:opposite>1999</template>
             <div class="stage4-box">
-              <font-awesome-icon :icon="['fas', 'oil-well']" size="2xl" />
+              <font-awesome-icon :icon="['fas', 'oil-well']" size="xl" />
               <span style="margin: 5px; font-weight: bolder"
                 >中国石油、中国石化、中国海油开展企业内部重组，组建股份公司</span
               >
@@ -864,7 +864,7 @@
           >
             <template v-slot:opposite>2002</template>
             <div class="stage4-box">
-              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+              <font-awesome-icon :icon="['fas', 'bolt']" size="xl" />
               <span style="margin: 5px; font-weight: bolder"
                 >放开市场准入所有制限制和部门限制；从山西运输煤炭</span
               >
@@ -877,7 +877,7 @@
           >
             <template v-slot:opposite>2004</template>
             <div class="stage4-box" style="height: 60px">
-              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+              <font-awesome-icon :icon="['fas', 'bolt']" size="xl" />
               <span style="margin: 5px; font-weight: bolder"
                 >出台标杆上网电价政策</span
               >
@@ -890,7 +890,7 @@
           >
             <template v-slot:opposite>2005-2006</template>
             <div class="stage4-box" style="height: 60px">
-              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+              <font-awesome-icon :icon="['fas', 'bolt']" size="xl" />
               <span style="margin: 5px; font-weight: bolder"
                 >先后实行两次煤电行动</span
               >
@@ -903,7 +903,7 @@
           >
             <template v-slot:opposite>2009</template>
             <div class="stage4-box">
-              <font-awesome-icon :icon="['fas', 'bolt']" size="2xl" />
+              <font-awesome-icon :icon="['fas', 'bolt']" size="xl" />
               <span style="margin: 5px; font-weight: bolder"
                 >我国自主研发、设计建设的首个特高压交流工程</span
               >
@@ -1881,6 +1881,7 @@ export default {
 .switch-leave-active {
   --transition-time: 1s;
 }
+
 * {
   font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
@@ -1902,6 +1903,7 @@ canvas {
   transform: translate(-50%, 0);
   left: 50%;
 }
+
 .btn::before {
   content: "";
   position: absolute;
@@ -1940,16 +1942,15 @@ canvas {
   border-top: 1px solid rgba(255, 255, 255, 0.8);
   margin: 10px 6px;
 }
+
 .slide-up-enter-active,
 .slide-up-leave-active {
   transition: all 0.25s ease-out;
 }
-
 .slide-up-enter-from {
   opacity: 0;
   transform: translateY(30px);
 }
-
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(-30px);
@@ -1958,12 +1959,10 @@ canvas {
 .slide-up-timeline-leave-active {
   transition: all 0.3s ease-out;
 }
-
 .slide-up-timeline-enter-from {
   opacity: 0;
   transform: translateX(30px);
 }
-
 .slide-up-timeline-leave-to {
   opacity: 0;
   transform: translateX(-30px);
@@ -2039,11 +2038,11 @@ canvas {
   padding: 10px 5px;
   display: table-cell;
   vertical-align: middle;
-  font-size: 8px;
+  font-size: 12px;
   text-align: center;
 }
 .stage4-box-double {
-  height: 50px;
+  height: 95px;
   width: 100px;
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
@@ -2051,6 +2050,7 @@ canvas {
   padding: 10px 5px;
   font-size: 8px;
   text-align: center;
+  margin: 3px auto;
 }
 .stage1-img {
   height: 60px;
