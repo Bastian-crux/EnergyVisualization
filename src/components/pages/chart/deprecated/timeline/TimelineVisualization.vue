@@ -13,7 +13,6 @@ import {
   statusChinese,
 } from "@/utils";
 
-import world from "/assets/mapData/world.json";
 import solarProvinceAllData from "../../../../../../assets/powerstationData/solar.json";
 import windProvinceAllData from "../../../../../../assets/powerstationData/wind.json";
 import nuclearProvinceAllData from "../../../../../../assets/powerstationData/nuclear.json";
