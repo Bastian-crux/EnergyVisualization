@@ -703,6 +703,8 @@ function removeModel(parent, child) {
 
 function clickPoint(item) {
   ElMessageBox.confirm("是否要放在这个位置", "确认", {
+    confirmButtonText: "确认",
+    cancelButtonText: "取消",
     type: "warning",
   })
     .then(() => {
@@ -967,9 +969,6 @@ onUnmounted(() => {
   position: fixed;
   top: 50%;
   z-index: 10;
-}
-.label {
-  padding: 3px 0;
 }
 
 .point .label {
