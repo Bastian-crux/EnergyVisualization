@@ -884,10 +884,10 @@ watch(timePassed, () => {
     selectedModel = null;
     unshowIcon();
     if (power.value >= powerTarget.value) {
-      ElMessageBox.confirm("你过关了，是否进入下一关？", "过关", {
+      ElMessageBox.alert("你过关了，是否进入下一关？", "过关", {
         distinguishCancelAndClose: true,
+        showClose: false,
         confirmButtonText: "下一关",
-        cancelButtonText: "关闭",
       }).then(() => {
         nextLevel();
       });
