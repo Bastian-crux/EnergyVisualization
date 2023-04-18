@@ -492,6 +492,9 @@ onMounted(() => {
     const time = performance.now();
     water.material.uniforms["time"].value += 0.7 / 60.0;
 
+    objects = [];
+    getMesh(scene.children);
+
     if (controls.isLocked === true) {
       raycaster.ray.origin.copy(controls.getObject().position);
       raycaster.ray.origin.y -= 10;
