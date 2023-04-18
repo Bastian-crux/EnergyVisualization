@@ -1428,7 +1428,7 @@ export default {
     };
 
     const iconColor = computed(() =>
-      vPosition.value > 20000 ? "#4d290b" : "white"
+      vPosition.value > 21500 ? "white" : "#a2a2a2"
     );
 
     const rainUnder = computed(() =>
