@@ -876,11 +876,13 @@ const gamePrompt = () => {
     confirmButtonText: "关闭",
     dangerouslyUseHTMLString: true,
   }).then(() => {
-    newGameMessage = ElMessage({
-      message: "点击左侧新游戏按钮来开始游戏",
-      type: "warning",
-      duration: 0,
-    });
+    if (gameInProgress === false) {
+      newGameMessage = ElMessage({
+        message: "点击左侧新游戏按钮来开始游戏",
+        type: "warning",
+        duration: 0,
+      });
+    }
   });
 };
 
