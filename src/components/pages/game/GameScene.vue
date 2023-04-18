@@ -252,6 +252,7 @@ let viewControls2;
 let element;
 
 let selectedModel;
+let newGameMessage;
 let addModelMessage;
 
 let animateId;
@@ -827,6 +828,7 @@ const newGame = () => {
     message: "游戏开始",
     type: "success",
   });
+  newGameMessage.close();
   timer = setInterval(() => {
     if (timePassed.value < timeTarget.value * 24) timePassed.value += 2;
   }, 500);
@@ -873,6 +875,12 @@ const gamePrompt = () => {
   ElMessageBox.alert(gameTutorial(), "游戏说明", {
     confirmButtonText: "关闭",
     dangerouslyUseHTMLString: true,
+  }).then(() => {
+    newGameMessage = ElMessage({
+      message: "点击左侧新游戏按钮来开始游戏",
+      type: "warning",
+      duration: 0,
+    });
   });
 };
 
