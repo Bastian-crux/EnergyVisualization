@@ -23,7 +23,7 @@
           <el-row justify="center">
             <el-col :span="24">
               <div class="center">
-                <font-awesome-icon :icon="['fas', 'coins']" />
+                <font-awesome-icon icon="fa-solid fa-bolt" />
               </div>
             </el-col>
             <el-col :span="24">
@@ -38,7 +38,7 @@
           <el-row justify="center">
             <el-col :span="24">
               <div class="center">
-                <font-awesome-icon icon="fa-solid fa-bolt" />
+                <font-awesome-icon :icon="['fas', 'coins']" />
               </div>
             </el-col>
             <el-col :span="24">
