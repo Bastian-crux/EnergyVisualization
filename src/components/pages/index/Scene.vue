@@ -29,6 +29,15 @@
         v-if="vPosition > 2200 && vPosition < 4200"
         @wheel="(e) => !loaded && onScroll(e)"
       >
+        <p
+          style="
+            color: rgb(164, 164, 164);
+            font-weight: bolder;
+            letter-spacing: 2px;
+          "
+        >
+          1921-1949
+        </p>
         <h1 style="font-size: 48px">探索能源发展阶段</h1>
         <hr class="hr-solid" />
       </div>
@@ -37,7 +46,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; right: 10%; top: 37%"
+        style="color: white; width: 400px; right: 10%; top: 40%"
         v-if="vPosition > 2200 && vPosition < 4200"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -184,6 +193,15 @@
         v-if="vPosition > 9000 && vPosition < 11000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
+        <p
+          style="
+            color: rgb(164, 164, 164);
+            font-weight: bolder;
+            letter-spacing: 2px;
+          "
+        >
+          1949-1978
+        </p>
         <h1 style="font-size: 48px">能源恢复和初步发展</h1>
         <hr class="hr-solid" style="width: 430px" />
       </div>
@@ -192,7 +210,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; right: 16%; top: 37%"
+        style="color: white; width: 400px; right: 16%; top: 40%"
         v-if="vPosition > 9000 && vPosition < 11000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -553,6 +571,15 @@
         v-if="vPosition > 17000 && vPosition < 19000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
+        <p
+          style="
+            color: rgb(164, 164, 164);
+            font-weight: bolder;
+            letter-spacing: 2px;
+          "
+        >
+          1978-1992
+        </p>
         <h1 style="font-size: 48px">解决能源供应短缺</h1>
         <hr class="hr-solid" />
       </div>
@@ -561,7 +588,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; left: 8%; top: 37%"
+        style="color: white; width: 400px; left: 8%; top: 40%"
         v-if="vPosition > 17000 && vPosition < 19000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -734,6 +761,15 @@
         v-if="vPosition > 21500 && vPosition < 23500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
+        <p
+          style="
+            color: rgb(230, 230, 230);
+            font-weight: bolder;
+            letter-spacing: 2px;
+          "
+        >
+          1992-2012
+        </p>
         <h1 style="font-size: 48px">能源快速扩张阶段</h1>
         <hr class="hr-solid" />
       </div>
@@ -742,7 +778,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; right: 10%; top: 37%"
+        style="color: white; width: 400px; right: 10%; top: 40%"
         v-if="vPosition > 21500 && vPosition < 23500"
         @wheel="(e) => !loaded && onScroll(e)"
       >
@@ -927,6 +963,9 @@
         v-if="vPosition > 28000 && vPosition < 30000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
+        <p style="color: white; font-weight: bolder; letter-spacing: 2px">
+          2012-现在
+        </p>
         <h1 style="font-size: 48px">绿色能源转型阶段</h1>
         <hr class="hr-solid" />
       </div>
@@ -934,7 +973,7 @@
     <transition name="switch">
       <div
         class="absolute"
-        style="color: white; width: 400px; left: 8%; top: 37%"
+        style="color: white; width: 400px; left: 8%; top: 40%"
         v-if="vPosition > 28000 && vPosition < 30000"
         @wheel="(e) => !loaded && onScroll(e)"
       >
