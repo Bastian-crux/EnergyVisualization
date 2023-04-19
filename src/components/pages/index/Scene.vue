@@ -1341,7 +1341,7 @@ import { Sky } from "three/examples/jsm/objects/Sky";
 import Loader from "./Loader.vue";
 import IconGroup from "./IconGroup.vue";
 import TextScroll from "./TextScroll.vue";
-import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
+import DataList from "@/components/pages/chart/right/deprecated/DataList.vue";
 import { Pane } from "tweakpane";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass";
 import { FXAAShader } from "three/addons/shaders/FXAAShader";
@@ -1349,7 +1349,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer";
 import { RenderPass } from "three/addons/postprocessing/RenderPass";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import PowerBar from "@/components/pages/chart/statistic/PowerBar.vue";
+import PowerBar from "@/components/pages/chart/PowerBar.vue";
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 

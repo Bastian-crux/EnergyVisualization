@@ -1,41 +1,43 @@
 <template>
-  <el-row>
-    <el-col :span="4" :offset="20">
-      <el-select v-model="selectedYear" class="m-2" placeholder="Select">
-        <el-option
-          v-for="item in options"
-          :key="item"
-          :label="item"
-          :value="item"
+  <!--  <el-row>-->
+  <!--    <el-select v-model="selectedYear" class="m-2" placeholder="Select">-->
+  <!--      <el-option-->
+  <!--          v-for="item in options"-->
+  <!--          :key="item"-->
+  <!--          :label="item"-->
+  <!--          :value="item"-->
+  <!--      />-->
+  <!--    </el-select>-->
+  <!--  </el-row>-->
+
+  <div class="frame">
+    <el-row justify="space-around">
+      <el-col :span="4" v-for="data in cardData">
+        <data-card-main
+          :year="selectedYear"
+          :type="data.type"
+          :data="data.data"
+          :total="total"
+          :color="data.color"
+          :background="data.background"
         />
-      </el-select>
-    </el-col>
-  </el-row>
-  <el-row justify="space-around">
-    <el-col :span="4" v-for="data in cardData">
-      <data-card
-        :year="selectedYear"
-        :type="data.type"
-        :data="data.data"
-        :total="total"
-        :color="data.color"
-        :background="data.background"
-      />
-    </el-col>
-  </el-row>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
-import DataCard from "@/components/pages/chart/statistic/deprecated/DataCard.vue";
+import DataCard from "@/components/pages/chart/right/deprecated/DataCard.vue";
 import fossil from "/assets/annualStatisticData/fossil.json";
 import hydro from "/assets/annualStatisticData/hydro.json";
 import nuclear from "/assets/annualStatisticData/nuclear.json";
 import solar from "/assets/annualStatisticData/solar.json";
 import wind from "/assets/annualStatisticData/wind.json";
+import DataCardMain from "@/components/pages/chart/right/deprecated/DataCardMain.vue";
 
 export default {
-  name: "DataList",
-  components: { DataCard },
+  name: "DataListMain",
+  components: { DataCardMain, DataCard },
   data() {
     return {
       selectedYear: 2022,
@@ -92,8 +94,11 @@ export default {
 </script>
 
 <style scoped>
-.pie {
-  width: 100%;
-  height: 400px;
+.frame {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.1);
+  padding: 10px;
 }
 </style>

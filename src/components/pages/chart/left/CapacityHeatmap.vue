@@ -50,7 +50,7 @@ import capacity from "/assets/capacityData/capacity.json";
 import { createApp } from "vue";
 import ElementPlus from "element-plus";
 
-import HeatMapToolTip from "@/components/pages/chart/heatmap/HeatMapToolTip.vue";
+import HeatMapToolTip from "@/components/pages/chart/left/HeatMapToolTip.vue";
 
 export default {
   name: "CapacityHeatmap",

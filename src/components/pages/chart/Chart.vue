@@ -23,11 +23,11 @@
 import { ref } from "vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
 import Overview from "@/components/pages/chart/overview/Overview.vue";
-import MonthlyChart from "@/components/pages/chart/statistic/MonthlyChart.vue";
-import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
-import CapacityHeatmap from "@/components/pages/chart/heatmap/CapacityHeatmap.vue";
-import PowerSum from "@/components/pages/chart/statistic/PowerSum.vue";
-import CarbonEmission from "@/components/pages/chart/statistic/CarbonEmission.vue";
+import MonthlyChart from "@/components/pages/chart/right/MonthlyChart.vue";
+import DataList from "@/components/pages/chart/right/deprecated/DataList.vue";
+import CapacityHeatmap from "@/components/pages/chart/left/CapacityHeatmap.vue";
+import PowerSum from "@/components/pages/chart/right/PowerSum.vue";
+import CarbonEmission from "@/components/pages/chart/left/CarbonEmission.vue";
 
 const activeName = ref("timeline");
 </script>

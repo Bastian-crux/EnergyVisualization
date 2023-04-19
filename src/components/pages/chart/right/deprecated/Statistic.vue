@@ -23,8 +23,8 @@
 
 <script>
 import { ref } from "vue";
-import MonthlyChart from "@/components/pages/chart/statistic/MonthlyChart.vue";
-import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
+import MonthlyChart from "@/components/pages/chart/right/MonthlyChart.vue";
+import DataList from "@/components/pages/chart/right/deprecated/DataList.vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
 
 export default {

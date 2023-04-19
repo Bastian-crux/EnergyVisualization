@@ -34,15 +34,22 @@
       </div>
     </el-col>
     <el-col :span="24">
-      <el-card class="chart-card" body-style="padding: 0px">
-        <div style="height: 80px; width: 100%">
-          <energy-pie-chart
-            :data="data[year]"
-            :total="total"
-            :type="type"
-            :color="color"
-          />
-        </div>
+      <el-card :body-style="'background-color: ' + background">
+        <el-row>
+          <el-col :span="24">
+            <p class="description">描述：测试测试测试测试测试测试</p>
+          </el-col>
+          <el-col :span="24">
+            <div style="height: 600px; width: 100%">
+              <energy-pie-chart
+                :data="data[year]"
+                :total="total"
+                :type="type"
+                :color="color"
+              />
+            </div>
+          </el-col>
+        </el-row>
       </el-card>
     </el-col>
   </el-row>
@@ -50,10 +57,10 @@
 
 <script>
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
-import EnergyPieChart from "@/components/pages/chart/statistic/deprecated/EnergyPieChart.vue";
+import EnergyPieChart from "@/components/pages/chart/right/deprecated/EnergyPieChart.vue";
 
 export default {
-  name: "DataCardMain",
+  name: "DataCard",
   components: { EnergyPieChart },
   props: ["year", "type", "data", "total", "color", "background"],
   computed: {
@@ -80,7 +87,7 @@ export default {
 
 .statistic-card {
   height: 100%;
-  padding: 0px;
+  padding: 20px;
   border-radius: 4px;
   background-color: var(--el-bg-color-overlay);
 }
@@ -113,11 +120,5 @@ export default {
 
 .red {
   color: var(--el-color-error);
-}
-
-.chart-card {
-  border: 1px solid transparent;
-  border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0);
 }
 </style>

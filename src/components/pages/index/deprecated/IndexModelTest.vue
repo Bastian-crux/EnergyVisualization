@@ -182,8 +182,8 @@ import { NButton, NProgress } from "naive-ui";
 import Loader from "../Loader.vue";
 import IconGroup from "../IconGroup.vue";
 import TextScroll from "../TextScroll.vue";
-import DataList from "@/components/pages/chart/statistic/deprecated/DataList.vue";
-import DataListMain from "@/components/pages/chart/statistic/deprecated/DataListMain.vue";
+import DataList from "@/components/pages/chart/right/deprecated/DataList.vue";
+import DataListMain from "@/components/pages/chart/right/deprecated/DataListMain.vue";
 import { Pane } from "tweakpane";
 import { Sky } from "three/examples/jsm/objects/Sky";
 
