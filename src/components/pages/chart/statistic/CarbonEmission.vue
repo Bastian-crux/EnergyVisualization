@@ -91,7 +91,7 @@ export default {
         },
         tooltip: {
           backgroundColor: "rgba(255,255,255,0.8)",
-          position: "right",
+          position: "top",
           formatter: function (params) {
             if (params.seriesName === "background") {
               return "";
