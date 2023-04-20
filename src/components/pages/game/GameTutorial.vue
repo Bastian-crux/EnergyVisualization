@@ -96,6 +96,6 @@ export default {
 .el-divider--horizontal {
   margin: 8px 0;
   background: 0 0;
-  border-top: 1px dashed #e8eaec;
+  border-top: 1px dashed #666;
 }
 </style>

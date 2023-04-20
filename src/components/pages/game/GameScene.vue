@@ -260,6 +260,7 @@ let animateId;
 // Game related parameters
 let timer = null;
 let gameInProgress = false;
+let hasGamePrompt = false;
 let generatorList = [];
 // Capacity of each generator
 const nuclearCapacity = 1000;
@@ -876,7 +877,8 @@ const gamePrompt = () => {
     confirmButtonText: "关闭",
     dangerouslyUseHTMLString: true,
   }).then(() => {
-    if (gameInProgress === false) {
+    if (gameInProgress === false && hasGamePrompt === false) {
+      hasGamePrompt = true;
       newGameMessage = ElMessage({
         message: "点击左侧新游戏按钮来开始游戏",
         type: "warning",
