@@ -1352,7 +1352,7 @@
           src="/static/surfScene2.glb"
           dracoPath="/draco/"
           :scale="{ x: 15, y: 15, z: 15 }"
-          :position="{ x: 0, y: 0, z: 0 }"
+          :position="{ x: 0, y: 0, z: -30 }"
           :rotation="{ y: 2.2 }"
         />
       </Scene>
@@ -1726,7 +1726,7 @@ export default {
     //将坐标轴添加进场景
     // this.scene.add(new THREE.AxesHelper(500));
 
-    const cameraOffsetX = -10;
+    const cameraOffsetX = 50;
     //ANIMATION LOOP
     this.renderer.onBeforeRender(() => {
       water.material.uniforms["time"].value += 0.7 / 60.0;
@@ -1740,7 +1740,7 @@ export default {
         this.camera.position.set(
           (-50 * this.vPosition) / 2000 + 200 + cameraOffsetX,
           (-40 * this.vPosition) / 2000 + 100 + this.mouseY,
-          (-160 * this.vPosition) / 2000 + 160
+          (-120 * this.vPosition) / 2000 + 120
         );
         this.camera.lookAt(
           0 + cameraOffsetX,
