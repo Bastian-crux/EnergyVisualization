@@ -191,6 +191,11 @@ export default {
               //设置鼠标滑动高亮样式
               label: {
                 show: true,
+                color: "#66ccff",
+              },
+              itemStyle: {
+                areaColor: "#1f2059",
+                borderColor: "#1f2059",
               },
             },
             itemStyle: {
@@ -345,9 +350,21 @@ export default {
           map: "myMapName",
           roam: true, //是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成'scale'或者'move'。设置成true为都开启
           emphasis: {
-            //设置鼠标滑动高亮样式
+            disabled: true,
             label: {
-              show: true,
+              show: false,
+            },
+          },
+          itemStyle: {
+            normal: {
+              color: "#c7c8e3",
+              borderColor: "rgba(255,255,255,0.5)",
+              borderWidth: 2,
+              shadowColor: "rgba(0,0,0,0.2)",
+              shadowOffsetX: 1,
+              shadowOffsetY: 1,
+              shadowBlur: 2,
+              // opacity: 0.8,
             },
           },
         },
