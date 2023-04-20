@@ -23,7 +23,7 @@
 import { ref } from "vue";
 import TheNavBar from "@/components/layout/TheNavBar.vue";
 import Overview from "@/components/pages/chart/overview/Overview.vue";
-import MonthlyChart from "@/components/pages/chart/right/MonthlyChart.vue";
+import MonthlyChart from "@/components/pages/chart/right/deprecated/MonthlyChart.vue";
 import DataList from "@/components/pages/chart/right/deprecated/DataList.vue";
 import CapacityHeatmap from "@/components/pages/chart/left/CapacityHeatmap.vue";
 import PowerSum from "@/components/pages/chart/right/PowerSum.vue";

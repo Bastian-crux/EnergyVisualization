@@ -592,7 +592,7 @@ function initScene() {
   dLoader.setDecoderConfig({ type: "js" }); //使用js方式解压
   dLoader.preload(); //初始化_initDecoder 解码器
   loader.setDRACOLoader(dLoader);
-  loader.load("/static/islandtest_compress.glb", function (gltf) {
+  loader.load("/static/game/gameScene.glb", function (gltf) {
     const temp = gltf.scene;
     temp.name = "mainScene";
     temp.castShadow = true;
