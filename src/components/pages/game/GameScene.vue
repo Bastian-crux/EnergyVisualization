@@ -845,14 +845,13 @@ const nextLevel = () => {
   timer = setInterval(() => {
     if (timePassed.value < timeTarget.value * 24) timePassed.value += 2;
   }, 300);
-  // TODO: 更新游戏的目标
   updateGameGoal();
   level.value++;
   timePassed.value = 0;
 };
 
 const updateGameGoal = () => {
-  powerTarget.value = powerTarget.value * 2;
+  powerTarget.value *= 3;
 };
 
 const updateGame = (item) => {
