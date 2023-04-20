@@ -448,6 +448,48 @@ const points = ref([
       fossilPenalty: 1,
     },
   },
+  {
+    name: "point-8",
+    position: new THREE.Vector3(3, 1.5, -4.5),
+    element: null,
+    placed: false,
+    energyProfile: {
+      nuclear: 0.9 * nuclearCapacity,
+      wind: windCapacity,
+      solar: solarCapacity,
+      smallFossil: smallFossilCapacity,
+      largeFossil: largeFossilCapacity,
+      fossilPenalty: 1,
+    },
+  },
+  {
+    name: "point-9",
+    position: new THREE.Vector3(1, 1.4, 2),
+    element: null,
+    placed: false,
+    energyProfile: {
+      nuclear: nuclearCapacity,
+      wind: windCapacity,
+      solar: 0.9 * solarCapacity,
+      smallFossil: smallFossilCapacity,
+      largeFossil: largeFossilCapacity,
+      fossilPenalty: 1,
+    },
+  },
+  {
+    name: "point-10",
+    position: new THREE.Vector3(-5, 4.2, -16),
+    element: null,
+    placed: false,
+    energyProfile: {
+      nuclear: 0.9 * nuclearCapacity,
+      wind: 0.8 * windCapacity,
+      solar: solarCapacity,
+      smallFossil: smallFossilCapacity,
+      largeFossil: largeFossilCapacity,
+      fossilPenalty: 1,
+    },
+  },
 ]);
 
 const buildings = ref([
@@ -926,6 +968,9 @@ onMounted(() => {
   points.value[5].element = document.querySelector(".point-5");
   points.value[6].element = document.querySelector(".point-6");
   points.value[7].element = document.querySelector(".point-7");
+  points.value[8].element = document.querySelector(".point-8");
+  points.value[9].element = document.querySelector(".point-9");
+  points.value[10].element = document.querySelector(".point-10");
   initScene();
   gamePrompt();
   window.addEventListener("resize", (event) => {

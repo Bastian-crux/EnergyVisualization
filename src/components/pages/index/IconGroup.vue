@@ -55,14 +55,8 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { ref } from "vue";
 import { NButton } from "naive-ui";
-import {
-  WeatherRain24Regular,
-  WeatherFog24Regular,
-  WeatherSunny24Regular,
-} from "@vicons/fluent";
-import { GrainRound } from "@vicons/material";
 import { Icon } from "@vicons/utils";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 const props = defineProps({
@@ -70,7 +64,5 @@ const props = defineProps({
   processing: Boolean,
 });
 const emit = defineEmits(["relocate"]);
-const iconColor = computed(() =>
-  props.vPosition > 21500 ? "white" : "#a2a2a2"
-);
+const iconColor = ref("white");
 </script>

@@ -1462,9 +1462,7 @@ export default {
       }
     };
 
-    const iconColor = computed(() =>
-      vPosition.value > 21500 ? "white" : "#a2a2a2"
-    );
+    const iconColor = ref("white");
 
     const rainUnder = computed(() =>
       Math.min(Math.floor((3000 * vPosition.value) / rainTime), 3000)
