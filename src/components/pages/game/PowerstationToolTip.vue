@@ -72,6 +72,7 @@ export default {
     powerName() {
       switch (this.name) {
         case "nuclear":
+          this.max = true;
           return "核能发电站";
         case "wind":
           this.max = true;
