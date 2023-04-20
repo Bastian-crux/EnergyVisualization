@@ -3,6 +3,7 @@
     <el-menu
       :default-active="activeIndex"
       class="el-menu-demo"
+      style="font-weight: bold"
       mode="horizontal"
       :router="true"
       :ellipsis="false"
@@ -10,7 +11,14 @@
       text-color="rgba(255, 255, 255, 0.8)"
       active-text-color="rgba(255, 255, 255, 0.8)"
     >
-      <el-menu-item index="">能源轨迹</el-menu-item>
+      <el-menu-item index="">
+        <font-awesome-icon
+          :icon="['fas', 'leaf']"
+          style="color: #bddcc7; padding: 0 8px 0 0"
+          size="lg"
+        />
+        <div style="font-weight: bolder; font-size: 16px">能源轨迹</div>
+      </el-menu-item>
       <div class="flex-grow" />
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/surf">漫游</el-menu-item>

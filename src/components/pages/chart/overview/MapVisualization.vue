@@ -589,7 +589,7 @@ export default {
 
 <style scoped>
 .chart {
-  height: 600px;
+  height: 550px;
   width: 100%;
 }
 .margin {

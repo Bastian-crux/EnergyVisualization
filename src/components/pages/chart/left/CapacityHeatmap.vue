@@ -15,6 +15,9 @@
     <div>
       <div class="chart1" id="myHeatmap"></div>
     </div>
+    <div style="font-size: 8px; color: #a9a9a9; text-align: center">
+      2012————2021
+    </div>
     <hr class="hr-solid" />
 
     <el-row
@@ -92,8 +95,8 @@ export default {
           data: ["发电站装机增量"],
         },
         polar: {
-          center: ["50%", "100%"],
-          radius: ["20%", "150%"],
+          center: ["50%", "110%"],
+          radius: ["20%", "170%"],
         },
         tooltip: {
           position: "right",
@@ -376,7 +379,7 @@ export default {
 <style scoped>
 .chart1 {
   width: 100%;
-  height: 180px;
+  height: 160px;
   margin: 10px 0;
   /*border: 1px solid;*/
 }

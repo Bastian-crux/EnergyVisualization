@@ -39,6 +39,7 @@ import {
   faOilWell,
   faGasPump,
   faArrowRight,
+  faLeaf,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -124,7 +125,8 @@ library.add(
   faCamera,
   faOilWell,
   faGasPump,
-  faArrowRight
+  faArrowRight,
+  faLeaf
 );
 
 const vuetify = createVuetify({

@@ -8,6 +8,17 @@
       color: #6e6e6e;
     "
   >
+    <div
+      style="
+        font-size: 22px;
+        font-weight: bolder;
+        text-align: center;
+        color: #6e6e6e;
+        margin: 0 auto 6px auto;
+      "
+    >
+      中国发电站建设可视化
+    </div>
     <el-row :gutter="5">
       <el-col :span="8">
         <div class="select-box">

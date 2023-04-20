@@ -1277,8 +1277,8 @@
     >
       <Camera
         ref="camera"
-        :position="{ x: 85 + 50, y: 5, z: -50 }"
-        :lookAt="{ x: 0 + 50, y: 0, z: 0 }"
+        :position="{ x: 85, y: 5, z: -50 }"
+        :lookAt="{ x: 0, y: 0, z: 0 }"
         :far="5000"
       />
       <Scene ref="scene">
@@ -1304,11 +1304,46 @@
           :intensity="0"
           cast-shadow
         />
-        <DirectionalLight
-          ref="dir_board"
-          color="rgb(100, 100, 100)"
-          :position="{ x: dirX, y: dirY, z: dirZ }"
-          :intensity="1"
+        <!--        <SpotLight-->
+        <!--          ref="global"-->
+        <!--          color="rgb(100, 100, 100)"-->
+        <!--          :position="{ x: 0, y: 100, z: 0 }"-->
+        <!--          :intensity="1"-->
+        <!--          :angle="0.45"-->
+        <!--          :penumbra="0"-->
+        <!--          cast-shadow-->
+        <!--        />-->
+        <!--        <SpotLight-->
+        <!--          ref="dir_board2"-->
+        <!--          color="rgb(255, 255, 255)"-->
+        <!--          :position="{ x: dirX, y: dirY, z: dirZ }"-->
+        <!--          :target="{ x: -100, y: 1, z: 0 }"-->
+        <!--          :intensity="2"-->
+        <!--          :penumbra="1"-->
+        <!--          :angle="0.45"-->
+        <!--          :decay="100"-->
+        <!--          cast-shadow-->
+        <!--        />-->
+        <!--        <SpotLight-->
+        <!--          ref="dir_board3"-->
+        <!--          color="rgb(255, 255, 255)"-->
+        <!--          :position="{ x: dirX2, y: dirY2, z: dirZ2 }"-->
+        <!--          :target="{ x: -120, y: 1, z: 0 }"-->
+        <!--          :intensity="1"-->
+        <!--          :penumbra="1"-->
+        <!--          :angle="1"-->
+        <!--          :decay="100"-->
+        <!--          cast-shadow-->
+        <!--        />-->
+        <SpotLight
+          ref="cam_spot"
+          color="rgb(255, 255, 255)"
+          :position="{ x: 85, y: 5, z: -50 }"
+          :target="{ x: -0, y: 0, z: 0 }"
+          :intensity="0.5"
+          :penumbra="0.8"
+          :angle="0.75"
+          :decay="100"
           cast-shadow
         />
 
@@ -1548,9 +1583,10 @@ export default {
     });
 
     // pane
-    const dirX = ref(20);
-    const dirY = ref(20);
-    const dirZ = ref(20);
+    const dirX = ref(-120);
+    const dirY = ref(-10);
+    const dirZ = ref(0);
+
     const hemiY = ref(50);
     const hemiSkyColor = ref("#ffffff");
     const hemiGroundColor = ref("#444444");
@@ -1600,14 +1636,15 @@ export default {
   },
   mounted() {
     // this.pane = new Pane();
-    // // Solar
-    // this.pane.addInput(this, "dirX", { min: -200, max: 200 });
-    // this.pane.addInput(this, "dirY", { min: -200, max: 200 });
-    // this.pane.addInput(this, "dirZ", { min: -200, max: 200 });
+    // Solar
+    // this.pane.addInput(this, "dirX3", { min: -200, max: 200 });
+    // this.pane.addInput(this, "dirY3", { min: -200, max: 200 });
+    // this.pane.addInput(this, "dirZ3", { min: -200, max: 200 });
+    //
     // this.pane.addInput(this, "hemiY", { min: -200, max: 200 });
     // this.pane.addInput(this, "hemiGroundColor");
     // this.pane.addInput(this, "hemiSkyColor");
-    //scene core
+    // //scene core
     this.renderer = this.$refs.renderer;
     this.scene = this.$refs.scene.scene;
     this.camera = this.$refs.camera.camera;
@@ -1616,9 +1653,6 @@ export default {
     this.renderer.shadowMapEnabled = true;
 
     this.scene.fog = new THREE.Fog(this.skycolor, 1, 2000);
-    this.dir = this.$refs.dir_board.light;
-    const dirHelper = new THREE.DirectionalLightHelper(this.dir, 50, "#ff0000");
-    this.scene.add(dirHelper);
 
     const dirLight = new THREE.DirectionalLight(0xffffff);
     // 平行光的位置
@@ -1692,9 +1726,9 @@ export default {
     this.scene.add(water);
 
     //将坐标轴添加进场景
-    this.scene.add(new THREE.AxesHelper(500));
+    // this.scene.add(new THREE.AxesHelper(500));
 
-    const cameraOffsetX = 50;
+    const cameraOffsetX = -10;
     //ANIMATION LOOP
     this.renderer.onBeforeRender(() => {
       water.material.uniforms["time"].value += 0.7 / 60.0;
@@ -1706,14 +1740,14 @@ export default {
 
       if (this.vPosition < 2000) {
         this.camera.position.set(
-          (-150 * this.vPosition) / 2000 + 300 + cameraOffsetX,
+          (-50 * this.vPosition) / 2000 + 200 + cameraOffsetX,
           (-40 * this.vPosition) / 2000 + 100 + this.mouseY,
-          (-100 * this.vPosition) / 2000 + 100
+          (-160 * this.vPosition) / 2000 + 160
         );
         this.camera.lookAt(
           0 + cameraOffsetX,
           35 - (15 * this.vPosition) / 2000,
-          (-30 * this.vPosition) / 2000
+          (-20 * this.vPosition) / 2000 - 10
         );
       } else if (this.vPosition < 2400) {
         this.camera.position.y = 60 + this.mouseY;
@@ -1763,6 +1797,8 @@ export default {
         // 缓慢推进
         this.dummy += 5;
       }
+      this.spot2 = this.$refs.cam_spot.light;
+      this.spot2.position.copy(this.camera.position);
 
       //rain
       for (let i = 0; i < this.rainCount; i++) {
