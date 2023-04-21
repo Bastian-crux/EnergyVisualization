@@ -11,13 +11,18 @@
       "
     >
       各能源装机增量 / 万千瓦
-      <font-awesome-icon
-        style="margin: 0px 3px"
-        class="infoButton"
-        :icon="['fas', 'circle-info']"
-        size="xs"
-        @click="gamePrompt"
-      />
+      <el-tooltip
+        content="热力图颜色深浅对应装机增量大小"
+        popper-class="eltooltip-background"
+        effect="light"
+      >
+        <font-awesome-icon
+          style="margin: 0px 3px"
+          class="infoButton"
+          :icon="['fas', 'circle-info']"
+          size="xs"
+        />
+      </el-tooltip>
     </div>
     <div>
       <div class="chart1" id="myHeatmap"></div>
