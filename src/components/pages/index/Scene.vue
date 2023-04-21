@@ -1376,7 +1376,6 @@ import { Sky } from "three/examples/jsm/objects/Sky";
 import Loader from "./Loader.vue";
 import IconGroup from "./IconGroup.vue";
 import TextScroll from "./TextScroll.vue";
-import DataList from "@/components/pages/chart/right/deprecated/DataList.vue";
 import { Pane } from "tweakpane";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass";
 import { FXAAShader } from "three/addons/shaders/FXAAShader";
@@ -1392,7 +1391,6 @@ export default {
   components: {
     FontAwesomeIcon,
     PowerBar,
-    DataList,
     Loader,
     NButton,
     NProgress,
