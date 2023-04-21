@@ -11,6 +11,13 @@
       "
     >
       各能源装机增量 / 万千瓦
+      <font-awesome-icon
+        style="margin: 0px 3px"
+        class="infoButton"
+        :icon="['fas', 'circle-info']"
+        size="xs"
+        @click="gamePrompt"
+      />
     </div>
     <div>
       <div class="chart1" id="myHeatmap"></div>
@@ -54,9 +61,11 @@ import { createApp } from "vue";
 import ElementPlus from "element-plus";
 
 import HeatMapToolTip from "@/components/pages/chart/left/HeatMapToolTip.vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
   name: "CapacityHeatmap",
+  components: { FontAwesomeIcon },
   data() {
     return {
       myChart1: null,
