@@ -1547,7 +1547,7 @@ export default {
     };
 
     //textures
-    const imageArray = Array(6).fill("/assets/skybox/sky1.png");
+    const imageArray = Array(6).fill("/assets/skybox/sky.png");
 
     const NUM_INSTANCES = 800;
     const instances = [];

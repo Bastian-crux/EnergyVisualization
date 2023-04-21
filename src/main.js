@@ -56,8 +56,6 @@ import Game from "@/components/pages/game/Game.vue";
 import GameScene from "@/components/pages/game/GameScene.vue";
 import Chart from "@/components/pages/chart/Chart.vue";
 
-import IndexModelTest from "@/components/pages/index/deprecated/IndexModelTest.vue";
-
 const router = createRouter({
   history: createWebHistory(),
   routes: [

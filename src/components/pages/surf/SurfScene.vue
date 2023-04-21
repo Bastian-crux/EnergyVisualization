@@ -467,8 +467,6 @@ const checkLabelVisible = function () {
 };
 
 const collideCheck = (angle) => {
-  console.log(controls.getObject().position);
-
   let rotationMatrix = new THREE.Matrix4();
   rotationMatrix.makeRotationY((angle * Math.PI) / 180);
   const cameraDirection = controls
