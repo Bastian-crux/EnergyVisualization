@@ -438,7 +438,6 @@ const checkLabelVisible = function () {
 
       const controlsPos = controls.getObject().position;
       const dis = controlsPos.distanceTo(point.position);
-      console.log(controlsPos);
       // 计算距离 显示文字
       if (dis < 30) {
         point.text.classList.add("activate");
