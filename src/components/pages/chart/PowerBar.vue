@@ -43,7 +43,6 @@ export default {
             color: "rgba(60,60,60,0.8)",
           },
           formatter: function (params) {
-            console.log(params);
             return (
               "<b>" +
               params.data.time0 +
