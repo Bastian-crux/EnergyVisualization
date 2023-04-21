@@ -85,7 +85,7 @@
 
         <GltfModel
           ref="mainscene"
-          src="/static/surfScene2.glb"
+          src="/static/mainScene.glb"
           dracoPath="/draco/"
           :scale="{ x: 100, y: 100, z: 100 }"
           :position="{ x: 0, y: 0, z: 0 }"
@@ -452,7 +452,7 @@ onMounted(() => {
     renderer.toneMappingExposure = effectController.exposure;
     // renderer.render(scene, camera);
   }
-  var gui = new GUI();
+  // var gui = new GUI();
 
   // gui.add(effectController, "turbidity", 0.0, 20.0, 0.1).onChange(guiChanged);
   // gui.add(effectController, "rayleigh", 0.0, 4, 0.001).onChange(guiChanged);
@@ -483,7 +483,7 @@ onMounted(() => {
     distortionScale: 5,
     fog: scene.fog !== undefined,
   });
-  water = water;
+  // water = water;
   water.rotation.x = -Math.PI / 2;
   scene.add(water);
 

@@ -1349,7 +1349,7 @@
 
         <GltfModel
           ref="generator3"
-          src="/static/surfScene2.glb"
+          src="/static/mainScene.glb"
           dracoPath="/draco/"
           :scale="{ x: 15, y: 15, z: 15 }"
           :position="{ x: 0, y: 0, z: -30 }"
@@ -1786,7 +1786,7 @@ export default {
         );
         this.camera.position.y = 70 + this.mouseY;
       } else if (this.vPosition <= 40000) {
-        this.camera.lookAt(0 + cameraOffsetX, 20, 0);
+        this.camera.lookAt(0 + cameraOffsetX, 20, -30);
         this.camera.position.y = 70 + this.mouseY;
       }
 
