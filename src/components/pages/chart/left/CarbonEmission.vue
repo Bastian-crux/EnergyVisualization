@@ -51,7 +51,7 @@ export default {
       emissionIncrement: null,
       powerSumIncrement: null,
       colorList: [
-        "#e8e8e8",
+        "#dcdcdc",
         "#99d8ff",
         "#75b5ff",
         "#4a94f5",

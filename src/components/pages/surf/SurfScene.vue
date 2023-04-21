@@ -215,19 +215,19 @@
         <DirectionalLight
           ref="dir"
           color="rgb(100, 100, 100)"
-          :intensity="0.83"
-          :position="{ x: 120, y: 120 }"
+          :intensity="1.5"
+          :position="{ x: -100, y: 200, z: -1000 }"
           cast-shadow
         >
         </DirectionalLight>
-        <PointLight
-          ref="sun"
-          color="rgb(7, 16, 33)"
-          :intensity="0.13"
-          :position="{ x: 120, y: 20 }"
-          :decay="0"
-          cast-shadow
-        />
+        <!--        <PointLight-->
+        <!--          ref="sun"-->
+        <!--          color="rgb(7, 16, 33)"-->
+        <!--          :intensity="0.13"-->
+        <!--          :position="{ x: 120, y: 20 }"-->
+        <!--          :decay="0"-->
+        <!--          cast-shadow-->
+        <!--        />-->
         <!--        <PointLight-->
         <!--          ref="light1"-->
         <!--          color="rgb(20, 20, 100)"-->
@@ -236,15 +236,15 @@
         <!--          :decay="0.5"-->
         <!--          cast-shadow-->
         <!--        />-->
-        <SpotLight
-          color="#555555"
-          :distance="500"
-          :angle="Math.PI / 2"
-          :decay="0.5"
-          :intensity="5"
-          :position="{ y: 250 }"
-          :target="{ y: 500 }"
-        />
+        <!--        <SpotLight-->
+        <!--          color="#555555"-->
+        <!--          :distance="500"-->
+        <!--          :angle="Math.PI / 2"-->
+        <!--          :decay="0.5"-->
+        <!--          :intensity="5"-->
+        <!--          :position="{ y: 250 }"-->
+        <!--          :target="{ y: 500 }"-->
+        <!--        />-->
 
         <GltfModel
           ref="mainscene"
@@ -468,6 +468,8 @@ const checkLabelVisible = function () {
 };
 
 const collideCheck = (angle) => {
+  console.log(controls.getObject().position);
+
   let rotationMatrix = new THREE.Matrix4();
   rotationMatrix.makeRotationY((angle * Math.PI) / 180);
   const cameraDirection = controls
@@ -592,8 +594,8 @@ onMounted(() => {
     rayleigh: 3,
     mieCoefficient: 0.005,
     mieDirectionalG: 0.7,
-    inclination: 0.49, // elevation / inclination
-    azimuth: 0.25, // Facing front,
+    inclination: 2, // elevation / inclination
+    azimuth: 180, // Facing front,
     exposure: renderer.toneMappingExposure,
   };
 
