@@ -373,7 +373,8 @@ onMounted(() => {
 
   // wander
   controls = new PointerLockControls(camera, document.body);
-  controls.getObject().position.set(0, 500, 0);
+  controls.getObject().position.set(-450, 17, -118);
+  controls.getObject().lookAt(0, 0, 0);
 
   const blocker = document.getElementById("blocker");
   const instructions = document.getElementById("instructions");

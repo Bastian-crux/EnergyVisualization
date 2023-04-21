@@ -304,15 +304,17 @@ export default {
             zlevel: 10,
             itemStyle: {
               normal: {
-                color: "rgba(103,174,255,0.6)",
-                borderColor: "rgb(102,133,255)",
+                color: "rgba(255,187,129,0.8)",
+                borderColor: "rgb(201,182,110)",
               },
             },
             symbolSize: (data) => {
               if (this.energyType === "nuclear") {
                 return Math.log(data[3]) * 2;
+              } else if (this.energyType === "bio") {
+                return Math.pow(data[3], 1 / 2) * 2 - 3;
               } else {
-                return Math.pow(data[3], 1 / 3) * 2;
+                return Math.pow(data[3], 1 / 3) * 2 - 3;
               }
             },
           },
@@ -394,8 +396,22 @@ export default {
             type: "scatter",
             data: this.formScatterData(), //配置散点的坐标数据
             coordinateSystem: "geo", //散点使用的坐标系统 geo
-            symbolSize: 10,
             zlevel: 1,
+            itemStyle: {
+              normal: {
+                color: "rgba(255,187,129,0.8)",
+                borderColor: "rgb(201,182,110)",
+              },
+            },
+            symbolSize: (data) => {
+              if (this.energyType === "nuclear") {
+                return Math.log(data[3]) * 2;
+              } else if (this.energyType === "bio") {
+                return Math.pow(data[3], 1 / 2) * 2 - 3;
+              } else {
+                return Math.pow(data[3], 1 / 3) * 2;
+              }
+            },
           },
         ],
       };

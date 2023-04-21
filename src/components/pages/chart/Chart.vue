@@ -52,7 +52,7 @@ const activeName = ref("timeline");
   border-radius: 8px;
   padding: 10px 10px;
 }
-/deep/ .el-select-dropdown__item {
+:deep(.el-select-dropdown__item) {
   background-color: transparent;
   color: #fff;
 }
