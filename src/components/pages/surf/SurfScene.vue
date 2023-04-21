@@ -589,8 +589,8 @@ onMounted(() => {
   /// GUI
 
   var effectController = {
-    turbidity: 10,
-    rayleigh: 3,
+    turbidity: 4.5,
+    rayleigh: 2.0,
     mieCoefficient: 0.005,
     mieDirectionalG: 0.7,
     inclination: 2, // elevation / inclination
