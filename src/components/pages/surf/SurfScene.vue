@@ -2,31 +2,194 @@
   <div class="point point-0">
     <div class="label label-0">1</div>
     <div class="text text-0">
-      灯塔：矗立在海岸的岩石之上，白色的塔身以及红色的塔屋，在湛蓝色的天空和深蓝色大海的映衬下，显得如此醒目和美丽。
+      <el-row justify="center">
+        <el-col :span="24">
+          <el-row justify="center">
+            <el-col :span="1">
+              <font-awesome-icon
+                class="icon"
+                :icon="['fa-solid', 'fa-circle-info']"
+              />
+            </el-col>
+            <el-col :span="22" :offset="1">
+              <div class="content">
+                核电站的主要工作原理是：用铀制成的核燃料在反应堆内进行核裂变并释放出大量热能；高压下的循环冷却水把热能带出，在蒸汽产生器内生成蒸汽；高温高压的蒸汽推动汽轮机，进而推动发电机旋转。
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="24">
+          <el-divider />
+        </el-col>
+        <el-col :span="24">
+          <el-row justify="center">
+            <el-col :span="1">
+              <font-awesome-icon
+                class="icon"
+                :icon="['fa-solid', 'fa-circle-info']"
+              />
+            </el-col>
+            <el-col :span="22" :offset="1">
+              <div class="content">
+                核电站一般分为两部分：利用原子核裂变生产蒸汽的核岛与利用蒸汽发电的常规岛。核岛是核电站的核心部分，一般包含核反应堆、压力容器、蒸汽发生器、主循环泵、稳压器及相应的管道、阀门等组成的回路系统。常规岛则主要包含汽轮发电机系统及其配套设施。
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="24">
+          <el-divider />
+        </el-col>
+        <el-col :span="24">
+          <el-row justify="center">
+            <el-col :span="1">
+              <font-awesome-icon class="icon" :icon="['fa-solid', 'fa-bolt']" />
+            </el-col>
+            <el-col :span="22" :offset="1">
+              <div class="content">
+                在2016年，全球核电站的总发电量达到了2606
+                TWh，占全球发电量的约10.4%。目前我国核电站的普遍单堆功率大约在1000
+                MW左右。
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+      </el-row>
     </div>
   </div>
   <div class="point point-1">
     <div class="label label-1">2</div>
     <div class="text text-1">
-      小船：梦中又见那宁静的大海，我前进了，驶向远方，我知道我是船，只属于远方。这一天，我用奋斗作为白帆，要和明天一起飘扬，呼喊。
+      <el-row justify="center">
+        <el-col :span="24">
+          <el-row justify="center">
+            <el-col :span="1">
+              <font-awesome-icon
+                class="icon"
+                :icon="['fa-solid', 'fa-circle-info']"
+              />
+            </el-col>
+            <el-col :span="22" :offset="1">
+              <div class="content">
+                火力发电是指靠燃烧化石燃料（煤、天然气或石油）来产生电能的发电方式。火力发电可以持续地大量发电，因此在许多国家，大部分电能均由火力发电厂提供。其通过各种旋转机械将燃烧产生的热能转换为机械能，然后驱动发电机。原动机通常是蒸汽机或燃气轮机，在一些较小的电站，也有可能会使用内燃机。他们都是通过利用高温、高压蒸汽或燃气通过涡轮变为低压空气或冷凝水这一过程中的压降来发电的。
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="24">
+          <el-divider />
+        </el-col>
+        <el-col :span="24">
+          <el-row justify="center">
+            <el-col :span="1">
+              <font-awesome-icon class="icon" :icon="['fa-solid', 'fa-bolt']" />
+            </el-col>
+            <el-col :span="22" :offset="1">
+              <div class="content">
+                在2016年，全球煤炭发电的总发电量达到了9594
+                TWh，占全球发电量的约38.3%；全球天然气发电的总发电量达到了5794
+                TWh，占全球发电量的约23.1%。一般来说火力发电的功率与其规模有关，现存最大的火力发电厂是内蒙古托克托电厂，其总装机容量为6720
+                MW。
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+      </el-row>
     </div>
   </div>
   <div class="point point-2">
     <div class="label label-2">3</div>
     <div class="text text-2">
-      沙滩：宇宙展开的一小角。不想说来这里是暗自疗伤，那过于矫情，只想对每一粒沙子，每一朵浪花问声你们好吗
+      <el-row justify="center">
+        <el-col :span="24">
+          <el-row justify="center">
+            <el-col :span="1">
+              <font-awesome-icon
+                class="icon"
+                :icon="['fa-solid', 'fa-circle-info']"
+              />
+            </el-col>
+            <el-col :span="22" :offset="1">
+              <div class="content">
+                太阳能发电是一种将阳光转换成电能的方式。其可直接使用太阳能光伏，或间接使用聚光太阳能热来发电。太阳能光伏是利用光伏半导体材料的光生伏打效应，将太阳能转化为直流电能；而聚光太阳能热发电系统会使用透镜或反射镜和跟踪系统将大面积的阳光聚焦成一个小束，并利用光电效应将光伏光转换成电流。
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="24">
+          <el-divider />
+        </el-col>
+        <el-col :span="24">
+          <el-row justify="center">
+            <el-col :span="1">
+              <font-awesome-icon class="icon" :icon="['fa-solid', 'fa-bolt']" />
+            </el-col>
+            <el-col :span="22" :offset="1">
+              <div class="content">
+                在2016年，全球太阳能发电的总发电量达到了338
+                TWh，占全球发电量的约1.3%。
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+      </el-row>
     </div>
   </div>
   <div class="point point-3">
     <div class="label label-3">4</div>
     <div class="text text-3">
-      飞鸟：在苍茫的大海上，狂风卷集着乌云。在乌云和大海之间，海燕像黑色的闪电，在高傲地飞翔。
-    </div>
-  </div>
-  <div class="point point-4">
-    <div class="label label-4">5</div>
-    <div class="text text-4">
-      礁石：寂寞又怎么样？礁石都不说话，但是水流过去之后，礁石留下。
+      <el-row justify="center">
+        <el-col :span="24">
+          <el-row justify="center">
+            <el-col :span="1">
+              <font-awesome-icon
+                class="icon"
+                :icon="['fa-solid', 'fa-circle-info']"
+              />
+            </el-col>
+            <el-col :span="22" :offset="1">
+              <div class="content">
+                风力发电机是一种将气流的动能转为机械能的装置，其通过风力带动风车叶片旋转，再通过增速机将旋转的速度提升，促使发电机发电。
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="24">
+          <el-divider />
+        </el-col>
+        <el-col :span="24">
+          <el-row justify="center">
+            <el-col :span="1">
+              <font-awesome-icon
+                class="icon"
+                :icon="['fa-solid', 'fa-circle-info']"
+              />
+            </el-col>
+            <el-col :span="22" :offset="1">
+              <div class="content">
+                风电涡轮机由叶片、尾翼、转体、机头组成，其中叶片用来接受风力并通过机头转为电能；尾翼使叶片始终对着来风的方向从而获得最大的风能；转体能使机头灵活地转动以实现尾翼调整方向的功能；机头的转子是永磁体，通过切割磁力线产生电能。
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="24">
+          <el-divider />
+        </el-col>
+        <el-col :span="24">
+          <el-row justify="center">
+            <el-col :span="1">
+              <font-awesome-icon class="icon" :icon="['fa-solid', 'fa-bolt']" />
+            </el-col>
+            <el-col :span="22" :offset="1">
+              <div class="content">
+                在2016年，全球风能发电的总发电量达到了958
+                TWh，占全球发电量的约3.8%。一般来说，一台风力发电机的功率在0-8
+                MW之间不等，其具体的功率会受到其他因素的影响，例如风速、风的稳定性等。风速在10-16
+                m/s时发电效率效率达到最高。
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+      </el-row>
     </div>
   </div>
   <div id="blocker">
@@ -147,6 +310,7 @@ const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 import { PointerLockControls } from "three/addons/controls/PointerLockControls";
 import { OrbitControls } from "three/addons/controls/OrbitControls";
 import { GUI } from "three/addons/libs/lil-gui.module.min";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 //Loading Manager
 const percent = ref(0);
@@ -274,6 +438,7 @@ const checkLabelVisible = function () {
 
       const controlsPos = controls.getObject().position;
       const dis = controlsPos.distanceTo(point.position);
+      console.log(controlsPos);
       // 计算距离 显示文字
       if (dis < 30) {
         point.text.classList.add("activate");
@@ -330,29 +495,24 @@ const getMesh = (parent) => {
 onMounted(() => {
   points = [
     {
-      position: new THREE.Vector3(10, 46, 0),
+      position: new THREE.Vector3(-320, 44, -22),
       element: document.querySelector(".point-0"),
       text: document.querySelector(".text-0"),
     },
     {
-      position: new THREE.Vector3(-10, 8, 24),
+      position: new THREE.Vector3(-193, 45, -96),
       element: document.querySelector(".point-1"),
       text: document.querySelector(".text-1"),
     },
     {
-      position: new THREE.Vector3(30, 10, 70),
+      position: new THREE.Vector3(97, 221, 101),
       element: document.querySelector(".point-2"),
       text: document.querySelector(".text-2"),
     },
     {
-      position: new THREE.Vector3(-100, 50, -300),
+      position: new THREE.Vector3(-320, 31, 291),
       element: document.querySelector(".point-3"),
       text: document.querySelector(".text-3"),
-    },
-    {
-      position: new THREE.Vector3(-120, 50, -100),
-      element: document.querySelector(".point-4"),
-      text: document.querySelector(".text-4"),
     },
   ];
 
@@ -712,7 +872,7 @@ h2 {
   text-align-last: left;
   top: 30px;
   transition: opacity 0.3s;
-  width: 200px;
+  width: 400px;
 }
 
 .point .text.activate {
@@ -722,5 +882,21 @@ h2 {
 .point.visible .label {
   -webkit-transform: scale(1);
   transform: scale(1);
+}
+.icon {
+  color: white;
+}
+.title {
+  font-weight: bold;
+  color: white;
+  /*text-align: center;*/
+}
+.content {
+  color: white;
+}
+.el-divider--horizontal {
+  margin: 8px 0;
+  background: 0 0;
+  border-top: 1px dashed #e8eaec;
 }
 </style>
